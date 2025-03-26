@@ -10,6 +10,7 @@ export const eras = [
   { name: "Iberian Era", abbr: "IE" },
   { name: "Kingdom of Sicily", abbr: "KS" },
   { name: "High Middle Ages", abbr: "HM" },
+  // { name: "Early Gothic", abbr: "EG" },
 ] as const;
 
 export const buildingsAbbr = [
@@ -21,6 +22,10 @@ export const buildingsAbbr = [
     buildings: ["Scribe", "Carpenter", "Spice Merchant"],
     abbreviations: ["BE", "AF", "FA", "IE", "KS", "HM"],
   },
+  // {
+  //   buildings: ["Timber", "Chapel", "Armory"],
+  //   abbreviations: ["EG"],
+  // },
 ];
 
 export type EraAbbr = (typeof eras)[number]["abbr"];
@@ -31,65 +36,10 @@ type BuildingItems = {
   scribe?: string;
   carpenter?: string;
   spice_merchant?: string;
+  // timber?: string;
+  // chapel?: string;
+  // armory?: string;
 };
-
-// export const goodsByEra: Record<EraAbbr, BuildingItems> = {
-//   BA: {
-//     tailor: "wool",
-//     stone_mason: "alabaster_idol",
-//     artisan: "bronze_bracelet",
-//   },
-//   ME: {
-//     tailor: "linen_shirt",
-//     stone_mason: "marble_bust",
-//     artisan: "iron_pendant",
-//   },
-//   CG: {
-//     tailor: "toga",
-//     stone_mason: "column",
-//     artisan: "silver_ring",
-//   },
-//   ER: {
-//     tailor: "tunic",
-//     stone_mason: "stone_tablet",
-//     artisan: "gold_laurel",
-//   },
-//   RE: {
-//     tailor: "cape",
-//     stone_mason: "mosaic",
-//     artisan: "goblet",
-//   },
-//   BE: {
-//     scribe: "parchment",
-//     carpenter: "planks",
-//     spice_merchant: "pepper",
-//   },
-//   AF: {
-//     scribe: "ink",
-//     carpenter: "cartwheel",
-//     spice_merchant: "salt",
-//   },
-//   FA: {
-//     scribe: "manuscript",
-//     carpenter: "barrel",
-//     spice_merchant: "herbs",
-//   },
-//   IE: {
-//     scribe: "wax_seal",
-//     carpenter: "door",
-//     spice_merchant: "saffron",
-//   },
-//   KS: {
-//     scribe: "tome",
-//     carpenter: "wardrobe",
-//     spice_merchant: "chili",
-//   },
-//   HM: {
-//     scribe: "grimoire",
-//     carpenter: "secretary_desk",
-//     spice_merchant: "cinnamon",
-//   },
-// };
 
 export const goodsUrlByEra: Record<EraAbbr, BuildingItems> = {
   BA: {
@@ -148,4 +98,9 @@ export const goodsUrlByEra: Record<EraAbbr, BuildingItems> = {
     carpenter: "/images/thumb/8/85/Secretary_Desk.png/25px-Secretary_Desk.png",
     spice_merchant: "/images/thumb/1/1b/Cinnamon.png/25px-Cinnamon.png",
   },
+  // EG: {
+  //   timber: "img_url_soon",
+  //   chapel: "img_url_soon",
+  //   armory: "img_url_soon",
+  // },
 };
