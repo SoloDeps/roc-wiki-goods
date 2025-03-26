@@ -8,4 +8,10 @@ export default defineConfig({
   vite: () => ({
     plugins: [tailwindcss()],
   }),
+  manifest: {
+    version: "1.0.0",
+    name: "RoC Wiki Goods",
+    description: "Display goods icons on Rise of Culture Wiki.gg",
+    permissions: ["storage"],
+  },
 });
