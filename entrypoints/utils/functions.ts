@@ -60,16 +60,16 @@ export function replaceTextByImage(buildings: []) {
 
 // Fonction pour convertir le texte en nombre
 export function parseNumber(value: string) {
-  if (!value) return 0;
+  if (!value || !/\d/.test(value)) return 0;
 
-  let number = parseFloat(value.replace(/[^\d.]/g, "")); // Clean text and extract number
+  let number = parseFloat(value.replace(/[^\d.]/g, ""));
   if (value.includes("K")) number *= 1000;
   if (value.includes("M")) number *= 1000000;
 
-  return number;
+  return isNaN(number) ? 0 : number;
 }
 
-export function formatNumber(value) {
+export function formatNumber(value: number) {
   if (value >= 1000000) {
     return (value / 1000000).toFixed(1).replace(/\.0$/, "") + " M";
   } else if (value >= 1000) {
@@ -146,6 +146,7 @@ export function addTotalRow(table) {
   table.querySelector("tbody").appendChild(newRow);
 }
 
+// Reset values ​​to zero without deleting the row
 export function resetTotalRow(table) {
   table.querySelector("#totalRessources").innerHTML = `
     <img alt="PR" src="/images/thumb/2/20/Research.png/25px-Research.png" width="25" height="25"> 0<br>
@@ -178,7 +179,6 @@ export function extractResources(row) {
       if (text) values.push(text);
     }
   });
-  // console.log(values);
 
   return {
     research: parseNumber(values[0]),
@@ -228,10 +228,9 @@ function updateTotalRessources(totalRessources) {
 
 function updateTotalGoods(totalGoods) {
   const cellGoods = document.getElementById("totalGoods");
-  const rows = Object.keys(totalGoods).length > 18 ? 4 : 3;
-  console.log(rows)
-
   if (!cellGoods) return;
+
+  const rows = Object.keys(totalGoods).length > 18 ? 4 : 3;
 
   let content = `
     <div style="display: grid; grid-auto-flow: column; grid-template-rows: repeat(${rows}, auto); gap: 0 15px; width: max-content; justify-content: start;">

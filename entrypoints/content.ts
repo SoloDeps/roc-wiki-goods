@@ -4,7 +4,6 @@ import {
   replaceTextByImage,
   addCheckboxColumn,
   calculerTotal,
-  removeTotalRow,
   resetTotalRow,
 } from "./utils/functions";
 import { storage } from "wxt/storage";
@@ -36,32 +35,8 @@ export default defineContentScript({
 
     // ========= TECHNOS CALCULATION =========
 
-    // Observe all checkbox and calcul if changes are detected
-    // document.querySelectorAll(".checkbox-selection").forEach((checkbox) => {
-    //   checkbox.addEventListener("change", calculerTotal);
-    // });
-
-    // const selectAllCheckbox = document.getElementById("checkboxSelectAll");
-    // const checkboxes = document.querySelectorAll(".checkbox-selection");
-
-    // selectAllCheckbox.addEventListener("change", () => {
-    //   checkboxes.forEach((checkbox) => {
-    //     checkbox.checked = selectAllCheckbox.checked;
-    //   });
-
-    //   // Appeler `calculerTotal` si nécessaire
-    //   calculerTotal();
-    // });
-
-    // // Met à jour le bouton "Select All" si une checkbox individuelle est décochée
-    // checkboxes.forEach((checkbox) => {
-    //   checkbox.addEventListener("change", () => {
-    //     selectAllCheckbox.checked = [...checkboxes].every(c => c.checked);
-    //     calculerTotal();
-    //   });
-    // });
-
     const technoTable = findTechnoTable();
+    if (!technoTable) return;
 
     addCheckboxColumn(technoTable);
     addTotalRow(technoTable);
@@ -71,14 +46,13 @@ export default defineContentScript({
 
     function updateTotal() {
       const totalRow = technoTable.querySelector("#totalRow");
-      
+
       if ([...checkboxes].some((cb) => cb.checked)) {
         calculerTotal();
       } else {
         if (!totalRow) {
           addTotalRow(technoTable);
         } else {
-          // Réinitialiser les valeurs à zéro sans supprimer la ligne
           resetTotalRow(technoTable);
         }
       }
