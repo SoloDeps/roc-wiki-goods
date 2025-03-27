@@ -4,59 +4,94 @@ export function getBuildingFromLocal(
   priority: string,
   era: string,
   buildings: string[][]
-) {
-  const priorityIndex = { primary: 0, secondary: 1, tertiary: 2 }[
-    priority.toLocaleLowerCase()
-  ];
-  if (priorityIndex === undefined) return;
+): string | undefined {
+  // Create mapping for priority levels with case-insensitive handling
+  const priorityMapping = {
+    primary: 0,
+    secondary: 1,
+    tertiary: 2,
+  };
 
+  // Convert priority to lowercase and get corresponding index
+  const priorityIndex =
+    priorityMapping[priority.toLowerCase() as keyof typeof priorityMapping];
+
+  // Validate priority input
+  if (priorityIndex === undefined) return undefined;
+
+  // Find group index with flexible abbreviation matching
   const groupIndex = buildingsAbbr.findIndex((group) =>
-    group.abbreviations.includes(era.toUpperCase())
+    group.abbreviations.some((abbr) => abbr.toUpperCase() === era.toUpperCase())
   );
-  if (groupIndex === -1) return;
 
-  // console.log(buildings[groupIndex]?.[priorityIndex]);
-  return buildings[groupIndex]?.[priorityIndex];
+  // Return building if valid, otherwise undefined
+  return groupIndex !== -1 ? buildings[groupIndex][priorityIndex] : undefined;
 }
 
-export function replaceTextByImage(buildings: []) {
-  // console.log(buildings);
-  const elements = document.querySelectorAll("td");
+export function isValidData(data: unknown): boolean {
+  // Quick type check - reject non-string inputs
+  if (typeof data !== "string") return false;
 
+  // Define security patterns to prevent XSS and injection
+  const securityPatterns = [
+    /<script/i,
+    /on\w+=/i,
+    /javascript:/i,
+    /data:/i,
+    /eval\(/i,
+  ];
+
+  // Test data against security patterns
+  return !securityPatterns.some((pattern) => pattern.test(data));
+}
+
+export function replaceTextByImage(buildings: string[][]): void {
+  const elements = document.querySelectorAll("td");
+  const imageReplaceRegex = /(primary|secondary|tertiary):\s*([A-Z]{2})/gi;
+  const defaultImgUrl = "/images/thumb/3/36/Goods.png/25px-Goods.png";
+
+  // Si 'buildings' est vide, on remplace directement avec l'image par défaut
   if (!buildings || buildings.length === 0) {
-    const elements = document.querySelectorAll("td");
     elements.forEach((el) => {
       el.innerHTML = el.innerHTML.replace(
-        /(primary|secondary|tertiary):\s*([A-Z]{2})/gi,
-        `<img src="/images/thumb/3/36/Goods.png/25px-Goods.png" alt="default_goods" decoding="async" loading="lazy" width="25" height="25">`
+        imageReplaceRegex,
+        `<img src="${defaultImgUrl}" alt="default_goods" decoding="async" loading="lazy" width="25" height="25">`
       );
     });
-    return;
+    return; // On retourne immédiatement pour ne pas faire d'autres traitements
   }
 
   elements.forEach((el) => {
     el.innerHTML = el.innerHTML.replace(
-      /(primary|secondary|tertiary):\s*([A-Z]{2})/gi,
+      imageReplaceRegex,
       (_, priority, era) => {
+        // Sanitize and retrieve building information
         const building = getBuildingFromLocal(priority, era, buildings);
         const normalizedBuilding = building
-          ? building.toLowerCase().replace(/\s+/g, "_")
+          ? building.toLowerCase().replace(/[^\w-]/g, "_") // Sanitize to allow only valid characters
           : "";
-        // console.log(normalizedBuilding);
 
-        // @ts-ignore
+        // Retrieve image URL securely with fallback
         const imgUrl =
-          goodsUrlByEra[era]?.[normalizedBuilding] ||
-          "/images/thumb/3/36/Goods.png/25px-Goods.png";
-        // console.log(imgUrl);
+          // @ts-ignore
+          goodsUrlByEra[era]?.[normalizedBuilding] || defaultImgUrl;
 
-        return `<img src="${imgUrl}" alt="${priority}_${era}" decoding="async" loading="lazy" width="25" height="25">`;
+        // Return image tag directly with imgUrl
+        return `<img 
+          src="${imgUrl}" 
+          alt="${priority}_${era.replace(/[<>"'/]/g, "")}" 
+          decoding="async" 
+          loading="lazy" 
+          width="25" 
+          height="25"
+          onerror="this.src='${defaultImgUrl}'" 
+        >`;
       }
     );
   });
 }
 
-// Technos part
+// ============ Techno Part =================
 
 // Fonction pour convertir le texte en nombre
 export function parseNumber(value: string) {
@@ -78,8 +113,6 @@ export function formatNumber(value: number) {
   return value.toString();
 }
 
-// ============ Techno Table =================
-
 export function findTechnoTable() {
   const tables = document.querySelectorAll("table.article-table");
 
@@ -93,7 +126,7 @@ export function findTechnoTable() {
   return;
 }
 
-export function addCheckboxColumn(table) {
+export function addCheckboxColumn(table: HTMLTableElement) {
   // Add "Calculator" legend in first row
   const firstRow = table.querySelector("tr:first-child");
   if (firstRow) {
@@ -112,7 +145,7 @@ export function addCheckboxColumn(table) {
   });
 }
 
-export function addTotalRow(table) {
+export function addTotalRow(table: HTMLTableElement) {
   const newRow = document.createElement("tr");
   newRow.id = "totalRow";
   newRow.style = "background: rgba(36, 89, 113, 1); height: 100px;";
@@ -143,39 +176,49 @@ export function addTotalRow(table) {
     </td>
   `;
 
-  table.querySelector("tbody").appendChild(newRow);
+  table.querySelector("tbody")?.appendChild(newRow);
 }
 
 // Reset values ​​to zero without deleting the row
-export function resetTotalRow(table) {
-  table.querySelector("#totalRessources").innerHTML = `
-    <img alt="PR" src="/images/thumb/2/20/Research.png/25px-Research.png" width="25" height="25"> 0<br>
-    <img alt="Gold" src="/images/thumb/6/6d/Coin.png/25px-Coin.png" width="25" height="25"> 0<br>
-    <img alt="Food" src="/images/thumb/c/c6/Food.png/25px-Food.png" width="25" height="25"> 0
-  `;
-  table.querySelector("#totalGoods").innerHTML = `
-    <div style="display: grid; grid-auto-flow: column; grid-template-rows: repeat(3, auto); gap: 0 15px; width: max-content; justify-content: start;">
-      <div>
-        <img src="/images/thumb/3/36/Goods.png/25px-Goods.png" width="25" height="25"> 0
+export function resetTotalRow(table: HTMLTableElement) {
+  if (!table) return;
+
+  const totalRessources = table.querySelector("#totalRessources");
+  const totalGoods = table.querySelector("#totalGoods");
+
+  if (totalRessources) {
+    totalRessources.textContent = "";
+    totalRessources.innerHTML = `
+      <img alt="PR" src="/images/thumb/2/20/Research.png/25px-Research.png" width="25" height="25"> 0<br>
+      <img alt="Gold" src="/images/thumb/6/6d/Coin.png/25px-Coin.png" width="25" height="25"> 0<br>
+      <img alt="Food" src="/images/thumb/c/c6/Food.png/25px-Food.png" width="25" height="25"> 0
+    `;
+  }
+
+  if (totalGoods) {
+    totalGoods.textContent = "";
+    totalGoods.innerHTML = `
+      <div style="display: grid; grid-auto-flow: column; grid-template-rows: repeat(3, auto); gap: 0 15px; width: max-content; justify-content: start;">
+        ${Array(3)
+          .fill(
+            `<div>
+              <img src="/images/thumb/3/36/Goods.png/25px-Goods.png" width="25" height="25"> 0
+            </div>`
+          )
+          .join("")}
       </div>
-      <div>
-        <img src="/images/thumb/3/36/Goods.png/25px-Goods.png" width="25" height="25"> 0
-      </div>
-      <div>
-        <img src="/images/thumb/3/36/Goods.png/25px-Goods.png" width="25" height="25"> 0
-      </div>
-    </div>
-  `;
+    `;
+  }
 }
 
-export function extractResources(row) {
+export function extractResources(row: HTMLTableRowElement) {
   const cell = row?.cells[2];
   if (!cell) return { research: 0, gold: 0, food: 0 };
 
-  const values = [];
+  const values: string[] = [];
   cell.childNodes.forEach((node) => {
     if (node.nodeType === Node.TEXT_NODE) {
-      const text = node.textContent.trim();
+      const text = node.textContent?.trim();
       if (text) values.push(text);
     }
   });
@@ -187,17 +230,16 @@ export function extractResources(row) {
   };
 }
 
-export function extractGoods(row) {
+export function extractGoods(row: HTMLTableRowElement) {
   const cell = row?.cells[3];
   if (!cell) return {};
 
-  let goods = {};
+  let goods: Record<string, { value: number; src: string }> = {};
 
-  cell.querySelectorAll("img").forEach((img) => {
+  cell.querySelectorAll("img").forEach((img: HTMLImageElement) => {
     const key = img.alt.trim();
-    // const value = parseInt(img.nextSibling.textContent.trim(), 10) || 0;
-    const rawValue = img.nextSibling.textContent.trim().replace(/,/g, ""); // Supprimer les virgules
-    const value = parseInt(rawValue, 10) || 0;
+    const rawValue = img.nextSibling?.textContent?.trim().replace(/,/g, ""); // Remove commas
+    const value: number = rawValue ? parseInt(rawValue, 10) || 0 : 0;
     const src = img.src;
 
     if (goods[key]) {
@@ -210,7 +252,11 @@ export function extractGoods(row) {
   return goods;
 }
 
-function updateTotalRessources(totalRessources) {
+function updateTotalRessources(totalRessources: {
+  research: number;
+  gold: number;
+  food: number;
+}) {
   const cellRessources = document.getElementById("totalRessources");
   if (!cellRessources) return;
 
@@ -226,7 +272,9 @@ function updateTotalRessources(totalRessources) {
   `;
 }
 
-function updateTotalGoods(totalGoods) {
+function updateTotalGoods(
+  totalGoods: Record<string, { value: number; src: string }>
+) {
   const cellGoods = document.getElementById("totalGoods");
   if (!cellGoods) return;
 
@@ -255,7 +303,7 @@ function updateTotalGoods(totalGoods) {
 export function calculerTotal() {
   const selectedRows = document.querySelectorAll(".checkbox-selection:checked");
 
-  let totalGoods = {};
+  let totalGoods: Record<string, { value: number; src: string }> = {};
   let totalResources = {
     research: 0,
     gold: 0,
@@ -264,6 +312,8 @@ export function calculerTotal() {
 
   selectedRows.forEach((checkbox) => {
     const row = checkbox.closest("tr");
+    if (!row) return;
+
     const resourceData = extractResources(row);
     const goodsData = extractGoods(row);
 

@@ -5,6 +5,7 @@ import {
   addCheckboxColumn,
   calculerTotal,
   resetTotalRow,
+  isValidData,
 } from "./utils/functions";
 import { storage } from "wxt/storage";
 
@@ -16,47 +17,58 @@ export default defineContentScript({
     const storedData = await storage.getItem<string>(
       "local:buildingSelections"
     );
-    const buildings = storedData ? JSON.parse(storedData) : [];
 
-    replaceTextByImage(buildings);
+    if (storedData && isValidData(storedData)) {
+      const buildings: string[][] = JSON.parse(storedData);
+      replaceTextByImage(buildings);
+    }
 
-    // reload if all select is full
-    const unwatch = storage.watch<number>(
+    const unwatch = storage.watch<string | null>(
       "local:buildingSelections",
-      (data) => {
-        const newBuildings = JSON.parse(data);
-        const isValid = newBuildings.every((subArray) =>
-          subArray.every((item) => item !== "")
-        );
+      (data: string | null) => {
+        if (!data) {
+          console.warn("Received null data");
+          return;
+        }
 
-        if (isValid) location.reload();
+        try {
+          const newBuildings: string[][] = JSON.parse(data);
+          const isAllSelected = newBuildings.every((subArray) =>
+            subArray.every((item) => item !== "")
+          );
+
+          if (isAllSelected) location.reload();
+        } catch (error) {
+          console.error("Error parsing data:", error);
+        }
       }
     );
 
     // ========= TECHNOS CALCULATION =========
 
-    const technoTable = findTechnoTable();
+    const technoTable = findTechnoTable() as HTMLTableElement;
     if (!technoTable) return;
 
     addCheckboxColumn(technoTable);
     addTotalRow(technoTable);
 
-    const checkboxes = document.querySelectorAll(".checkbox-selection");
-    const selectAllCheckbox = document.getElementById("checkboxSelectAll");
+    const checkboxes = technoTable.querySelectorAll<HTMLInputElement>(
+      ".checkbox-selection"
+    );
+    const selectAllCheckbox = document.getElementById(
+      "checkboxSelectAll"
+    ) as HTMLInputElement | null;
 
-    function updateTotal() {
+    const updateTotal = () => {
       const totalRow = technoTable.querySelector("#totalRow");
+      const checkedBoxes = Array.from(checkboxes).filter((cb) => cb.checked);
 
-      if ([...checkboxes].some((cb) => cb.checked)) {
-        calculerTotal();
-      } else {
-        if (!totalRow) {
-          addTotalRow(technoTable);
-        } else {
-          resetTotalRow(technoTable);
-        }
-      }
-    }
+      checkedBoxes.length > 0
+        ? calculerTotal()
+        : totalRow
+        ? resetTotalRow(technoTable)
+        : addTotalRow(technoTable);
+    };
 
     if (selectAllCheckbox) {
       selectAllCheckbox.addEventListener("change", () => {
@@ -65,9 +77,15 @@ export default defineContentScript({
       });
     }
 
-    document.addEventListener("change", (event) => {
-      if (event.target.classList.contains("checkbox-selection")) {
-        selectAllCheckbox.checked = [...checkboxes].every((cb) => cb.checked);
+    technoTable.addEventListener("change", (event) => {
+      const target = event.target as HTMLInputElement;
+      if (
+        target.classList.contains("checkbox-selection") &&
+        selectAllCheckbox
+      ) {
+        selectAllCheckbox.checked = Array.from(checkboxes).every(
+          (cb) => cb.checked
+        );
         updateTotal();
       }
     });
