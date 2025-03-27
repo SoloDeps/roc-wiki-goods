@@ -11,7 +11,7 @@ export default defineConfig({
   manifest: {
     version: "1.0.0",
     name: "RoC Wiki Goods",
-    description: "Display goods icons on Rise of Culture Wiki.gg",
-    permissions: ["storage"],
+    description: "Show item icons based on user info and tech calculator on RoC Wiki.gg",
+    permissions: ["storage", "activeTab", "scripting"],
   },
 });
