@@ -1,3 +1,5 @@
+export const WIKI_URL = "riseofcultures.wiki.gg";
+
 export const eras = [
   { name: "Bronze Age", abbr: "BA" },
   { name: "Minoan Era", abbr: "ME" },
