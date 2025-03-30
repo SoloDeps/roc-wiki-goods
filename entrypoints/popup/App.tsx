@@ -19,7 +19,6 @@ function App() {
       if (tabs.length > 0 && tabs[0].url) {
         let url = new URL(tabs[0].url);
         if (url.hostname === WIKI_URL) {
-          console.log("OK ✅");
           setIsAllowedSite(true);
         }
       }
@@ -33,7 +32,7 @@ function App() {
 
   if (!isAllowedSite) {
     return (
-      <div className="rounded-md bg-red-50 text-red-500 p-4">
+      <div className="bg-red-50 text-red-500 p-4">
         <div className="flex">
           <div className="flex-shrink-0">
             <svg
@@ -51,7 +50,7 @@ function App() {
               ></path>
             </svg>
           </div>
-          <div className="ml-2">
+          <div className="ml-1.5">
             <h3 className="text-sm font-medium">
               The extension is not available on this website.
             </h3>
