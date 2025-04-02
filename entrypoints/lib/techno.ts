@@ -14,24 +14,30 @@ function findTechnoTable() {
 }
 
 function addCheckboxColumn(table: HTMLTableElement) {
-  // Add "Calculator" legend in first row
+  // Add "Calculator" legend in the first row
   const firstRow = table.querySelector("tr:first-child");
   if (firstRow) {
-    firstRow.insertAdjacentHTML(
-      "afterbegin",
-      `<td style="text-align: center; white-space: normal;">Calculator</td>`
-    );
+    const td = document.createElement("td");
+    td.style.textAlign = "center";
+    td.style.whiteSpace = "normal";
+    td.textContent = "Calculator";
+    firstRow.insertBefore(td, firstRow.firstChild); // Insert the new td at the beginning of the first row
   }
 
   // Add checkbox column in each row (except first row)
   const rows = table.querySelectorAll("tr:not(:first-child)");
   rows.forEach((row) => {
-    row.insertAdjacentHTML(
-      "afterbegin",
-      `<td style="text-align: center; white-space: normal;">
-      <input type="checkbox" class="checkbox-selection" style="transform: scale(1.25);">
-    </td>`
-    );
+    const td = document.createElement("td");
+    td.style.textAlign = "center";
+    td.style.whiteSpace = "normal";
+
+    const checkbox = document.createElement("input");
+    checkbox.type = "checkbox";
+    checkbox.classList.add("checkbox-selection");
+    checkbox.style.transform = "scale(1.25)";
+
+    td.appendChild(checkbox); // Append the checkbox to the new td
+    row.insertBefore(td, row.firstChild); // Insert the new td at the beginning of the row
   });
 }
 
@@ -41,35 +47,95 @@ function addTotalRow(table: HTMLTableElement) {
   newRow.style.background = "rgba(36, 89, 113, 1)";
   newRow.style.height = "100px";
 
-  newRow.insertAdjacentHTML(
-    "beforeend",
-    `
-    <td style="text-align: center; white-space: normal;">
-      <input type="checkbox" id="checkboxSelectAll" name="checkboxSelectAll" style="transform: scale(1.25);">
-      <br><label for="checkboxSelectAll">All</label>
-    </td>
-    <td style="text-align: center; font-weight: bold;">Total<br>Selection</td>
-    <td id="totalRessources">
-      <img alt="PR" src="/images/thumb/2/20/Research.png/25px-Research.png" decoding="async" loading="lazy" width="25" height="25" data-file-width="239" data-file-height="239"> 0<br>
-      <img alt="Gold" src="/images/thumb/6/6d/Coin.png/25px-Coin.png" decoding="async" loading="lazy" width="25" height="25" data-file-width="119" data-file-height="119"> 0<br>
-      <img alt="Food" src="/images/thumb/c/c6/Food.png/25px-Food.png" decoding="async" loading="lazy" width="25" height="25" data-file-width="120" data-file-height="120"> 0
-    </td>
-    <td id="totalGoods" colspan="2">
-      <div style="display: grid; grid-auto-flow: column; grid-template-rows: repeat(3, auto); gap: 0 15px; width: max-content; justify-content: start;">
-        <div>
-          <img src="/images/thumb/3/36/Goods.png/25px-Goods.png" width="25" height="25"> 0
-        </div>
-        <div>
-          <img src="/images/thumb/3/36/Goods.png/25px-Goods.png" width="25" height="25"> 0
-        </div>
-        <div>
-          <img src="/images/thumb/3/36/Goods.png/25px-Goods.png" width="25" height="25"> 0
-        </div>
-      </div>
-    </td>
-  `
-  );
+  // Première cellule avec la checkbox et le label
+  const td1 = document.createElement("td");
+  td1.style.textAlign = "center";
+  td1.style.whiteSpace = "normal";
 
+  const checkbox = document.createElement("input");
+  checkbox.type = "checkbox";
+  checkbox.id = "checkboxSelectAll";
+  checkbox.name = "checkboxSelectAll";
+  checkbox.style.transform = "scale(1.25)";
+
+  const label = document.createElement("label");
+  label.setAttribute("for", "checkboxSelectAll");
+  label.textContent = "All";
+
+  td1.appendChild(checkbox);
+  td1.appendChild(document.createElement("br"));
+  td1.appendChild(label);
+  newRow.appendChild(td1);
+
+  const td2 = document.createElement("td");
+  td2.style.textAlign = "center";
+  td2.style.fontWeight = "bold";
+  td2.appendChild(document.createTextNode("Total"));
+  td2.appendChild(document.createElement("br"));
+  td2.appendChild(document.createTextNode("Selection"));
+  newRow.appendChild(td2);
+
+  // Troisième cellule avec images et totaux
+  const td3 = document.createElement("td");
+  td3.id = "totalRessources";
+
+  const img1 = document.createElement("img");
+  img1.alt = "PR";
+  img1.src = "/images/thumb/2/20/Research.png/25px-Research.png";
+  img1.width = 25;
+  img1.height = 25;
+
+  const img2 = document.createElement("img");
+  img2.alt = "Gold";
+  img2.src = "/images/thumb/6/6d/Coin.png/25px-Coin.png";
+  img2.width = 25;
+  img2.height = 25;
+
+  const img3 = document.createElement("img");
+  img3.alt = "Food";
+  img3.src = "/images/thumb/c/c6/Food.png/25px-Food.png";
+  img3.width = 25;
+  img3.height = 25;
+
+  td3.appendChild(img1);
+  td3.appendChild(document.createTextNode(" 0"));
+  td3.appendChild(document.createElement("br"));
+  td3.appendChild(img2);
+  td3.appendChild(document.createTextNode(" 0"));
+  td3.appendChild(document.createElement("br"));
+  td3.appendChild(img3);
+  td3.appendChild(document.createTextNode(" 0"));
+
+  newRow.appendChild(td3);
+
+  // Quatrième cellule avec la section des biens
+  const td4 = document.createElement("td");
+  td4.id = "totalGoods";
+  td4.colSpan = 2;
+
+  const div = document.createElement("div");
+  div.style.display = "grid";
+  div.style.gridAutoFlow = "column";
+  div.style.gridTemplateRows = "repeat(3, auto)";
+  div.style.gap = "0 15px";
+  div.style.width = "max-content";
+  div.style.justifyContent = "start";
+
+  for (let i = 0; i < 3; i++) {
+    const divItem = document.createElement("div");
+    const img = document.createElement("img");
+    img.src = "/images/thumb/3/36/Goods.png/25px-Goods.png";
+    img.width = 25;
+    img.height = 25;
+    divItem.appendChild(img);
+    divItem.appendChild(document.createTextNode(" 0"));
+    div.appendChild(divItem);
+  }
+
+  td4.appendChild(div);
+  newRow.appendChild(td4);
+
+  // Ajoute la nouvelle ligne dans le tbody de la table
   table.querySelector("tbody")?.appendChild(newRow);
 }
 
@@ -179,16 +245,43 @@ function updateTotalRessources(totalRessources: {
   const cellRessources = document.getElementById("totalRessources");
   if (!cellRessources) return;
 
-  cellRessources.innerHTML = `
-    <img alt="Research.png" src="/images/thumb/2/20/Research.png/25px-Research.png" decoding="async" loading="lazy" width="25" height="25" data-file-width="239" data-file-height="239"> 
-    ${totalRessources.research}
-    <br>
-    <img alt="Coin.png" src="/images/thumb/6/6d/Coin.png/25px-Coin.png" decoding="async" loading="lazy" width="25" height="25" data-file-width="119" data-file-height="119">
-    ${formatNumber(totalRessources.gold)}
-    <br>
-    <img alt="Food.png" src="/images/thumb/c/c6/Food.png/25px-Food.png" decoding="async" loading="lazy" width="25" height="25" data-file-width="120" data-file-height="120">
-    ${formatNumber(totalRessources.food)}
-  `;
+  // remove the content
+  cellRessources.textContent = "";
+
+  const ressources = [
+    {
+      src: "/images/thumb/2/20/Research.png/25px-Research.png",
+      alt: "Research.png",
+      value: totalRessources.research,
+    },
+    {
+      src: "/images/thumb/6/6d/Coin.png/25px-Coin.png",
+      alt: "Coin.png",
+      value: formatNumber(totalRessources.gold),
+    },
+    {
+      src: "/images/thumb/c/c6/Food.png/25px-Food.png",
+      alt: "Food.png",
+      value: formatNumber(totalRessources.food),
+    },
+  ];
+
+  ressources.forEach(({ src, alt, value }) => {
+    const img = document.createElement("img");
+    img.src = src;
+    img.alt = alt;
+    img.width = 25;
+    img.height = 25;
+    img.decoding = "async";
+    img.loading = "lazy";
+
+    const textNode = document.createTextNode(` ${value}`);
+    const br = document.createElement("br");
+
+    cellRessources.appendChild(img);
+    cellRessources.appendChild(textNode);
+    cellRessources.appendChild(br);
+  });
 }
 
 function updateTotalGoods(
@@ -199,26 +292,46 @@ function updateTotalGoods(
 
   const rows = Object.keys(totalGoods).length > 18 ? 4 : 3;
 
-  let content = `
-    <div style="display: grid; grid-auto-flow: column; grid-template-rows: repeat(${rows}, auto); gap: 0 15px; width: max-content; justify-content: start;">
-  `;
+  // Clear previous content using replaceChildren (optimized and simple)
+  cellGoods.replaceChildren();
 
+  // Create a div to hold the grid content
+  const gridContainer = document.createElement("div");
+  gridContainer.style.display = "grid";
+  gridContainer.style.gridAutoFlow = "column";
+  gridContainer.style.gridTemplateRows = `repeat(${rows}, auto)`;
+  gridContainer.style.gap = "0 15px";
+  gridContainer.style.width = "max-content";
+  gridContainer.style.justifyContent = "start";
+
+  // Loop through the totalGoods object and create individual divs
   Object.keys(totalGoods).forEach((key) => {
     const { value, src } = totalGoods[key];
-    content += `
-      <div>
-        <img src="${src}" width="25" height="25"> ${value.toLocaleString(
-      "en-US"
-    )}
-      </div>
-    `;
+
+    // Create the inner div for each good
+    const divItem = document.createElement("div");
+
+    // Create the image
+    const img = document.createElement("img");
+    img.src = src;
+    img.width = 25;
+    img.height = 25;
+
+    // Create the value text
+    const valueText = document.createTextNode(
+      ` ${value.toLocaleString("en-US")}`
+    );
+
+    // Append the image and value text to the div
+    divItem.appendChild(img);
+    divItem.appendChild(valueText);
+
+    // Append the divItem to the grid container
+    gridContainer.appendChild(divItem);
   });
 
-  content += `</div>`;
-
-  // Use insertAdjacentHTML for better security
-  cellGoods.innerHTML = ""; // Clear previous content first
-  cellGoods.insertAdjacentHTML("beforeend", content);
+  // Append the grid container to the cellGoods
+  cellGoods.appendChild(gridContainer);
 }
 
 function calculerTotal() {

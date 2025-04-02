@@ -1,4 +1,4 @@
-import { buildingsAbbr, goodsUrlByEra } from "./constants";
+import { buildingsAbbr, DEFAULT_IMG_URL, goodsUrlByEra } from "./constants";
 
 export function getBuildingFromLocal(
   priority: string,
@@ -46,44 +46,66 @@ export function isValidData(data: unknown): boolean {
 }
 
 export function replaceTextByImage(buildings: string[][]): void {
-  const elements = document.querySelectorAll("td");
   const imageReplaceRegex = /(primary|secondary|tertiary):\s*([A-Z]{2})/gi;
-  const defaultImgUrl = "/images/thumb/3/36/Goods.png/25px-Goods.png";
 
-  elements.forEach((el) => {
-    // Use innerHTML for read-only
-    let newHtml = el.innerHTML;
+  function processNode(node: Node) {
+    if (node.nodeType === Node.TEXT_NODE) {
+      let text = node.textContent || "";
+      let lastIndex = 0;
+      const fragment = document.createDocumentFragment();
 
-    newHtml = newHtml.replace(imageReplaceRegex, (_, priority, era) => {
-      if (!buildings || buildings.length === 0) {
-        return `<img src="${defaultImgUrl}" alt="default_goods" decoding="async" loading="lazy" width="25" height="25">`;
+      text.replace(imageReplaceRegex, (match, priority, era, offset) => {
+        // Ajouter le texte avant la correspondance
+        if (offset > lastIndex) {
+          fragment.appendChild(
+            document.createTextNode(text.slice(lastIndex, offset))
+          );
+        }
+        lastIndex = offset + match.length;
+
+        // Trouver l'image correspondante
+        const building = getBuildingFromLocal(priority, era, buildings);
+        const normalizedBuilding = building
+          ? building.toLowerCase().replace(/[^\w-]/g, "_")
+          : "";
+
+        const imgUrl =
+          goodsUrlByEra.get(era)?.get(normalizedBuilding) || DEFAULT_IMG_URL;
+
+        // Créer et configurer l'image
+        const img = document.createElement("img");
+        img.src = imgUrl;
+        img.alt = `${priority}_${era.replace(/[<>"'/]/g, "")}`;
+        img.width = 25;
+        img.height = 25;
+        img.decoding = "async";
+        img.loading = "lazy";
+        img.onerror = () => {
+          img.src = DEFAULT_IMG_URL;
+        };
+
+        fragment.appendChild(img);
+        return ""; // Empêche le remplacement par du texte
+      });
+
+      // Ajouter le texte restant après la dernière correspondance
+      if (lastIndex < text.length) {
+        fragment.appendChild(document.createTextNode(text.slice(lastIndex)));
       }
 
-      // Sanitize and retrieve building information
-      const building = getBuildingFromLocal(priority, era, buildings);
-      const normalizedBuilding = building
-        ? building.toLowerCase().replace(/[^\w-]/g, "_")
-        : "";
+      // Assurer que node est bien un ChildNode avant d'utiliser replaceWith
+      if (node.parentNode) {
+        node.parentNode.replaceChild(fragment, node);
+      }
+    }
+    // Si le nœud est un élément HTML, traiter ses enfants récursivement
+    else if (node.nodeType === Node.ELEMENT_NODE) {
+      Array.from(node.childNodes).forEach(processNode);
+    }
+  }
 
-      // Retrieve image URL securely with fallback
-      // @ts-ignore
-      const imgUrl = goodsUrlByEra[era]?.[normalizedBuilding] || defaultImgUrl;
-
-      // Return image tag directly with imgUrl
-      return `<img 
-        src="${imgUrl}" 
-        alt="${priority}_${era.replace(/[<>"'/]/g, "")}" 
-        decoding="async" 
-        loading="lazy" 
-        width="25" 
-        height="25"
-        onerror="this.src='${defaultImgUrl}'" 
-      >`;
-    });
-
-    el.replaceChildren();
-    el.insertAdjacentHTML("beforeend", newHtml);
-  });
+  // Sélectionner tous les `<td>` et traiter leur contenu
+  document.querySelectorAll("td").forEach((el) => processNode(el));
 }
 
 export function parseNumber(value: string) {
