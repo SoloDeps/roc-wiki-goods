@@ -12,6 +12,6 @@ export default defineConfig({
     version: "1.0.0",
     name: "RoC Wiki Goods",
     description: "Show item icons based on user info and tech calculator on RoC Wiki.gg",
-    permissions: ["storage", "activeTab", "scripting"],
+    permissions: ["storage", "activeTab"],
   },
 });
