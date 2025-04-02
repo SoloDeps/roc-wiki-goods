@@ -1,12 +1,6 @@
-import {
-  addTotalRow,
-  findTechnoTable,
-  replaceTextByImage,
-  addCheckboxColumn,
-  calculerTotal,
-  resetTotalRow,
-  isValidData,
-} from "./utils/functions";
+import { replaceTextByImage, isValidData } from "./lib/utils";
+// import { useUpgrade } from "./lib/upgrade";
+import { useTechno } from "./lib/techno";
 import { storage } from "wxt/storage";
 
 export default defineContentScript({
@@ -44,50 +38,9 @@ export default defineContentScript({
       }
     );
 
-    // ========= TECHNOS CALCULATION =========
+    // ========= Techno/Upgrade Part =========
 
-    const technoTable = findTechnoTable() as HTMLTableElement;
-    if (!technoTable) return;
-
-    addCheckboxColumn(technoTable);
-    addTotalRow(technoTable);
-
-    const checkboxes = technoTable.querySelectorAll<HTMLInputElement>(
-      ".checkbox-selection"
-    );
-    const selectAllCheckbox = document.getElementById(
-      "checkboxSelectAll"
-    ) as HTMLInputElement | null;
-
-    const updateTotal = () => {
-      const totalRow = technoTable.querySelector("#totalRow");
-      const checkedBoxes = Array.from(checkboxes).filter((cb) => cb.checked);
-
-      checkedBoxes.length > 0
-        ? calculerTotal()
-        : totalRow
-        ? resetTotalRow(technoTable)
-        : addTotalRow(technoTable);
-    };
-
-    if (selectAllCheckbox) {
-      selectAllCheckbox.addEventListener("change", () => {
-        checkboxes.forEach((cb) => (cb.checked = selectAllCheckbox.checked));
-        updateTotal();
-      });
-    }
-
-    technoTable.addEventListener("change", (event) => {
-      const target = event.target as HTMLInputElement;
-      if (
-        target.classList.contains("checkbox-selection") &&
-        selectAllCheckbox
-      ) {
-        selectAllCheckbox.checked = Array.from(checkboxes).every(
-          (cb) => cb.checked
-        );
-        updateTotal();
-      }
-    });
+    useTechno();
+    // useUpgrade();
   },
 });

@@ -1,119 +1,6 @@
-import { buildingsAbbr, goodsUrlByEra } from "./constants";
+import { formatNumber, parseNumber } from "./utils";
 
-export function getBuildingFromLocal(
-  priority: string,
-  era: string,
-  buildings: string[][]
-): string | undefined {
-  // Create mapping for priority levels with case-insensitive handling
-  const priorityMapping = {
-    primary: 0,
-    secondary: 1,
-    tertiary: 2,
-  };
-
-  // Convert priority to lowercase and get corresponding index
-  const priorityIndex =
-    priorityMapping[priority.toLowerCase() as keyof typeof priorityMapping];
-
-  // Validate priority input
-  if (priorityIndex === undefined) return undefined;
-
-  // Find group index with flexible abbreviation matching
-  const groupIndex = buildingsAbbr.findIndex((group) =>
-    group.abbreviations.some((abbr) => abbr.toUpperCase() === era.toUpperCase())
-  );
-
-  // Return building if valid, otherwise undefined
-  return groupIndex !== -1 ? buildings[groupIndex][priorityIndex] : undefined;
-}
-
-export function isValidData(data: unknown): boolean {
-  // Quick type check - reject non-string inputs
-  if (typeof data !== "string") return false;
-
-  // Define security patterns to prevent XSS and injection
-  const securityPatterns = [
-    /<script/i,
-    /on\w+=/i,
-    /javascript:/i,
-    /data:/i,
-    /eval\(/i,
-  ];
-
-  // Test data against security patterns
-  return !securityPatterns.some((pattern) => pattern.test(data));
-}
-
-export function replaceTextByImage(buildings: string[][]): void {
-  const elements = document.querySelectorAll("td");
-  const imageReplaceRegex = /(primary|secondary|tertiary):\s*([A-Z]{2})/gi;
-  const defaultImgUrl = "/images/thumb/3/36/Goods.png/25px-Goods.png";
-
-  // Si 'buildings' est vide, on remplace directement avec l'image par défaut
-  if (!buildings || buildings.length === 0) {
-    elements.forEach((el) => {
-      el.innerHTML = el.innerHTML.replace(
-        imageReplaceRegex,
-        `<img src="${defaultImgUrl}" alt="default_goods" decoding="async" loading="lazy" width="25" height="25">`
-      );
-    });
-    return; // On retourne immédiatement pour ne pas faire d'autres traitements
-  }
-
-  elements.forEach((el) => {
-    el.innerHTML = el.innerHTML.replace(
-      imageReplaceRegex,
-      (_, priority, era) => {
-        // Sanitize and retrieve building information
-        const building = getBuildingFromLocal(priority, era, buildings);
-        const normalizedBuilding = building
-          ? building.toLowerCase().replace(/[^\w-]/g, "_") // Sanitize to allow only valid characters
-          : "";
-
-        // Retrieve image URL securely with fallback
-        const imgUrl =
-          // @ts-ignore
-          goodsUrlByEra[era]?.[normalizedBuilding] || defaultImgUrl;
-
-        // Return image tag directly with imgUrl
-        return `<img 
-          src="${imgUrl}" 
-          alt="${priority}_${era.replace(/[<>"'/]/g, "")}" 
-          decoding="async" 
-          loading="lazy" 
-          width="25" 
-          height="25"
-          onerror="this.src='${defaultImgUrl}'" 
-        >`;
-      }
-    );
-  });
-}
-
-// ============ Techno Part =================
-
-// Fonction pour convertir le texte en nombre
-export function parseNumber(value: string) {
-  if (!value || !/\d/.test(value)) return 0;
-
-  let number = parseFloat(value.replace(/[^\d.]/g, ""));
-  if (value.includes("K")) number *= 1000;
-  if (value.includes("M")) number *= 1000000;
-
-  return isNaN(number) ? 0 : number;
-}
-
-export function formatNumber(value: number) {
-  if (value >= 1000000) {
-    return (value / 1000000).toFixed(1).replace(/\.0$/, "") + " M";
-  } else if (value >= 1000) {
-    return (value / 1000).toFixed(1).replace(/\.0$/, "") + " K";
-  }
-  return value.toString();
-}
-
-export function findTechnoTable() {
+function findTechnoTable() {
   const tables = document.querySelectorAll("table.article-table");
 
   for (const table of tables) {
@@ -126,31 +13,37 @@ export function findTechnoTable() {
   return;
 }
 
-export function addCheckboxColumn(table: HTMLTableElement) {
+function addCheckboxColumn(table: HTMLTableElement) {
   // Add "Calculator" legend in first row
   const firstRow = table.querySelector("tr:first-child");
   if (firstRow) {
-    firstRow.innerHTML =
-      `<td style="text-align: center; white-space: normal;">Calculator</td>` +
-      firstRow.innerHTML;
+    firstRow.insertAdjacentHTML(
+      "afterbegin",
+      `<td style="text-align: center; white-space: normal;">Calculator</td>`
+    );
   }
 
-  // Add checkbox column in each rows (except first row)
+  // Add checkbox column in each row (except first row)
   const rows = table.querySelectorAll("tr:not(:first-child)");
   rows.forEach((row) => {
-    row.innerHTML =
+    row.insertAdjacentHTML(
+      "afterbegin",
       `<td style="text-align: center; white-space: normal;">
-        <input type="checkbox" class="checkbox-selection" style="transform: scale(1.25);">
-      </td>` + row.innerHTML;
+      <input type="checkbox" class="checkbox-selection" style="transform: scale(1.25);">
+    </td>`
+    );
   });
 }
 
-export function addTotalRow(table: HTMLTableElement) {
+function addTotalRow(table: HTMLTableElement) {
   const newRow = document.createElement("tr");
   newRow.id = "totalRow";
-  newRow.style = "background: rgba(36, 89, 113, 1); height: 100px;";
+  newRow.style.background = "rgba(36, 89, 113, 1)";
+  newRow.style.height = "100px";
 
-  newRow.innerHTML = `
+  newRow.insertAdjacentHTML(
+    "beforeend",
+    `
     <td style="text-align: center; white-space: normal;">
       <input type="checkbox" id="checkboxSelectAll" name="checkboxSelectAll" style="transform: scale(1.25);">
       <br><label for="checkboxSelectAll">All</label>
@@ -174,13 +67,14 @@ export function addTotalRow(table: HTMLTableElement) {
         </div>
       </div>
     </td>
-  `;
+  `
+  );
 
   table.querySelector("tbody")?.appendChild(newRow);
 }
 
 // Reset values ​​to zero without deleting the row
-export function resetTotalRow(table: HTMLTableElement) {
+function resetTotalRow(table: HTMLTableElement) {
   if (!table) return;
 
   const totalRessources = table.querySelector("#totalRessources");
@@ -188,30 +82,55 @@ export function resetTotalRow(table: HTMLTableElement) {
 
   if (totalRessources) {
     totalRessources.textContent = "";
-    totalRessources.innerHTML = `
-      <img alt="PR" src="/images/thumb/2/20/Research.png/25px-Research.png" width="25" height="25"> 0<br>
-      <img alt="Gold" src="/images/thumb/6/6d/Coin.png/25px-Coin.png" width="25" height="25"> 0<br>
-      <img alt="Food" src="/images/thumb/c/c6/Food.png/25px-Food.png" width="25" height="25"> 0
-    `;
+
+    const resources = [
+      { alt: "PR", src: "/images/thumb/2/20/Research.png/25px-Research.png" },
+      { alt: "Gold", src: "/images/thumb/6/6d/Coin.png/25px-Coin.png" },
+      { alt: "Food", src: "/images/thumb/c/c6/Food.png/25px-Food.png" },
+    ];
+
+    resources.forEach(({ alt, src }) => {
+      const img = document.createElement("img");
+      img.src = src;
+      img.alt = alt;
+      img.width = 25;
+      img.height = 25;
+
+      totalRessources.appendChild(img);
+      totalRessources.appendChild(document.createTextNode(" 0"));
+      totalRessources.appendChild(document.createElement("br"));
+    });
   }
 
   if (totalGoods) {
     totalGoods.textContent = "";
-    totalGoods.innerHTML = `
-      <div style="display: grid; grid-auto-flow: column; grid-template-rows: repeat(3, auto); gap: 0 15px; width: max-content; justify-content: start;">
-        ${Array(3)
-          .fill(
-            `<div>
-              <img src="/images/thumb/3/36/Goods.png/25px-Goods.png" width="25" height="25"> 0
-            </div>`
-          )
-          .join("")}
-      </div>
-    `;
+
+    const container = document.createElement("div");
+    container.style.display = "grid";
+    container.style.gridAutoFlow = "column";
+    container.style.gridTemplateRows = "repeat(3, auto)";
+    container.style.gap = "0 15px";
+    container.style.width = "max-content";
+    container.style.justifyContent = "start";
+
+    for (let i = 0; i < 3; i++) {
+      const div = document.createElement("div");
+
+      const img = document.createElement("img");
+      img.src = "/images/thumb/3/36/Goods.png/25px-Goods.png";
+      img.width = 25;
+      img.height = 25;
+
+      div.appendChild(img);
+      div.appendChild(document.createTextNode(" 0"));
+      container.appendChild(div);
+    }
+
+    totalGoods.appendChild(container);
   }
 }
 
-export function extractResources(row: HTMLTableRowElement) {
+function extractResources(row: HTMLTableRowElement) {
   const cell = row?.cells[2];
   if (!cell) return { research: 0, gold: 0, food: 0 };
 
@@ -230,7 +149,7 @@ export function extractResources(row: HTMLTableRowElement) {
   };
 }
 
-export function extractGoods(row: HTMLTableRowElement) {
+function extractGoods(row: HTMLTableRowElement) {
   const cell = row?.cells[3];
   if (!cell) return {};
 
@@ -297,10 +216,12 @@ function updateTotalGoods(
 
   content += `</div>`;
 
-  cellGoods.innerHTML = content;
+  // Use insertAdjacentHTML for better security
+  cellGoods.innerHTML = ""; // Clear previous content first
+  cellGoods.insertAdjacentHTML("beforeend", content);
 }
 
-export function calculerTotal() {
+function calculerTotal() {
   const selectedRows = document.querySelectorAll(".checkbox-selection:checked");
 
   let totalGoods: Record<string, { value: number; src: string }> = {};
@@ -332,4 +253,48 @@ export function calculerTotal() {
 
   updateTotalRessources(totalResources);
   updateTotalGoods(totalGoods);
+}
+
+// Use
+export function useTechno() {
+  const technoTable = findTechnoTable() as HTMLTableElement;
+  if (!technoTable) return;
+
+  addCheckboxColumn(technoTable);
+  addTotalRow(technoTable);
+
+  const checkboxes = technoTable.querySelectorAll<HTMLInputElement>(
+    ".checkbox-selection"
+  );
+  const selectAllCheckbox = document.getElementById(
+    "checkboxSelectAll"
+  ) as HTMLInputElement | null;
+
+  const updateTotal = () => {
+    const totalRow = technoTable.querySelector("#totalRow");
+    const checkedBoxes = Array.from(checkboxes).filter((cb) => cb.checked);
+
+    checkedBoxes.length > 0
+      ? calculerTotal()
+      : totalRow
+      ? resetTotalRow(technoTable)
+      : addTotalRow(technoTable);
+  };
+
+  if (selectAllCheckbox) {
+    selectAllCheckbox.addEventListener("change", () => {
+      checkboxes.forEach((cb) => (cb.checked = selectAllCheckbox.checked));
+      updateTotal();
+    });
+  }
+
+  technoTable.addEventListener("change", (event) => {
+    const target = event.target as HTMLInputElement;
+    if (target.classList.contains("checkbox-selection") && selectAllCheckbox) {
+      selectAllCheckbox.checked = Array.from(checkboxes).every(
+        (cb) => cb.checked
+      );
+      updateTotal();
+    }
+  });
 }

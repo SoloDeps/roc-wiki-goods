@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { buildingsAbbr, WIKI_URL } from "../utils/constants";
+import { buildingsAbbr, WIKI_URL } from "../lib/constants";
 import BuildingSelector from "./building-selector";
 import { browser } from "wxt/browser";
 
