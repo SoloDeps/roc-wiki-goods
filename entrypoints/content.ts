@@ -1,7 +1,7 @@
-import { replaceTextByImage, isValidData } from "./lib/utils";
-// import { useUpgrade } from "./lib/upgrade";
-import { useTechno } from "./lib/techno";
 import { storage } from "wxt/storage";
+import { useTechno } from "./lib/techno";
+import { useUpgrade } from "./lib/upgrade";
+import { replaceTextByImage, isValidData } from "./lib/utils";
 
 export default defineContentScript({
   matches: ["*://*.riseofcultures.wiki.gg/*"],
@@ -40,7 +40,11 @@ export default defineContentScript({
 
     // ========= Techno/Upgrade Part =========
 
-    useTechno();
-    // useUpgrade();
+    const tables = Array.from(
+      document.querySelectorAll("table.article-table")
+    ) as HTMLTableElement[];
+
+    useTechno(tables);
+    useUpgrade(tables);
   },
 });

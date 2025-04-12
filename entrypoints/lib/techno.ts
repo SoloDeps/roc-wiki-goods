@@ -1,16 +1,16 @@
 import { formatNumber, parseNumber } from "./utils";
 
-function findTechnoTable() {
-  const tables = document.querySelectorAll("table.article-table");
-
-  for (const table of tables) {
-    const firstCell = table.querySelector("tr:first-child td:first-child");
-    if (firstCell && firstCell.textContent?.trim() === "Technology") {
-      return table;
+function findTechnoTable(tables: HTMLTableElement[]) {
+  for (let i = 0; i < tables.length; i++) {
+    const firstCell = tables[i].querySelector("tr > td");
+    if (
+      firstCell &&
+      firstCell.textContent &&
+      firstCell.textContent.trim() === "Technology"
+    ) {
+      return tables[i];
     }
   }
-
-  return;
 }
 
 function addCheckboxColumn(table: HTMLTableElement) {
@@ -369,8 +369,8 @@ function calculerTotal() {
 }
 
 // Use
-export function useTechno() {
-  const technoTable = findTechnoTable() as HTMLTableElement;
+export function useTechno(tables: HTMLTableElement[]) {
+  const technoTable = findTechnoTable(tables) as HTMLTableElement;
   if (!technoTable) return;
 
   addCheckboxColumn(technoTable);
