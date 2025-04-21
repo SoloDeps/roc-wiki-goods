@@ -126,3 +126,26 @@ export function formatNumber(value: number) {
   }
   return value.toString();
 }
+
+export function getTitlePage(): string | null {
+  const heading = document.getElementById("firstHeading");
+  if (!heading) return null;
+
+  const span = heading.querySelector("span");
+  if (!span || !span.textContent) return null;
+
+  const parts = span.textContent.split("/");
+  const formatted = parts[0].trim().toLowerCase().replace(/\s+/g, "_");
+  return formatted;
+}
+
+export function getClosestLowerOrEqualMaxQty(
+  level: number,
+  levelMaxQty: Record<number, number>
+): number {
+  const levels = Object.keys(levelMaxQty).map(Number);
+  const validLevels = levels.filter((l) => l <= level);
+  if (validLevels.length === 0) return 1; // fallback par défaut
+  const closest = Math.max(...validLevels);
+  return levelMaxQty[closest];
+}

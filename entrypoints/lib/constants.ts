@@ -214,3 +214,12 @@ export const goodsUrlByEra = new Map<EraAbbr, Map<string, string>>([
     ]),
   ],
 ]);
+
+export const coinNames = [
+  "coin",
+  "coins",
+  "pennies",
+  "cocoa",
+  "wu zhu",
+  "deben",
+];
