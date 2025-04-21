@@ -34,18 +34,18 @@ function findTimeTables(tables: HTMLTableElement[]): HTMLTableElement[] {
   return matchingTables;
 }
 
-function getMaxQty(
+export function getMaxQty(
   tables: HTMLTableElement[],
   pageTitle: string | null
-): { level?: number; abbrev?: string; maxQty: number }[] {
-  const result: { level?: number; abbrev?: string; maxQty: number }[] = [];
-
-  if (tables.length === 0) return result;
+): Record<number, number> | { abbrev: string; maxQty: number }[] {
+  if (tables.length === 0) return pageTitle === "home_cultures" ? {} : [];
 
   const firstTable = tables[0];
   const rows = firstTable.querySelectorAll("tr");
 
   if (pageTitle === "home_cultures") {
+    const result: Record<number, number> = {};
+
     const headerCells = Array.from(rows[0].children) as HTMLTableCellElement[];
     const levelIndex = headerCells.findIndex(
       (cell) => cell.textContent?.trim().toLowerCase() === "level"
@@ -60,7 +60,6 @@ function getMaxQty(
       if (index === 0) return;
 
       const cells = Array.from(row.children) as HTMLTableCellElement[];
-
       const hasColspan = cells.some((cell) => cell.hasAttribute("colspan"));
       if (hasColspan) return;
 
@@ -69,40 +68,54 @@ function getMaxQty(
         cells[maxQtyIndex].textContent?.trim() || "0"
       );
 
-      // result.push({ level: levelValue, maxQty: maxQtyValue });
       const level = parseInt(levelValue, 10);
       if (!isNaN(level)) {
-        result.push({ level, maxQty: maxQtyValue });
+        result[level] = maxQtyValue;
       }
     });
-  } else if (pageTitle === "allied_cultures") {
+
+    return result;
+  }
+
+  if (pageTitle === "allied_cultures") {
+    const result: { abbrev: string; maxQty: number }[] = [];
+  
     const headerCells = Array.from(rows[0].children) as HTMLTableCellElement[];
     const maxQtyIndex = headerCells.findIndex(
       (cell) => cell.textContent?.trim().toLowerCase() === "max qty"
     );
-
+  
     if (maxQtyIndex === -1) return result;
-
+  
     rows.forEach((row, index) => {
       if (index === 0) return;
-
+  
       const cells = Array.from(row.children) as HTMLTableCellElement[];
-
       const hasColspan = cells.some((cell) => cell.hasAttribute("colspan"));
       if (hasColspan) return;
-
+  
       const maxQtyCell = cells[maxQtyIndex];
-
-      // Pour chaque nœud enfant de la cellule
+  
+      // Cas 1 : uniquement un nombre dans la cellule
+      const rawText = maxQtyCell.textContent?.trim() || "";
+      const noSpan = maxQtyCell.querySelector("span") === null;
+  
+      if (noSpan && rawText) {
+        const maxQty = parseNumber(rawText);
+        if (!isNaN(maxQty)) {
+          result.push({ abbrev: "__no_abbrev__", maxQty });
+        }
+        return;
+      }
+  
+      // Cas 2 : cellule avec des <span> contenant abbrev
       maxQtyCell.childNodes.forEach((node) => {
         if (node.nodeType === Node.ELEMENT_NODE) {
           const element = node as HTMLElement;
-
-          // Si c’est un span, on récupère le texte dedans
+  
           if (element.tagName.toLowerCase() === "span") {
             const abbrev = element.textContent?.trim() || "";
-
-            // On cherche le noeud suivant qui contiendra probablement le nombre
+  
             let nextNode = element.nextSibling;
             while (
               nextNode &&
@@ -111,10 +124,10 @@ function getMaxQty(
             ) {
               nextNode = nextNode.nextSibling;
             }
-
+  
             const qtyText = nextNode?.textContent?.trim() || "";
             const maxQty = parseNumber(qtyText);
-
+  
             if (abbrev && !isNaN(maxQty)) {
               result.push({ abbrev, maxQty });
             }
@@ -122,9 +135,11 @@ function getMaxQty(
         }
       });
     });
+  
+    return result;
   }
 
-  return result;
+  return pageTitle === "home_cultures" ? {} : [];
 }
 
 function addMultiplicatorColumn(
@@ -177,9 +192,12 @@ function addMultiplicatorColumn(
         const level = parseInt(cells[0]?.textContent?.trim() || "0", 10);
         maxQty = getClosestLowerOrEqualMaxQty(level, maxQtyList);
       } else if (pageTitle === "allied_cultures") {
-        const entry = maxQtyList.find(
-          (item: any) => item.abbrev === currentAbbrev
-        );
+        let entry = maxQtyList.find((item: any) => item.abbrev === currentAbbrev);
+
+        if (!entry) {
+          entry = maxQtyList.find((item: any) => item.abbrev === "__no_abbrev__");
+        }
+
         if (entry) {
           maxQty = entry.maxQty;
         }
@@ -341,20 +359,9 @@ export function useUpgrade(tables: HTMLTableElement[]) {
   if (timeTables.length === 0) return;
 
   const pageTitle = getTitlePage();
-  // console.log(pageTitle);
-
-  const maxQty = getMaxQty(timeTables, pageTitle);
-
-  // const maxQtyList: Record<number, number> = {};
-  let maxQtyList = {};
-  if (pageTitle === "home_cultures") {
-    maxQty.forEach(({ level, maxQty }) => {
-      // @ts-ignore
-      maxQtyList[level] = maxQty;
-    });
-  } else {
-    maxQtyList = maxQty;
-  }
+  const maxQtyList = getMaxQty(timeTables, pageTitle);
+  console.log(maxQtyList);
+  
 
   addMultiplicatorColumn(timeTables, maxQtyList, pageTitle);
 }
