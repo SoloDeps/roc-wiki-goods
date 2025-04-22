@@ -1,15 +1,10 @@
-import { coinNames, eras } from "./constants";
+import { formatColumns, eras, skipColumns } from "./constants";
 import {
   formatNumber,
   getClosestLowerOrEqualMaxQty,
   getTitlePage,
   parseNumber,
 } from "./utils";
-
-type Fragment =
-  | { type: "text"; text: string }
-  | { type: "br" }
-  | { type: "img"; attrs: Record<string, string> };
 
 function findTimeTables(tables: HTMLTableElement[]): HTMLTableElement[] {
   const matchingTables: HTMLTableElement[] = [];
@@ -79,27 +74,27 @@ export function getMaxQty(
 
   if (pageTitle === "allied_cultures") {
     const result: { abbrev: string; maxQty: number }[] = [];
-  
+
     const headerCells = Array.from(rows[0].children) as HTMLTableCellElement[];
     const maxQtyIndex = headerCells.findIndex(
       (cell) => cell.textContent?.trim().toLowerCase() === "max qty"
     );
-  
+
     if (maxQtyIndex === -1) return result;
-  
+
     rows.forEach((row, index) => {
       if (index === 0) return;
-  
+
       const cells = Array.from(row.children) as HTMLTableCellElement[];
       const hasColspan = cells.some((cell) => cell.hasAttribute("colspan"));
       if (hasColspan) return;
-  
+
       const maxQtyCell = cells[maxQtyIndex];
-  
+
       // Cas 1 : uniquement un nombre dans la cellule
       const rawText = maxQtyCell.textContent?.trim() || "";
       const noSpan = maxQtyCell.querySelector("span") === null;
-  
+
       if (noSpan && rawText) {
         const maxQty = parseNumber(rawText);
         if (!isNaN(maxQty)) {
@@ -107,15 +102,15 @@ export function getMaxQty(
         }
         return;
       }
-  
+
       // Cas 2 : cellule avec des <span> contenant abbrev
       maxQtyCell.childNodes.forEach((node) => {
         if (node.nodeType === Node.ELEMENT_NODE) {
           const element = node as HTMLElement;
-  
+
           if (element.tagName.toLowerCase() === "span") {
             const abbrev = element.textContent?.trim() || "";
-  
+
             let nextNode = element.nextSibling;
             while (
               nextNode &&
@@ -124,10 +119,10 @@ export function getMaxQty(
             ) {
               nextNode = nextNode.nextSibling;
             }
-  
+
             const qtyText = nextNode?.textContent?.trim() || "";
             const maxQty = parseNumber(qtyText);
-  
+
             if (abbrev && !isNaN(maxQty)) {
               result.push({ abbrev, maxQty });
             }
@@ -135,7 +130,7 @@ export function getMaxQty(
         }
       });
     });
-  
+
     return result;
   }
 
@@ -192,10 +187,14 @@ function addMultiplicatorColumn(
         const level = parseInt(cells[0]?.textContent?.trim() || "0", 10);
         maxQty = getClosestLowerOrEqualMaxQty(level, maxQtyList);
       } else if (pageTitle === "allied_cultures") {
-        let entry = maxQtyList.find((item: any) => item.abbrev === currentAbbrev);
+        let entry = maxQtyList.find(
+          (item: any) => item.abbrev === currentAbbrev
+        );
 
         if (!entry) {
-          entry = maxQtyList.find((item: any) => item.abbrev === "__no_abbrev__");
+          entry = maxQtyList.find(
+            (item: any) => item.abbrev === "__no_abbrev__"
+          );
         }
 
         if (entry) {
@@ -231,10 +230,16 @@ function addMultiplicatorColumn(
 
       let count = 1;
 
+      // Stocke le texte original de chaque TextNode une seule fois
       if (!row.hasAttribute("data-original-stored")) {
         row.setAttribute("data-original-stored", "true");
         cells.forEach((cell) => {
-          cell.setAttribute("data-original", serializeCell(cell));
+          cell.childNodes.forEach((node) => {
+            if (node.nodeType === Node.TEXT_NODE) {
+              // On stocke le texte original sur le node lui-même
+              (node as any).dataOriginal = node.textContent ?? "";
+            }
+          });
         });
       }
 
@@ -276,81 +281,50 @@ function multiplyRowTextContent(row: HTMLTableRowElement, multiplier: number) {
 
   for (let i = 0; i < cells.length; i++) {
     const columnName = cellMap[i] || "";
-    if (columnName === "time" || columnName === "max qty") continue;
+    if (skipColumns.includes(columnName)) continue;
 
     const cell = cells[i];
-    const original = cell.getAttribute("data-original");
-    if (!original) continue;
-
-    const isCoin = coinNames.includes(columnName.toLowerCase());
-    const isFood = columnName === "food";
+    const isFormatColumn = formatColumns.includes(columnName.toLowerCase());
     const isGoods = columnName === "goods";
     const isWorkers = columnName === "workers";
 
-    const fragments = deserializeCell(original);
-    const newContent: Node[] = [];
+    cell.childNodes.forEach((node) => {
+      if (node.nodeType === Node.TEXT_NODE) {
+        const textNode = node as Text;
+        const originalText =
+          (textNode as any).dataOriginal ?? textNode.textContent ?? "";
 
-    fragments.forEach((frag) => {
-      if (frag.type === "text") {
-        const parsed = parseNumber(frag.text);
-        let newText = frag.text;
+        const newText = originalText.replace(
+          /(\d+(?:[.,]\d+)?)(?:\s?([KM]))?/gi,
+          (
+            match: string,
+            numberStr: string,
+            suffix: string | undefined,
+            offset: number,
+            str: string
+          ): string => {
+            const parsed = parseNumber(numberStr + (suffix ? suffix : ""));
+            if (isNaN(parsed)) return match;
 
-        if (isCoin || isFood) {
-          newText = " " + formatNumber(parsed * multiplier);
-        }
-        if (isGoods) {
-          newText = " " + (parsed * multiplier).toLocaleString("en-US");
-        }
+            let formattedNumber = "";
 
-        if (isWorkers) {
-          newText = (parsed * multiplier).toLocaleString("en-US");
-        }
+            if (isFormatColumn) {
+              formattedNumber = formatNumber(parsed * multiplier);
+            } else if (isGoods) {
+              formattedNumber = (parsed * multiplier).toLocaleString("en-US");
+            } else if (isWorkers) {
+              formattedNumber = (parsed * multiplier).toLocaleString("en-US");
+            } else {
+              formattedNumber = (parsed * multiplier).toString();
+            }
 
-        newContent.push(document.createTextNode(newText));
-      } else if (frag.type === "br") {
-        newContent.push(document.createElement("br"));
-      } else if (frag.type === "img") {
-        const img = document.createElement("img");
-        Object.entries(frag.attrs).forEach(([key, value]) => {
-          img.setAttribute(key, value);
-        });
-        newContent.push(img);
+            return formattedNumber;
+          }
+        );
+
+        textNode.textContent = newText;
       }
     });
-
-    cell.replaceChildren(...newContent);
-  }
-}
-
-function serializeCell(cell: HTMLTableCellElement): string {
-  const result: Fragment[] = [];
-
-  cell.childNodes.forEach((node) => {
-    if (node.nodeType === Node.TEXT_NODE) {
-      const text = node.textContent?.trim();
-      if (text) result.push({ type: "text", text });
-    } else if (node.nodeType === Node.ELEMENT_NODE) {
-      const el = node as HTMLElement;
-      if (el.tagName === "BR") {
-        result.push({ type: "br" });
-      } else if (el.tagName === "IMG") {
-        const attrs: Record<string, string> = {};
-        Array.from(el.attributes).forEach((attr) => {
-          attrs[attr.name] = attr.value;
-        });
-        result.push({ type: "img", attrs });
-      }
-    }
-  });
-
-  return JSON.stringify(result);
-}
-
-function deserializeCell(serialized: string): Fragment[] {
-  try {
-    return JSON.parse(serialized);
-  } catch {
-    return [];
   }
 }
 
@@ -360,8 +334,6 @@ export function useUpgrade(tables: HTMLTableElement[]) {
 
   const pageTitle = getTitlePage();
   const maxQtyList = getMaxQty(timeTables, pageTitle);
-  console.log(maxQtyList);
-  
 
   addMultiplicatorColumn(timeTables, maxQtyList, pageTitle);
 }

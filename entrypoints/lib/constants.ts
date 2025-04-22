@@ -215,11 +215,16 @@ export const goodsUrlByEra = new Map<EraAbbr, Map<string, string>>([
   ],
 ]);
 
-export const coinNames = [
+export const formatColumns = [
   "coin",
   "coins",
   "pennies",
   "cocoa",
   "wu zhu",
   "deben",
+  "dirham",
+  "rice",
+  "food",
 ];
+
+export const skipColumns = ["level", "time", "max qty"];
