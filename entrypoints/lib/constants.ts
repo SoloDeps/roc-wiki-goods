@@ -17,15 +17,18 @@ export const eras = [
 
 export const buildingsAbbr = [
   {
+    title: "Bronze Age ~ Roman Empire",
     buildings: ["Tailor", "Stone Mason", "Artisan"],
     abbreviations: ["BA", "ME", "CG", "ER", "RE"],
   },
   {
+    title: "Byzantine Era ~ High Middle Ages",
     buildings: ["Scribe", "Carpenter", "Spice Merchant"],
     abbreviations: ["BE", "AF", "FA", "IE", "KS", "HM"],
   },
   // {
-  //   buildings: ["Timber", "Chapel", "Armory"],
+  // title: "Early Gothic",
+  //   buildings: ["Jeweler", "Alchemist", "Glassblower"],
   //   abbreviations: ["EG"],
   // },
 ];
@@ -38,9 +41,9 @@ type BuildingItems = {
   scribe?: string;
   carpenter?: string;
   spice_merchant?: string;
-  // timber?: string;
-  // chapel?: string;
-  // armory?: string;
+  // jeweler?: string;
+  // alchemist?: string;
+  // glassblower?: string;
 };
 
 // export const goodsUrlByEra: Record<EraAbbr, BuildingItems> = {
@@ -213,6 +216,17 @@ export const goodsUrlByEra = new Map<EraAbbr, Map<string, string>>([
       ["spice_merchant", "/images/thumb/1/1b/Cinnamon.png/25px-Cinnamon.png"],
     ]),
   ],
+  // [
+  //   "EG",
+  //   new Map([
+  //     ["jeweler", "/images/thumb/2/2a/Grimoire.png/25px-Grimoire.png"],
+  //     [
+  //       "alchemist",
+  //       "/images/thumb/8/85/Secretary_Desk.png/25px-Secretary_Desk.png",
+  //     ],
+  //     ["glassblower", "/images/thumb/1/1b/Cinnamon.png/25px-Cinnamon.png"],
+  //   ]),
+  // ],
 ]);
 
 export const formatColumns = [
@@ -225,6 +239,8 @@ export const formatColumns = [
   "dirham",
   "rice",
   "food",
+  // eg_coins_allied
+  // eg_food_allied
 ];
 
 export const skipColumns = ["level", "time", "max qty"];

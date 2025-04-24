@@ -62,9 +62,21 @@ function App() {
 
   return (
     <div className="p-4">
+      <div className="pb-3  text-[13px]">
+        Fill the dropdowns to display icons on the wiki based on your game info.
+        <br />
+        How to find your primary, secondary, and tertiary workshop?{" "}
+        <a
+          href="https://riseofcultures.wiki.gg/wiki/Goods"
+          className="text-blue-600 hover:underline cursor-pointer transition duration-200"
+        >
+          Check here.
+        </a>
+      </div>
       {buildingsAbbr.map((group, index) => (
         <BuildingSelector
           key={index}
+          title={group.title}
           buildings={group.buildings}
           index={index}
           selections={selections}
