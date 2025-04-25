@@ -127,16 +127,22 @@ export function formatNumber(value: number) {
   return value.toString();
 }
 
-export function getTitlePage(): string | null {
+export function getTitlePage(): [string | null, string | null, string | null] {
   const heading = document.getElementById("firstHeading");
-  if (!heading) return null;
+  if (!heading) return [null, null, null];
 
   const span = heading.querySelector("span");
-  if (!span || !span.textContent) return null;
+  if (!span || !span.textContent) return [null, null, null];
 
-  const parts = span.textContent.split("/");
-  const formatted = parts[0].trim().toLowerCase().replace(/\s+/g, "_");
-  return formatted;
+  const parts = span.textContent.split("/").map(part =>
+    part.trim().toLowerCase().replace(/\s+/g, "_")
+  );
+
+  const mainSection = parts[0] || null;
+  const subSection = parts[1] || null;
+  const thirdSection = parts[2] || null;
+
+  return [mainSection, subSection, thirdSection];
 }
 
 export function getClosestLowerOrEqualMaxQty(

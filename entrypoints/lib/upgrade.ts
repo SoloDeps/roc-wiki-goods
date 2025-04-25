@@ -1,4 +1,9 @@
-import { formatColumns, eras, skipColumns } from "./constants";
+import {
+  formatColumns,
+  eras,
+  skipColumns,
+  limitPrimaryWorkshop,
+} from "./constants";
 import {
   formatNumber,
   getClosestLowerOrEqualMaxQty,
@@ -10,20 +15,21 @@ function findTimeTables(tables: HTMLTableElement[]): HTMLTableElement[] {
   const matchingTables: HTMLTableElement[] = [];
 
   for (let i = 0; i < tables.length; i++) {
-    const firstRow = tables[i].querySelector("tr"); // Récupère la première ligne
-    const lastCell = firstRow
-      ? firstRow.querySelectorAll("td")[
-          firstRow.querySelectorAll("td").length - 1
-        ]
-      : null;
+    const firstRow = tables[i].querySelector("tr");
+    if (!firstRow) continue;
 
-    if (
-      lastCell &&
-      lastCell.textContent &&
-      lastCell.textContent.trim() === "Time"
-    ) {
-      matchingTables.push(tables[i]);
+    const cells = firstRow.querySelectorAll("td");
+    for (let j = 0; j < cells.length; j++) {
+      const cellText = cells[j].textContent?.trim();
+      if (cellText === "Time") {
+        matchingTables.push(tables[i]);
+        break; // On a trouvé, inutile de continuer à parcourir les cellules
+      }
     }
+  }
+
+  if (matchingTables.length === 3) {
+    return matchingTables.slice(1); // enlève le premier, garde les deux derniers
   }
 
   return matchingTables;
@@ -139,12 +145,28 @@ export function getMaxQty(
 
 function addMultiplicatorColumn(
   tables: HTMLTableElement[],
-  maxQtyList: any,
-  pageTitle: string | null
+  primaryWorkshops: string[]
 ): void {
+  // Récupère les infos dans le title de la page
+  const [mainSection, subSection, thirdSection] = getTitlePage();
+
+  // Détermine si c'est l'atelier primaire de user
+  let isPrimary: boolean = false;
+  if (subSection === "workshops" && thirdSection) {
+    isPrimary = primaryWorkshops
+      .map((w) => w.toLowerCase().replace(/\s+/g, "_"))
+      .includes(thirdSection.toLowerCase());
+  }
+
+  // Calcule la liste des quantités max
+  const maxQtyList = getMaxQty(tables, mainSection);
+
+  let numberTables = 1;
   tables.forEach((table) => {
+    let currentAbbrev = "";
     const rows = Array.from(table.querySelectorAll("tr"));
 
+    // Ajoute la colonne "Calculator" à la première ligne
     const firstRow = rows[0];
     if (firstRow) {
       const th = document.createElement("td");
@@ -155,7 +177,15 @@ function addMultiplicatorColumn(
       firstRow.appendChild(th);
     }
 
-    let currentAbbrev = "";
+    // Recherche dynamique de l'index "Level"
+    let levelIndex = 0;
+    if (firstRow) {
+      const headerCells = Array.from(firstRow.querySelectorAll("td, th"));
+      levelIndex = headerCells.findIndex(
+        (cell) => cell.textContent?.trim().toLowerCase() === "level"
+      );
+      if (levelIndex === -1) levelIndex = 0;
+    }
 
     rows.forEach((row, index) => {
       if (index === 0) return;
@@ -164,6 +194,7 @@ function addMultiplicatorColumn(
         (cell) => cell.tagName.toLowerCase() === "td"
       ) as HTMLTableCellElement[];
 
+      // Gestion des lignes avec colspan (ex: titres d'ère)
       const hasColspan = cells.some((cell) => cell.hasAttribute("colspan"));
       if (hasColspan) {
         const titleText = row.textContent?.trim() || "";
@@ -183,25 +214,49 @@ function addMultiplicatorColumn(
 
       let maxQty = 1;
 
-      if (pageTitle === "home_cultures") {
-        const level = parseInt(cells[0]?.textContent?.trim() || "0", 10);
-        maxQty = getClosestLowerOrEqualMaxQty(level, maxQtyList);
-      } else if (pageTitle === "allied_cultures") {
-        let entry = maxQtyList.find(
-          (item: any) => item.abbrev === currentAbbrev
+      if (mainSection === "home_cultures" && !Array.isArray(maxQtyList)) {
+        const level = parseInt(
+          cells[levelIndex]?.textContent?.trim() || "0",
+          10
         );
+        maxQty = getClosestLowerOrEqualMaxQty(level, maxQtyList);
+      }
 
-        if (!entry) {
-          entry = maxQtyList.find(
-            (item: any) => item.abbrev === "__no_abbrev__"
-          );
+      if (mainSection === "allied_cultures" && Array.isArray(maxQtyList)) {
+        let entry;
+
+        if (numberTables === 1) {
+          // Utilise .at(-1) pour obtenir le dernier élément du tableau
+          entry = maxQtyList.at(-1);
+        } else {
+          entry =
+            maxQtyList.find((item) => item.abbrev === currentAbbrev) ||
+            maxQtyList.find((item) => item.abbrev === "__no_abbrev__");
         }
 
         if (entry) {
           maxQty = entry.maxQty;
+          // console.log("Max quantity selected:", entry);
         }
       }
 
+      if (subSection === "workshops") {
+        if (isPrimary) {
+          let entry =
+            limitPrimaryWorkshop.find(
+              (item: any) => item.abbrev === currentAbbrev
+            ) ||
+            limitPrimaryWorkshop.find(
+              (item: any) => item.abbrev === "__no_abbrev__"
+            );
+
+          if (entry) maxQty = entry.maxQty;
+        } else {
+          maxQty = 1;
+        }
+      }
+
+      // Ajoute la colonne de contrôle (calculatrice)
       const controlCell = document.createElement("td");
       controlCell.style.textAlign = "center";
 
@@ -236,7 +291,6 @@ function addMultiplicatorColumn(
         cells.forEach((cell) => {
           cell.childNodes.forEach((node) => {
             if (node.nodeType === Node.TEXT_NODE) {
-              // On stocke le texte original sur le node lui-même
               (node as any).dataOriginal = node.textContent ?? "";
             }
           });
@@ -264,6 +318,8 @@ function addMultiplicatorColumn(
 
       updateRow();
     });
+
+    numberTables++;
   });
 }
 
@@ -328,12 +384,12 @@ function multiplyRowTextContent(row: HTMLTableRowElement, multiplier: number) {
   }
 }
 
-export function useUpgrade(tables: HTMLTableElement[]) {
+export function useUpgrade(
+  tables: HTMLTableElement[],
+  primaryWorkshops: string[]
+) {
   const timeTables = findTimeTables(tables);
   if (timeTables.length === 0) return;
 
-  const pageTitle = getTitlePage();
-  const maxQtyList = getMaxQty(timeTables, pageTitle);
-
-  addMultiplicatorColumn(timeTables, maxQtyList, pageTitle);
+  addMultiplicatorColumn(timeTables, primaryWorkshops);
 }

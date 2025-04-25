@@ -12,8 +12,10 @@ export default defineContentScript({
       "local:buildingSelections"
     );
 
+    let primaryWorkshops: string[] = [];
     if (storedData && isValidData(storedData)) {
       const buildings: string[][] = JSON.parse(storedData);
+      primaryWorkshops = buildings.map((subArray) => subArray[0]);
       replaceTextByImage(buildings);
     }
 
@@ -45,6 +47,6 @@ export default defineContentScript({
     ) as HTMLTableElement[];
 
     useTechno(tables);
-    useUpgrade(tables);
+    useUpgrade(tables, primaryWorkshops);
   },
 });
