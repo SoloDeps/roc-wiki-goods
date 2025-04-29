@@ -1,4 +1,4 @@
-import { EraAbbr, eras } from "./constants";
+import { eras } from "./constants";
 import { formatNumber, parseNumber } from "./utils";
 
 function findTechnoTable(tables: HTMLTableElement[]) {
@@ -12,6 +12,18 @@ function findTechnoTable(tables: HTMLTableElement[]) {
       return tables[i];
     }
   }
+}
+
+function createCheckboxCell(): HTMLTableCellElement {
+  const td = document.createElement("td");
+  td.style.textAlign = "center";
+  td.style.whiteSpace = "normal";
+  const checkbox = document.createElement("input");
+  checkbox.type = "checkbox";
+  checkbox.classList.add("checkbox-selection");
+  checkbox.style.transform = "scale(1.25)";
+  td.appendChild(checkbox);
+  return td;
 }
 
 function addCheckboxColumn(table: HTMLTableElement) {
@@ -28,27 +40,15 @@ function addCheckboxColumn(table: HTMLTableElement) {
     "tr:not(:first-child)"
   );
   rows.forEach((row) => {
-    const td = document.createElement("td");
-    td.style.textAlign = "center";
-    td.style.whiteSpace = "normal";
-    const checkbox = document.createElement("input");
-    checkbox.type = "checkbox";
-    checkbox.classList.add("checkbox-selection");
-    checkbox.style.transform = "scale(1.25)";
-    td.appendChild(checkbox);
+    const td = createCheckboxCell();
     row.insertBefore(td, row.firstChild);
   });
 }
 
-function addTotalRow(table: HTMLTableElement) {
-  const newRow = document.createElement("tr");
-  newRow.id = "totalRow";
-  newRow.style.background = "rgba(36, 89, 113, 1)";
-  newRow.style.height = "100px";
-
-  const td1 = document.createElement("td");
-  td1.style.textAlign = "center";
-  td1.style.whiteSpace = "normal";
+function createTotalCheckboxCell(): HTMLTableCellElement {
+  const td = document.createElement("td");
+  td.style.textAlign = "center";
+  td.style.whiteSpace = "normal";
   const checkbox = document.createElement("input");
   checkbox.type = "checkbox";
   checkbox.id = "checkboxSelectAll";
@@ -57,77 +57,71 @@ function addTotalRow(table: HTMLTableElement) {
   const label = document.createElement("label");
   label.setAttribute("for", "checkboxSelectAll");
   label.textContent = "All";
-  td1.appendChild(checkbox);
-  td1.appendChild(document.createElement("br"));
-  td1.appendChild(label);
-  newRow.appendChild(td1);
+  td.appendChild(checkbox);
+  td.appendChild(document.createElement("br"));
+  td.appendChild(label);
+  return td;
+}
 
-  const td2 = document.createElement("td");
-  td2.style.textAlign = "center";
-  td2.style.fontWeight = "bold";
-  td2.appendChild(document.createTextNode("Total"));
-  td2.appendChild(document.createElement("br"));
-  td2.appendChild(document.createTextNode("Selection"));
-  newRow.appendChild(td2);
+function createTotalLabelCell(): HTMLTableCellElement {
+  const td = document.createElement("td");
+  td.style.textAlign = "center";
+  td.style.fontWeight = "bold";
+  td.appendChild(document.createTextNode("Total"));
+  td.appendChild(document.createElement("br"));
+  td.appendChild(document.createTextNode("Selection"));
+  return td;
+}
 
-  const td3 = document.createElement("td");
-  td3.id = "totalRessources";
-  td3.style.verticalAlign = "baseline";
-  td3.style.paddingTop = "12px";
+function createResourceDiv(
+  alt: string,
+  src: string,
+  id: string
+): HTMLDivElement {
+  const div = document.createElement("div");
+  const img = document.createElement("img");
+  img.alt = alt;
+  img.src = src;
+  img.width = 25;
+  img.height = 25;
+  const span = document.createElement("span");
+  span.id = id;
+  span.textContent = " 0";
+  div.appendChild(img);
+  div.appendChild(span);
+  return div;
+}
 
-  const resourcesContainer = document.createElement("div");
-  const researchDiv = document.createElement("div");
-  const researchImg = document.createElement("img");
-  researchImg.alt = "PR";
-  researchImg.src = "/images/thumb/2/20/Research.png/25px-Research.png";
-  researchImg.width = 25;
-  researchImg.height = 25;
-  const researchSpan = document.createElement("span");
-  researchSpan.id = "researchTotal";
-  researchSpan.textContent = " 0";
-  researchDiv.appendChild(researchImg);
-  researchDiv.appendChild(researchSpan);
-  resourcesContainer.appendChild(researchDiv);
+function createResourcesContainer(): HTMLDivElement {
+  const container = document.createElement("div");
+  container.appendChild(
+    createResourceDiv(
+      "PR",
+      "/images/thumb/2/20/Research.png/25px-Research.png",
+      "researchTotal"
+    )
+  );
+  container.appendChild(
+    createResourceDiv(
+      "Gold",
+      "/images/thumb/6/6d/Coin.png/25px-Coin.png",
+      "goldTotal"
+    )
+  );
+  container.appendChild(
+    createResourceDiv(
+      "Food",
+      "/images/thumb/c/c6/Food.png/25px-Food.png",
+      "foodTotal"
+    )
+  );
+  return container;
+}
 
-  const goldDiv = document.createElement("div");
-  const goldImg = document.createElement("img");
-  goldImg.alt = "Gold";
-  goldImg.src = "/images/thumb/6/6d/Coin.png/25px-Coin.png";
-  goldImg.width = 25;
-  goldImg.height = 25;
-  const goldSpan = document.createElement("span");
-  goldSpan.id = "goldTotal";
-  goldSpan.textContent = " 0";
-  goldDiv.appendChild(goldImg);
-  goldDiv.appendChild(goldSpan);
-  resourcesContainer.appendChild(goldDiv);
-
-  const foodDiv = document.createElement("div");
-  const foodImg = document.createElement("img");
-  foodImg.alt = "Food";
-  foodImg.src = "/images/thumb/c/c6/Food.png/25px-Food.png";
-  foodImg.width = 25;
-  foodImg.height = 25;
-  const foodSpan = document.createElement("span");
-  foodSpan.id = "foodTotal";
-  foodSpan.textContent = " 0";
-  foodDiv.appendChild(foodImg);
-  foodDiv.appendChild(foodSpan);
-  resourcesContainer.appendChild(foodDiv);
-
-  td3.appendChild(resourcesContainer);
-  newRow.appendChild(td3);
-
-  const td4 = document.createElement("td");
-  td4.id = "totalGoods";
-  td4.style.verticalAlign = "baseline";
-  td4.style.paddingTop = "12px";
-  td4.colSpan = 2;
-
+function createDefaultGoodsContainer(): HTMLDivElement {
   const defaultGoodsContainer = document.createElement("div");
   defaultGoodsContainer.id = "defaultGoodsContainer";
   defaultGoodsContainer.style.display = "block";
-  // defaultGoodsContainer.style.gap = "0 15px";
   defaultGoodsContainer.style.width = "max-content";
   defaultGoodsContainer.style.justifyContent = "start";
 
@@ -141,16 +135,41 @@ function addTotalRow(table: HTMLTableElement) {
     divItem.appendChild(document.createTextNode(" 0"));
     defaultGoodsContainer.appendChild(divItem);
   }
+  return defaultGoodsContainer;
+}
 
+function createDynamicGoodsContainer(): HTMLDivElement {
   const dynamicGoodsContainer = document.createElement("div");
   dynamicGoodsContainer.id = "dynamicGoodsContainer";
   dynamicGoodsContainer.style.display = "none";
-  // dynamicGoodsContainer.style.gap = "0 15px";
   dynamicGoodsContainer.style.width = "max-content";
   dynamicGoodsContainer.style.justifyContent = "start";
+  return dynamicGoodsContainer;
+}
 
-  td4.appendChild(defaultGoodsContainer);
-  td4.appendChild(dynamicGoodsContainer);
+function addTotalRow(table: HTMLTableElement) {
+  const newRow = document.createElement("tr");
+  newRow.id = "totalRow";
+  newRow.style.background = "rgba(36, 89, 113, 1)";
+  newRow.style.height = "100px";
+
+  newRow.appendChild(createTotalCheckboxCell());
+  newRow.appendChild(createTotalLabelCell());
+
+  const td3 = document.createElement("td");
+  td3.id = "totalRessources";
+  td3.style.verticalAlign = "baseline";
+  td3.style.paddingTop = "12px";
+  td3.appendChild(createResourcesContainer());
+  newRow.appendChild(td3);
+
+  const td4 = document.createElement("td");
+  td4.id = "totalGoods";
+  td4.style.verticalAlign = "baseline";
+  td4.style.paddingTop = "12px";
+  td4.colSpan = 2;
+  td4.appendChild(createDefaultGoodsContainer());
+  td4.appendChild(createDynamicGoodsContainer());
   newRow.appendChild(td4);
 
   table.querySelector("tbody")?.appendChild(newRow);
@@ -195,16 +214,13 @@ function preloadGoodImages(table: HTMLTableElement) {
   const goodsContainer = document.getElementById("dynamicGoodsContainer");
   if (!goodsContainer) return;
 
-  // Vider le container avant de recréer la mise en page
   goodsContainer.innerHTML = "";
   goodsContainer.style.display = "grid";
 
-  // Récupérer toutes les images goods du tableau
-  const goodImages = new Map<string, string>(); // key -> src
+  const goodImages = new Map<string, string>();
   const rows = table.querySelectorAll<HTMLTableRowElement>(
     "tr:not(:first-child)"
   );
-
   rows.forEach((row) => {
     const cell = row?.cells[3];
     if (cell) {
@@ -217,64 +233,46 @@ function preloadGoodImages(table: HTMLTableElement) {
     }
   });
 
-  // Regex pour extraire catégorie et ère (ex: Primary_ME)
   const regexGood = /^(Primary|Secondary|Tertiary)_(\w{2})$/;
-
-  // Organiser les goods par ère et catégorie
-  // goodsByEra = { [abbr]: { Primary: div, Secondary: div, Tertiary: div } }
   const goodsByEra: Record<string, Record<string, HTMLDivElement>> = {};
-  // Liste des goods "autres" (hors pattern)
   const otherGoods: HTMLDivElement[] = [];
-
-  // Créer les div.good-item pour chaque good et les stocker temporairement
   const goodDivs = new Map<string, HTMLDivElement>();
 
   goodImages.forEach((src, key) => {
     const divItem = document.createElement("div");
     divItem.className = "good-item";
     divItem.id = `good-${key}`;
-    divItem.style.display = "none"; // caché par défaut
-
+    divItem.style.display = "none";
     const img = document.createElement("img");
     img.src = src;
     img.width = 25;
     img.height = 25;
     img.alt = key;
-
     const valueSpan = document.createElement("span");
     valueSpan.id = `goodValue-${key}`;
     valueSpan.textContent = " 0";
-
     divItem.appendChild(img);
     divItem.appendChild(valueSpan);
-
     goodDivs.set(key, divItem);
   });
 
-  // Identifier les ères présentes
   const erasPresent = new Set<string>();
 
-  // Classer les goods dans goodsByEra ou autres
   goodDivs.forEach((divItem, key) => {
     const match = key.match(regexGood);
     if (match) {
-      const category = match[1]; // Primary, Secondary, Tertiary
-      const abbr = match[2]; // ex ME, BA, CG
-
+      const category = match[1];
+      const abbr = match[2];
       erasPresent.add(abbr);
-
       if (!goodsByEra[abbr]) {
         goodsByEra[abbr] = {};
       }
-      // On stocke la div dans la catégorie correspondante
       goodsByEra[abbr][category] = divItem;
     } else {
-      // Good hors pattern => colonne "Autres"
       otherGoods.push(divItem);
     }
   });
 
-  // Trier les ères selon l’ordre dans constants.ts
   const eraOrder = eras.map((e) => e.abbr);
   const sortedEras = Array.from(erasPresent)
     .filter((abbr): abbr is (typeof eras)[number]["abbr"] =>
@@ -282,53 +280,41 @@ function preloadGoodImages(table: HTMLTableElement) {
     )
     .sort((a, b) => eraOrder.indexOf(a) - eraOrder.indexOf(b));
 
-  // Nombre max de lignes dans une colonne (3 max pour Primary/Secondary/Tertiary)
-  // La colonne "Autres" peut être plus longue
   let maxRows = 3;
   if (otherGoods.length > maxRows) maxRows = otherGoods.length;
 
-  // Configurer le grid CSS
   const nbColumns = sortedEras.length + (otherGoods.length > 0 ? 1 : 0);
   goodsContainer.style.display = "none";
   goodsContainer.style.gridAutoFlow = "column";
   goodsContainer.style.gridTemplateRows = `repeat(${maxRows}, auto)`;
   goodsContainer.style.gridTemplateColumns = `repeat(${nbColumns}, auto)`;
-  // goodsContainer.style.gap = "0 15px";
-  goodsContainer.style.width = "max-content";
   goodsContainer.style.justifyContent = "start";
 
-  // Fonction utilitaire pour créer une colonne div
   function createColumnDiv(abbr: string, isOther = false): HTMLDivElement {
     const colDiv = document.createElement("div");
     colDiv.className = isOther ? "colonne_autres" : `colonne_${abbr}`;
     colDiv.style.display = "block";
     colDiv.style.marginRight = "15px";
-    // colDiv.style.gridAutoFlow = "row";
     colDiv.style.gridTemplateRows = `repeat(auto-fill, auto)`;
-    // colDiv.style.rowGap = "5px";
-    // colDiv.style.justifyItems = "center";
     return colDiv;
   }
 
-  // Pour chaque ère, créer la colonne et y insérer les goods dans l'ordre Primary, Secondary, Tertiary (sans trous)
   sortedEras.forEach((abbr) => {
     const colDiv = createColumnDiv(abbr);
-    const categoriesOrder = ["Primary", "Secondary", "Tertiary"];
-    categoriesOrder.forEach((cat) => {
+    ["Primary", "Secondary", "Tertiary"].forEach((cat) => {
       const goodDiv = goodsByEra[abbr][cat];
       if (goodDiv) {
-        goodDiv.style.display = ""; // visible par défaut, masquage géré ailleurs
+        goodDiv.style.display = "";
         colDiv.appendChild(goodDiv);
       }
     });
     goodsContainer.appendChild(colDiv);
   });
 
-  // Colonne "Autres" si nécessaire
   if (otherGoods.length > 0) {
     const colDiv = createColumnDiv("autres", true);
     otherGoods.forEach((divItem) => {
-      divItem.style.display = ""; // visible par défaut, masquage géré ailleurs
+      divItem.style.display = "";
       colDiv.appendChild(divItem);
     });
     goodsContainer.appendChild(colDiv);
@@ -355,18 +341,15 @@ function updateTotalGoods(totalGoods: Record<string, { value: number }>) {
   const dynamicContainer = document.getElementById("dynamicGoodsContainer");
   if (!defaultContainer || !dynamicContainer) return;
 
-  // Si aucun good sélectionné, afficher le container par défaut
   if (Object.keys(totalGoods).length === 0) {
     defaultContainer.style.display = "block";
     dynamicContainer.style.display = "none";
     return;
   }
 
-  // Sinon, afficher le container dynamique et masquer le défaut
   defaultContainer.style.display = "none";
   dynamicContainer.style.display = "flex";
 
-  // Masquer tous les goods au départ et remettre valeur à 0
   const allGoodItems =
     dynamicContainer.querySelectorAll<HTMLElement>(".good-item");
   allGoodItems.forEach((item) => {
@@ -375,11 +358,10 @@ function updateTotalGoods(totalGoods: Record<string, { value: number }>) {
     if (valueSpan) valueSpan.textContent = " 0";
   });
 
-  // Mettre à jour uniquement les goods présents dans totalGoods
   Object.entries(totalGoods).forEach(([key, { value }]) => {
     const goodDiv = document.getElementById(`good-${key}`);
     if (goodDiv) {
-      goodDiv.style.display = ""; // Afficher (hérite du display par défaut)
+      goodDiv.style.display = "";
       const valueSpan = goodDiv.querySelector("span");
       if (valueSpan) {
         valueSpan.textContent = ` ${value.toLocaleString("en-US")}`;
@@ -400,6 +382,7 @@ function updateTotalGoods(totalGoods: Record<string, { value: number }>) {
 export function useTechno(tables: HTMLTableElement[]) {
   const technoTable = findTechnoTable(tables) as HTMLTableElement;
   if (!technoTable) return;
+
   addCheckboxColumn(technoTable);
   addTotalRow(technoTable);
   preloadGoodImages(technoTable);
@@ -424,7 +407,8 @@ export function useTechno(tables: HTMLTableElement[]) {
   const selectAllCheckbox = document.getElementById(
     "checkboxSelectAll"
   ) as HTMLInputElement | null;
-  const updateTotal = () => {
+
+  function updateTotal() {
     let totalGoods: Record<string, { value: number; src: string }> = {};
     let totalResources = { research: 0, gold: 0, food: 0 };
 
@@ -448,7 +432,7 @@ export function useTechno(tables: HTMLTableElement[]) {
     });
     updateTotalRessources(totalResources);
     updateTotalGoods(totalGoods);
-  };
+  }
 
   if (selectAllCheckbox) {
     selectAllCheckbox.addEventListener("change", () => {
@@ -459,11 +443,14 @@ export function useTechno(tables: HTMLTableElement[]) {
 
   technoTable.addEventListener("change", (event) => {
     const target = event.target as HTMLInputElement;
-    if (target.classList.contains("checkbox-selection") && selectAllCheckbox) {
-      selectAllCheckbox.checked = Array.from(checkboxes).every(
-        (cb) => cb.checked
-      );
+    if (target.classList.contains("checkbox-selection")) {
       updateTotal();
+      if (selectAllCheckbox) {
+        const allChecked = Array.from(checkboxes).every((cb) => cb.checked);
+        selectAllCheckbox.checked = allChecked;
+      }
     }
   });
+
+  updateTotal();
 }
