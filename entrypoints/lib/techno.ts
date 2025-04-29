@@ -1,3 +1,4 @@
+import { EraAbbr, eras } from "./constants";
 import { formatNumber, parseNumber } from "./utils";
 
 function findTechnoTable(tables: HTMLTableElement[]) {
@@ -14,72 +15,29 @@ function findTechnoTable(tables: HTMLTableElement[]) {
 }
 
 function addCheckboxColumn(table: HTMLTableElement) {
-  // Add "Calculator" legend in the first row
   const firstRow = table.querySelector("tr:first-child");
   if (firstRow) {
     const td = document.createElement("td");
     td.style.textAlign = "center";
     td.style.whiteSpace = "normal";
     td.textContent = "Calculator";
-    firstRow.insertBefore(td, firstRow.firstChild); // Insert the new td at the beginning of the first row
+    firstRow.insertBefore(td, firstRow.firstChild);
   }
 
-  // Add checkbox column in each row (except first row)
-  const rows = table.querySelectorAll("tr:not(:first-child)");
+  const rows = table.querySelectorAll<HTMLTableRowElement>(
+    "tr:not(:first-child)"
+  );
   rows.forEach((row) => {
     const td = document.createElement("td");
     td.style.textAlign = "center";
     td.style.whiteSpace = "normal";
-
     const checkbox = document.createElement("input");
     checkbox.type = "checkbox";
     checkbox.classList.add("checkbox-selection");
     checkbox.style.transform = "scale(1.25)";
-
-    td.appendChild(checkbox); // Append the checkbox to the new td
-    row.insertBefore(td, row.firstChild); // Insert the new td at the beginning of the row
+    td.appendChild(checkbox);
+    row.insertBefore(td, row.firstChild);
   });
-}
-
-function extractResources(row: HTMLTableRowElement) {
-  const cell = row?.cells[2];
-  if (!cell) return { research: 0, gold: 0, food: 0 };
-
-  const values: string[] = [];
-  cell.childNodes.forEach((node) => {
-    if (node.nodeType === Node.TEXT_NODE) {
-      const text = node.textContent?.trim();
-      if (text) values.push(text);
-    }
-  });
-
-  return {
-    research: parseNumber(values[0]),
-    gold: parseNumber(values[1]),
-    food: parseNumber(values[2]),
-  };
-}
-
-function extractGoods(row: HTMLTableRowElement) {
-  const cell = row?.cells[3];
-  if (!cell) return {};
-
-  let goods: Record<string, { value: number; src: string }> = {};
-
-  cell.querySelectorAll("img").forEach((img: HTMLImageElement) => {
-    const key = img.alt.trim();
-    const rawValue = img.nextSibling?.textContent?.trim().replace(/,/g, ""); // Remove commas
-    const value: number = rawValue ? parseInt(rawValue, 10) || 0 : 0;
-    const src = img.src;
-
-    if (goods[key]) {
-      goods[key].value += value;
-    } else {
-      goods[key] = { value, src };
-    }
-  });
-
-  return goods;
 }
 
 function addTotalRow(table: HTMLTableElement) {
@@ -88,21 +46,17 @@ function addTotalRow(table: HTMLTableElement) {
   newRow.style.background = "rgba(36, 89, 113, 1)";
   newRow.style.height = "100px";
 
-  // Première cellule avec la checkbox et le label
   const td1 = document.createElement("td");
   td1.style.textAlign = "center";
   td1.style.whiteSpace = "normal";
-
   const checkbox = document.createElement("input");
   checkbox.type = "checkbox";
   checkbox.id = "checkboxSelectAll";
   checkbox.name = "checkboxSelectAll";
   checkbox.style.transform = "scale(1.25)";
-
   const label = document.createElement("label");
   label.setAttribute("for", "checkboxSelectAll");
   label.textContent = "All";
-
   td1.appendChild(checkbox);
   td1.appendChild(document.createElement("br"));
   td1.appendChild(label);
@@ -116,13 +70,12 @@ function addTotalRow(table: HTMLTableElement) {
   td2.appendChild(document.createTextNode("Selection"));
   newRow.appendChild(td2);
 
-  // Troisième cellule avec images et totaux
   const td3 = document.createElement("td");
   td3.id = "totalRessources";
+  td3.style.verticalAlign = "baseline";
+  td3.style.paddingTop = "12px";
 
-  // Créer les éléments de ressources avec des spans pour les valeurs
   const resourcesContainer = document.createElement("div");
-
   const researchDiv = document.createElement("div");
   const researchImg = document.createElement("img");
   researchImg.alt = "PR";
@@ -165,22 +118,19 @@ function addTotalRow(table: HTMLTableElement) {
   td3.appendChild(resourcesContainer);
   newRow.appendChild(td3);
 
-  // Quatrième cellule avec la section des biens
   const td4 = document.createElement("td");
   td4.id = "totalGoods";
+  td4.style.verticalAlign = "baseline";
+  td4.style.paddingTop = "12px";
   td4.colSpan = 2;
 
-  // Conteneur pour les biens par défaut
   const defaultGoodsContainer = document.createElement("div");
   defaultGoodsContainer.id = "defaultGoodsContainer";
-  defaultGoodsContainer.style.display = "grid";
-  defaultGoodsContainer.style.gridAutoFlow = "column";
-  defaultGoodsContainer.style.gridTemplateRows = "repeat(3, auto)";
-  defaultGoodsContainer.style.gap = "0 15px";
+  defaultGoodsContainer.style.display = "block";
+  // defaultGoodsContainer.style.gap = "0 15px";
   defaultGoodsContainer.style.width = "max-content";
   defaultGoodsContainer.style.justifyContent = "start";
 
-  // Ajouter les biens par défaut
   for (let i = 0; i < 3; i++) {
     const divItem = document.createElement("div");
     const img = document.createElement("img");
@@ -192,13 +142,10 @@ function addTotalRow(table: HTMLTableElement) {
     defaultGoodsContainer.appendChild(divItem);
   }
 
-  // Conteneur pour les biens dynamiques (initialement caché)
   const dynamicGoodsContainer = document.createElement("div");
   dynamicGoodsContainer.id = "dynamicGoodsContainer";
-  dynamicGoodsContainer.style.display = "none"; // Caché par défaut
-  dynamicGoodsContainer.style.gridAutoFlow = "column";
-  dynamicGoodsContainer.style.gridTemplateRows = "repeat(3, auto)";
-  dynamicGoodsContainer.style.gap = "0 15px";
+  dynamicGoodsContainer.style.display = "none";
+  // dynamicGoodsContainer.style.gap = "0 15px";
   dynamicGoodsContainer.style.width = "max-content";
   dynamicGoodsContainer.style.justifyContent = "start";
 
@@ -206,23 +153,60 @@ function addTotalRow(table: HTMLTableElement) {
   td4.appendChild(dynamicGoodsContainer);
   newRow.appendChild(td4);
 
-  // Ajoute la nouvelle ligne dans le tbody de la table
   table.querySelector("tbody")?.appendChild(newRow);
 }
 
-// Fonction pour précharger toutes les images de biens possibles
+function extractResources(row: HTMLTableRowElement) {
+  const cell = row?.cells[2];
+  if (!cell) return { research: 0, gold: 0, food: 0 };
+  const values: string[] = [];
+  cell.childNodes.forEach((node) => {
+    if (node.nodeType === Node.TEXT_NODE) {
+      const text = node.textContent?.trim();
+      if (text) values.push(text);
+    }
+  });
+  return {
+    research: parseNumber(values[0]),
+    gold: parseNumber(values[1]),
+    food: parseNumber(values[2]),
+  };
+}
+
+function extractGoods(row: HTMLTableRowElement) {
+  const cell = row?.cells[3];
+  if (!cell) return {};
+  let goods: Record<string, { value: number; src: string }> = {};
+  cell.querySelectorAll("img").forEach((img: HTMLImageElement) => {
+    const key = img.alt.trim();
+    const rawValue = img.nextSibling?.textContent?.trim().replace(/,/g, "");
+    const value: number = rawValue ? parseInt(rawValue, 10) || 0 : 0;
+    const src = img.src;
+    if (goods[key]) {
+      goods[key].value += value;
+    } else {
+      goods[key] = { value, src };
+    }
+  });
+  return goods;
+}
+
 function preloadGoodImages(table: HTMLTableElement) {
   const goodsContainer = document.getElementById("dynamicGoodsContainer");
   if (!goodsContainer) return;
 
-  // Collecter toutes les images uniques de biens dans le tableau
-  const goodImages = new Map<string, string>(); // Map pour stocker alt -> src
+  // Vider le container avant de recréer la mise en page
+  goodsContainer.innerHTML = "";
+  goodsContainer.style.display = "grid";
 
+  // Récupérer toutes les images goods du tableau
+  const goodImages = new Map<string, string>(); // key -> src
   const rows = table.querySelectorAll<HTMLTableRowElement>(
     "tr:not(:first-child)"
   );
+
   rows.forEach((row) => {
-    const cell = row?.cells[3]; // Cellule des biens
+    const cell = row?.cells[3];
     if (cell) {
       cell.querySelectorAll("img").forEach((img: HTMLImageElement) => {
         const key = img.alt.trim();
@@ -233,12 +217,23 @@ function preloadGoodImages(table: HTMLTableElement) {
     }
   });
 
-  // Créer des éléments div pour chaque bien, mais les cacher
+  // Regex pour extraire catégorie et ère (ex: Primary_ME)
+  const regexGood = /^(Primary|Secondary|Tertiary)_(\w{2})$/;
+
+  // Organiser les goods par ère et catégorie
+  // goodsByEra = { [abbr]: { Primary: div, Secondary: div, Tertiary: div } }
+  const goodsByEra: Record<string, Record<string, HTMLDivElement>> = {};
+  // Liste des goods "autres" (hors pattern)
+  const otherGoods: HTMLDivElement[] = [];
+
+  // Créer les div.good-item pour chaque good et les stocker temporairement
+  const goodDivs = new Map<string, HTMLDivElement>();
+
   goodImages.forEach((src, key) => {
     const divItem = document.createElement("div");
     divItem.className = "good-item";
     divItem.id = `good-${key}`;
-    divItem.style.display = "none"; // Caché par défaut
+    divItem.style.display = "none"; // caché par défaut
 
     const img = document.createElement("img");
     img.src = src;
@@ -252,8 +247,92 @@ function preloadGoodImages(table: HTMLTableElement) {
 
     divItem.appendChild(img);
     divItem.appendChild(valueSpan);
-    goodsContainer.appendChild(divItem);
+
+    goodDivs.set(key, divItem);
   });
+
+  // Identifier les ères présentes
+  const erasPresent = new Set<string>();
+
+  // Classer les goods dans goodsByEra ou autres
+  goodDivs.forEach((divItem, key) => {
+    const match = key.match(regexGood);
+    if (match) {
+      const category = match[1]; // Primary, Secondary, Tertiary
+      const abbr = match[2]; // ex ME, BA, CG
+
+      erasPresent.add(abbr);
+
+      if (!goodsByEra[abbr]) {
+        goodsByEra[abbr] = {};
+      }
+      // On stocke la div dans la catégorie correspondante
+      goodsByEra[abbr][category] = divItem;
+    } else {
+      // Good hors pattern => colonne "Autres"
+      otherGoods.push(divItem);
+    }
+  });
+
+  // Trier les ères selon l’ordre dans constants.ts
+  const eraOrder = eras.map((e) => e.abbr);
+  const sortedEras = Array.from(erasPresent)
+    .filter((abbr): abbr is (typeof eras)[number]["abbr"] =>
+      eras.some((e) => e.abbr === abbr)
+    )
+    .sort((a, b) => eraOrder.indexOf(a) - eraOrder.indexOf(b));
+
+  // Nombre max de lignes dans une colonne (3 max pour Primary/Secondary/Tertiary)
+  // La colonne "Autres" peut être plus longue
+  let maxRows = 3;
+  if (otherGoods.length > maxRows) maxRows = otherGoods.length;
+
+  // Configurer le grid CSS
+  const nbColumns = sortedEras.length + (otherGoods.length > 0 ? 1 : 0);
+  goodsContainer.style.display = "none";
+  goodsContainer.style.gridAutoFlow = "column";
+  goodsContainer.style.gridTemplateRows = `repeat(${maxRows}, auto)`;
+  goodsContainer.style.gridTemplateColumns = `repeat(${nbColumns}, auto)`;
+  // goodsContainer.style.gap = "0 15px";
+  goodsContainer.style.width = "max-content";
+  goodsContainer.style.justifyContent = "start";
+
+  // Fonction utilitaire pour créer une colonne div
+  function createColumnDiv(abbr: string, isOther = false): HTMLDivElement {
+    const colDiv = document.createElement("div");
+    colDiv.className = isOther ? "colonne_autres" : `colonne_${abbr}`;
+    colDiv.style.display = "block";
+    colDiv.style.marginRight = "15px";
+    // colDiv.style.gridAutoFlow = "row";
+    colDiv.style.gridTemplateRows = `repeat(auto-fill, auto)`;
+    // colDiv.style.rowGap = "5px";
+    // colDiv.style.justifyItems = "center";
+    return colDiv;
+  }
+
+  // Pour chaque ère, créer la colonne et y insérer les goods dans l'ordre Primary, Secondary, Tertiary (sans trous)
+  sortedEras.forEach((abbr) => {
+    const colDiv = createColumnDiv(abbr);
+    const categoriesOrder = ["Primary", "Secondary", "Tertiary"];
+    categoriesOrder.forEach((cat) => {
+      const goodDiv = goodsByEra[abbr][cat];
+      if (goodDiv) {
+        goodDiv.style.display = ""; // visible par défaut, masquage géré ailleurs
+        colDiv.appendChild(goodDiv);
+      }
+    });
+    goodsContainer.appendChild(colDiv);
+  });
+
+  // Colonne "Autres" si nécessaire
+  if (otherGoods.length > 0) {
+    const colDiv = createColumnDiv("autres", true);
+    otherGoods.forEach((divItem) => {
+      divItem.style.display = ""; // visible par défaut, masquage géré ailleurs
+      colDiv.appendChild(divItem);
+    });
+    goodsContainer.appendChild(colDiv);
+  }
 }
 
 function updateTotalRessources(totalRessources: {
@@ -264,7 +343,6 @@ function updateTotalRessources(totalRessources: {
   const researchTotal = document.getElementById("researchTotal");
   const goldTotal = document.getElementById("goldTotal");
   const foodTotal = document.getElementById("foodTotal");
-
   if (researchTotal) researchTotal.textContent = ` ${totalRessources.research}`;
   if (goldTotal)
     goldTotal.textContent = ` ${formatNumber(totalRessources.gold)}`;
@@ -272,66 +350,67 @@ function updateTotalRessources(totalRessources: {
     foodTotal.textContent = ` ${formatNumber(totalRessources.food)}`;
 }
 
-function updateTotalGoods(
-  totalGoods: Record<string, { value: number; src: string }>
-) {
+function updateTotalGoods(totalGoods: Record<string, { value: number }>) {
   const defaultContainer = document.getElementById("defaultGoodsContainer");
   const dynamicContainer = document.getElementById("dynamicGoodsContainer");
-
   if (!defaultContainer || !dynamicContainer) return;
 
-  // Si aucun bien n'est sélectionné, afficher les biens par défaut
+  // Si aucun good sélectionné, afficher le container par défaut
   if (Object.keys(totalGoods).length === 0) {
-    defaultContainer.style.display = "grid";
+    defaultContainer.style.display = "block";
     dynamicContainer.style.display = "none";
     return;
   }
 
-  // Sinon, cacher les biens par défaut et afficher les biens dynamiques
+  // Sinon, afficher le container dynamique et masquer le défaut
   defaultContainer.style.display = "none";
-  dynamicContainer.style.display = "grid";
+  dynamicContainer.style.display = "flex";
 
-  // Détermine le nombre de biens à afficher (> 0)
-  const nbGoods = Object.keys(totalGoods).length;
-  dynamicContainer.style.gridTemplateRows =
-    nbGoods > 18 ? "repeat(4, auto)" : "repeat(3, auto)";
-
-  // Réinitialiser tous les éléments à "display: none"
-  const allGoodItems = dynamicContainer.querySelectorAll(".good-item");
+  // Masquer tous les goods au départ et remettre valeur à 0
+  const allGoodItems =
+    dynamicContainer.querySelectorAll<HTMLElement>(".good-item");
   allGoodItems.forEach((item) => {
-    (item as HTMLElement).style.display = "none";
+    item.style.display = "none";
+    const valueSpan = item.querySelector("span");
+    if (valueSpan) valueSpan.textContent = " 0";
   });
 
-  // Afficher et mettre à jour uniquement les biens avec une valeur > 0
-  Object.keys(totalGoods).forEach((key) => {
-    const { value } = totalGoods[key];
-    const goodElement = document.getElementById(`good-${key}`);
-
-    if (goodElement && value > 0) {
-      goodElement.style.display = "block";
-      const valueSpan = document.getElementById(`goodValue-${key}`);
+  // Mettre à jour uniquement les goods présents dans totalGoods
+  Object.entries(totalGoods).forEach(([key, { value }]) => {
+    const goodDiv = document.getElementById(`good-${key}`);
+    if (goodDiv) {
+      goodDiv.style.display = ""; // Afficher (hérite du display par défaut)
+      const valueSpan = goodDiv.querySelector("span");
       if (valueSpan) {
         valueSpan.textContent = ` ${value.toLocaleString("en-US")}`;
       }
     }
   });
+
+  dynamicContainer
+    .querySelectorAll<HTMLDivElement>("div[class^='colonne_']")
+    .forEach((colDiv) => {
+      const visibleGoods = Array.from(
+        colDiv.querySelectorAll<HTMLElement>(".good-item")
+      ).some((item) => item.style.display !== "none");
+      colDiv.style.display = visibleGoods ? "block" : "none";
+    });
 }
 
-// Use
 export function useTechno(tables: HTMLTableElement[]) {
   const technoTable = findTechnoTable(tables) as HTMLTableElement;
   if (!technoTable) return;
-
   addCheckboxColumn(technoTable);
   addTotalRow(technoTable);
   preloadGoodImages(technoTable);
 
-  // Stocker les données extraites pour chaque ligne
   const rowData = new Map<
     HTMLTableRowElement,
     { resourceData: any; goodsData: any }
   >();
-  const rows = technoTable.querySelectorAll("tr:not(:first-child)");
+  const rows = technoTable.querySelectorAll<HTMLTableRowElement>(
+    "tr:not(:first-child)"
+  );
   rows.forEach((row) => {
     const tr = row as HTMLTableRowElement;
     const resourceData = extractResources(tr);
@@ -345,7 +424,6 @@ export function useTechno(tables: HTMLTableElement[]) {
   const selectAllCheckbox = document.getElementById(
     "checkboxSelectAll"
   ) as HTMLInputElement | null;
-
   const updateTotal = () => {
     let totalGoods: Record<string, { value: number; src: string }> = {};
     let totalResources = { research: 0, gold: 0, food: 0 };
@@ -368,7 +446,6 @@ export function useTechno(tables: HTMLTableElement[]) {
         }
       }
     });
-
     updateTotalRessources(totalResources);
     updateTotalGoods(totalGoods);
   };
