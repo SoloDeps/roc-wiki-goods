@@ -75,7 +75,6 @@ export default function BuildingSelector({
       <img src={`../../assets/goods/good_tailor.webp`} alt="" />
       <h2 className="block text-xs font-medium text-gray-900">{title}</h2>
       <div className="flex space-x-4 pt-3 pb-4">
-
         {/* Dropdown primary */}
         <div>
           <label
@@ -135,7 +134,7 @@ export default function BuildingSelector({
                   <ListboxOption
                     key={name}
                     value={name}
-                    className="group flex cursor-default items-center gap-2 rounded px-3 py-1.5 select-none data-focus:bg-blue-100"
+                    className="group flex cursor-default items-center gap-2 rounded px-2 py-1.5 select-none data-focus:bg-blue-100"
                   >
                     <img src={getGoodsImg(name)} alt="" className="size-5" />
                     <div className="text-xs text-gray-900">{name}</div>
@@ -215,7 +214,7 @@ export default function BuildingSelector({
                   <ListboxOption
                     key={name}
                     value={name}
-                    className="group flex cursor-default items-center gap-2 rounded px-3 py-1.5 select-none data-focus:bg-blue-100"
+                    className="group flex cursor-default items-center gap-2 rounded px-2 py-1.5 select-none data-focus:bg-blue-100"
                   >
                     <img src={getGoodsImg(name)} alt="" className="size-5" />
                     <div className="text-xs text-gray-900">{name}</div>
@@ -247,7 +246,7 @@ export default function BuildingSelector({
           >
             Tertiary
           </label>
-          
+
           <div className="relative mt-1 w-44 select-none">
             <div className="flex items-center gap-2 mt-1 w-44 h-8 rounded-md border-0 py-1.5 pl-2.5 text-xs text-gray-900 ring-1 ring-inset ring-gray-300 select-none">
               {tertiary ? (
