@@ -62,17 +62,14 @@ export default function BuildingSelector({
     const ter = getTertiaryOptions()[0] || "";
     setTertiary(ter);
     updateSelections(primary, secondary, ter);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [secondary]);
 
   useEffect(() => {
     updateSelections(primary, secondary, tertiary);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [primary]);
 
   return (
     <div className="pt-3 not-last:border-b border-neutral-300">
-      <img src={`../../assets/goods/good_tailor.webp`} alt="" />
       <h2 className="block text-xs font-medium text-gray-900">{title}</h2>
       <div className="flex space-x-4 pt-3 pb-4">
         {/* Dropdown primary */}
@@ -100,12 +97,14 @@ export default function BuildingSelector({
                       <img
                         src={getGoodsImg(primary)}
                         alt=""
-                        className="size-5"
+                        className="size-5 select-none pointer-events-none"
                       />
-                      <span>{primary}</span>
+                      <span className="select-none">{primary}</span>
                     </>
                   ) : (
-                    <span className="text-gray-400">Select Primary</span>
+                    <span className="text-gray-400 select-none">
+                      Select Primary
+                    </span>
                   )}
                 </span>
                 <svg
@@ -136,7 +135,11 @@ export default function BuildingSelector({
                     value={name}
                     className="group flex cursor-default items-center gap-2 rounded px-2 py-1.5 select-none data-focus:bg-blue-100"
                   >
-                    <img src={getGoodsImg(name)} alt="" className="size-5" />
+                    <img
+                      src={getGoodsImg(name)}
+                      alt=""
+                      className="size-5 select-none pointer-events-none"
+                    />
                     <div className="text-xs text-gray-900">{name}</div>
                     <svg
                       fill="currentColor"
@@ -180,12 +183,14 @@ export default function BuildingSelector({
                       <img
                         src={getGoodsImg(secondary)}
                         alt=""
-                        className="size-5"
+                        className="size-5 select-none pointer-events-none"
                       />
-                      <span>{secondary}</span>
+                      <span className="select-none">{secondary}</span>
                     </>
                   ) : (
-                    <span className="text-gray-400">Select Secondary</span>
+                    <span className="text-gray-400 select-none">
+                      Select Secondary
+                    </span>
                   )}
                 </span>
                 <svg
@@ -216,7 +221,11 @@ export default function BuildingSelector({
                     value={name}
                     className="group flex cursor-default items-center gap-2 rounded px-2 py-1.5 select-none data-focus:bg-blue-100"
                   >
-                    <img src={getGoodsImg(name)} alt="" className="size-5" />
+                    <img
+                      src={getGoodsImg(name)}
+                      alt=""
+                      className="size-5 select-none pointer-events-none"
+                    />
                     <div className="text-xs text-gray-900">{name}</div>
                     <svg
                       fill="currentColor"
@@ -247,29 +256,25 @@ export default function BuildingSelector({
             Tertiary
           </label>
 
-          <div className="relative mt-1 w-44 select-none">
+          <div className="relative mt-1 w-44">
             <div className="flex items-center gap-2 mt-1 w-44 h-8 rounded-md border-0 py-1.5 pl-2.5 text-xs text-gray-900 ring-1 ring-inset ring-gray-300 select-none">
               {tertiary ? (
                 <>
-                  <img src={getGoodsImg(tertiary)} alt="" className="size-5" />
+                  <img
+                    src={getGoodsImg(tertiary)}
+                    alt=""
+                    className="size-5 select-none pointer-events-none"
+                  />{" "}
                 </>
               ) : null}
-              <input
-                id={`tertiary-${index}`}
-                value={tertiary}
-                placeholder="Select Tertiary"
-                disabled
-                onPaste={(e) => {
-                  e.preventDefault();
-                  return false;
-                }}
-                onCopy={(e) => {
-                  e.preventDefault();
-                  return false;
-                }}
-                className="bg-transparent border-none outline-none flex-1 text-xs text-gray-900 select-none"
-                style={{ minWidth: 0 }}
-              />
+              <div
+                className={clsx(
+                  "bg-transparent border-none outline-none flex-1 text-xs",
+                  tertiary ? "text-gray-900" : "text-gray-400"
+                )}
+              >
+                {tertiary || "Select Tertiary"}
+              </div>
             </div>
           </div>
         </div>

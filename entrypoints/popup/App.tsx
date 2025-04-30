@@ -61,7 +61,7 @@ function App() {
   }
 
   return (
-    <div className="p-4 w-[600px]">
+    <div className="p-4">
       <div className="pb-3  text-[13px]">
         Fill the dropdowns to display icons on the wiki based on your game info.
         <br />
