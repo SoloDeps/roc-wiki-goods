@@ -93,7 +93,7 @@ export default function BuildingSelector({
             }}
           >
             <div className="relative mt-1 w-44">
-              <ListboxButton className="block w-44 rounded-md border-0 py-1.5 pl-2.5 text-xs text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-blue-500 sm:text-sm sm:leading-6">
+              <ListboxButton className="block w-44 h-8 rounded-md border-0 py-1.5 pl-2.5 text-xs text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-blue-500 sm:text-sm sm:leading-6">
                 <span className="flex items-center gap-2">
                   {primary ? (
                     <>

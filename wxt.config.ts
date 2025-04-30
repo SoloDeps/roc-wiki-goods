@@ -9,7 +9,7 @@ export default defineConfig({
     plugins: [tailwindcss()],
   }),
   manifest: {
-    version: "1.0.1",
+    version: "1.0.2",
     name: "RoC Wiki Goods",
     description: "Show item icons based on user info and tech calculator on RoC Wiki.gg",
     permissions: ["storage", "activeTab"],
