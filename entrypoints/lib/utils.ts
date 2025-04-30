@@ -1,4 +1,5 @@
 import { buildingsAbbr, DEFAULT_IMG_URL, goodsUrlByEra } from "./constants";
+import { assetGoods, defaultGood } from "./images";
 
 export function getBuildingFromLocal(
   priority: string,
@@ -134,9 +135,9 @@ export function getTitlePage(): [string | null, string | null, string | null] {
   const span = heading.querySelector("span");
   if (!span || !span.textContent) return [null, null, null];
 
-  const parts = span.textContent.split("/").map(part =>
-    part.trim().toLowerCase().replace(/\s+/g, "_")
-  );
+  const parts = span.textContent
+    .split("/")
+    .map((part) => part.trim().toLowerCase().replace(/\s+/g, "_"));
 
   const mainSection = parts[0] || null;
   const subSection = parts[1] || null;
@@ -154,4 +155,10 @@ export function getClosestLowerOrEqualMaxQty(
   if (validLevels.length === 0) return 1; // fallback par défaut
   const closest = Math.max(...validLevels);
   return levelMaxQty[closest];
+}
+
+export function getGoodsImg(buildingName: string) {
+  const nameFormatted = buildingName.toLowerCase().replace(/[^\w-]/g, "_");
+
+  return assetGoods[nameFormatted] || defaultGood;
 }

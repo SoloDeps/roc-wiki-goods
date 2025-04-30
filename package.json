@@ -2,7 +2,7 @@
   "name": "roc-wiki-goods",
   "description": "manifest.json description",
   "private": true,
-  "version": "1.0.0",
+  "version": "1.0.1",
   "type": "module",
   "scripts": {
     "dev": "wxt",
@@ -15,7 +15,9 @@
     "postinstall": "wxt prepare"
   },
   "dependencies": {
+    "@headlessui/react": "^2.2.2",
     "@tailwindcss/vite": "^4.0.14",
+    "clsx": "^2.1.1",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "tailwindcss": "^4.0.14"

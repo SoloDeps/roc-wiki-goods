@@ -1,3 +1,5 @@
+export type EraAbbr = (typeof eras)[number]["abbr"];
+
 export const WIKI_URL = "riseofcultures.wiki.gg";
 
 export const eras = [
@@ -32,19 +34,6 @@ export const buildingsAbbr = [
   //   abbreviations: ["EG"],
   // },
 ];
-
-export type EraAbbr = (typeof eras)[number]["abbr"];
-type BuildingItems = {
-  tailor?: string;
-  stone_mason?: string;
-  artisan?: string;
-  scribe?: string;
-  carpenter?: string;
-  spice_merchant?: string;
-  // jeweler?: string;
-  // alchemist?: string;
-  // glassblower?: string;
-};
 
 export const DEFAULT_IMG_URL = "/images/thumb/3/36/Goods.png/25px-Goods.png";
 

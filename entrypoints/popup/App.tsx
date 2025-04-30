@@ -61,14 +61,20 @@ function App() {
   }
 
   return (
-    <div className="p-4">
+    <div className="p-4 w-[600px]">
       <div className="pb-3  text-[13px]">
         Fill the dropdowns to display icons on the wiki based on your game info.
         <br />
         How to find your primary, secondary, and tertiary workshop?{" "}
         <a
-          href="https://riseofcultures.wiki.gg/wiki/Goods"
+          href="#"
           className="text-blue-600 hover:underline cursor-pointer transition duration-200"
+          onClick={async (e) => {
+            e.preventDefault();
+            await browser.tabs.update({
+              url: "https://riseofcultures.wiki.gg/wiki/Goods#Primary_Goods",
+            });
+          }}
         >
           Check here.
         </a>
