@@ -214,7 +214,7 @@ function preloadGoodImages(table: HTMLTableElement) {
   const goodsContainer = document.getElementById("dynamicGoodsContainer");
   if (!goodsContainer) return;
 
-  goodsContainer.innerHTML = "";
+  goodsContainer.replaceChildren();
   goodsContainer.style.display = "grid";
 
   const goodImages = new Map<string, string>();
