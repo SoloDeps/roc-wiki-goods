@@ -162,3 +162,35 @@ export function getGoodsImg(buildingName: string) {
 
   return assetGoods[nameFormatted] || defaultGood;
 }
+
+export function getTablesAfterSections(
+  sectionIds: string[]
+): HTMLTableElement[] {
+  const tables: HTMLTableElement[] = [];
+
+  sectionIds.forEach((sectionId) => {
+    // 1. Trouver le <span id="...">
+    const span = document.getElementById(sectionId);
+    if (!span) return;
+
+    // 2. Remonter au <h2> parent
+    const h2 = span.closest("h2");
+    if (!h2) return;
+
+    // 3. Parcourir les siblings suivants du <h2>
+    let sibling = h2.nextElementSibling;
+    while (sibling) {
+      // Cherche une table imbriquée dans ce sibling
+      const table = sibling.querySelector(
+        "table.article-table"
+      ) as HTMLTableElement | null;
+      if (table) {
+        tables.push(table);
+        break; // On s'arrête au premier tableau trouvé après ce h2
+      }
+      sibling = sibling.nextElementSibling;
+    }
+  });
+
+  return tables;
+}

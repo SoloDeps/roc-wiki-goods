@@ -1,7 +1,11 @@
 import { storage } from "wxt/storage";
 import { useTechno } from "./lib/techno";
 import { useUpgrade } from "./lib/upgrade";
-import { replaceTextByImage, isValidData } from "./lib/utils";
+import {
+  replaceTextByImage,
+  isValidData,
+  getTablesAfterSections,
+} from "./lib/utils";
 
 export default defineContentScript({
   matches: ["*://*.riseofcultures.wiki.gg/*"],
@@ -42,9 +46,8 @@ export default defineContentScript({
 
     // ========= Techno/Upgrade Part =========
 
-    const tables = Array.from(
-      document.querySelectorAll("table.article-table")
-    ) as HTMLTableElement[];
+    // Utilisation :
+    const tables = getTablesAfterSections(["Construction", "Upgrade"]);
 
     useTechno(tables);
     useUpgrade(tables, primaryWorkshops);
