@@ -5,6 +5,7 @@ import {
   limitPrimaryWorkshop,
 } from "./constants";
 import {
+  findPreviousH2SpanWithId,
   formatNumber,
   getClosestLowerOrEqualMaxQty,
   getTitlePage,
@@ -388,7 +389,25 @@ export function useUpgrade(
   tables: HTMLTableElement[],
   primaryWorkshops: string[]
 ) {
-  const timeTables = findTimeTables(tables);
+  const targetIds = ["Construction", "Upgrade"];
+
+  const tablesWithMatchingSection = tables.filter((table) => {
+    const span = findPreviousH2SpanWithId(table);
+    return span && targetIds.includes(span.id);
+  });
+
+  // const tablesWithMatchingSection = tables.filter((table) => {
+  //   const span = findPreviousH2SpanWithId(table);
+  //   if (!span) return false;
+
+  //   // Vérifie si span.id commence par un des targetIds, avec suffixe optionnel
+  //   return targetIds.some((targetId) => {
+  //     const regex = new RegExp(`^${targetId}(_\\d+)?$`);
+  //     return regex.test(span.id);
+  //   });
+  // });
+
+  const timeTables = findTimeTables(tablesWithMatchingSection);
   if (timeTables.length === 0) return;
 
   addMultiplicatorColumn(timeTables, primaryWorkshops);

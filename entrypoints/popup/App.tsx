@@ -27,7 +27,8 @@ function App() {
   }, []);
 
   if (loading) {
-    return <div className="p-4">Chargement...</div>;
+    return
+    // return <div className="p-4">Chargement...</div>;
   }
 
   if (!isAllowedSite) {
@@ -62,7 +63,7 @@ function App() {
 
   return (
     <div className="p-4">
-      <div className="pb-3  text-[13px]">
+      <div className="pb-3 text-[13px]">
         Fill the dropdowns to display icons on the wiki based on your game info.
         <br />
         How to find your primary, secondary, and tertiary workshop?{" "}

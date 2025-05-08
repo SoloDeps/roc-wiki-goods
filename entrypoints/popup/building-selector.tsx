@@ -8,12 +8,6 @@ import {
 } from "@headlessui/react";
 import clsx from "clsx";
 import { getGoodsImg } from "../lib/utils";
-import { EraAbbr } from "../lib/constants";
-
-import wool from "~/assets/goods/good_tailor.webp";
-
-const fixedImageUrl =
-  "https://riseofcultures.wiki.gg/images/thumb/3/34/Wool.png/25px-Wool.png?3068f5";
 
 type BuildingSelectorType = {
   title: string;
@@ -58,6 +52,12 @@ export default function BuildingSelector({
       ? buildings.filter((name) => name !== primary && name !== secondary)
       : [];
 
+  const resetAllFields = () => {
+    setPrimary("");
+    setSecondary("");
+    setTertiary("");
+  };
+
   useEffect(() => {
     const ter = getTertiaryOptions()[0] || "";
     setTertiary(ter);
@@ -70,7 +70,35 @@ export default function BuildingSelector({
 
   return (
     <div className="pt-3 not-last:border-b border-neutral-300">
-      <h2 className="block text-xs font-medium text-gray-900">{title}</h2>
+      {/* title + reset button */}
+      <div className="flex justify-between items-center h-4">
+        <h2 className="block text-xs font-medium text-gray-900">{title}</h2>
+        {primary && (
+          <button
+            className="flex gap-1.5 items-center cursor-pointer text-gray-400"
+            onClick={() => resetAllFields()}
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              className="size-3.5"
+            >
+              <path d="M21 12a9 9 0 1 1-9-9c2.52 0 4.93 1 6.74 2.74L21 8" />
+              <path d="M21 3v5h-5" />
+            </svg>
+            <span>Reset</span>
+          </button>
+        )}
+      </div>
+
+      {/* Dropdowns */}
       <div className="flex space-x-4 pt-3 pb-4">
         {/* Dropdown primary */}
         <div>

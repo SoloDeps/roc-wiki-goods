@@ -163,34 +163,22 @@ export function getGoodsImg(buildingName: string) {
   return assetGoods[nameFormatted] || defaultGood;
 }
 
-export function getTablesAfterSections(
-  sectionIds: string[]
-): HTMLTableElement[] {
-  const tables: HTMLTableElement[] = [];
+export function findPreviousH2SpanWithId(
+  element: Element
+): HTMLSpanElement | null {
+  let current: Element | null = element;
 
-  sectionIds.forEach((sectionId) => {
-    // 1. Trouver le <span id="...">
-    const span = document.getElementById(sectionId);
-    if (!span) return;
-
-    // 2. Remonter au <h2> parent
-    const h2 = span.closest("h2");
-    if (!h2) return;
-
-    // 3. Parcourir les siblings suivants du <h2>
-    let sibling = h2.nextElementSibling;
-    while (sibling) {
-      // Cherche une table imbriquée dans ce sibling
-      const table = sibling.querySelector(
-        "table.article-table"
-      ) as HTMLTableElement | null;
-      if (table) {
-        tables.push(table);
-        break; // On s'arrête au premier tableau trouvé après ce h2
+  while (current) {
+    let prev = current.previousElementSibling;
+    while (prev) {
+      if (prev.tagName === "H2") {
+        // Cherche un <span id="..."> dans ce <h2>
+        const span = prev.querySelector("span[id]");
+        if (span) return span as HTMLSpanElement;
       }
-      sibling = sibling.nextElementSibling;
+      prev = prev.previousElementSibling;
     }
-  });
-
-  return tables;
+    current = current.parentElement;
+  }
+  return null;
 }
