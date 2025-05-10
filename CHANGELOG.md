@@ -5,6 +5,26 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## v1.0.6 - May 10, 2025
+
+### Added
+
+- Add `getTitlePage` function in `techno.ts` for "home_cultures" page only.
+
+## v1.0.5 - May 8, 2025
+
+### Added
+
+- Add reset button in popup.
+
+### Changed
+
+- Update unwatch function in content.ts.
+
+### Fixed
+
+- Replace `getTablesAfterSections` by `findPreviousH2SpanWithId` in constant.ts.
+
 ## v1.0.5 - May 8, 2025
 
 ### Added

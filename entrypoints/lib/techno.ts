@@ -1,7 +1,11 @@
 import { eras } from "./constants";
-import { formatNumber, parseNumber } from "./utils";
+import { formatNumber, getTitlePage, parseNumber } from "./utils";
 
 function findTechnoTable(tables: HTMLTableElement[]) {
+  // Récupère les infos dans le title de la page
+  const [mainSection] = getTitlePage();
+  if (mainSection !== "home_cultures") return;
+
   for (let i = 0; i < tables.length; i++) {
     const firstCell = tables[i].querySelector("tr > td");
     if (
