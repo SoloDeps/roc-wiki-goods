@@ -70,10 +70,17 @@ function createTotalCheckboxCell(): HTMLTableCellElement {
 function createTotalLabelCell(): HTMLTableCellElement {
   const td = document.createElement("td");
   td.style.textAlign = "center";
-  td.style.fontWeight = "bold";
-  td.appendChild(document.createTextNode("Total"));
+  td.style.fontWeight = "500";
+  const span = document.createElement("span");
+  span.id = "counterSelection";
+  span.textContent = "0";
+  span.style.fontSize = "15px";
+  td.appendChild(span);
   td.appendChild(document.createElement("br"));
-  td.appendChild(document.createTextNode("Selection"));
+  const span2 = document.createElement("span");
+  span2.textContent = "Selected";
+  span2.style.fontSize = "14px";
+  td.appendChild(span2);
   return td;
 }
 
@@ -383,6 +390,11 @@ function updateTotalGoods(totalGoods: Record<string, { value: number }>) {
     });
 }
 
+function updateTotalSelected(totalSelected: number) {
+  const counterSelection = document.getElementById("counterSelection");
+  if (counterSelection) counterSelection.textContent = totalSelected.toString();
+}
+
 export function useTechno(tables: HTMLTableElement[]) {
   const technoTable = findTechnoTable(tables) as HTMLTableElement;
   if (!technoTable) return;
@@ -415,6 +427,7 @@ export function useTechno(tables: HTMLTableElement[]) {
   function updateTotal() {
     let totalGoods: Record<string, { value: number; src: string }> = {};
     let totalResources = { research: 0, gold: 0, food: 0 };
+    let totalSelected = 0;
 
     checkboxes.forEach((checkbox) => {
       if (checkbox.checked) {
@@ -431,9 +444,11 @@ export function useTechno(tables: HTMLTableElement[]) {
               totalGoods[key] = { ...goodsData[key] };
             }
           });
+          totalSelected++;
         }
       }
     });
+    updateTotalSelected(totalSelected);
     updateTotalRessources(totalResources);
     updateTotalGoods(totalGoods);
   }

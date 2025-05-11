@@ -10,6 +10,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - Add `getTitlePage` function in `techno.ts` for "home_cultures" page only.
+- Add `counterSelection` span in total row in `techno.ts`.
+- Add `updateCounterSelection` function in `techno.ts`.
 
 ## v1.0.5 - May 8, 2025
 
