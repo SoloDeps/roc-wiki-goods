@@ -75,11 +75,12 @@ function createTotalLabelCell(): HTMLTableCellElement {
   span.id = "counterSelection";
   span.textContent = "0";
   span.style.fontSize = "15px";
+  span.style.display = "block";
+  span.style.marginBottom = "-4px";
   td.appendChild(span);
-  td.appendChild(document.createElement("br"));
   const span2 = document.createElement("span");
-  span2.textContent = "Selected";
-  span2.style.fontSize = "14px";
+  span2.textContent = "selected";
+  span2.style.fontSize = "15px";
   td.appendChild(span2);
   return td;
 }

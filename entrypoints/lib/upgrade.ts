@@ -389,7 +389,10 @@ export function useUpgrade(
   tables: HTMLTableElement[],
   primaryWorkshops: string[]
 ) {
+  const [mainSection] = getTitlePage();
   const targetIds = ["Construction", "Upgrade"];
+
+  if (mainSection !== "home_cultures" && mainSection !== "allied_cultures") return;
 
   const tablesWithMatchingSection = tables.filter((table) => {
     const span = findPreviousH2SpanWithId(table);

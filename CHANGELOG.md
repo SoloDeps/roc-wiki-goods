@@ -5,11 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## v1.0.6 - May 10, 2025
+## v1.0.6 - May 18, 2025
 
 ### Added
 
-- Add `getTitlePage` function in `techno.ts` for "home_cultures" page only.
+- Add warning text in popup.
+- Add `getTitlePage` function in `upgrade.ts` for "home_cultures" & "allied_cultures" pages only.
 - Add `counterSelection` span in total row in `techno.ts`.
 - Add `updateCounterSelection` function in `techno.ts`.
 

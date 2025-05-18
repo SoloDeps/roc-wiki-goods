@@ -27,8 +27,7 @@ function App() {
   }, []);
 
   if (loading) {
-    return
-    // return <div className="p-4">Chargement...</div>;
+    return <div className="p-4">Loading...</div>;
   }
 
   if (!isAllowedSite) {
@@ -64,9 +63,10 @@ function App() {
   return (
     <div className="p-4">
       <div className="pb-3 text-[13px]">
-        Fill the dropdowns to display icons on the wiki based on your game info.
+        Fill in the dropdowns to display the icons on the wiki based on your
+        game data.
         <br />
-        How to find your primary, secondary, and tertiary workshop?{" "}
+        Not sure how to find your primary, secondary and tertiary workshop?{" "}
         <a
           href="#"
           className="text-blue-600 hover:underline cursor-pointer transition duration-200"
@@ -80,6 +80,11 @@ function App() {
           Check here.
         </a>
       </div>
+
+      <div className="flex gap-1.5 py-1 text-[13px] italic">
+        <span className="font-semibold">Warning:</span>All dropdowns must be filled to display the icons correctly.
+      </div>
+
       {buildingsAbbr.map((group, index) => (
         <BuildingSelector
           key={index}
