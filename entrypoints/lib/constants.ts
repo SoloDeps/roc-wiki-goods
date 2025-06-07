@@ -3,6 +3,7 @@ export type EraAbbr = (typeof eras)[number]["abbr"];
 export const WIKI_URL = "riseofcultures.wiki.gg";
 
 export const eras = [
+  { name: "Stone Age", abbr: "SA" },
   { name: "Bronze Age", abbr: "BA" },
   { name: "Minoan Era", abbr: "ME" },
   { name: "Classical Greece", abbr: "CG" },
@@ -21,7 +22,7 @@ export const buildingsAbbr = [
   {
     title: "Bronze Age ~ Roman Empire",
     buildings: ["Tailor", "Stone Mason", "Artisan"],
-    abbreviations: ["BA", "ME", "CG", "ER", "RE"],
+    abbreviations: ["SA", "BA", "ME", "CG", "ER", "RE"],
   },
   {
     title: "Byzantine Era ~ High Middle Ages",
@@ -38,6 +39,20 @@ export const buildingsAbbr = [
 export const DEFAULT_IMG_URL = "/images/thumb/3/36/Goods.png/25px-Goods.png";
 
 export const goodsUrlByEra = new Map<EraAbbr, Map<string, string>>([
+  [
+    "SA",
+    new Map([
+      ["tailor", "/images/thumb/3/34/Wool.png/25px-Wool.png"],
+      [
+        "stone_mason",
+        "/images/thumb/6/6e/Alabaster_Idol.png/25px-Alabaster_Idol.png",
+      ],
+      [
+        "artisan",
+        "/images/thumb/3/3c/Bronze_Bracelet.png/25px-Bronze_Bracelet.png",
+      ],
+    ]),
+  ],
   [
     "BA",
     new Map([

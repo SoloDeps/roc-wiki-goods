@@ -2,6 +2,8 @@ import { storage } from "wxt/storage";
 import { useTechno } from "./lib/techno";
 import { useUpgrade } from "./lib/upgrade";
 import { replaceTextByImage, isValidData } from "./lib/utils";
+import { useWonders } from "./lib/wonders";
+import { useBuilding } from "./lib/building";
 
 export default defineContentScript({
   matches: ["*://*.riseofcultures.wiki.gg/*"],
@@ -13,8 +15,10 @@ export default defineContentScript({
     );
 
     let primaryWorkshops: string[] = [];
+    let storedBuildings: string[][] = [];
     if (storedData && isValidData(storedData)) {
       const buildings: string[][] = JSON.parse(storedData);
+      storedBuildings = buildings;
       primaryWorkshops = buildings.map((subArray) => subArray[0]);
       replaceTextByImage(buildings);
     }
@@ -69,5 +73,7 @@ export default defineContentScript({
 
     useTechno(tables);
     useUpgrade(tables, primaryWorkshops);
+    useWonders(tables);
+    useBuilding(storedBuildings);
   },
 });
