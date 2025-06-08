@@ -13,6 +13,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Add `updateImageSrcByAlt` function in `building.ts`.
 - Add `SA` in goodsUrlByEra in `constants.ts`.
 
+### Changed
+
+- Update error message in `popup.tsx`.
+- Add redirect to wiki in `popup.tsx`.
+
 ## v1.0.6 - May 18, 2025
 
 ### Added

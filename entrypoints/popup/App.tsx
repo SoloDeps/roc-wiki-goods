@@ -52,7 +52,19 @@ function App() {
           </div>
           <div className="ml-1.5">
             <h3 className="text-sm font-medium">
-              The extension is not available on this website.
+              This extension only works on:{" "}
+              <a
+                href="#"
+                className="text-red-700 underline cursor-pointer transition duration-200"
+                onClick={async (e) => {
+                  e.preventDefault();
+                  await browser.tabs.create({
+                    url: "https://" + WIKI_URL,
+                  });
+                }}
+              >
+                {WIKI_URL}
+              </a>
             </h3>
           </div>
         </div>
@@ -82,7 +94,8 @@ function App() {
       </div>
 
       <div className="flex gap-1.5 py-1 text-[13px] italic">
-        <span className="font-semibold">Warning:</span>All dropdowns must be filled to display the icons correctly.
+        <span className="font-semibold">Warning:</span>All dropdowns must be
+        filled to display the icons correctly.
       </div>
 
       {buildingsAbbr.map((group, index) => (
