@@ -30,7 +30,7 @@ export const buildingsAbbr = [
     abbreviations: ["BE", "AF", "FA", "IE", "KS", "HM"],
   },
   // {
-  // title: "Early Gothic",
+  //   title: "Early Gothic",
   //   buildings: ["Jeweler", "Alchemist", "Glassblower"],
   //   abbreviations: ["EG"],
   // },
@@ -159,12 +159,9 @@ export const goodsUrlByEra = new Map<EraAbbr, Map<string, string>>([
   // [
   //   "EG",
   //   new Map([
-  //     ["jeweler", "/images/thumb/2/2a/Grimoire.png/25px-Grimoire.png"],
-  //     [
-  //       "alchemist",
-  //       "/images/thumb/8/85/Secretary_Desk.png/25px-Secretary_Desk.png",
-  //     ],
-  //     ["glassblower", "/images/thumb/1/1b/Cinnamon.png/25px-Cinnamon.png"],
+  //     ["jeweler", "/images/thumb/a/af/Fine_Jewelry.png/120px-Fine_Jewelry.png"],
+  //     ["alchemist", "/images/thumb/5/5c/Ointment.png/120px-Ointment.png"],
+  //     ["glassblower", "/images/thumb/e/e2/Lead_Glass.png/120px-Lead_Glass.png"],
   //   ]),
   // ],
 ]);
@@ -231,4 +228,8 @@ export const limitPrimaryWorkshop = [
     abbrev: "HM",
     maxQty: 4,
   },
+  // {
+  //   abbrev: "EG",
+  //   maxQty: 4,
+  // },
 ];
