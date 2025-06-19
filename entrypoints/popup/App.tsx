@@ -52,7 +52,7 @@ function App() {
           </div>
           <div className="ml-1.5">
             <h3 className="text-sm font-medium">
-              This extension only works on:{" "}
+              The extension can only be opened on{" "}
               <a
                 href="#"
                 className="text-red-700 underline cursor-pointer transition duration-200"
@@ -64,7 +64,7 @@ function App() {
                 }}
               >
                 {WIKI_URL}
-              </a>
+              </a>.
             </h3>
           </div>
         </div>

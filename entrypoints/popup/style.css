@@ -4,11 +4,11 @@ html, body, #root {
   /* height: 100%; */
   /* min-height: 100%; */
   width: auto;
-  min-width: 400px;
+  min-width: 500px;
 }
 
 #root {
-  min-width: 400px;
+  min-width: 500px;
 }
 
 .popup {
