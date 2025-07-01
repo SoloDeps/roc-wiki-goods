@@ -396,6 +396,38 @@ function updateTotalSelected(totalSelected: number) {
   if (counterSelection) counterSelection.textContent = totalSelected.toString();
 }
 
+function updateTotal(
+  checkboxes: NodeListOf<HTMLInputElement>,
+  rowData: Map<HTMLTableRowElement, { resourceData: any; goodsData: any }>
+) {
+  let totalGoods: Record<string, { value: number; src: string }> = {};
+  let totalResources = { research: 0, gold: 0, food: 0 };
+  let totalSelected = 0;
+
+  checkboxes.forEach((checkbox) => {
+    if (checkbox.checked) {
+      const row = checkbox.closest("tr") as HTMLTableRowElement;
+      if (row && rowData.has(row)) {
+        const { resourceData, goodsData } = rowData.get(row)!;
+        totalResources.research += resourceData.research;
+        totalResources.gold += resourceData.gold;
+        totalResources.food += resourceData.food;
+        Object.keys(goodsData).forEach((key) => {
+          if (totalGoods[key]) {
+            totalGoods[key].value += goodsData[key].value;
+          } else {
+            totalGoods[key] = { ...goodsData[key] };
+          }
+        });
+        totalSelected++;
+      }
+    }
+  });
+  updateTotalSelected(totalSelected);
+  updateTotalRessources(totalResources);
+  updateTotalGoods(totalGoods);
+}
+
 export function useTechno(tables: HTMLTableElement[]) {
   const technoTable = findTechnoTable(tables) as HTMLTableElement;
   if (!technoTable) return;
@@ -418,53 +450,24 @@ export function useTechno(tables: HTMLTableElement[]) {
     rowData.set(tr, { resourceData, goodsData });
   });
 
-  const checkboxes = technoTable.querySelectorAll<HTMLInputElement>(
+  const checkboxes = technoTable.querySelectorAll(
     ".checkbox-selection"
-  );
+  ) as NodeListOf<HTMLInputElement>;
   const selectAllCheckbox = document.getElementById(
     "checkboxSelectAll"
   ) as HTMLInputElement | null;
 
-  function updateTotal() {
-    let totalGoods: Record<string, { value: number; src: string }> = {};
-    let totalResources = { research: 0, gold: 0, food: 0 };
-    let totalSelected = 0;
-
-    checkboxes.forEach((checkbox) => {
-      if (checkbox.checked) {
-        const row = checkbox.closest("tr") as HTMLTableRowElement;
-        if (row && rowData.has(row)) {
-          const { resourceData, goodsData } = rowData.get(row)!;
-          totalResources.research += resourceData.research;
-          totalResources.gold += resourceData.gold;
-          totalResources.food += resourceData.food;
-          Object.keys(goodsData).forEach((key) => {
-            if (totalGoods[key]) {
-              totalGoods[key].value += goodsData[key].value;
-            } else {
-              totalGoods[key] = { ...goodsData[key] };
-            }
-          });
-          totalSelected++;
-        }
-      }
-    });
-    updateTotalSelected(totalSelected);
-    updateTotalRessources(totalResources);
-    updateTotalGoods(totalGoods);
-  }
-
   if (selectAllCheckbox) {
     selectAllCheckbox.addEventListener("change", () => {
       checkboxes.forEach((cb) => (cb.checked = selectAllCheckbox.checked));
-      updateTotal();
+      updateTotal(checkboxes, rowData);
     });
   }
 
   technoTable.addEventListener("change", (event) => {
     const target = event.target as HTMLInputElement;
     if (target.classList.contains("checkbox-selection")) {
-      updateTotal();
+      updateTotal(checkboxes, rowData);
       if (selectAllCheckbox) {
         const allChecked = Array.from(checkboxes).every((cb) => cb.checked);
         selectAllCheckbox.checked = allChecked;
@@ -472,5 +475,5 @@ export function useTechno(tables: HTMLTableElement[]) {
     }
   });
 
-  updateTotal();
+  updateTotal(checkboxes, rowData);
 }
