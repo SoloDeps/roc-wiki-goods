@@ -73,7 +73,7 @@ export default defineContentScript({
 
     useTechno(tables);
     useUpgrade(tables, primaryWorkshops);
-    useWonders(tables);
     useBuilding(storedBuildings);
+    useWonders(tables);
   },
 });

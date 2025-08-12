@@ -106,6 +106,7 @@ function createResourceDiv(
 
 function createResourcesContainer(): HTMLDivElement {
   const container = document.createElement("div");
+  container.style.textAlign = "left";
   container.appendChild(
     createResourceDiv(
       "PR",
@@ -136,6 +137,7 @@ function createDefaultGoodsContainer(): HTMLDivElement {
   defaultGoodsContainer.style.display = "block";
   defaultGoodsContainer.style.width = "max-content";
   defaultGoodsContainer.style.justifyContent = "start";
+  defaultGoodsContainer.style.textAlign = "left";
 
   for (let i = 0; i < 3; i++) {
     const divItem = document.createElement("div");
@@ -156,6 +158,7 @@ function createDynamicGoodsContainer(): HTMLDivElement {
   dynamicGoodsContainer.style.display = "none";
   dynamicGoodsContainer.style.width = "max-content";
   dynamicGoodsContainer.style.justifyContent = "start";
+  dynamicGoodsContainer.style.textAlign = "left";
   return dynamicGoodsContainer;
 }
 
@@ -348,7 +351,7 @@ function updateTotalRessources(totalRessources: {
     foodTotal.textContent = ` ${formatNumber(totalRessources.food)}`;
 }
 
-function updateTotalGoods(totalGoods: Record<string, { value: number }>) {
+export function updateTotalGoods(totalGoods: Record<string, { value: number }>) {
   const defaultContainer = document.getElementById("defaultGoodsContainer");
   const dynamicContainer = document.getElementById("dynamicGoodsContainer");
   if (!defaultContainer || !dynamicContainer) return;
@@ -391,7 +394,7 @@ function updateTotalGoods(totalGoods: Record<string, { value: number }>) {
     });
 }
 
-function updateTotalSelected(totalSelected: number) {
+export function updateTotalSelected(totalSelected: number) {
   const counterSelection = document.getElementById("counterSelection");
   if (counterSelection) counterSelection.textContent = totalSelected.toString();
 }

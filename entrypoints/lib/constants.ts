@@ -15,7 +15,7 @@ export const eras = [
   { name: "Iberian Era", abbr: "IE" },
   { name: "Kingdom of Sicily", abbr: "KS" },
   { name: "High Middle Ages", abbr: "HM" },
-  // { name: "Early Gothic", abbr: "EG" },
+  { name: "Early Gothic", abbr: "EG" },
 ] as const;
 
 export const buildingsAbbr = [
@@ -29,11 +29,11 @@ export const buildingsAbbr = [
     buildings: ["Scribe", "Carpenter", "Spice Merchant"],
     abbreviations: ["BE", "AF", "FA", "IE", "KS", "HM"],
   },
-  // {
-  //   title: "Early Gothic",
-  //   buildings: ["Jeweler", "Alchemist", "Glassblower"],
-  //   abbreviations: ["EG"],
-  // },
+  {
+    title: "Early Gothic",
+    buildings: ["Jeweler", "Alchemist", "Glassblower"],
+    abbreviations: ["EG"],
+  },
 ];
 
 export const DEFAULT_IMG_URL = "/images/thumb/3/36/Goods.png/25px-Goods.png";
@@ -156,14 +156,14 @@ export const goodsUrlByEra = new Map<EraAbbr, Map<string, string>>([
       ["spice_merchant", "/images/thumb/1/1b/Cinnamon.png/25px-Cinnamon.png"],
     ]),
   ],
-  // [
-  //   "EG",
-  //   new Map([
-  //     ["jeweler", "/images/thumb/a/af/Fine_Jewelry.png/120px-Fine_Jewelry.png"],
-  //     ["alchemist", "/images/thumb/5/5c/Ointment.png/120px-Ointment.png"],
-  //     ["glassblower", "/images/thumb/e/e2/Lead_Glass.png/120px-Lead_Glass.png"],
-  //   ]),
-  // ],
+  [
+    "EG",
+    new Map([
+      ["jeweler", "/images/thumb/a/af/Fine_Jewelry.png/120px-Fine_Jewelry.png"],
+      ["alchemist", "/images/thumb/5/5c/Ointment.png/120px-Ointment.png"],
+      ["glassblower", "/images/thumb/e/e2/Lead_Glass.png/120px-Lead_Glass.png"],
+    ]),
+  ],
 ]);
 
 export const formatColumns = [
@@ -228,8 +228,8 @@ export const limitPrimaryWorkshop = [
     abbrev: "HM",
     maxQty: 4,
   },
-  // {
-  //   abbrev: "EG",
-  //   maxQty: 4,
-  // },
+  {
+    abbrev: "EG",
+    maxQty: 4,
+  },
 ];
