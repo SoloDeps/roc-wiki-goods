@@ -1,4 +1,10 @@
 export type EraAbbr = (typeof eras)[number]["abbr"];
+export type alliedCity =
+  | "egypt"
+  | "china"
+  | "maya_empire"
+  | "viking_kingdom"
+  | "arabia";
 
 export const WIKI_URL = "riseofcultures.wiki.gg";
 
@@ -181,55 +187,269 @@ export const formatColumns = [
   // eg_food_allied
 ];
 
-export const skipColumns = ["level", "time", "max qty", "culture", "gallery"];
+export const skipColumns = ["level", "time", "max qty", "culture", "gallery", "size"];
 
-export const limitPrimaryWorkshop = [
-  {
-    abbrev: "BA",
-    maxQty: 1,
-  },
-  {
-    abbrev: "ME",
-    maxQty: 2,
-  },
-  {
-    abbrev: "CG",
-    maxQty: 3,
-  },
-  {
-    abbrev: "ER",
-    maxQty: 4,
-  },
-  {
-    abbrev: "RE",
-    maxQty: 4,
-  },
-  {
-    abbrev: "BE",
-    maxQty: 4,
-  },
-  {
-    abbrev: "AF",
-    maxQty: 4,
-  },
-  {
-    abbrev: "FA",
-    maxQty: 4,
-  },
-  {
-    abbrev: "IE",
-    maxQty: 4,
-  },
-  {
-    abbrev: "KS",
-    maxQty: 4,
-  },
-  {
-    abbrev: "HM",
-    maxQty: 4,
-  },
-  {
-    abbrev: "EG",
-    maxQty: 4,
-  },
+export const luxuriousBuilding = [
+  "luxurious_home",
+  "luxurious_farm",
+  "luxurious_culture_site",
 ];
+
+export const skipBuildingLimit = [
+  "ranged_barracks",
+  "siege_barracks",
+  "cavalry_barracks",
+  "heavy_infantry_barracks",
+  "large_culture_site",
+];
+
+export const limitCapitalBuildingsByEra: Record<
+  EraAbbr,
+  Record<string, number>
+> = {
+  SA: {
+    domestic_farm: 2,
+    rural_farm: 3,
+    small_home: 7,
+    compact_culture_site: 4,
+    moderate_culture_site: 2,
+    infantry_barracks: 2,
+  },
+  BA: {
+    domestic_farm: 3,
+    rural_farm: 4,
+    small_home: 12,
+    average_home: 2,
+    little_culture_site: 3,
+    compact_culture_site: 5,
+    moderate_culture_site: 2,
+    infantry_barracks: 2,
+    workshops: 1,
+  },
+  ME: {
+    domestic_farm: 4,
+    rural_farm: 5,
+    small_home: 14,
+    average_home: 4,
+    little_culture_site: 4,
+    compact_culture_site: 6,
+    moderate_culture_site: 3,
+    infantry_barracks: 2,
+    workshops: 2,
+  },
+  CG: {
+    domestic_farm: 5,
+    rural_farm: 7,
+    small_home: 18,
+    average_home: 5,
+    little_culture_site: 4,
+    compact_culture_site: 7,
+    moderate_culture_site: 3,
+    infantry_barracks: 2,
+    workshops: 3,
+  },
+  ER: {
+    domestic_farm: 6,
+    rural_farm: 8,
+    small_home: 20,
+    average_home: 6,
+    little_culture_site: 5,
+    compact_culture_site: 8,
+    moderate_culture_site: 3,
+    infantry_barracks: 2,
+    workshops: 4,
+  },
+  RE: {
+    domestic_farm: 7,
+    rural_farm: 9,
+    small_home: 22,
+    average_home: 7,
+    little_culture_site: 6,
+    compact_culture_site: 8,
+    moderate_culture_site: 4,
+    infantry_barracks: 2,
+    workshops: 4,
+  },
+  BE: {
+    domestic_farm: 8,
+    rural_farm: 9,
+    small_home: 24,
+    average_home: 8,
+    little_culture_site: 7,
+    compact_culture_site: 9,
+    moderate_culture_site: 4,
+    infantry_barracks: 2,
+    workshops: 4,
+  },
+  AF: {
+    domestic_farm: 8,
+    rural_farm: 10,
+    small_home: 25,
+    average_home: 9,
+    little_culture_site: 7,
+    compact_culture_site: 9,
+    moderate_culture_site: 4,
+    infantry_barracks: 2,
+    workshops: 4,
+  },
+  FA: {
+    domestic_farm: 9,
+    rural_farm: 10,
+    small_home: 26,
+    average_home: 10,
+    little_culture_site: 7,
+    compact_culture_site: 9,
+    moderate_culture_site: 4,
+    infantry_barracks: 2,
+    workshops: 4,
+  },
+  IE: {
+    domestic_farm: 9,
+    rural_farm: 11,
+    small_home: 27,
+    average_home: 11,
+    little_culture_site: 7,
+    compact_culture_site: 9,
+    moderate_culture_site: 4,
+    infantry_barracks: 2,
+    workshops: 4,
+  },
+  KS: {
+    domestic_farm: 10,
+    rural_farm: 11,
+    small_home: 28,
+    average_home: 12,
+    little_culture_site: 7,
+    compact_culture_site: 9,
+    moderate_culture_site: 5,
+    infantry_barracks: 2,
+    workshops: 4,
+  },
+  HM: {
+    domestic_farm: 10,
+    rural_farm: 12,
+    small_home: 29,
+    average_home: 13,
+    little_culture_site: 8,
+    compact_culture_site: 9,
+    moderate_culture_site: 5,
+    infantry_barracks: 2,
+    workshops: 4,
+  },
+  EG: {
+    domestic_farm: 11,
+    rural_farm: 13,
+    small_home: 30,
+    average_home: 14,
+    little_culture_site: 9,
+    compact_culture_site: 9,
+    moderate_culture_site: 6,
+    infantry_barracks: 2,
+    workshops: 5,
+    shipyard: 5,
+    seafarer_house: 8,
+    common_warehouse: 3,
+  },
+};
+
+export const limitLuxuriousBuildingsByEra: Record<
+  EraAbbr,
+  Record<string, number>
+> = {
+  SA: { luxurious_home: 2, luxurious_farm: 1, luxurious_culture_site: 2 },
+  BA: { luxurious_home: 4, luxurious_farm: 3, luxurious_culture_site: 2 },
+  ME: { luxurious_home: 5, luxurious_farm: 4, luxurious_culture_site: 3 },
+  CG: { luxurious_home: 6, luxurious_farm: 4, luxurious_culture_site: 4 },
+  ER: { luxurious_home: 7, luxurious_farm: 5, luxurious_culture_site: 5 },
+  RE: { luxurious_home: 8, luxurious_farm: 6, luxurious_culture_site: 6 },
+  BE: { luxurious_home: 9, luxurious_farm: 7, luxurious_culture_site: 6 },
+  AF: { luxurious_home: 9, luxurious_farm: 7, luxurious_culture_site: 7 },
+  FA: { luxurious_home: 9, luxurious_farm: 7, luxurious_culture_site: 7 },
+  IE: { luxurious_home: 10, luxurious_farm: 8, luxurious_culture_site: 7 },
+  KS: { luxurious_home: 11, luxurious_farm: 8, luxurious_culture_site: 8 },
+  HM: { luxurious_home: 12, luxurious_farm: 8, luxurious_culture_site: 8 },
+  EG: { luxurious_home: 12, luxurious_farm: 8, luxurious_culture_site: 8, luxurious_seafarer_house: 2, large_warehouse: 2 },
+};
+
+// Merge CapitalBuildings and LuxuriousBuildings
+export const limitAllBuildingsByEra: Record<
+  EraAbbr,
+  Record<string, number>
+> = Object.fromEntries(
+  Object.keys({
+    ...limitCapitalBuildingsByEra,
+    ...limitLuxuriousBuildingsByEra,
+  }).map((era) => [
+    era,
+    {
+      ...limitCapitalBuildingsByEra[era as EraAbbr],
+      ...limitLuxuriousBuildingsByEra[era as EraAbbr],
+    },
+  ])
+) as Record<EraAbbr, Record<string, number>>;
+
+export const limitAlliedBuildingsByEra: Record<
+  alliedCity,
+  Record<string, Partial<Record<EraAbbr, number>>>
+> = {
+  egypt: {
+    small_home: { ME: 8, CG: 12 },
+    average_home: { ME: 4, CG: 6 },
+    luxurious_home: { ME: 4, CG: 8 },
+    papyrus_field: { ME: 2, CG: 4 },
+    luxurious_papyrus_field: { ME: 1, CG: 3 },
+    gold_mine: { ME: 2, CG: 4 },
+    luxurious_gold_mine: { ME: 1, CG: 3 },
+    papyrus_press: { ME: 2, CG: 3 },
+    goldsmith: { ME: 2, CG: 3 },
+    irrigation: { ME: 6, CG: 7 },
+  },
+  china: {
+    small_home: { ER: 15, RE: 25 },
+    average_home: { ER: 5, RE: 8 },
+    luxurious_home: { ER: 5, RE: 11 },
+    rice_farm: { ER: 6, RE: 12 },
+    luxurious_rice_farm: { ER: 4, RE: 8 },
+    workshops: { ER: 2, RE: 4 },
+  },
+  maya_empire: {
+    worker_home: { BE: 15, AF: 23 },
+    priest_home: { BE: 6, AF: 13 },
+    luxurious_home: { BE: 5, AF: 5 },
+    obsidian_quarry: { BE: 3, AF: 5 },
+    jade_quarry: { BE: 3, AF: 5 },
+    luxurious_quarry: { BE: 2, AF: 2 },
+    average_aviary: { AF: 4 },
+    luxurious_aviary: { AF: 1 },
+    chronicler: { BE: 2, AF: 2 },
+    mask_sculptor: { BE: 2, AF: 2 },
+    ceremony_outfitter: { AF: 2 },
+    ritual_carver: { AF: 3 },
+    luxurious_workshop: { BE: 2, AF: 2 },
+    ritual_sites: { BE: 7 },
+  },
+  viking_kingdom: {
+    worker_home: { FA: 15, IE: 30 },
+    sailor_home: { FA: 10, IE: 20 },
+    luxurious_home: { FA: 5, IE: 10 },
+    beehive: { FA: 11, IE: 21 },
+    fishing_pier: { FA: 6, IE: 11 },
+    luxurious_fishing_pier: { FA: 6, IE: 6 },
+    tavern: { FA: 5, IE: 9 },
+    expedition_pier: { FA: 3, IE: 3 },
+    sailor_port: { IE: 3 },
+    luxurious_sailor_port: { FA: 4, IE: 4 },
+  },
+  arabia: {
+    medium_home: { KS: 13, HM: 26 },
+    luxurious_home: { KS: 6, HM: 6 },
+    merchant: { KS: 8, HM: 16 },
+    luxurious_merchant: { KS: 4, HM: 4 },
+    camel_farm: { KS: 5, HM: 10 },
+    coffee_brewer: { KS: 2, HM: 2 },
+    incense_maker: { KS: 2, HM: 2 },
+    carpet_factory: { HM: 2 },
+    oil_lamp_crafter: { HM: 2 },
+    luxurious_workshop: { KS: 2, HM: 2 },
+  },
+};

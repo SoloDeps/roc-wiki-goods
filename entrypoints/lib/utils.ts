@@ -112,18 +112,22 @@ export function replaceTextByImage(buildings: string[][]): void {
 export function parseNumber(value: string) {
   if (!value || !/\d/.test(value)) return 0;
 
-  let number = parseFloat(value.replace(/[^\d.]/g, ""));
-  if (value.includes("K")) number *= 1000;
-  if (value.includes("M")) number *= 1000000;
+  // Nettoyage : enlever espaces et virgules
+  let clean = value.replace(/[, ]/g, "").toUpperCase();
+
+  let number = parseFloat(clean.replace(/[^\d.]/g, "")); 
+
+  if (clean.includes("K")) number *= 1000;
+  if (clean.includes("M")) number *= 1000000;
 
   return isNaN(number) ? 0 : number;
 }
 
 export function formatNumber(value: number) {
-  if (value >= 1000000) {
-    return (value / 1000000).toFixed(1).replace(/\.0$/, "") + " M";
-  } else if (value >= 1000) {
-    return (value / 1000).toFixed(1).replace(/\.0$/, "") + " K";
+  if (value >= 1_000_000) {
+    return (value / 1_000_000).toLocaleString("en-US", { maximumFractionDigits: 1 }).replace(/\.0$/, "") + " M";
+  } else if (value >= 1_000) {
+    return (value / 1_000).toLocaleString("en-US", { maximumFractionDigits: 1 }).replace(/\.0$/, "") + " K";
   }
   return value.toString();
 }
@@ -171,7 +175,7 @@ export function findPreviousH2SpanWithId(
   while (current) {
     let prev = current.previousElementSibling;
     while (prev) {
-      if (prev.tagName === "H2") {
+      if (prev.tagName === "H2" || prev.tagName === "H3") {
         // Cherche un <span id="..."> dans ce <h2>
         const span = prev.querySelector("span[id]");
         if (span) return span as HTMLSpanElement;
@@ -181,4 +185,34 @@ export function findPreviousH2SpanWithId(
     current = current.parentElement;
   }
   return null;
+}
+
+export function filterTables(
+  tables: HTMLTableElement[],
+  targetIds: string[]
+): { element: HTMLTableElement; type: string }[] {
+  // Normalise les targetIds en minuscule
+  const lowerTargetIds = targetIds.map((id) => id.toLowerCase());
+
+  return tables
+    .map((table) => {
+      const span = findPreviousH2SpanWithId(table);
+      if (!span) return null;
+
+      const spanId = span.id.toLowerCase();
+
+      // Vérifie si span.id correspond à un des targetIds (avec suffixe _2, _3…)
+      const match = lowerTargetIds.find((targetId) => {
+        const regex = new RegExp(`^${targetId}(_\\d+)?$`);
+        return regex.test(spanId);
+      });
+
+      if (!match) return null;
+
+      return {
+        element: table,
+        type: match, // toujours en minuscule
+      };
+    })
+    .filter((item): item is { element: HTMLTableElement; type: string } => item !== null);
 }

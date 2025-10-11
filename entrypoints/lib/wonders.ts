@@ -13,7 +13,12 @@ export type ColumnsInfos = {
 Creation Part
 =========== */
 
-function createSelect(idName: string, labelName: string) {
+function createSelect(
+  idName: string,
+  labelName: string,
+  minOpt: number,
+  maxOpt: number
+) {
   // Créer un conteneur pour regrouper label + select
   const wrapper = document.createElement("div");
 
@@ -27,8 +32,8 @@ function createSelect(idName: string, labelName: string) {
   const select = document.createElement("select");
   select.id = idName;
 
-  // Ajouter les options de 1 à 30
-  for (let i = 1; i <= 30; i++) {
+  // Ajouter les options de minOpt à maxOpt
+  for (let i = minOpt; i <= maxOpt; i++) {
     const option = document.createElement("option");
     option.value = i.toString();
     option.textContent = i.toString();
@@ -135,8 +140,8 @@ function createTotalSelectionCell(nbColumns: number): HTMLTableCellElement {
   divSelect.style.gap = "20px";
   divSelect.style.marginTop = "10px";
 
-  divSelect.appendChild(createSelect("minSelect", "From"));
-  divSelect.appendChild(createSelect("maxSelect", "To"));
+  divSelect.appendChild(createSelect("minSelect", "From", 0, 29));
+  divSelect.appendChild(createSelect("maxSelect", "To", 1, 30));
 
   td.appendChild(divLine);
   td.appendChild(divSelect);
@@ -496,30 +501,30 @@ function syncMinMaxSelects(
 ): { min: number; max: number } | null {
   if (!minSelect || !maxSelect) return null;
 
+  // Parse the current selected values
   const minValue = parseInt(minSelect.value, 10);
   let maxValue = parseInt(maxSelect.value, 10);
 
-  if (maxValue < minValue) {
-    maxValue = minValue;
-    maxSelect.value = minValue.toString();
+  // Ensure maxValue is at least minValue + 1
+  if (maxValue <= minValue) {
+    maxValue = minValue + 1;
   }
 
+  // Remove all existing options in maxSelect
   while (maxSelect.firstChild) {
     maxSelect.removeChild(maxSelect.firstChild);
   }
 
-  for (let i = minValue; i <= 30; i++) {
+  // Rebuild options for maxSelect starting from minValue + 1 up to 30
+  for (let i = minValue + 1; i <= 30; i++) {
     const option = document.createElement("option");
     option.value = i.toString();
     option.textContent = i.toString();
     maxSelect.appendChild(option);
   }
 
-  if (maxValue >= minValue && maxValue <= 30) {
-    maxSelect.value = maxValue.toString();
-  } else {
-    maxSelect.value = minValue.toString();
-  }
+  // Set maxSelect's value to maxValue (clamp if it exceeds 30)
+  maxSelect.value = maxValue <= 30 ? maxValue.toString() : "30";
 
   return { min: minValue, max: maxValue };
 }
@@ -544,7 +549,7 @@ function updateCheckboxSelectAll(
 ) {
   if (!checkboxSelectAll) return;
   checkboxSelectAll.checked =
-    minSelect.value === "1" && maxSelect.value === "30";
+    minSelect.value === "0" && maxSelect.value === "30";
 }
 
 function extractData(
@@ -727,7 +732,7 @@ function updateTotalRow(
     { resourceData: any; prData: any; tokensData: any; goodsData: any }
   >
 ) {
-  const selectedRows = Array.from(rowData.values()).slice(min - 1, max);
+  const selectedRows = Array.from(rowData.values()).slice(min, max);
   let totalGoods: Record<string, { value: number; src: string }> = {};
 
   const totalRow = selectedRows.reduce(
@@ -833,7 +838,7 @@ export function useWonders(tables: HTMLTableElement[]) {
 
   const syncAndUpdate = () => {
     const result = syncMinMaxSelects(minSelect, maxSelect);
-    updateCheckboxSelectAll(minSelect, maxSelect, checkboxSelectAll);
+    updateCheckboxSelectAll(minSelect, maxSelect, checkboxSelectAll); //0 - 30
     if (result) {
       updateTotalRow(result.min, result.max, rowData);
     }
@@ -844,9 +849,9 @@ export function useWonders(tables: HTMLTableElement[]) {
 
   checkboxSelectAll.addEventListener("change", (e) => {
     if ((e.target as HTMLInputElement).checked) {
-      updateMinMaxSelect(minSelect, maxSelect, "1", "30");
+      updateMinMaxSelect(minSelect, maxSelect, "0", "30");
     } else {
-      updateMinMaxSelect(minSelect, maxSelect, "1", "1");
+      updateMinMaxSelect(minSelect, maxSelect, "0", "1");
     }
   });
 

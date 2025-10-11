@@ -2,170 +2,104 @@ import {
   formatColumns,
   eras,
   skipColumns,
-  limitPrimaryWorkshop,
+  EraAbbr,
+  skipBuildingLimit,
+  limitAlliedBuildingsByEra,
+  alliedCity,
+  limitAllBuildingsByEra,
 } from "./constants";
 import {
+  filterTables,
   findPreviousH2SpanWithId,
   formatNumber,
-  getClosestLowerOrEqualMaxQty,
   getTitlePage,
   parseNumber,
 } from "./utils";
 
-function findTimeTables(tables: HTMLTableElement[]): HTMLTableElement[] {
-  const matchingTables: HTMLTableElement[] = [];
+interface TableInfo {
+  element: HTMLTableElement;
+  type: string;
+}
 
-  for (let i = 0; i < tables.length; i++) {
-    const firstRow = tables[i].querySelector("tr");
-    if (!firstRow) continue;
+function detectEraRow(
+  row: HTMLTableRowElement,
+  eras: readonly { name: string; abbr: string }[]
+): string | null {
+  const cells = Array.from(row.cells);
 
-    const cells = firstRow.querySelectorAll("td");
-    for (let j = 0; j < cells.length; j++) {
-      const cellText = cells[j].textContent?.trim();
-      if (cellText === "Time") {
-        matchingTables.push(tables[i]);
-        break; // On a trouvé, inutile de continuer à parcourir les cellules
+  // Cas 1 : ligne avec colspan
+  if (cells.some((c) => c.hasAttribute("colspan"))) {
+    const text = row.textContent?.trim() || "";
+    const match = eras.find((era) =>
+      text.toLowerCase().includes(era.name.toLowerCase())
+    );
+    return match ? match.abbr : null;
+  }
+
+  // Cas 2 : première cellule "titre" (gras/couleur de fond)
+  if (cells.length > 0) {
+    const firstCell = cells[0];
+    const text = firstCell.textContent?.trim() || "";
+
+    const match = eras.find((era) =>
+      text.toLowerCase().includes(era.name.toLowerCase())
+    );
+    if (match) return match.abbr;
+  }
+
+  return null; // pas une ligne d’ère
+}
+
+function getMaxQty(
+  eraAbbr: EraAbbr,
+  mainSection: string,
+  subSection?: string,
+  buildingName?: string,
+  tableType?: string
+): number {
+  if (!buildingName) return 1;
+
+  // If home_cultures page
+  if (mainSection === "home_cultures") {
+    let nameBuilding = subSection === "workshops" ? "workshops" : buildingName;
+    return limitAllBuildingsByEra[eraAbbr]?.[nameBuilding] ?? 1;
+  }
+
+  // If allied_cultures page
+  if (mainSection === "allied_cultures") {
+    if (!subSection || !buildingName || !eraAbbr) return 1;
+    const city = subSection as alliedCity;
+
+    // If Construction
+    if (tableType === "construction") {
+      const buildingData = limitAlliedBuildingsByEra[city]?.[buildingName];
+      if (buildingData) {
+        const values = Object.values(buildingData);
+        const lastValue = values[values.length - 1];
+        return lastValue ?? 1;
       }
+      return 1;
     }
+
+    // If Upgrade
+    return limitAlliedBuildingsByEra[city]?.[buildingName]?.[eraAbbr] ?? 1;
   }
 
-  if (matchingTables.length === 3) {
-    return matchingTables.slice(1); // enlève le premier, garde les deux derniers
-  }
-
-  return matchingTables;
+  // Fallback
+  return limitAllBuildingsByEra[eraAbbr]?.[buildingName] ?? 1;
 }
 
-export function getMaxQty(
-  tables: HTMLTableElement[],
-  pageTitle: string | null
-): Record<number, number> | { abbrev: string; maxQty: number }[] {
-  if (tables.length === 0) return pageTitle === "home_cultures" ? {} : [];
-
-  const firstTable = tables[0];
-  const rows = firstTable.querySelectorAll("tr");
-
-  if (pageTitle === "home_cultures") {
-    const result: Record<number, number> = {};
-
-    const headerCells = Array.from(rows[0].children) as HTMLTableCellElement[];
-    const levelIndex = headerCells.findIndex(
-      (cell) => cell.textContent?.trim().toLowerCase() === "level"
-    );
-    const maxQtyIndex = headerCells.findIndex(
-      (cell) => cell.textContent?.trim().toLowerCase() === "max qty"
-    );
-
-    if (levelIndex === -1 || maxQtyIndex === -1) return result;
-
-    rows.forEach((row, index) => {
-      if (index === 0) return;
-
-      const cells = Array.from(row.children) as HTMLTableCellElement[];
-      const hasColspan = cells.some((cell) => cell.hasAttribute("colspan"));
-      if (hasColspan) return;
-
-      const levelValue = cells[levelIndex].textContent?.trim() || "";
-      const maxQtyValue = parseNumber(
-        cells[maxQtyIndex].textContent?.trim() || "0"
-      );
-
-      const level = parseInt(levelValue, 10);
-      if (!isNaN(level)) {
-        result[level] = maxQtyValue;
-      }
-    });
-
-    return result;
-  }
-
-  if (pageTitle === "allied_cultures") {
-    const result: { abbrev: string; maxQty: number }[] = [];
-
-    const headerCells = Array.from(rows[0].children) as HTMLTableCellElement[];
-    const maxQtyIndex = headerCells.findIndex(
-      (cell) => cell.textContent?.trim().toLowerCase() === "max qty"
-    );
-
-    if (maxQtyIndex === -1) return result;
-
-    rows.forEach((row, index) => {
-      if (index === 0) return;
-
-      const cells = Array.from(row.children) as HTMLTableCellElement[];
-      const hasColspan = cells.some((cell) => cell.hasAttribute("colspan"));
-      if (hasColspan) return;
-
-      const maxQtyCell = cells[maxQtyIndex];
-
-      // Cas 1 : uniquement un nombre dans la cellule
-      const rawText = maxQtyCell.textContent?.trim() || "";
-      const noSpan = maxQtyCell.querySelector("span") === null;
-
-      if (noSpan && rawText) {
-        const maxQty = parseNumber(rawText);
-        if (!isNaN(maxQty)) {
-          result.push({ abbrev: "__no_abbrev__", maxQty });
-        }
-        return;
-      }
-
-      // Cas 2 : cellule avec des <span> contenant abbrev
-      maxQtyCell.childNodes.forEach((node) => {
-        if (node.nodeType === Node.ELEMENT_NODE) {
-          const element = node as HTMLElement;
-
-          if (element.tagName.toLowerCase() === "span") {
-            const abbrev = element.textContent?.trim() || "";
-
-            let nextNode = element.nextSibling;
-            while (
-              nextNode &&
-              nextNode.nodeType === Node.TEXT_NODE &&
-              nextNode.textContent?.trim() === ""
-            ) {
-              nextNode = nextNode.nextSibling;
-            }
-
-            const qtyText = nextNode?.textContent?.trim() || "";
-            const maxQty = parseNumber(qtyText);
-
-            if (abbrev && !isNaN(maxQty)) {
-              result.push({ abbrev, maxQty });
-            }
-          }
-        }
-      });
-    });
-
-    return result;
-  }
-
-  return pageTitle === "home_cultures" ? {} : [];
-}
-
-function addMultiplicatorColumn(
-  tables: HTMLTableElement[],
-  primaryWorkshops: string[]
-): void {
+function addMultiplicatorColumn(tables: TableInfo[]): void {
   // Récupère les infos dans le title de la page
   const [mainSection, subSection, thirdSection] = getTitlePage();
 
-  // Détermine si c'est l'atelier primaire de user
-  let isPrimary: boolean = false;
-  if (subSection === "workshops" && thirdSection) {
-    isPrimary = primaryWorkshops
-      .map((w) => w.toLowerCase().replace(/\s+/g, "_"))
-      .includes(thirdSection.toLowerCase());
-  }
-
-  // Calcule la liste des quantités max
-  const maxQtyList = getMaxQty(tables, mainSection);
+  if (skipBuildingLimit.includes(thirdSection ?? "")) return;
 
   let numberTables = 1;
-  tables.forEach((table) => {
+  tables.forEach(({ element: table, type: tableType }) => {
     let currentAbbrev = "";
     const rows = Array.from(table.querySelectorAll("tr"));
+    const h2 = findPreviousH2SpanWithId(table);
 
     // Ajoute la colonne "Calculator" à la première ligne
     const firstRow = rows[0];
@@ -173,7 +107,7 @@ function addMultiplicatorColumn(
       const th = document.createElement("td");
       th.style.textAlign = "center";
       th.style.whiteSpace = "normal";
-      th.style.width = "120px";
+      th.style.width = "100px";
       th.textContent = "Calculator";
       firstRow.appendChild(th);
     }
@@ -195,67 +129,33 @@ function addMultiplicatorColumn(
         (cell) => cell.tagName.toLowerCase() === "td"
       ) as HTMLTableCellElement[];
 
-      // Gestion des lignes avec colspan (ex: titres d'ère)
-      const hasColspan = cells.some((cell) => cell.hasAttribute("colspan"));
-      if (hasColspan) {
-        const titleText = row.textContent?.trim() || "";
-        const matchedEra = eras.find((era) =>
-          titleText.toLowerCase().includes(era.name.toLowerCase())
+      const abbrev = detectEraRow(row, eras);
+      if (abbrev) {
+        currentAbbrev = abbrev;
+
+        // Gestion du colspan ou ajout cellule vide
+        const hasColspan = Array.from(row.cells).some((c) =>
+          c.hasAttribute("colspan")
         );
-        currentAbbrev = matchedEra ? matchedEra.abbr : "";
 
-        cells.forEach((cell) => {
-          if (cell.hasAttribute("colspan")) {
-            const colspan = parseInt(cell.getAttribute("colspan") || "1", 10);
-            cell.setAttribute("colspan", (colspan + 1).toString());
-          }
-        });
-        return;
-      }
+        if (hasColspan) {
+          row.querySelectorAll("td[colspan]").forEach((td) => {
+            const colspan = parseInt(td.getAttribute("colspan") || "1", 10);
+            td.setAttribute("colspan", (colspan + 1).toString());
+          });
 
-      let maxQty = 1;
-
-      if (mainSection === "home_cultures" && !Array.isArray(maxQtyList)) {
-        const level = parseInt(
-          cells[levelIndex]?.textContent?.trim() || "0",
-          10
-        );
-        maxQty = getClosestLowerOrEqualMaxQty(level, maxQtyList);
-      }
-
-      if (mainSection === "allied_cultures" && Array.isArray(maxQtyList)) {
-        let entry;
-
-        if (numberTables === 1) {
-          // Utilise .at(-1) pour obtenir le dernier élément du tableau
-          entry = maxQtyList.at(-1);
-        } else {
-          entry =
-            maxQtyList.find((item) => item.abbrev === currentAbbrev) ||
-            maxQtyList.find((item) => item.abbrev === "__no_abbrev__");
-        }
-
-        if (entry) {
-          maxQty = entry.maxQty;
-          // console.log("Max quantity selected:", entry);
+          return;
         }
       }
 
-      if (subSection === "workshops") {
-        if (isPrimary) {
-          let entry =
-            limitPrimaryWorkshop.find(
-              (item: any) => item.abbrev === currentAbbrev
-            ) ||
-            limitPrimaryWorkshop.find(
-              (item: any) => item.abbrev === "__no_abbrev__"
-            );
-
-          if (entry) maxQty = entry.maxQty;
-        } else {
-          maxQty = 1;
-        }
-      }
+      // Détermine la limite max en fonction de l'ère + bâtiment
+      const maxQty = getMaxQty(
+        currentAbbrev as EraAbbr,
+        mainSection ?? "",
+        subSection ?? "",
+        thirdSection ?? "",
+        tableType
+      );
 
       // Ajoute la colonne de contrôle (calculatrice)
       const controlCell = document.createElement("td");
@@ -263,30 +163,38 @@ function addMultiplicatorColumn(
 
       const minusBtn = document.createElement("button");
       minusBtn.textContent = "−";
-      minusBtn.style.marginRight = "8px";
       minusBtn.style.color = "white";
       minusBtn.style.fontSize = "16px";
       minusBtn.style.fontWeight = "600";
+      minusBtn.style.userSelect = "none";
 
       const countSpan = document.createElement("span");
       countSpan.textContent = "1";
       countSpan.style.fontSize = "14px";
+      countSpan.style.display = "inline-block";
+      countSpan.style.width = "28px";
+      countSpan.style.textAlign = "center";
+      countSpan.style.userSelect = "none";
 
       const plusBtn = document.createElement("button");
       plusBtn.textContent = "+";
-      plusBtn.style.marginLeft = "8px";
       plusBtn.style.color = "white";
       plusBtn.style.fontSize = "16px";
       plusBtn.style.fontWeight = "600";
+      plusBtn.style.userSelect = "none";
 
-      controlCell.appendChild(minusBtn);
-      controlCell.appendChild(countSpan);
-      controlCell.appendChild(plusBtn);
+      if (maxQty > 1) {
+        controlCell.appendChild(minusBtn);
+        controlCell.appendChild(countSpan);
+        controlCell.appendChild(plusBtn);
+      } else {
+        controlCell.textContent = "—";
+      }
       row.appendChild(controlCell);
 
       let count = 1;
 
-      // Stocke le texte original de chaque TextNode une seule fois
+      // Stocke le texte original une seule fois
       if (!row.hasAttribute("data-original-stored")) {
         row.setAttribute("data-original-stored", "true");
         cells.forEach((cell) => {
@@ -341,6 +249,11 @@ function multiplyRowTextContent(row: HTMLTableRowElement, multiplier: number) {
     if (skipColumns.includes(columnName)) continue;
 
     const cell = cells[i];
+
+    if (["coins", "food", "goods", "gems"].includes(columnName)) {
+      cell.style.minWidth = "96px";
+    }
+
     const isFormatColumn = formatColumns.includes(columnName.toLowerCase());
     const isGoods = columnName === "goods";
     const isWorkers = columnName === "workers";
@@ -352,30 +265,21 @@ function multiplyRowTextContent(row: HTMLTableRowElement, multiplier: number) {
           (textNode as any).dataOriginal ?? textNode.textContent ?? "";
 
         const newText = originalText.replace(
-          /(\d+(?:[.,]\d+)?)(?:\s?([KM]))?/gi,
-          (
-            match: string,
-            numberStr: string,
-            suffix: string | undefined,
-            offset: number,
-            str: string
-          ): string => {
+          /(\d{1,3}(?:[.,]\d{1,3})*(?:\.\d+)?)(?:\s*([KM]))?/gi,
+          (_match: string, numberStr: string, suffix: string | undefined) => {
+            // parseNumber gère désormais les deux formats (1,400 ou 1.4K)
             const parsed = parseNumber(numberStr + (suffix ? suffix : ""));
-            if (isNaN(parsed)) return match;
+            if (isNaN(parsed)) return _match;
 
-            let formattedNumber = "";
+            const total = parsed * multiplier;
 
             if (isFormatColumn) {
-              formattedNumber = formatNumber(parsed * multiplier);
-            } else if (isGoods) {
-              formattedNumber = (parsed * multiplier).toLocaleString("en-US");
-            } else if (isWorkers) {
-              formattedNumber = (parsed * multiplier).toLocaleString("en-US");
+              return formatNumber(total); // avec K/M si nécessaire
+            } else if (isGoods || isWorkers) {
+              return total.toLocaleString("en-US"); // entier avec virgule US
             } else {
-              formattedNumber = (parsed * multiplier).toString();
+              return total.toLocaleString("en-US"); // simple entier
             }
-
-            return formattedNumber;
           }
         );
 
@@ -385,33 +289,14 @@ function multiplyRowTextContent(row: HTMLTableRowElement, multiplier: number) {
   }
 }
 
-export function useUpgrade(
-  tables: HTMLTableElement[],
-  primaryWorkshops: string[]
-) {
+export function useUpgrade(tables: HTMLTableElement[]) {
   const [mainSection] = getTitlePage();
-  const targetIds = ["Construction", "Upgrade"];
 
-  if (mainSection !== "home_cultures" && mainSection !== "allied_cultures") return;
+  if (mainSection !== "home_cultures" && mainSection !== "allied_cultures")
+    return;
 
-  const tablesWithMatchingSection = tables.filter((table) => {
-    const span = findPreviousH2SpanWithId(table);
-    return span && targetIds.includes(span.id);
-  });
+  const tablesFiltered = filterTables(tables, ["construction", "upgrade"]);
+  if (tablesFiltered.length === 0) return;
 
-  // const tablesWithMatchingSection = tables.filter((table) => {
-  //   const span = findPreviousH2SpanWithId(table);
-  //   if (!span) return false;
-
-  //   // Vérifie si span.id commence par un des targetIds, avec suffixe optionnel
-  //   return targetIds.some((targetId) => {
-  //     const regex = new RegExp(`^${targetId}(_\\d+)?$`);
-  //     return regex.test(span.id);
-  //   });
-  // });
-
-  const timeTables = findTimeTables(tablesWithMatchingSection);
-  if (timeTables.length === 0) return;
-
-  addMultiplicatorColumn(timeTables, primaryWorkshops);
+  addMultiplicatorColumn(tablesFiltered);
 }

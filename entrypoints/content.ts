@@ -14,12 +14,10 @@ export default defineContentScript({
       "local:buildingSelections"
     );
 
-    let primaryWorkshops: string[] = [];
     let storedBuildings: string[][] = [];
     if (storedData && isValidData(storedData)) {
       const buildings: string[][] = JSON.parse(storedData);
       storedBuildings = buildings;
-      primaryWorkshops = buildings.map((subArray) => subArray[0]);
       replaceTextByImage(buildings);
     }
 
@@ -72,7 +70,7 @@ export default defineContentScript({
     ) as HTMLTableElement[];
 
     useTechno(tables);
-    useUpgrade(tables, primaryWorkshops);
+    useUpgrade(tables);
     useBuilding(storedBuildings);
     useWonders(tables);
   },

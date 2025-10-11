@@ -5,6 +5,39 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## v1.1.2 - Oct 11, 2025
+
+### Added
+
+- Add `size` column in skipColumns constants in `constants.ts`.
+
+### Changed
+
+- Update `limitBuildingsByEra` constants for construction and upgrade tables (home_cultures and allied_cultures pages) in `constants.ts`.
+
+## v1.1.1 - Sep 17, 2025
+
+### Added
+
+- Add `filterTables` function in `utils.ts`.
+- Add `TableInfo` interface in `upgrade.ts`.
+- Add `detectEraRow` function in `upgrade.ts`.
+- Add `skipBuildingLimit` constants in `constants.ts`.
+- Add `limitBuildingsByEra` constants for construction and upgrade tables (home_cultures and allied_cultures pages) in `constants.ts`.
+
+### Changed
+
+- Remove `findTimeTable` function in `upgrade.ts`.
+- Remove `primaryWorkshop` logic for workshops in `upgrade.ts` and `content.ts`.
+- Update `getMaxQty` function in `upgrade.ts` to handle limit buildings by era.
+- Update `addMultiplicatorColumn` function in `upgrade.ts`.
+- Update `useUpgrade` function in `upgrade.ts`.
+- Add h3 support in `findPreviousH2SpanWithId` function in `utils.ts` to handle allied_cultures pages.
+
+### Fixed
+
+- Fix min max select sync in `wonders.ts`.
+
 ## v1.1.0 - Aug 11, 2025
 
 ### Added
