@@ -345,10 +345,10 @@ export const limitCapitalBuildingsByEra: Record<
     compact_culture_site: 9,
     moderate_culture_site: 6,
     infantry_barracks: 2,
-    workshops: 5,
-    shipyard: 5,
-    seafarer_house: 8,
-    common_warehouse: 3,
+    workshops: 3,
+    shipyard: 9,
+    seafarer_house: 14,
+    common_warehouse: 8,
   },
 };
 

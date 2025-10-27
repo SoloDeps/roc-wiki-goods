@@ -218,9 +218,9 @@ function createAllResearchCell(): HTMLTableCellElement {
   div1.appendChild(span);
   divContainer.appendChild(div1);
 
-  divContainer.appendChild(createResearchCell("total3PR", "3 PR:"));
-  divContainer.appendChild(createResearchCell("total5PR", "5 PR:"));
-  divContainer.appendChild(createResearchCell("total10PR", "10 PR:"));
+  divContainer.appendChild(createResearchCell("total3PR", "3 RP:"));
+  divContainer.appendChild(createResearchCell("total5PR", "5 RP:"));
+  divContainer.appendChild(createResearchCell("total10PR", "10 RP:"));
 
   td.appendChild(divContainer);
   return td;
@@ -617,10 +617,9 @@ function extractPR(row: HTMLTableRowElement, nbColumns: number) {
 
 function extractGoods(row: HTMLTableRowElement, nbColumns: number) {
   const cell = row?.cells[nbColumns + 6];
-  if (!cell) return {};
+  if (!cell || !cell.querySelector("img")) return {};
 
   const goods: Record<string, { value: number; src: string }> = {};
-
   const nodes = Array.from(cell.childNodes);
 
   nodes.forEach((node, index) => {
@@ -629,39 +628,53 @@ function extractGoods(row: HTMLTableRowElement, nbColumns: number) {
       const key = img.alt.trim();
       const src = img.src;
 
-      // Vérifie le multiplicateur dans le nœud précédent
       let multiplier = 1;
+      let baseValue = 0;
+
+      // Cas 1 : texte avant l'image → "2 x [img] 2800"
       const prevNode = nodes[index - 1];
       if (prevNode?.nodeType === Node.TEXT_NODE) {
         const textBefore = prevNode.textContent?.trim() || "";
-        const match = textBefore.match(/^(\d+)\s*x/i);
-        if (match) {
-          multiplier = parseInt(match[1]);
+        const matchBefore = textBefore.match(/^(\d+)\s*x/i);
+        if (matchBefore) multiplier = parseInt(matchBefore[1]);
+      }
+
+      // Cas 2 : texte après l'image → "[img] 1 x 2000"
+      const nextNode = nodes[index + 1];
+      if (nextNode?.nodeType === Node.TEXT_NODE) {
+        let textAfter = nextNode.textContent?.trim() || "";
+
+        const matchAfter = textAfter.match(/^(\d+)\s*x\s*([\d,]+)/i);
+        if (matchAfter) {
+          multiplier = parseInt(matchAfter[1]);
+          baseValue = parseFloat(matchAfter[2].replace(/,/g, ""));
+        } else {
+          const clean = textAfter.replace(/\s*\(.*?\)/g, "").replace(/,/g, "");
+          const matchValue = clean.match(/(\d+)/);
+          if (matchValue) baseValue = parseFloat(matchValue[1]);
         }
       }
 
-      // Récupère la valeur dans le nœud suivant
-      const nextNode = nodes[index + 1];
-      let baseValue = 0;
-      if (nextNode?.nodeType === Node.TEXT_NODE) {
-        let rawText =
-          nextNode.textContent?.replace(/\s*\(.*?\)/g, "").trim() || "";
-        rawText = rawText.replace(/,/g, ""); // supprime les virgules
-        baseValue = parseFloat(rawText) || 0;
+      if (baseValue === 0) {
+        const nextNextNode = nodes[index + 2];
+        if (nextNextNode?.nodeType === Node.TEXT_NODE) {
+          const text = nextNextNode.textContent?.replace(/\s*\(.*?\)/g, "").replace(/,/g, "") || "";
+          const match = text.match(/(\d+)/);
+          if (match) baseValue = parseFloat(match[1]);
+        }
       }
 
       const totalValue = Math.round(multiplier * baseValue);
-
-      if (goods[key]) {
-        goods[key].value += totalValue;
-      } else {
-        goods[key] = { value: totalValue, src };
+      if (totalValue > 0) {
+        if (goods[key]) goods[key].value += totalValue;
+        else goods[key] = { value: totalValue, src };
       }
     }
   });
 
   return goods;
 }
+
 
 function extractTokens(row: HTMLTableRowElement, nbColumns: number) {
   const cell = row?.cells[nbColumns + 5];

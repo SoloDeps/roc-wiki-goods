@@ -5,6 +5,17 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## v1.1.3 - Oct 27, 2025
+
+### Changed
+
+- Update limit buildings for EG era in `constants.ts`.
+- Update PR text in `wonders.ts`.
+
+### Fixed
+
+- Update extractGoods function in `wonders.ts`.
+
 ## v1.1.2 - Oct 11, 2025
 
 ### Added
