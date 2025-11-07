@@ -1,5 +1,5 @@
-import { type EraAbbr, goodsUrlByEra } from "./constants";
-import { getBuildingFromLocal, getTitlePage } from "./utils";
+import { type EraAbbr, goodsUrlByEra } from "@/lib/constants";
+import { getBuildingFromLocal, getTitlePage } from "@/lib/utils";
 
 export function updateImageSrcByAlt(buildings: string[][]): void {
   const targetCells = document.querySelectorAll("td.mw-collapsible");

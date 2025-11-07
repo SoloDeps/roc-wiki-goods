@@ -7,7 +7,7 @@ import {
   ListboxOptions,
 } from "@headlessui/react";
 import clsx from "clsx";
-import { getGoodsImg } from "../lib/utils";
+import { getGoodsImg } from "@/lib/utils";
 
 type BuildingSelectorType = {
   title: string;

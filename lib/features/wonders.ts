@@ -1,6 +1,6 @@
-import { eras } from "./constants";
+import { eras } from "@/lib/constants";
+import { formatNumber, getTitlePage, parseNumber } from "@/lib/utils";
 import { updateTotalGoods, updateTotalSelected } from "./techno";
-import { formatNumber, getTitlePage, parseNumber } from "./utils";
 
 export type ColumnsInfos = {
   nbColumns: number;
@@ -658,7 +658,10 @@ function extractGoods(row: HTMLTableRowElement, nbColumns: number) {
       if (baseValue === 0) {
         const nextNextNode = nodes[index + 2];
         if (nextNextNode?.nodeType === Node.TEXT_NODE) {
-          const text = nextNextNode.textContent?.replace(/\s*\(.*?\)/g, "").replace(/,/g, "") || "";
+          const text =
+            nextNextNode.textContent
+              ?.replace(/\s*\(.*?\)/g, "")
+              .replace(/,/g, "") || "";
           const match = text.match(/(\d+)/);
           if (match) baseValue = parseFloat(match[1]);
         }
@@ -674,7 +677,6 @@ function extractGoods(row: HTMLTableRowElement, nbColumns: number) {
 
   return goods;
 }
-
 
 function extractTokens(row: HTMLTableRowElement, nbColumns: number) {
   const cell = row?.cells[nbColumns + 5];

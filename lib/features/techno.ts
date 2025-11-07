@@ -1,5 +1,5 @@
-import { eras } from "./constants";
-import { formatNumber, getTitlePage, parseNumber } from "./utils";
+import { eras } from "@/lib/constants";
+import { formatNumber, getTitlePage, parseNumber } from "@/lib/utils";
 
 function findTechnoTable(tables: HTMLTableElement[]) {
   // Récupère les infos dans le title de la page
@@ -351,7 +351,9 @@ function updateTotalRessources(totalRessources: {
     foodTotal.textContent = ` ${formatNumber(totalRessources.food)}`;
 }
 
-export function updateTotalGoods(totalGoods: Record<string, { value: number }>) {
+export function updateTotalGoods(
+  totalGoods: Record<string, { value: number }>
+) {
   const defaultContainer = document.getElementById("defaultGoodsContainer");
   const dynamicContainer = document.getElementById("dynamicGoodsContainer");
   if (!defaultContainer || !dynamicContainer) return;

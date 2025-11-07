@@ -1,7 +1,9 @@
-import { useState, useEffect } from "react";
-import { buildingsAbbr, WIKI_URL } from "../lib/constants";
-import BuildingSelector from "./building-selector";
 import { browser } from "wxt/browser";
+import { useState, useEffect } from "react";
+import type { Era } from "@/lib/constants";
+import { buildingsAbbr, eras, WIKI_URL } from "@/lib/constants";
+import EraSelector from "@/components/era-selector";
+import BuildingSelector from "@/components/building-selector";
 
 function App() {
   const [selections, setSelections] = useState(() => {
@@ -9,6 +11,17 @@ function App() {
     return savedData
       ? JSON.parse(savedData)
       : buildingsAbbr.map(() => ["", "", ""]);
+  });
+
+  // Ajout : état pour era (objet complet)
+  const [era, setEra] = useState<Era | undefined>(() => {
+    const saved = localStorage.getItem("eraSelection");
+    // essaie de retrouver l'objet era à partir de l'abbr sauvegardé
+    if (saved) {
+      const abbr = JSON.parse(saved);
+      return eras.find((e) => e.abbr === abbr);
+    }
+    return undefined;
   });
 
   const [isAllowedSite, setIsAllowedSite] = useState(false);
@@ -64,7 +77,8 @@ function App() {
                 }}
               >
                 {WIKI_URL}
-              </a>.
+              </a>
+              .
             </h3>
           </div>
         </div>
@@ -108,6 +122,8 @@ function App() {
           setSelections={setSelections}
         />
       ))}
+
+      <EraSelector eras={eras} eraSelected={era} setEraSelected={setEra} />
     </div>
   );
 }

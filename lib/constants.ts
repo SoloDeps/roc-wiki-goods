@@ -1,3 +1,4 @@
+export type Era = (typeof eras)[number];
 export type EraAbbr = (typeof eras)[number]["abbr"];
 export type alliedCity =
   | "egypt"
@@ -187,7 +188,14 @@ export const formatColumns = [
   // eg_food_allied
 ];
 
-export const skipColumns = ["level", "time", "max qty", "culture", "gallery", "size"];
+export const skipColumns = [
+  "level",
+  "time",
+  "max qty",
+  "culture",
+  "gallery",
+  "size",
+];
 
 export const luxuriousBuilding = [
   "luxurious_home",
@@ -352,6 +360,7 @@ export const limitCapitalBuildingsByEra: Record<
   },
 };
 
+// prettier-ignore
 export const limitLuxuriousBuildingsByEra: Record<
   EraAbbr,
   Record<string, number>

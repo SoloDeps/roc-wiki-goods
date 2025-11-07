@@ -7,14 +7,14 @@ import {
   limitAlliedBuildingsByEra,
   alliedCity,
   limitAllBuildingsByEra,
-} from "./constants";
+} from "@/lib/constants";
 import {
   filterTables,
   findPreviousH2SpanWithId,
   formatNumber,
   getTitlePage,
   parseNumber,
-} from "./utils";
+} from "@/lib/utils";
 
 interface TableInfo {
   element: HTMLTableElement;
