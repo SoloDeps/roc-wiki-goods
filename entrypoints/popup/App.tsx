@@ -87,44 +87,53 @@ function App() {
   }
 
   return (
-    <div className="p-4">
-      <div className="pb-3 text-[13px]">
-        Fill in the dropdowns to display the icons on the wiki based on your
-        game data.
-        <br />
-        Not sure how to find your primary, secondary and tertiary workshop?{" "}
-        <a
-          href="#"
-          className="text-blue-600 hover:underline cursor-pointer transition duration-200"
-          onClick={async (e) => {
-            e.preventDefault();
-            await browser.tabs.update({
-              url: "https://riseofcultures.wiki.gg/wiki/Goods#Primary_Goods",
-            });
-          }}
-        >
-          Check here.
-        </a>
+    <>
+      <div className="px-4 pt-4 pb-3 text-[13px]">
+        <>
+          Fill in the dropdowns to display the icons on the wiki based on your
+          game data.
+          <br />
+          Not sure how to find your primary, secondary and tertiary workshop?{" "}
+          <a
+            href="#"
+            className="text-blue-600 hover:underline cursor-pointer transition duration-200"
+            onClick={async (e) => {
+              e.preventDefault();
+              await browser.tabs.update({
+                url: "https://riseofcultures.wiki.gg/wiki/Goods#Primary_Goods",
+              });
+            }}
+          >
+            Check here.
+          </a>
+        </>
+
+        <div className="flex gap-1.5 pt-2 text-[13px] italic">
+          <span className="font-semibold">Warning:</span>All dropdowns must be
+          filled to display the icons correctly.
+        </div>
       </div>
 
-      <div className="flex gap-1.5 py-1 text-[13px] italic">
-        <span className="font-semibold">Warning:</span>All dropdowns must be
-        filled to display the icons correctly.
+      <div className="px-4 border-y border-neutral-300">
+        {buildingsAbbr.map((group, index) => (
+          <BuildingSelector
+            key={index}
+            title={group.title}
+            buildings={group.buildings}
+            index={index}
+            selections={selections}
+            setSelections={setSelections}
+          />
+        ))}
       </div>
-
-      {buildingsAbbr.map((group, index) => (
-        <BuildingSelector
-          key={index}
-          title={group.title}
-          buildings={group.buildings}
-          index={index}
-          selections={selections}
-          setSelections={setSelections}
-        />
-      ))}
-
-      <EraSelector eras={eras} eraSelected={era} setEraSelected={setEra} />
-    </div>
+      <div className="px-4 pb-4">
+        <EraSelector eras={eras} eraSelected={era} setEraSelected={setEra} />
+        <div className="flex gap-1.5 pt-2 text-[13px] italic">
+          <span className="font-semibold">New:</span>Display event quest data
+          automatically based on your current era.
+        </div>
+      </div>
+    </>
   );
 }
 

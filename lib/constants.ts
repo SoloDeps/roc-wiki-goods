@@ -43,135 +43,197 @@ export const buildingsAbbr = [
   },
 ];
 
-export const DEFAULT_IMG_URL = "/images/thumb/3/36/Goods.png/25px-Goods.png";
+export const itemsUrl = {
+  food: "/images/thumb/Food.png/25px-Food.png",
+  coins: "/images/thumb/Coin.png/25px-Coin.png",
+  research: "/images/thumb/Research.png/25px-Research.png",
+  default: "/images/thumb/3/36/Goods.png/25px-Goods.png",
+} as const;
 
-export const goodsUrlByEra = new Map<EraAbbr, Map<string, string>>([
-  [
-    "SA",
-    new Map([
-      ["tailor", "/images/thumb/3/34/Wool.png/25px-Wool.png"],
-      [
-        "stone_mason",
-        "/images/thumb/6/6e/Alabaster_Idol.png/25px-Alabaster_Idol.png",
-      ],
-      [
-        "artisan",
-        "/images/thumb/3/3c/Bronze_Bracelet.png/25px-Bronze_Bracelet.png",
-      ],
-    ]),
-  ],
-  [
-    "BA",
-    new Map([
-      ["tailor", "/images/thumb/3/34/Wool.png/25px-Wool.png"],
-      [
-        "stone_mason",
-        "/images/thumb/6/6e/Alabaster_Idol.png/25px-Alabaster_Idol.png",
-      ],
-      [
-        "artisan",
-        "/images/thumb/3/3c/Bronze_Bracelet.png/25px-Bronze_Bracelet.png",
-      ],
-    ]),
-  ],
-  [
-    "ME",
-    new Map([
-      ["tailor", "/images/thumb/8/8a/Linen_Shirt.png/25px-Linen_Shirt.png"],
-      [
-        "stone_mason",
-        "/images/thumb/b/b1/Marble_Bust.png/25px-Marble_Bust.png",
-      ],
-      ["artisan", "/images/thumb/6/62/Iron_Pendant.png/25px-Iron_Pendant.png"],
-    ]),
-  ],
-  [
-    "CG",
-    new Map([
-      ["tailor", "/images/thumb/a/a3/Toga.png/25px-Toga.png"],
-      ["stone_mason", "/images/thumb/5/5e/Column.png/25px-Column.png"],
-      ["artisan", "/images/thumb/c/cc/Silver_Ring.png/25px-Silver_Ring.png"],
-    ]),
-  ],
-  [
-    "ER",
-    new Map([
-      ["tailor", "/images/thumb/5/5b/Tunic.png/25px-Tunic.png"],
-      [
-        "stone_mason",
-        "/images/thumb/0/04/Stone_Tablet.png/25px-Stone_Tablet.png",
-      ],
-      ["artisan", "/images/thumb/e/e3/Gold_Laurel.png/25px-Gold_Laurel.png"],
-    ]),
-  ],
-  [
-    "RE",
-    new Map([
-      ["tailor", "/images/thumb/6/6e/Cape.png/25px-Cape.png"],
-      ["stone_mason", "/images/thumb/f/f4/Mosaic.png/25px-Mosaic.png"],
-      ["artisan", "/images/thumb/b/b2/Goblet.png/25px-Goblet.png"],
-    ]),
-  ],
-  [
-    "BE",
-    new Map([
-      ["scribe", "/images/thumb/4/48/Parchment.png/25px-Parchment.png"],
-      ["carpenter", "/images/thumb/b/b9/Planks.png/25px-Planks.png"],
-      ["spice_merchant", "/images/thumb/5/50/Pepper.png/25px-Pepper.png"],
-    ]),
-  ],
-  [
-    "AF",
-    new Map([
-      ["scribe", "/images/thumb/e/e1/Ink.png/25px-Ink.png"],
-      ["carpenter", "/images/thumb/c/c2/Cartwheel.png/25px-Cartwheel.png"],
-      ["spice_merchant", "/images/thumb/7/77/Salt.png/25px-Salt.png"],
-    ]),
-  ],
-  [
-    "FA",
-    new Map([
-      ["scribe", "/images/thumb/7/73/Manuscript.png/25px-Manuscript.png"],
-      ["carpenter", "/images/thumb/a/a1/Barrel.png/25px-Barrel.png"],
-      ["spice_merchant", "/images/thumb/7/79/Herbs.png/25px-Herbs.png"],
-    ]),
-  ],
-  [
-    "IE",
-    new Map([
-      ["scribe", "/images/thumb/c/c1/Wax_Seal.png/25px-Wax_Seal.png"],
-      ["carpenter", "/images/thumb/3/36/Door.png/25px-Door.png"],
-      ["spice_merchant", "/images/thumb/8/8c/Saffron.png/25px-Saffron.png"],
-    ]),
-  ],
-  [
-    "KS",
-    new Map([
-      ["scribe", "/images/thumb/8/8e/Tome.png/25px-Tome.png"],
-      ["carpenter", "/images/thumb/1/15/Wardrobe.png/25px-Wardrobe.png"],
-      ["spice_merchant", "/images/thumb/d/de/Chili.png/25px-Chili.png"],
-    ]),
-  ],
-  [
-    "HM",
-    new Map([
-      ["scribe", "/images/thumb/2/2a/Grimoire.png/25px-Grimoire.png"],
-      [
-        "carpenter",
-        "/images/thumb/8/85/Secretary_Desk.png/25px-Secretary_Desk.png",
-      ],
-      ["spice_merchant", "/images/thumb/1/1b/Cinnamon.png/25px-Cinnamon.png"],
-    ]),
-  ],
-  [
-    "EG",
-    new Map([
-      ["jeweler", "/images/thumb/a/af/Fine_Jewelry.png/120px-Fine_Jewelry.png"],
-      ["alchemist", "/images/thumb/5/5c/Ointment.png/120px-Ointment.png"],
-      ["glassblower", "/images/thumb/e/e2/Lead_Glass.png/120px-Lead_Glass.png"],
-    ]),
-  ],
-]);
+export const goodsUrlByEra: Record<EraAbbr, Record<string, { name: string; url: string }>> = {
+  SA: {
+    tailor: {
+      name: "Wool",
+      url: "/images/thumb/3/34/Wool.png/25px-Wool.png",
+    },
+    stone_mason: {
+      name: "Alabaster Idol",
+      url: "/images/thumb/6/6e/Alabaster_Idol.png/25px-Alabaster_Idol.png",
+    },
+    artisan: {
+      name: "Bronze Bracelet",
+      url: "/images/thumb/3/3c/Bronze_Bracelet.png/25px-Bronze_Bracelet.png",
+    },
+  },
+  BA: {
+    tailor: {
+      name: "Wool",
+      url: "/images/thumb/3/34/Wool.png/25px-Wool.png",
+    },
+    stone_mason: {
+      name: "Alabaster Idol",
+      url: "/images/thumb/6/6e/Alabaster_Idol.png/25px-Alabaster_Idol.png",
+    },
+    artisan: {
+      name: "Bronze Bracelet",
+      url: "/images/thumb/3/3c/Bronze_Bracelet.png/25px-Bronze_Bracelet.png",
+    },
+  },
+  ME: {
+    tailor: {
+      name: "Linen Shirt",
+      url: "/images/thumb/8/8a/Linen_Shirt.png/25px-Linen_Shirt.png",
+    },
+    stone_mason: {
+      name: "Marble Bust",
+      url: "/images/thumb/b/b1/Marble_Bust.png/25px-Marble_Bust.png",
+    },
+    artisan: {
+      name: "Iron Pendant",
+      url: "/images/thumb/6/62/Iron_Pendant.png/25px-Iron_Pendant.png",
+    },
+  },
+  CG: {
+    tailor: {
+      name: "Toga",
+      url: "/images/thumb/a/a3/Toga.png/25px-Toga.png",
+    },
+    stone_mason: {
+      name: "Column",
+      url: "/images/thumb/5/5e/Column.png/25px-Column.png",
+    },
+    artisan: {
+      name: "Silver Ring",
+      url: "/images/thumb/c/cc/Silver_Ring.png/25px-Silver_Ring.png",
+    },
+  },
+  ER: {
+    tailor: {
+      name: "Tunic",
+      url: "/images/thumb/5/5b/Tunic.png/25px-Tunic.png",
+    },
+    stone_mason: {
+      name: "Stone Tablet",
+      url: "/images/thumb/0/04/Stone_Tablet.png/25px-Stone_Tablet.png",
+    },
+    artisan: {
+      name: "Gold Laurel",
+      url: "/images/thumb/e/e3/Gold_Laurel.png/25px-Gold_Laurel.png",
+    },
+  },
+  RE: {
+    tailor: {
+      name: "Cape",
+      url: "/images/thumb/6/6e/Cape.png/25px-Cape.png",
+    },
+    stone_mason: {
+      name: "Mosaic",
+      url: "/images/thumb/f/f4/Mosaic.png/25px-Mosaic.png",
+    },
+    artisan: {
+      name: "Goblet",
+      url: "/images/thumb/b/b2/Goblet.png/25px-Goblet.png",
+    },
+  },
+  BE: {
+    scribe: {
+      name: "Parchment",
+      url: "/images/thumb/4/48/Parchment.png/25px-Parchment.png",
+    },
+    carpenter: {
+      name: "Planks",
+      url: "/images/thumb/b/b9/Planks.png/25px-Planks.png",
+    },
+    spice_merchant: {
+      name: "Pepper",
+      url: "/images/thumb/5/50/Pepper.png/25px-Pepper.png",
+    },
+  },
+  AF: {
+    scribe: {
+      name: "Ink",
+      url: "/images/thumb/e/e1/Ink.png/25px-Ink.png",
+    },
+    carpenter: {
+      name: "Cartwheel",
+      url: "/images/thumb/c/c2/Cartwheel.png/25px-Cartwheel.png",
+    },
+    spice_merchant: {
+      name: "Salt",
+      url: "/images/thumb/7/77/Salt.png/25px-Salt.png",
+    },
+  },
+  FA: {
+    scribe: {
+      name: "Manuscript",
+      url: "/images/thumb/7/73/Manuscript.png/25px-Manuscript.png",
+    },
+    carpenter: {
+      name: "Barrel",
+      url: "/images/thumb/a/a1/Barrel.png/25px-Barrel.png",
+    },
+    spice_merchant: {
+      name: "Herbs",
+      url: "/images/thumb/7/79/Herbs.png/25px-Herbs.png",
+    },
+  },
+  IE: {
+    scribe: {
+      name: "Wax Seal",
+      url: "/images/thumb/c/c1/Wax_Seal.png/25px-Wax_Seal.png",
+    },
+    carpenter: {
+      name: "Door",
+      url: "/images/thumb/3/36/Door.png/25px-Door.png",
+    },
+    spice_merchant: {
+      name: "Saffron",
+      url: "/images/thumb/8/8c/Saffron.png/25px-Saffron.png",
+    },
+  },
+  KS: {
+    scribe: {
+      name: "Tome",
+      url: "/images/thumb/8/8e/Tome.png/25px-Tome.png",
+    },
+    carpenter: {
+      name: "Wardrobe",
+      url: "/images/thumb/1/15/Wardrobe.png/25px-Wardrobe.png",
+    },
+    spice_merchant: {
+      name: "Chili",
+      url: "/images/thumb/d/de/Chili.png/25px-Chili.png",
+    },
+  },
+  HM: {
+    scribe: {
+      name: "Grimoire",
+      url: "/images/thumb/2/2a/Grimoire.png/25px-Grimoire.png",
+    },
+    carpenter: {
+      name: "Secretary Desk",
+      url: "/images/thumb/8/85/Secretary_Desk.png/25px-Secretary_Desk.png",
+    },
+    spice_merchant: {
+      name: "Cinnamon",
+      url: "/images/thumb/1/1b/Cinnamon.png/25px-Cinnamon.png",
+    },
+  },
+  EG: {
+    jeweler: {
+      name: "Fine Jewelry",
+      url: "/images/thumb/a/af/Fine_Jewelry.png/120px-Fine_Jewelry.png",
+    },
+    alchemist: {
+      name: "Ointment",
+      url: "/images/thumb/5/5c/Ointment.png/120px-Ointment.png",
+    },
+    glassblower: {
+      name: "Lead Glass",
+      url: "/images/thumb/e/e2/Lead_Glass.png/120px-Lead_Glass.png",
+    },
+  },
+} as const;
 
 export const formatColumns = [
   "coin",

@@ -1,5 +1,10 @@
-import { buildingsAbbr, DEFAULT_IMG_URL, goodsUrlByEra } from "./constants";
-import { assetGoods, defaultGood } from "./images";
+import {
+  buildingsAbbr,
+  itemsUrl,
+  EraAbbr,
+  goodsUrlByEra,
+} from "./constants";
+import { assetGoods, defaultGood } from "./data/images";
 
 export function getBuildingFromLocal(
   priority: string,
@@ -70,8 +75,7 @@ export function replaceTextByImage(buildings: string[][]): void {
           ? building.toLowerCase().replace(/[^\w-]/g, "_")
           : "";
 
-        const imgUrl =
-          goodsUrlByEra.get(era)?.get(normalizedBuilding) || DEFAULT_IMG_URL;
+        const imgUrl = goodsUrlByEra[era.toUpperCase() as EraAbbr][normalizedBuilding].url || itemsUrl.default;
 
         // Créer et configurer l'image
         const img = document.createElement("img");
@@ -82,7 +86,7 @@ export function replaceTextByImage(buildings: string[][]): void {
         img.decoding = "async";
         img.loading = "lazy";
         img.onerror = () => {
-          img.src = DEFAULT_IMG_URL;
+          img.src = itemsUrl.default;
         };
 
         fragment.appendChild(img);
@@ -115,7 +119,7 @@ export function parseNumber(value: string) {
   // Nettoyage : enlever espaces et virgules
   let clean = value.replace(/[, ]/g, "").toUpperCase();
 
-  let number = parseFloat(clean.replace(/[^\d.]/g, "")); 
+  let number = parseFloat(clean.replace(/[^\d.]/g, ""));
 
   if (clean.includes("K")) number *= 1000;
   if (clean.includes("M")) number *= 1000000;
@@ -125,10 +129,31 @@ export function parseNumber(value: string) {
 
 export function formatNumber(value: number) {
   if (value >= 1_000_000) {
-    return (value / 1_000_000).toLocaleString("en-US", { maximumFractionDigits: 1 }).replace(/\.0$/, "") + " M";
+    return (
+      (value / 1_000_000)
+        .toLocaleString("en-US", { maximumFractionDigits: 1 })
+        .replace(/\.0$/, "") + " M"
+    );
   } else if (value >= 1_000) {
-    return (value / 1_000).toLocaleString("en-US", { maximumFractionDigits: 1 }).replace(/\.0$/, "") + " K";
+    return (
+      (value / 1_000)
+        .toLocaleString("en-US", { maximumFractionDigits: 1 })
+        .replace(/\.0$/, "") + " K"
+    );
   }
+  return value.toString();
+}
+
+export function questsFormatNumber(value: number): string {
+  const formatWithDecimals = (num: number) =>
+    num.toLocaleString("fr-FR", {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    });
+
+  if (value >= 1_000_000) return formatWithDecimals(value / 1_000_000) + " M";
+  if (value >= 100_000) return formatWithDecimals(value / 1_000) + " K";
+  if (value >= 1_000) return value.toLocaleString("en-US");
   return value.toString();
 }
 
@@ -214,5 +239,8 @@ export function filterTables(
         type: match, // toujours en minuscule
       };
     })
-    .filter((item): item is { element: HTMLTableElement; type: string } => item !== null);
+    .filter(
+      (item): item is { element: HTMLTableElement; type: string } =>
+        item !== null
+    );
 }

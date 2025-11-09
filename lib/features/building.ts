@@ -26,9 +26,7 @@ export function updateImageSrcByAlt(buildings: string[][]): void {
 
       const normalizedBuilding = building.toLowerCase().replace(/[^\w-]/g, "_");
 
-      const newSrc = goodsUrlByEra
-        .get(era.toUpperCase() as EraAbbr)
-        ?.get(normalizedBuilding);
+      const newSrc = goodsUrlByEra[era.toUpperCase() as EraAbbr][normalizedBuilding].url;
 
       if (newSrc) {
         image.src = newSrc;

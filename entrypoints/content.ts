@@ -86,9 +86,7 @@ export default defineContentScript({
 
           // Comparer la nouvelle valeur avec l'ancienne
           if (storedEra !== undefined && storedEra !== newEra) {
-            console.log(
-              `Era changed from ${storedEra} to ${newEra}, reloading page`
-            );
+            // console.log( `Era changed from ${storedEra} to ${newEra}, reloading page`);
             location.reload();
           }
 
@@ -102,8 +100,6 @@ export default defineContentScript({
 
     // ========= Techno/Upgrade Part =========
 
-    useQuestlines(storedEra);
-
     const tables = Array.from(
       document.querySelectorAll("table.article-table")
     ) as HTMLTableElement[];
@@ -112,5 +108,7 @@ export default defineContentScript({
     useUpgrade(tables);
     useBuilding(storedBuildings);
     useWonders(tables);
+
+    useQuestlines(storedEra, storedBuildings);
   },
 });

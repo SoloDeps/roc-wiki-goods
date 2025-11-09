@@ -5,16 +5,24 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## v1.2.0 - Nov 7, 2025
+## v1.2.0 - Nov 9, 2025
 
 ### Added
 
 - Add era selector in popup
+- Add itemsUrl in utils (images url)
+- Add questsFormatNumber function in utils
 
 ### Changed
 
 - Refactor al structure of the project
-- Add alias import
+- Refactor goodsUrlByEra in constants
+- Add alias import in tsconfig.json
+- Update design of the popup
+
+### Fixed
+
+- Update updateImageSrcByAlt function in building.ts
 
 ## v1.1.3 - Oct 27, 2025
 
