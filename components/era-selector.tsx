@@ -43,7 +43,7 @@ export default function EraSelector({
     <div className="pt-3">
       <div>
         <h2 className="block text-xs font-medium text-gray-900">
-          Select your current era
+          Your current era
         </h2>
         <Listbox value={era ?? null} onChange={updateEraSelection}>
           <div className="relative mt-1 w-44">
@@ -52,7 +52,9 @@ export default function EraSelector({
                 {era ? (
                   <span className="select-none">{era.name}</span>
                 ) : (
-                  <span className="text-gray-400 select-none">Select your current era</span>
+                  <span className="text-gray-400 select-none">
+                    Select your current era
+                  </span>
                 )}
               </span>
               <svg
@@ -82,12 +84,13 @@ export default function EraSelector({
                   value={eraOption}
                   className="group flex cursor-default items-center gap-2 rounded px-2 py-1.5 select-none data-focus:bg-blue-100"
                 >
+                  <div className="text-xs text-gray-900">{eraOption.name}</div>
                   <svg
                     fill="currentColor"
                     viewBox="0 0 16 16"
                     xmlns="http://www.w3.org/2000/svg"
                     aria-hidden="true"
-                    className="invisible size-5 text-blue-500 group-data-selected:visible"
+                    className="invisible size-5 text-blue-500 group-data-selected:visible ml-auto"
                   >
                     <path
                       clipRule="evenodd"
@@ -95,7 +98,6 @@ export default function EraSelector({
                       d="M12.416 3.376a.75.75 0 0 1 .208 1.04l-5 7.5a.75.75 0 0 1-1.154.114l-3-3a.75.75 0 0 1 1.06-1.06l2.353 2.353 4.493-6.74a.75.75 0 0 1 1.04-.207Z"
                     />
                   </svg>
-                  <div className="text-xs text-gray-900">{eraOption.name}</div>
                 </ListboxOption>
               ))}
             </ListboxOptions>

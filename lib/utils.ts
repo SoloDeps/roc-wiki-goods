@@ -75,7 +75,7 @@ export function replaceTextByImage(buildings: string[][]): void {
           ? building.toLowerCase().replace(/[^\w-]/g, "_")
           : "";
 
-        const imgUrl = goodsUrlByEra[era.toUpperCase() as EraAbbr][normalizedBuilding].url || itemsUrl.default;
+        const imgUrl = goodsUrlByEra[era.toUpperCase() as EraAbbr]?.[normalizedBuilding]?.url || itemsUrl.default;
 
         // Créer et configurer l'image
         const img = document.createElement("img");
