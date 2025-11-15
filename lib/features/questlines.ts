@@ -6,10 +6,11 @@ import {
   goodsUrlByEra,
 } from "@/lib/constants";
 import { getTitlePage, questsFormatNumber } from "@/lib/utils";
-import { questsRequirements } from "@/lib/data/questsData";
-import type { QuestRequirements } from "@/lib/data/questsData";
+import { questsRequirements, unitsData } from "@/lib/data/questsData";
+import type { QuestRequirements, UnitsDataType } from "@/lib/data/questsData";
 
 type QuestRequirementCategory = keyof QuestRequirements;
+type QuestUnitsRequirements = keyof UnitsDataType;
 
 const categoryIndex: Record<string, number> = {
   primary: 0,
@@ -29,58 +30,207 @@ export function getPreviousAndCurrentEra(abbr: string) {
   return { previousEraName, currentEraName };
 }
 
+// function getRequirementsValueSafe(
+//   dataAttr: string,
+//   userEra: EraAbbr,
+//   userWorkshops: string[]
+// ): {
+//   imgSrc?: string;
+//   alt?: string;
+//   width?: number;
+//   height?: number;
+//   label: string;
+// } {
+//   const [typeRaw, sizeRaw] = dataAttr.split("_");
+//   const type = typeRaw.toLowerCase() as QuestRequirementCategory;
+//   const size = sizeRaw.toLowerCase();
+
+//   console.log(type + " " + size);
+
+//   let category = type;
+//   let item = typeRaw;
+//   let imgSrc = "";
+//   let alt = "";
+
+//   // --- Détection goods ---
+//   if (["primary", "secondary", "tertiary"].includes(type)) {
+//     category = "goods";
+
+//     if (userEra !== "SA") {
+//       const catIndex = categoryIndex[type];
+//       const workshop =
+//         userWorkshops[catIndex]?.toLowerCase().replace(/\s+/g, "_") || "";
+
+//       const data = goodsUrlByEra[userEra]?.[workshop];
+
+//       if (data) {
+//         item = data.name;
+//         imgSrc = data.url;
+//         alt = data.name;
+//       } else {
+//         // fallback si aucune donnée de goods n'est trouvée
+//         item = `${typeRaw} Goods`;
+//         imgSrc = itemsUrl.default;
+//         alt = "goods";
+//       }
+//     } else {
+//       item = "Food";
+//       imgSrc = itemsUrl.food;
+//       alt = "Food";
+//     }
+//   }
+
+//   // --- Units ---
+//   if (
+//     ["cavalry", "heavyinfantry", "infantry", "ranged", "siege"].includes(type)
+//   ) {
+//     const imgSize = 28;
+//     const unitType = type as QuestUnitsRequirements;
+//     const unitsQuestValues = questsRequirements[unitType][size];
+
+//     let numberValue;
+//     let unitInfos;
+
+//     if (unitsQuestValues[userEra]) {
+//       numberValue = unitsQuestValues[userEra][0];
+//       const unit_type = unitsQuestValues[userEra][1];
+
+//       unitInfos = unitsData[unit_type][userEra];
+
+//       console.log("unitInfos", unitInfos);
+//       console.log("++++");
+
+//     } else {
+//       const values = Object.values(unitsQuestValues);
+//       console.log(values);
+
+//       const lastValue = values[values.length - 1];
+//       console.log("last value:", lastValue);
+
+//       numberValue = lastValue[0];
+//       unitInfos = unitsData[lastValue[1]][userEra];
+//       console.log("unitInfos", unitInfos);
+//       console.log("====");
+//     }
+
+//     const line = numberValue + " " + unitInfos[0];
+//     console.log(line);
+
+//     console.log("numberValue", numberValue);
+//     console.log("unitInfos", unitInfos[1]);
+
+//     return {
+//       imgSrc: `https://riseofcultures.wiki.gg/images/thumb/${unitInfos[1]}.png/${imgSize}px-${unitInfos[1]}.png`,
+//       alt: unitInfos[1],
+//       width: imgSize,
+//       height: imgSize,
+//       label: line,
+//     };
+//   }
+
+//   // --- Coins / Food ---
+//   if (category === "food") {
+//     imgSrc = itemsUrl.food;
+//     alt = "Food";
+//   } else if (category === "coins") {
+//     imgSrc = itemsUrl.coins;
+//     alt = "Coins";
+//   }
+
+//   // --- Cas normaux (avec image) ---
+//   const amount = questsFormatNumber(
+//     questsRequirements[category][size][userEra] as number
+//   );
+
+//   return {
+//     imgSrc,
+//     alt,
+//     width: 25,
+//     height: 25,
+//     label: `${amount} ${item}`,
+//   };
+// }
+
 function getRequirementsValueSafe(
   dataAttr: string,
   userEra: EraAbbr,
   userWorkshops: string[]
-): {
-  imgSrc?: string;
-  alt?: string;
-  width?: number;
-  height?: number;
-  label: string;
-} {
+) {
   const [typeRaw, sizeRaw] = dataAttr.split("_");
   const type = typeRaw.toLowerCase() as QuestRequirementCategory;
   const size = sizeRaw.toLowerCase();
+
+  // console.log("==========");
+  // console.log(type + " " + size);
 
   let category = type;
   let item = typeRaw;
   let imgSrc = "";
   let alt = "";
 
-  // --- Détection goods ---
-  if (["primary", "secondary", "tertiary"].includes(type)) {
-  category = "goods";
+  const isGoods = ["primary", "secondary", "tertiary"].includes(type);
+  const isUnit = [
+    "cavalry",
+    "heavyinfantry",
+    "infantry",
+    "ranged",
+    "siege",
+  ].includes(type);
 
-  if (userEra !== "SA") {
-    const catIndex = categoryIndex[type];
-    const workshop = userWorkshops[catIndex]
-      ?.toLowerCase()
-      .replace(/\s+/g, "_") || "";
+  // Goods
+  if (isGoods) {
+    category = "goods";
 
-    const data = goodsUrlByEra[userEra]?.[workshop];
+    if (userEra !== "SA") {
+      const catIndex = categoryIndex[type];
+      const workshop =
+        userWorkshops[catIndex]?.toLowerCase().replace(/\s+/g, "_") || "";
+      const data = goodsUrlByEra[userEra]?.[workshop];
 
-    if (data) {
-      item = data.name;
-      imgSrc = data.url;
-      alt = data.name;
+      if (data) {
+        item = data.name;
+        imgSrc = data.url;
+        alt = data.name;
+      } else {
+        item = `${typeRaw} Goods`;
+        imgSrc = itemsUrl.default;
+        alt = "goods";
+      }
     } else {
-      // fallback si aucune donnée de goods n'est trouvée
-      item = `${typeRaw} Goods`;
-      imgSrc = itemsUrl.default;
-      alt = "goods";
+      item = "Food";
+      imgSrc = itemsUrl.food;
+      alt = "Food";
     }
-  } else {
-    item = "Food";
-    imgSrc = itemsUrl.food;
-    alt = "Food";
   }
-}
 
+  // Units
+  if (isUnit) {
+    const imgSize = 28;
+    const unitType = type as QuestUnitsRequirements;
+    const unitsQuestValues = questsRequirements[unitType][size];
 
-  // --- Coins / Food ---
-  else if (category === "food") {
+    // Récupère soit l'ère exacte, soit la dernière valeur disponible
+    const eraValues =
+      unitsQuestValues[userEra] ??
+      Object.values(unitsQuestValues)[
+        Object.values(unitsQuestValues).length - 1
+      ];
+
+    const [numberValue, unitTypeKey] = eraValues;
+    // @ts-ignore
+    const unitInfos = unitsData[unitTypeKey][userEra]; // [name, img]
+
+    return {
+      imgSrc: `https://riseofcultures.wiki.gg/images/thumb/${unitInfos[1]}.png/${imgSize}px-${unitInfos[1]}.png`,
+      alt: unitInfos[1],
+      width: imgSize,
+      height: imgSize,
+      label: `${numberValue} ${unitInfos[0]}`,
+    };
+  }
+
+  // Coins / Food / Others
+  if (category === "food") {
     imgSrc = itemsUrl.food;
     alt = "Food";
   } else if (category === "coins") {
@@ -88,22 +238,6 @@ function getRequirementsValueSafe(
     alt = "Coins";
   }
 
-  // --- Units (aucune image, juste label texte) ---
-  else if (["cavalry", "heavy", "infantry", "ranged", "siege"].includes(type)) {
-    const unitsData = questsRequirements[type][size];
-    let unitValue;
-
-    if (unitsData[userEra]) {
-      unitValue = unitsData[userEra];
-    } else {
-      const values = Object.values(unitsData);
-      unitValue = values[values.length - 1];
-    }
-
-    return { label: unitValue };
-  }
-
-  // --- Cas normaux (avec image) ---
   const amount = questsFormatNumber(
     questsRequirements[category][size][userEra] as number
   );
@@ -160,8 +294,8 @@ export function useQuestlines(era: EraAbbr | null, buildings: string[][]) {
           return text.includes("goods");
         if (type === "coins") return text.includes("coins");
         if (type === "food") return text.includes("food");
-        if (["cavalry", "heavy", "infantry", "ranged", "siege"].includes(type))
-          return text.includes("units") || text.includes("unit");
+        if (["cavalry", "heavyinfantry", "infantry", "ranged", "siege"].includes(type))
+          return text;
         return false;
       });
       if (!boldNode || !boldNode.parentNode) continue;

@@ -1,18 +1,27 @@
 import { EraAbbr } from "@/lib/constants";
 
 type QuestEraNumber = Record<EraAbbr, number>;
-type QuestEraString = Partial<Record<EraAbbr, string>>;
+type QuestEraTable = Partial<Record<EraAbbr, [value: number, unit: string]>>;
+type QuestUnitsRequirements = [name: string, imgName: string];
 
 export interface QuestRequirements {
   coins: Record<string, QuestEraNumber>;
   food: Record<string, QuestEraNumber>;
   goods: Record<string, QuestEraNumber>;
   // units
-  cavalry: Record<string, QuestEraString>;
-  heavy: Record<string, QuestEraString>;
-  infantry: Record<string, QuestEraString>;
-  ranged: Record<string, QuestEraString>;
-  siege: Record<string, QuestEraString>;
+  cavalry: Record<string, QuestEraTable>;
+  heavyinfantry: Record<string, QuestEraTable>;
+  infantry: Record<string, QuestEraTable>;
+  ranged: Record<string, QuestEraTable>;
+  siege: Record<string, QuestEraTable>;
+}
+
+export interface UnitsDataType {
+  cavalry: Record<EraAbbr, QuestUnitsRequirements>;
+  heavyinfantry: Record<EraAbbr, QuestUnitsRequirements>;
+  infantry: Record<EraAbbr, QuestUnitsRequirements>;
+  ranged: Record<EraAbbr, QuestUnitsRequirements>;
+  siege: Record<EraAbbr, QuestUnitsRequirements>;
 }
 
 export const questsRequirements: QuestRequirements = {
@@ -399,183 +408,261 @@ export const questsRequirements: QuestRequirements = {
   },
   cavalry: {
     s: {
-      SA: "8 Ranged units",
-      BA: "2 Cavalry units",
+      SA: [8, "ranged"],
+      BA: [2, "cavalry"],
     },
     m: {
-      SA: "16 Ranged units",
-      BA: "4 Cavalry units",
+      SA: [16, "ranged"],
+      BA: [4, "cavalry"],
     },
     l: {
-      SA: "24 Ranged units",
-      BA: "6 Cavalry units",
+      SA: [24, "ranged"],
+      BA: [6, "cavalry"],
     },
     xl: {
-      SA: "28 Ranged units",
-      BA: "8 Cavalry units",
+      SA: [28, "ranged"],
+      BA: [8, "cavalry"],
     },
     xxl: {
-      SA: "36 Ranged units",
-      BA: "10 Cavalry units",
+      SA: [36, "ranged"],
+      BA: [10, "cavalry"],
     },
     xxxl: {
-      SA: "50 Ranged units",
-      BA: "25 Cavalry units",
+      SA: [50, "ranged"],
+      BA: [25, "cavalry"],
     },
     "4xxl": {
-      SA: "100 Ranged units",
-      BA: "50 Cavalry units",
+      SA: [100, "ranged"],
+      BA: [50, "cavalry"],
     },
   },
-  heavy: {
+  heavyinfantry: {
     s: {
-      SA: "12 Ranged units",
-      BA: "4 Cavalry units",
-      ME: "4 Cavalry units",
-      CG: "2 Heavy Infantry units",
+      SA: [12, "ranged"],
+      BA: [4, "cavalry"],
+      ME: [4, "cavalry"],
+      CG: [2, "heavyinfantry"],
     },
     m: {
-      SA: "18 Ranged units",
-      BA: "8 Cavalry units",
-      ME: "8 Cavalry units",
-      CG: "4 Heavy Infantry units",
+      SA: [18, "ranged"],
+      BA: [8, "cavalry"],
+      ME: [8, "cavalry"],
+      CG: [4, "heavyinfantry"],
     },
     l: {
-      SA: "30 Ranged units",
-      BA: "10 Cavalry units",
-      ME: "10 Cavalry units",
-      CG: "6 Heavy Infantry units",
+      SA: [30, "ranged"],
+      BA: [10, "cavalry"],
+      ME: [10, "cavalry"],
+      CG: [6, "heavyinfantry"],
     },
     xl: {
-      SA: "42 Ranged units",
-      BA: "14 Cavalry units",
-      ME: "14 Cavalry units",
-      CG: "7 Heavy Infantry units",
+      SA: [42, "ranged"],
+      BA: [14, "cavalry"],
+      ME: [14, "cavalry"],
+      CG: [7, "heavyinfantry"],
     },
     xxl: {
-      SA: "54 Ranged units",
-      BA: "18 Cavalry units",
-      ME: "18 Cavalry units",
-      CG: "7 Heavy Infantry units",
-      ER: "10 Heavy Infantry units",
+      SA: [54, "ranged"],
+      BA: [18, "cavalry"],
+      ME: [18, "cavalry"],
+      CG: [7, "heavyinfantry"],
+      ER: [10, "heavyinfantry"],
     },
     xxxl: {
-      SA: "50 Ranged units",
-      BA: "25 Cavalry units",
-      ME: "25 Cavalry units",
-      CG: "10 Heavy Infantry units",
-      ER: "20 Heavy Infantry units",
+      SA: [50, "ranged"],
+      BA: [25, "cavalry"],
+      ME: [25, "cavalry"],
+      CG: [10, "heavyinfantry"],
+      ER: [20, "heavyinfantry"],
     },
     "4xxl": {
-      SA: "100 Ranged units",
-      BA: "50 Cavalry units",
-      ME: "50 Cavalry units",
-      CG: "20 Heavy Infantry units",
-      ER: "40 Heavy Infantry units",
+      SA: [100, "ranged"],
+      BA: [50, "cavalry"],
+      ME: [50, "cavalry"],
+      CG: [20, "heavyinfantry"],
+      ER: [40, "heavyinfantry"],
     },
   },
   infantry: {
     s: {
-      SA: "12 Infantry units",
+      SA: [12, "infantry"],
     },
     m: {
-      SA: "24 Infantry units",
+      SA: [24, "infantry"],
     },
     l: {
-      SA: "36 Infantry units",
+      SA: [36, "infantry"],
     },
     xl: {
-      SA: "48 Infantry units",
+      SA: [48, "infantry"],
     },
     xxl: {
-      SA: "57 Infantry units",
+      SA: [57, "infantry"],
     },
     xxxl: {
-      SA: "100 Infantry units",
+      SA: [100, "infantry"],
     },
     "4xxl": {
-      SA: "200 Infantry units",
+      SA: [200, "infantry"],
     },
   },
   ranged: {
     s: {
-      SA: "4 Ranged units",
+      SA: [4, "ranged"],
     },
     m: {
-      SA: "8 Ranged units",
+      SA: [8, "ranged"],
     },
     l: {
-      SA: "12 Ranged units",
+      SA: [12, "ranged"],
     },
     xl: {
-      SA: "16 Ranged units",
+      SA: [16, "ranged"],
     },
     xxl: {
-      SA: "19 Ranged units",
+      SA: [19, "ranged"],
     },
     xxxl: {
-      SA: "50 Ranged units",
+      SA: [50, "ranged"],
     },
     "4xxl": {
-      SA: "100 Ranged units",
+      SA: [100, "ranged"],
     },
   },
   siege: {
     s: {
-      SA: "16 Ranged units",
-      BA: "8 Cavalry units",
-      ME: "8 Cavalry units",
-      CG: "6 Heavy Infantry units",
-      ER: "6 Heavy Infantry units",
-      RE: "1 Siege units",
+      SA: [16, "ranged"],
+      BA: [8, "cavalry"],
+      ME: [8, "cavalry"],
+      CG: [6, "heavyinfantry"],
+      ER: [6, "heavyinfantry"],
+      RE: [1, "siege"],
     },
     m: {
-      SA: "32 Ranged units",
-      BA: "16 Cavalry units",
-      ME: "16 Cavalry units",
-      CG: "9 Heavy Infantry units",
-      ER: "12 Heavy Infantry units",
-      RE: "2 Siege units",
+      SA: [32, "ranged"],
+      BA: [16, "cavalry"],
+      ME: [16, "cavalry"],
+      CG: [9, "heavyinfantry"],
+      ER: [12, "heavyinfantry"],
+      RE: [2, "siege"],
     },
     l: {
-      SA: "40 Ranged units",
-      BA: "20 Cavalry units",
-      ME: "20 Cavalry units",
-      CG: "9 Heavy Infantry units",
-      ER: "15 Heavy Infantry units",
-      RE: "3 Siege units",
+      SA: [40, "ranged"],
+      BA: [20, "cavalry"],
+      ME: [20, "cavalry"],
+      CG: [9, "heavyinfantry"],
+      ER: [15, "heavyinfantry"],
+      RE: [3, "siege"],
     },
     xl: {
-      SA: "56 Ranged units",
-      BA: "28 Cavalry units",
-      ME: "28 Cavalry units",
-      CG: "15 Heavy Infantry units",
-      ER: "21 Heavy Infantry units",
-      RE: "4 Siege units",
+      SA: [56, "ranged"],
+      BA: [28, "cavalry"],
+      ME: [28, "cavalry"],
+      CG: [15, "heavyinfantry"],
+      ER: [21, "heavyinfantry"],
+      RE: [4, "siege"],
     },
     xxl: {
-      SA: "76 Ranged units",
-      BA: "38 Cavalry units",
-      ME: "38 Cavalry units",
-      CG: "21 Heavy Infantry units",
-      ER: "29 Heavy Infantry units",
-      RE: "5 Siege units",
+      SA: [76, "ranged"],
+      BA: [38, "cavalry"],
+      ME: [38, "cavalry"],
+      CG: [21, "heavyinfantry"],
+      ER: [29, "heavyinfantry"],
+      RE: [5, "siege"],
     },
     xxxl: {
-      SA: "50 Ranged units",
-      BA: "25 Cavalry units",
-      ME: "25 Cavalry units",
-      CG: "10 Heavy Infantry units",
-      ER: "20 Heavy Infantry units",
-      RE: "6 Siege units",
+      SA: [50, "ranged"],
+      BA: [25, "cavalry"],
+      ME: [25, "cavalry"],
+      CG: [10, "heavyinfantry"],
+      ER: [20, "heavyinfantry"],
+      RE: [6, "siege"],
     },
     _4xxl: {
-      SA: "100 Ranged units",
-      BA: "50 Cavalry units",
-      ME: "50 Cavalry units",
-      CG: "20 Heavy Infantry units",
-      ER: "40 Heavy Infantry units",
-      RE: "8 Siege units",
+      SA: [100, "ranged"],
+      BA: [50, "cavalry"],
+      ME: [50, "cavalry"],
+      CG: [20, "heavyinfantry"],
+      ER: [40, "heavyinfantry"],
+      RE: [8, "siege"],
     },
+  },
+};
+
+export const unitsData: UnitsDataType = {
+  infantry: {
+    SA: ["Spearfighters", "Unit_Spearfighters"],
+    BA: ["Swordsmen", "Unit_Swordsmen"],
+    ME: ["Copis Warriors", "Unit_CopisWarriors"],
+    CG: ["Psiloi", "Unit_Psiloi"],
+    ER: ["Hastati", "Unit_Hastati"],
+    RE: ["Princeps", "Unit_Princeps"],
+    BE: ["Bucellarii", "Unit_Bucellarii"],
+    AF: ["Skirmishers", "Unit_Skirmishers"],
+    FA: ["Axemen", "Unit_Axemen"],
+    IE: ["Almogavars", "Unit_Almogavars"],
+    KS: ["Pedites", "Unit_Pedites"],
+    HM: ["Infantrymen", "Unit_Infantrymen"],
+    EG: ["Routiers", "Unit_Routiers"],
+  },
+  cavalry: {
+    SA: ["", ""],
+    BA: ["Cavalry Spearman", "Unit_CavalrySpearmen"],
+    ME: ["Hippeis", "Unit_Hippeis"],
+    CG: ["Cataphract", "Unit_Cataphract"],
+    ER: ["Auxilia Riders", "Unit_AuxiliaRiders"],
+    RE: ["Turmae", "Unit_Turmae"],
+    BE: ["Trapezites", "Unit_Trapezites"],
+    AF: ["Caballarii", "Unit_Caballarii"],
+    FA: ["Knights", "Unit_Knights"],
+    IE: ["Jinete", "Unit_Jinete"],
+    KS: ["Melites", "Unit_Melites"],
+    HM: ["Knightly Cavalry", "Unit_KnightlyCavalry"],
+    EG: ["Cavalrymen", "Unit_Cavalrymen"],
+  },
+  heavyinfantry: {
+    SA: ["", ""],
+    BA: ["", ""],
+    ME: ["", ""],
+    CG: ["Hoplites", "Unit_Hoplites"],
+    ER: ["Triarii", "Unit_Triarii"],
+    RE: ["Legionary", "Unit_Legionary"],
+    BE: ["Jovians", "Unit_Jovians"],
+    AF: ["Halberds", "Unit_Halberds"],
+    FA: ["King's Guard", "Unit_Kings_Guard"],
+    IE: ["Order of Calatrava", "Unit_Order_Of_Calatrava"],
+    KS: ["Familia Regis", "Unit_Familia_Regis"],
+    HM: ["Billmen", "Unit_Billmen"],
+    EG: ["Noble Knights", "Unit_Noble_Knights"],
+  },
+  ranged: {
+    SA: ["Slingers", "Unit_Slingers"],
+    BA: ["Archers", "Unit_Archers"],
+    ME: ["Composite Archers", "Unit_CompositeArchers"],
+    CG: ["Toxotai", "Unit_Toxotai"],
+    ER: ["Velites", "Unit_Velites"],
+    RE: ["Sagittarii", "Unit_Sagittarii"],
+    BE: ["Saracen Archers", "Unit_SaracenArchers"],
+    AF: ["Franc-Axethrowers", "Unit_FrancAxethrowers"],
+    FA: ["Longbowmen", "Unit_Longbowmen"],
+    IE: ["Crossbowmen", "Unit_Crossbowmen"],
+    KS: ["Armored Crossbowmen", "Unit_Armored_Crossbowmen"],
+    HM: ["Arbalists", "Unit_Arbalists"],
+    EG: ["Crossbow Guards", "Unit_EarlyGothicEra_Player_Longbowmen"],
+  },
+  siege: {
+    SA: ["", ""],
+    BA: ["", ""],
+    ME: ["", ""],
+    CG: ["", ""],
+    ER: ["", ""],
+    RE: ["Ballista", "Unit_Ballista"],
+    BE: ["Catapult", "Unit_Catapult"],
+    AF: ["Carolingian Catapult", "Unit_CarolingianCatapult"],
+    FA: ["Trebuchet", "Unit_Trebuchet"],
+    IE: ["Advanced Trebuchet", "Unit_Advanced_Trebuchet"],
+    KS: ["Siege Tower", "Unit_Siege_Tower"],
+    HM: ["Medieval Catapult", "Unit_Medieval_Catapult"],
+    EG: ["Wheeled Tower", "Unit_EarlyGothicEra_Player_WheeledOnager"],
   },
 };
