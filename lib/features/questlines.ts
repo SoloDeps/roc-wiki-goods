@@ -300,7 +300,76 @@ export function useQuestlines(era: EraAbbr | null, buildings: string[][]) {
       });
       if (!boldNode || !boldNode.parentNode) continue;
 
-      // --- Création sécurisée du fragment ---
+      // --- Cas spécial : si le <b> contient un <br> ---
+      const hasBr = Array.from(boldNode.childNodes).some(
+        (node) => node.nodeName === "BR"
+      );
+
+      if (hasBr) {
+        // Parcourir les nœuds enfants du <b>
+        const childNodes = Array.from(boldNode.childNodes);
+        let foundBr = false;
+        
+        for (let i = 0; i < childNodes.length; i++) {
+          const node = childNodes[i];
+          
+          // Détecter le <br>
+          if (node.nodeName === "BR") {
+            foundBr = true;
+            continue;
+          }
+          
+          // Après le <br>, chercher le texte contenant le mot-clé
+          if (foundBr && node.nodeType === Node.TEXT_NODE) {
+            const textContent = node.textContent || "";
+            let keyword = type;
+            if (["primary", "secondary", "tertiary"].includes(type)) {
+              keyword = "goods";
+            }
+            
+            const regex = new RegExp(`\\b${keyword}\\b`, "i");
+            
+            if (regex.test(textContent)) {
+              // Créer le fragment de remplacement
+              const fragment = document.createDocumentFragment();
+              
+              // Texte avant le mot-clé
+              const parts = textContent.split(regex);
+              const beforeMatch = parts[0];
+              if (beforeMatch) {
+                fragment.appendChild(document.createTextNode(beforeMatch));
+              }
+              
+              // Image + label
+              if (result.imgSrc) {
+                const img = document.createElement("img");
+                img.src = result.imgSrc;
+                img.alt = result.alt || "";
+                img.width = result.width ?? 25;
+                img.height = result.height ?? 25;
+                fragment.appendChild(img);
+                fragment.appendChild(document.createTextNode(" "));
+              }
+              
+              fragment.appendChild(document.createTextNode(result.label));
+              
+              // Texte après le mot-clé
+              const afterMatch = parts[1];
+              if (afterMatch) {
+                fragment.appendChild(document.createTextNode(afterMatch));
+              }
+              
+              // Remplacer le nœud texte
+              boldNode.replaceChild(fragment, node);
+              break;
+            }
+          }
+        }
+        
+        continue;
+      }
+
+      // --- Création sécurisée du fragment (comportement normal) ---
       const fragment = document.createDocumentFragment();
 
       if (result.imgSrc) {
@@ -317,7 +386,7 @@ export function useQuestlines(era: EraAbbr | null, buildings: string[][]) {
         fragment.appendChild(document.createTextNode(" "));
         fragment.appendChild(newB);
       } else {
-        // Cas des unités (pas d’image)
+        // Cas des unités (pas d'image)
         const newB = document.createElement("b");
         newB.textContent = result.label;
         fragment.appendChild(newB);

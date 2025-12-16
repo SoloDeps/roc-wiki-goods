@@ -47,7 +47,7 @@ function App() {
     return (
       <div className="bg-red-50 text-red-500 p-4">
         <div className="flex">
-          <div className="flex-shrink-0">
+          <div className="shrink-0">
             <svg
               className="size-5"
               data-slot="icon"
