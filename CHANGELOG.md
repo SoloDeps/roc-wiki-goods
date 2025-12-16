@@ -5,6 +5,18 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec2.0.0.html).
 
+## v1.2.3 - Dec 16, 2025
+
+### Fixed
+
+- Fix era selector warning in popup
+
+### Changed
+
+- Update wxt config + imports
+- Upgrade dependencies to latest version (wxt 0.20.11)
+- Add override for dotenv
+
 ## v1.2.2 - Nov 15, 2025
 
 ### Added

@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { storage } from "wxt/storage";
+import { storage } from "#imports";
 import {
   Listbox,
   ListboxButton,
