@@ -2,7 +2,7 @@
   "name": "roc-wiki-goods",
   "description": "manifest.json description",
   "private": true,
-  "version": "1.2.2",
+  "version": "1.2.4",
   "type": "module",
   "scripts": {
     "dev": "wxt",

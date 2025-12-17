@@ -12,8 +12,8 @@ import { Era } from "@/lib/constants";
 
 type EraSelectorType = {
   eras: readonly Era[];
-  eraSelected: Era | undefined;
-  setEraSelected: React.Dispatch<React.SetStateAction<Era | undefined>>;
+  eraSelected: Era | null;
+  setEraSelected: React.Dispatch<React.SetStateAction<Era | null>>;
 };
 
 export default function EraSelector({
@@ -21,7 +21,7 @@ export default function EraSelector({
   eraSelected,
   setEraSelected,
 }: EraSelectorType) {
-  const [era, setEra] = useState<Era | undefined>(eraSelected);
+  const [era, setEra] = useState<Era | null>(eraSelected ?? null);
 
   useEffect(() => {
     setEra(eraSelected);
@@ -45,7 +45,7 @@ export default function EraSelector({
         <h2 className="block text-xs font-medium text-gray-900">
           Your current era
         </h2>
-        <Listbox value={era} onChange={updateEraSelection}>
+        <Listbox value={era ?? null} onChange={updateEraSelection}>
           <div className="relative mt-1 w-44">
             <ListboxButton className="block w-44 h-8 rounded-md border-0 py-1.5 pl-2.5 text-xs text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-blue-500 sm:text-sm sm:leading-6">
               <span className="flex items-center gap-2">

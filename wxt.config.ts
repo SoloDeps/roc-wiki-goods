@@ -6,7 +6,7 @@ export default defineConfig({
   outDirTemplate: '{{browser}}-mv{{manifestVersion}}',
   modules: ["@wxt-dev/module-react"],
   vite: () => ({
-    plugins: [tailwindcss()],
+    plugins: [tailwindcss() as any],
   }),
   manifest: {
     version: "1.2.4",
