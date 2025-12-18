@@ -1,9 +1,11 @@
-import {
-  buildingsAbbr,
-  itemsUrl,
-  EraAbbr,
-  goodsUrlByEra,
-} from "./constants";
+import { clsx, type ClassValue } from "clsx";
+import { twMerge } from "tailwind-merge";
+
+export function cn(...inputs: ClassValue[]) {
+  return twMerge(clsx(inputs));
+}
+
+import { buildingsAbbr, itemsUrl, EraAbbr, goodsUrlByEra } from "./constants";
 import { assetGoods, defaultGood } from "./data/images";
 
 export function getBuildingFromLocal(
@@ -75,7 +77,9 @@ export function replaceTextByImage(buildings: string[][]): void {
           ? building.toLowerCase().replace(/[^\w-]/g, "_")
           : "";
 
-        const imgUrl = goodsUrlByEra[era.toUpperCase() as EraAbbr]?.[normalizedBuilding]?.url || itemsUrl.default;
+        const imgUrl =
+          goodsUrlByEra[era.toUpperCase() as EraAbbr]?.[normalizedBuilding]
+            ?.url || itemsUrl.default;
 
         // Créer et configurer l'image
         const img = document.createElement("img");
