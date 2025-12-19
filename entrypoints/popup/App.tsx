@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import type { Era } from "@/lib/constants";
 import { buildingsAbbr, eras, WIKI_URL } from "@/lib/constants";
 import EraSelector from "@/components/era-selector";
+import PopupHeader from "@/components/popup/header";
 import BuildingSelector from "@/components/building-selector";
 
 function App() {
@@ -13,15 +14,13 @@ function App() {
       : buildingsAbbr.map(() => ["", "", ""]);
   });
 
-  // Ajout : état pour era (objet complet)
-  const [era, setEra] = useState<Era | undefined>(() => {
+  const [era, setEra] = useState<Era | null>(() => {
     const saved = localStorage.getItem("eraSelection");
-    // essaie de retrouver l'objet era à partir de l'abbr sauvegardé
     if (saved) {
       const abbr = JSON.parse(saved);
-      return eras.find((e) => e.abbr === abbr);
+      return eras.find((e) => e.abbr === abbr) ?? null;
     }
-    return undefined;
+    return null;
   });
 
   const [isAllowedSite, setIsAllowedSite] = useState(false);
@@ -88,33 +87,9 @@ function App() {
 
   return (
     <>
-      <div className="px-4 pt-4 pb-3 text-[13px]">
-        <>
-          Fill in the dropdowns to display the icons on the wiki based on your
-          game data.
-          <br />
-          Not sure how to find your primary, secondary and tertiary workshop?{" "}
-          <a
-            href="#"
-            className="text-blue-600 hover:underline cursor-pointer transition duration-200"
-            onClick={async (e) => {
-              e.preventDefault();
-              await browser.tabs.update({
-                url: "https://riseofcultures.wiki.gg/wiki/Goods#Primary_Goods",
-              });
-            }}
-          >
-            Check here.
-          </a>
-        </>
+      <PopupHeader />
 
-        <div className="flex gap-1.5 pt-2 text-[13px] italic">
-          <span className="font-semibold">Warning:</span>All dropdowns must be
-          filled to display the icons correctly.
-        </div>
-      </div>
-
-      <div className="px-4 border-y border-neutral-300">
+      <div className="px-4 border-b border">
         {buildingsAbbr.map((group, index) => (
           <BuildingSelector
             key={index}
@@ -126,6 +101,7 @@ function App() {
           />
         ))}
       </div>
+
       <div className="px-4 pb-4">
         <EraSelector eras={eras} eraSelected={era} setEraSelected={setEra} />
         <div className="flex gap-1.5 pt-2 text-[13px] italic">
