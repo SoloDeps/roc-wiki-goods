@@ -14,7 +14,13 @@ import {
   formatNumber,
   getTitlePage,
   parseNumber,
+  generateRowId,
 } from "@/lib/utils";
+import {
+  loadSavedBuildings,
+  saveBuilding,
+  removeBuilding,
+} from "@/lib/overview/storage";
 
 interface TableInfo {
   element: HTMLTableElement;
@@ -47,7 +53,7 @@ function detectEraRow(
     if (match) return match.abbr;
   }
 
-  return null; // pas une ligne d’ère
+  return null;
 }
 
 function getMaxQty(
@@ -89,30 +95,66 @@ function getMaxQty(
   return limitAllBuildingsByEra[eraAbbr]?.[buildingName] ?? 1;
 }
 
+function addHoldListener(
+  button: HTMLButtonElement,
+  onStep: () => void,
+  delay = 120
+) {
+  let timer: number | null = null;
+
+  const start = () => {
+    onStep();
+    timer = window.setInterval(onStep, delay);
+  };
+
+  const stop = () => {
+    if (timer !== null) {
+      clearInterval(timer);
+      timer = null;
+    }
+  };
+
+  button.addEventListener("mousedown", start);
+  button.addEventListener("mouseup", stop);
+  button.addEventListener("mouseleave", stop);
+
+  button.addEventListener("touchstart", (e) => {
+    e.preventDefault();
+    start();
+  });
+  button.addEventListener("touchend", stop);
+}
+
 function addMultiplicatorColumn(tables: TableInfo[]): void {
   // Récupère les infos dans le title de la page
   const [mainSection, subSection, thirdSection] = getTitlePage();
+  const pageUrl = window.location.pathname;
 
   if (skipBuildingLimit.includes(thirdSection ?? "")) return;
 
-  let numberTables = 1;
   tables.forEach(({ element: table, type: tableType }) => {
     let currentAbbrev = "";
     const rows = Array.from(table.querySelectorAll("tr"));
     const h2 = findPreviousH2SpanWithId(table);
 
-    // Ajoute la colonne "Calculator" à la première ligne
+    // Ajoute les colonnes "Calculator" ET "Save" dans le header
     const firstRow = rows[0];
     if (firstRow) {
-      const th = document.createElement("td");
-      th.style.textAlign = "center";
-      th.style.whiteSpace = "normal";
-      th.style.width = "100px";
-      th.textContent = "Calculator";
-      firstRow.appendChild(th);
+      const calcTh = document.createElement("td");
+      calcTh.style.textAlign = "center";
+      calcTh.style.whiteSpace = "normal";
+      calcTh.style.width = "100px";
+      calcTh.textContent = "Calculator";
+      firstRow.appendChild(calcTh);
+
+      const saveTh = document.createElement("td");
+      saveTh.style.textAlign = "center";
+      saveTh.style.whiteSpace = "normal";
+      saveTh.style.width = "60px";
+      saveTh.textContent = "Save";
+      firstRow.appendChild(saveTh);
     }
 
-    // Recherche dynamique de l'index "Level"
     let levelIndex = 0;
     if (firstRow) {
       const headerCells = Array.from(firstRow.querySelectorAll("td, th"));
@@ -133,7 +175,6 @@ function addMultiplicatorColumn(tables: TableInfo[]): void {
       if (abbrev) {
         currentAbbrev = abbrev;
 
-        // Gestion du colspan ou ajout cellule vide
         const hasColspan = Array.from(row.cells).some((c) =>
           c.hasAttribute("colspan")
         );
@@ -141,14 +182,16 @@ function addMultiplicatorColumn(tables: TableInfo[]): void {
         if (hasColspan) {
           row.querySelectorAll("td[colspan]").forEach((td) => {
             const colspan = parseInt(td.getAttribute("colspan") || "1", 10);
-            td.setAttribute("colspan", (colspan + 1).toString());
+            td.setAttribute("colspan", (colspan + 2).toString());
           });
 
           return;
         }
       }
 
-      // Détermine la limite max en fonction de l'ère + bâtiment
+      const level = cells[levelIndex]?.textContent?.trim() || "";
+      const rowId = generateRowId(pageUrl, tableType, currentAbbrev, level);
+
       const maxQty = getMaxQty(
         currentAbbrev as EraAbbr,
         mainSection ?? "",
@@ -157,7 +200,7 @@ function addMultiplicatorColumn(tables: TableInfo[]): void {
         tableType
       );
 
-      // Ajoute la colonne de contrôle (calculatrice)
+      // ===== COLONNE CALCULATOR =====
       const controlCell = document.createElement("td");
       controlCell.style.textAlign = "center";
 
@@ -192,7 +235,53 @@ function addMultiplicatorColumn(tables: TableInfo[]): void {
       }
       row.appendChild(controlCell);
 
+      // ===== COLONNE SAVE =====
+      const saveCell = document.createElement("td");
+
+      const center = document.createElement("div");
+      center.style.display = "flex";
+      center.style.alignItems = "center";
+      center.style.justifyContent = "center";
+      center.style.height = "100%";
+
+      const checkbox = document.createElement("input");
+      checkbox.type = "checkbox";
+      checkbox.style.cursor = "pointer";
+      checkbox.style.width = "20px";
+      checkbox.style.height = "20px";
+      checkbox.dataset.rowId = rowId;
+
+      center.appendChild(checkbox);
+      saveCell.appendChild(center);
+      row.appendChild(saveCell);
+
+      // ===== LOGIQUE =====
       let count = 1;
+
+      // Charge l'état depuis chrome.storage (ASYNC)
+      // Dans upgrade.ts, section où on charge l'état sauvegardé
+
+      loadSavedBuildings().then((savedData) => {
+        const existingEntry = savedData.buildings.find((b) => b.id === rowId);
+
+        if (existingEntry) {
+          // Coche la checkbox
+          checkbox.checked = true;
+
+          // Restaure la quantité
+          count = existingEntry.quantity;
+          countSpan.textContent = count.toString();
+
+          // Applique la multiplication visuelle
+          multiplyRowTextContent(row, count);
+        } else {
+          // Pas de sauvegarde existante
+          checkbox.checked = false;
+          count = 1;
+          countSpan.textContent = "1";
+          // Pas besoin de multiply car c'est déjà à 1 par défaut
+        }
+      });
 
       // Stocke le texte original une seule fois
       if (!row.hasAttribute("data-original-stored")) {
@@ -206,29 +295,72 @@ function addMultiplicatorColumn(tables: TableInfo[]): void {
         });
       }
 
-      const updateRow = () => {
+      // ASYNC updateRow
+      const updateRow = async () => {
         countSpan.textContent = count.toString();
-        multiplyRowTextContent(row, count);
+        multiplyRowTextContent(row, count); // Met à jour l'affichage
+
+        if (checkbox.checked) {
+          // Sauvegarde avec les coûts UNITAIRES extraits de dataOriginal
+          await saveBuilding(row, rowId, {
+            pageUrl,
+            tableType,
+            era: currentAbbrev,
+            level,
+            mainSection: mainSection ?? "",
+            subSection: subSection ?? "",
+            buildingName: thirdSection ?? "",
+            quantity: count,
+            maxQty,
+            h2Title: h2?.textContent?.trim() || "",
+          });
+        }
       };
 
-      minusBtn.addEventListener("click", () => {
+      // ASYNC dans les listeners
+      addHoldListener(minusBtn, () => {
         if (count > 1) {
           count--;
-          updateRow();
+          updateRow(); // Pas besoin d'await ici (fire and forget)
         }
       });
 
-      plusBtn.addEventListener("click", () => {
+      addHoldListener(plusBtn, () => {
         if (count < maxQty) {
           count++;
           updateRow();
         }
       });
 
+      // ASYNC dans le checkbox
+      checkbox.addEventListener("change", async () => {
+        if (checkbox.checked) {
+          // Sauvegarde le bâtiment avec la quantité actuelle
+          await saveBuilding(row, rowId, {
+            pageUrl,
+            tableType,
+            era: currentAbbrev,
+            level,
+            mainSection: mainSection ?? "",
+            subSection: subSection ?? "",
+            buildingName: thirdSection ?? "",
+            quantity: count,
+            maxQty,
+            h2Title: h2?.textContent?.trim() || "",
+          });
+        } else {
+          // Supprime le bâtiment
+          await removeBuilding(rowId);
+
+          // Remet la quantité à 1 et l'affichage par défaut
+          count = 1;
+          countSpan.textContent = "1";
+          multiplyRowTextContent(row, 1);
+        }
+      });
+
       updateRow();
     });
-
-    numberTables++;
   });
 }
 
@@ -236,7 +368,6 @@ function multiplyRowTextContent(row: HTMLTableRowElement, multiplier: number) {
   const cells = Array.from(row.cells);
   const cellMap: Record<number, string> = {};
 
-  // Stocke les noms de colonnes pour référence
   const headerRow = row.parentElement?.querySelector("tr");
   if (headerRow) {
     Array.from(headerRow.cells).forEach((th, i) => {
@@ -267,18 +398,17 @@ function multiplyRowTextContent(row: HTMLTableRowElement, multiplier: number) {
         const newText = originalText.replace(
           /(\d{1,3}(?:[.,]\d{1,3})*(?:\.\d+)?)(?:\s*([KM]))?/gi,
           (_match: string, numberStr: string, suffix: string | undefined) => {
-            // parseNumber gère désormais les deux formats (1,400 ou 1.4K)
             const parsed = parseNumber(numberStr + (suffix ? suffix : ""));
             if (isNaN(parsed)) return _match;
 
             const total = parsed * multiplier;
 
             if (isFormatColumn) {
-              return formatNumber(total); // avec K/M si nécessaire
+              return formatNumber(total);
             } else if (isGoods || isWorkers) {
-              return total.toLocaleString("en-US"); // entier avec virgule US
+              return total.toLocaleString("en-US");
             } else {
-              return total.toLocaleString("en-US"); // simple entier
+              return total.toLocaleString("en-US");
             }
           }
         );

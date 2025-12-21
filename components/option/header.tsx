@@ -15,7 +15,7 @@ export const navLinks = [
 
 export function OptionHeader() {
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-border bg-background/95 backdrop-blur-sm supports-backdrop-filter:bg-background/50">
+    <header className="sticky top-0 z-50 w-full border-b border-border bg-background">
       <nav className="container-wrapper flex h-12 items-center justify-between">
         <a className={buttonVariants({ variant: "ghost" })} href="/">
           RoC Wiki Goods

@@ -6,25 +6,21 @@ import { ScrollArea } from '@/components/ui/scroll-area';
 export default function OptionsPage() {
   return (
     <AppLayout>
-      <div className="container-wrapper h-svh flex overflow-hidden">
-        <div className="w-6/11 border-r">
-          <ScrollArea className="h-full">
-              <Inventory /> 
-          </ScrollArea>
-        </div>
-        
-        <div className="w-5/11">
-          <ScrollArea className="h-full">
-            <div className="py-6 pl-6">
-              <BuildingAccordion />
-              <BuildingAccordion />
-              {/* <BuildingAccordion />
-              <BuildingAccordion />
-              <BuildingAccordion />
-              <BuildingAccordion />
-              <BuildingAccordion /> */}
+      <div className="container-wrapper">
+        <div className="flex max-xl:flex-col gap-6">
+
+          {/* GAUCHE — sticky */}
+          <aside className="w-6/11 sticky top-14 h-[calc(100svh-3.5rem)] border-r">
+            <div className="h-full overflow-y-auto pr-4">
+              <Inventory />
             </div>
-          </ScrollArea>
+          </aside>
+
+          {/* DROITE — scroll page */}
+          <section className="w-6/11 py-6">
+            <BuildingAccordion />
+          </section>
+
         </div>
       </div>
     </AppLayout>

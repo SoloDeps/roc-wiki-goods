@@ -50,7 +50,10 @@ export const itemsUrl = {
   default: "/images/thumb/3/36/Goods.png/25px-Goods.png",
 } as const;
 
-export const goodsUrlByEra: Record<EraAbbr, Record<string, { name: string; url: string }>> = {
+export const goodsUrlByEra: Record<
+  EraAbbr,
+  Record<string, { name: string; url: string }>
+> = {
   SA: {
     tailor: {
       name: "Wool",
