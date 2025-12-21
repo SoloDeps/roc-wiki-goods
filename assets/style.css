@@ -149,4 +149,8 @@ html.changing-theme *::after {
   body {
     @apply bg-background text-foreground;
   }
+  .container-wrapper {
+    @apply mx-auto w-full px-4 max-w-screen-2xl max-xl:max-w-5xl;
+    /* @apply mx-auto w-full px-4 max-w-screen-2xl max-xl:max-w-5xl; */
+  }
 }
