@@ -1,92 +1,141 @@
 import { Minus, Plus, X } from "lucide-react";
 import { Button } from "./ui/button";
+import {
+  formatNumber,
+  getBuildingImageUrl,
+  getGoodImageUrlFromType,
+} from "@/lib/utils";
+import { itemsUrl, WIKI_URL } from "@/lib/constants";
 
-export function BuildingCard({ building, onRemove, onUpdateQuantity }: any) {
+interface Good {
+  type: string;
+  amount: number;
+}
+
+interface Building {
+  id: string;
+  name: string;
+  coin: string;
+  food: string;
+  goods: Good[];
+  quantity: number;
+  image: string;
+  era: string;
+  level: string;
+}
+
+interface BuildingCardProps {
+  building: Building;
+  userSelections: string[][];
+  onRemove: (id: string) => void;
+  onUpdateQuantity: (id: string, quantity: number) => void;
+}
+
+export function BuildingCard({
+  building,
+  userSelections,
+  onRemove,
+  onUpdateQuantity,
+}: BuildingCardProps) {
+  const { id, name, coin, food, goods, quantity, image, level } = building;
+
+  const handleQuantityChange = (delta: number) => {
+    const newQty = quantity + delta;
+    if (newQty > 0) onUpdateQuantity(id, newQty);
+  };
+
   return (
     <div className="flex items-center gap-4 rounded-lg bg-muted/50 border h-32 pl-2">
-      {/* Image placeholder */}
-      <div className="hidden sm:flex h-full w-32 shrink-0 items-center justify-center">
+      {/* Image */}
+      <div className="hidden sm:flex h-full w-32 shrink-0 items-center justify-center overflow-hidden">
         <img
-          src={building.image}
-          alt={building.name}
+          src={image}
+          alt={name}
           className="size-full object-cover brightness-105"
         />
       </div>
 
-      {/* Informations du bâtiment */}
+      {/* Contenu principal */}
       <div className="flex gap-4 size-full">
         <div className="flex-1 py-3">
-          <h3 className="mb-3 text-[15px] font-medium">{building.name}</h3>
-          <div className="grid grid-cols-3 gap-1.5 text-sm w-80">
-            <div className="flex items-center justify-between px-2 rounded-md bg-black/10 h-8">
-              <img
-                alt=""
-                src="https://riseofcultures.wiki.gg/images/thumb/Coin.png/22px-Coin.png"
-              />
-              <span>{building.coin}</span>
-            </div>
-            <div className="flex items-center justify-between px-2 rounded-md bg-black/10 h-8">
-              <img
-                alt=""
-                src="https://riseofcultures.wiki.gg/images/thumb/Food.png/22px-Food.png"
-              />
-              <span>{building.food}</span>
-            </div>
-            <div className="flex items-center justify-between px-2 rounded-md bg-black/10 h-8">
-              <img
-                alt=""
-                src="https://riseofcultures.wiki.gg/images/thumb/1/15/Wardrobe.png/22px-Wardrobe.png"
-              />
-              <span>{building.pri}</span>
-            </div>
-            <div className="flex items-center justify-between px-2 rounded-md bg-black/10 h-8">
-              <img
-                alt=""
-                src="https://riseofcultures.wiki.gg/images/thumb/Coffee.png/22px-Coffee.png?8c3e74"
-              />
-              <span>{building.pri}</span>
-            </div>
-            <div className="flex items-center justify-between px-2 rounded-md bg-black/10 h-8">
-              <img
-                alt=""
-                src="https://riseofcultures.wiki.gg/images/thumb/Incense.png/22px-Incense.png?1b3be8"
-              />
-              <span>{building.pri}</span>
-            </div>
+          <h3 className="mb-3 text-[15px] font-medium truncate capitalize">
+            {name}
+          </h3>
+
+          <div className="grid grid-cols-3 gap-1.5 text-sm max-w-80">
+            <ResourceBadge
+              icon={`https://${WIKI_URL}${itemsUrl.coins}`}
+              value={coin}
+              alt="Coins"
+            />
+            <ResourceBadge
+              icon={`https://${WIKI_URL}${itemsUrl.food}`}
+              value={food}
+              alt="Food"
+            />
+
+            {/* Goods */}
+            {goods.map((good, index) => {
+              const iconPath =
+              "https://" +
+              WIKI_URL +
+              getGoodImageUrlFromType(good.type, userSelections);
+              
+              console.log(iconPath);
+              return (
+                <ResourceBadge
+                  key={`${good.type}-${index}`}
+                  icon={iconPath}
+                  value={formatNumber(good.amount * building.quantity)}
+                  alt={good.type}
+                />
+              );
+            })}
           </div>
         </div>
 
-        {/* Contrôles de quantité */}
+        {/* Contrôles */}
         <div className="flex flex-col items-end justify-between shrink-0 py-3 pr-3">
           <Button
             size="icon-sm"
             variant="destructive"
-            onClick={() => onRemove(building.id)}
+            onClick={() => onRemove(id)}
           >
-            <X />
+            <X className="size-4" />
           </Button>
 
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 ml-4">
             <Button
               size="icon-sm"
-              onClick={() =>
-                onUpdateQuantity(building.id, building.quantity - 1)
-              }
+              disabled={quantity <= 1}
+              onClick={() => handleQuantityChange(-1)}
             >
-              <Minus />
+              <Minus className="size-4" />
             </Button>
-            <span className="w-5 text-center">{building.quantity}</span>
-            <Button
-              size="icon-sm"
-              onClick={() =>
-                onUpdateQuantity(building.id, building.quantity + 1)
-              }
-            >
-              <Plus />
+            <span className="w-6 text-center font-medium">{quantity}</span>
+            <Button size="icon-sm" onClick={() => handleQuantityChange(1)}>
+              <Plus className="size-4" />
             </Button>
           </div>
         </div>
       </div>
+    </div>
+  );
+}
+
+function ResourceBadge({
+  icon,
+  value,
+  alt,
+}: {
+  icon: string;
+  value: string;
+  alt: string;
+}) {
+  return (
+    <div className="flex items-center justify-between px-2 rounded-md bg-black/10 h-8">
+      <img src={icon} alt={alt} className="size-6" />
+      <span className="text-[13px] font-medium">{value}</span>
     </div>
   );
 }

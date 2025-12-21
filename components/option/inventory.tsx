@@ -5,7 +5,14 @@ import { Store } from "lucide-react";
 export default function Inventory() {
   return (
     <div className="w-full space-y-4">
-      <div className="sticky top-0 z-20 h-14 pr-6 flex items-center justify-between bg-background">
+      {/* <div className="sticky top-0 z-20 h-14 pr-6 flex items-center justify-between bg-background">
+        <h1 className="text-base font-semibold">Total Goods</h1>
+        <Button size="sm">
+          <Store /> Change workshops
+        </Button>
+      </div> */}
+
+      <div className="flex items-center justify-between py-5">
         <h1 className="text-base font-semibold">Total Goods</h1>
         <Button size="sm">
           <Store /> Change workshops
