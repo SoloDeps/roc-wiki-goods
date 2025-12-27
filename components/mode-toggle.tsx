@@ -11,11 +11,11 @@ export function ModeToggle() {
   }, [resolvedTheme, setTheme])
 
   return (
-    <Button size="icon-sm" variant="transparent" onClick={toggleTheme}>
+    <Button size="sm" variant="outline" onClick={toggleTheme}>
       {resolvedTheme === "light" ? (
-        <Sun className="size-[1.2rem]" />
+        <><Sun /> Light</>
       ) : (
-        <Moon className="size-[1.2rem]" />
+        <><Moon /> Dark</>
       )}
     </Button>
   );

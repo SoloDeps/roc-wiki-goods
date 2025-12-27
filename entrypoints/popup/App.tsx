@@ -2,9 +2,9 @@ import { browser } from "wxt/browser";
 import { useState, useEffect } from "react";
 import type { Era } from "@/lib/constants";
 import { buildingsAbbr, eras, WIKI_URL } from "@/lib/constants";
-import EraSelector from "@/components/era-selector";
+import EraSelector from "@/components/popup/era-selector";
 import PopupHeader from "@/components/popup/header";
-import BuildingSelector from "@/components/building-selector";
+import BuildingSelector from "@/components/building/building-selector";
 
 function App() {
   const [selections, setSelections] = useState(() => {

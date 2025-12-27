@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import einstein_img from "@/assets/einstein.png";
 import { ModeToggle } from "@/components/mode-toggle";
-import { HelpButton } from "@/components/help-button";
+import { HelpButton } from "@/components/popup/help-button";
 import { SquareArrowOutUpRight } from "lucide-react";
 
 export default function PopupHeader() {

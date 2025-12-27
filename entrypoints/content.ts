@@ -2,12 +2,15 @@ import { storage } from "#imports";
 import { EraAbbr } from "@/lib/constants";
 import {
   useTechno,
-  useUpgrade,
   useWonders,
   useBuilding,
   useQuestlines,
 } from "@/lib/features";
+import { useUpgrade } from "@/lib/features/upgrade/index";
 import { replaceTextByImage, isValidData } from "@/lib/utils";
+import { loadSavedBuildings, type SavedData } from "@/lib/overview/storage";
+import { multiplyRowTextContent } from "@/lib/features/upgrade/rowMultiplier";
+import { detectEraRow } from "@/lib/features/upgrade/eraDetector";
 
 export default defineContentScript({
   matches: ["*://*.riseofcultures.wiki.gg/*"],
@@ -110,5 +113,68 @@ export default defineContentScript({
     useWonders(tables);
 
     useQuestlines(storedEra, storedBuildings);
+
+    // ========= Synchronisation depuis Options vers Wiki =========
+
+    storage.watch<SavedData>(
+      "local:roc_saved_buildings",
+      (newData: SavedData | null) => {
+        if (!newData) return;
+
+        newData.buildings.forEach((building) => {
+          const tables = document.querySelectorAll("table.article-table");
+          tables.forEach((table) => {
+            const rows = Array.from(table.querySelectorAll("tr"));
+            let currentEra = "";
+
+            rows.forEach((row) => {
+              const cells = Array.from(row.children).filter(
+                (cell) => cell.tagName.toLowerCase() === "td"
+              ) as HTMLTableCellElement[];
+
+              if (cells.length === 0) return;
+
+              const headerCells = Array.from(
+                table.querySelector("tr")?.children || []
+              );
+              const levelColumnIndex = headerCells.findIndex(
+                (cell) => cell.textContent?.trim().toLowerCase() === "level"
+              );
+
+              const levelText =
+                levelColumnIndex >= 0 && cells[levelColumnIndex]
+                  ? cells[levelColumnIndex].textContent?.trim() || ""
+                  : "";
+
+              const match = levelText.match(/(\d+)\s*$/);
+              const level = match ? match[1] : levelText;
+
+              const era = detectEraRow(row);
+              if (era) {
+                currentEra = era;
+              }
+
+              const pageUrl = window.location.pathname;
+              const rowId = `${pageUrl}|upgrade|${currentEra}|${level}`;
+
+              if (rowId === building.id) {
+                const controlCell =
+                  row.querySelector("td:last-child")?.previousElementSibling;
+                if (controlCell) {
+                  const countSpan = controlCell.querySelector("span");
+                  if (
+                    countSpan &&
+                    countSpan.textContent !== building.quantity.toString()
+                  ) {
+                    countSpan.textContent = building.quantity.toString();
+                    multiplyRowTextContent(row, building.quantity);
+                  }
+                }
+              }
+            });
+          });
+        });
+      }
+    );
   },
 });

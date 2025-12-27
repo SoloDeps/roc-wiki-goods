@@ -44,10 +44,19 @@ export const buildingsAbbr = [
 ];
 
 export const itemsUrl = {
-  food: "/images/thumb/Food.png/25px-Food.png",
-  coins: "/images/thumb/Coin.png/25px-Coin.png",
-  research: "/images/thumb/Research.png/25px-Research.png",
-  default: "/images/thumb/3/36/Goods.png/25px-Goods.png",
+  default: "/images/thumb/3/36/Goods.png/32px-Goods.png",
+  coins: "/images/thumb/Coin.png/32px-Coin.png",
+  food: "/images/thumb/Food.png/32px-Food.png",
+  research: "/images/thumb/Research.png/32px-Research.png",
+  gems: "/images/thumb/Gems.png/32px-Gems.png",
+  // others
+  asper: "/images/thumb/Asper.png/32px-Asper.png",
+  cocoa: "/images/thumb/Cocoa.png/32px-Cocoa.png",
+  deben: "/images/thumb/Deben.png/32px-Deben.png",
+  dirham: "/images/thumb/Dirham.png/32px-Dirham.png",
+  pennies: "/images/thumb/Pennies.png/32px-Pennies.png",
+  rice: "/images/thumb/Rice.png/32px-Rice.png",
+  wu_zhu: "/images/thumb/Wu_Zhu.png/32px-Wu_Zhu.png",
 } as const;
 
 export const goodsUrlByEra: Record<
@@ -57,169 +66,169 @@ export const goodsUrlByEra: Record<
   SA: {
     tailor: {
       name: "Wool",
-      url: "/images/thumb/3/34/Wool.png/25px-Wool.png",
+      url: "/images/thumb/3/34/Wool.png/32px-Wool.png",
     },
     stone_mason: {
       name: "Alabaster Idol",
-      url: "/images/thumb/6/6e/Alabaster_Idol.png/25px-Alabaster_Idol.png",
+      url: "/images/thumb/6/6e/Alabaster_Idol.png/32px-Alabaster_Idol.png",
     },
     artisan: {
       name: "Bronze Bracelet",
-      url: "/images/thumb/3/3c/Bronze_Bracelet.png/25px-Bronze_Bracelet.png",
+      url: "/images/thumb/3/3c/Bronze_Bracelet.png/32px-Bronze_Bracelet.png",
     },
   },
   BA: {
     tailor: {
       name: "Wool",
-      url: "/images/thumb/3/34/Wool.png/25px-Wool.png",
+      url: "/images/thumb/3/34/Wool.png/32px-Wool.png",
     },
     stone_mason: {
       name: "Alabaster Idol",
-      url: "/images/thumb/6/6e/Alabaster_Idol.png/25px-Alabaster_Idol.png",
+      url: "/images/thumb/6/6e/Alabaster_Idol.png/32px-Alabaster_Idol.png",
     },
     artisan: {
       name: "Bronze Bracelet",
-      url: "/images/thumb/3/3c/Bronze_Bracelet.png/25px-Bronze_Bracelet.png",
+      url: "/images/thumb/3/3c/Bronze_Bracelet.png/32px-Bronze_Bracelet.png",
     },
   },
   ME: {
     tailor: {
       name: "Linen Shirt",
-      url: "/images/thumb/8/8a/Linen_Shirt.png/25px-Linen_Shirt.png",
+      url: "/images/thumb/8/8a/Linen_Shirt.png/32px-Linen_Shirt.png",
     },
     stone_mason: {
       name: "Marble Bust",
-      url: "/images/thumb/b/b1/Marble_Bust.png/25px-Marble_Bust.png",
+      url: "/images/thumb/b/b1/Marble_Bust.png/32px-Marble_Bust.png",
     },
     artisan: {
       name: "Iron Pendant",
-      url: "/images/thumb/6/62/Iron_Pendant.png/25px-Iron_Pendant.png",
+      url: "/images/thumb/6/62/Iron_Pendant.png/32px-Iron_Pendant.png",
     },
   },
   CG: {
     tailor: {
       name: "Toga",
-      url: "/images/thumb/a/a3/Toga.png/25px-Toga.png",
+      url: "/images/thumb/a/a3/Toga.png/32px-Toga.png",
     },
     stone_mason: {
       name: "Column",
-      url: "/images/thumb/5/5e/Column.png/25px-Column.png",
+      url: "/images/thumb/5/5e/Column.png/32px-Column.png",
     },
     artisan: {
       name: "Silver Ring",
-      url: "/images/thumb/c/cc/Silver_Ring.png/25px-Silver_Ring.png",
+      url: "/images/thumb/c/cc/Silver_Ring.png/32px-Silver_Ring.png",
     },
   },
   ER: {
     tailor: {
       name: "Tunic",
-      url: "/images/thumb/5/5b/Tunic.png/25px-Tunic.png",
+      url: "/images/thumb/5/5b/Tunic.png/32px-Tunic.png",
     },
     stone_mason: {
       name: "Stone Tablet",
-      url: "/images/thumb/0/04/Stone_Tablet.png/25px-Stone_Tablet.png",
+      url: "/images/thumb/0/04/Stone_Tablet.png/32px-Stone_Tablet.png",
     },
     artisan: {
       name: "Gold Laurel",
-      url: "/images/thumb/e/e3/Gold_Laurel.png/25px-Gold_Laurel.png",
+      url: "/images/thumb/e/e3/Gold_Laurel.png/32px-Gold_Laurel.png",
     },
   },
   RE: {
     tailor: {
       name: "Cape",
-      url: "/images/thumb/6/6e/Cape.png/25px-Cape.png",
+      url: "/images/thumb/6/6e/Cape.png/32px-Cape.png",
     },
     stone_mason: {
       name: "Mosaic",
-      url: "/images/thumb/f/f4/Mosaic.png/25px-Mosaic.png",
+      url: "/images/thumb/f/f4/Mosaic.png/32px-Mosaic.png",
     },
     artisan: {
       name: "Goblet",
-      url: "/images/thumb/b/b2/Goblet.png/25px-Goblet.png",
+      url: "/images/thumb/b/b2/Goblet.png/32px-Goblet.png",
     },
   },
   BE: {
     scribe: {
       name: "Parchment",
-      url: "/images/thumb/4/48/Parchment.png/25px-Parchment.png",
+      url: "/images/thumb/4/48/Parchment.png/32px-Parchment.png",
     },
     carpenter: {
       name: "Planks",
-      url: "/images/thumb/b/b9/Planks.png/25px-Planks.png",
+      url: "/images/thumb/b/b9/Planks.png/32px-Planks.png",
     },
     spice_merchant: {
       name: "Pepper",
-      url: "/images/thumb/5/50/Pepper.png/25px-Pepper.png",
+      url: "/images/thumb/5/50/Pepper.png/32px-Pepper.png",
     },
   },
   AF: {
     scribe: {
       name: "Ink",
-      url: "/images/thumb/e/e1/Ink.png/25px-Ink.png",
+      url: "/images/thumb/e/e1/Ink.png/32px-Ink.png",
     },
     carpenter: {
       name: "Cartwheel",
-      url: "/images/thumb/c/c2/Cartwheel.png/25px-Cartwheel.png",
+      url: "/images/thumb/c/c2/Cartwheel.png/32px-Cartwheel.png",
     },
     spice_merchant: {
       name: "Salt",
-      url: "/images/thumb/7/77/Salt.png/25px-Salt.png",
+      url: "/images/thumb/7/77/Salt.png/32px-Salt.png",
     },
   },
   FA: {
     scribe: {
       name: "Manuscript",
-      url: "/images/thumb/7/73/Manuscript.png/25px-Manuscript.png",
+      url: "/images/thumb/7/73/Manuscript.png/32px-Manuscript.png",
     },
     carpenter: {
       name: "Barrel",
-      url: "/images/thumb/a/a1/Barrel.png/25px-Barrel.png",
+      url: "/images/thumb/a/a1/Barrel.png/32px-Barrel.png",
     },
     spice_merchant: {
       name: "Herbs",
-      url: "/images/thumb/7/79/Herbs.png/25px-Herbs.png",
+      url: "/images/thumb/7/79/Herbs.png/32px-Herbs.png",
     },
   },
   IE: {
     scribe: {
       name: "Wax Seal",
-      url: "/images/thumb/c/c1/Wax_Seal.png/25px-Wax_Seal.png",
+      url: "/images/thumb/c/c1/Wax_Seal.png/32px-Wax_Seal.png",
     },
     carpenter: {
       name: "Door",
-      url: "/images/thumb/3/36/Door.png/25px-Door.png",
+      url: "/images/thumb/3/36/Door.png/32px-Door.png",
     },
     spice_merchant: {
       name: "Saffron",
-      url: "/images/thumb/8/8c/Saffron.png/25px-Saffron.png",
+      url: "/images/thumb/8/8c/Saffron.png/32px-Saffron.png",
     },
   },
   KS: {
     scribe: {
       name: "Tome",
-      url: "/images/thumb/8/8e/Tome.png/25px-Tome.png",
+      url: "/images/thumb/8/8e/Tome.png/32px-Tome.png",
     },
     carpenter: {
       name: "Wardrobe",
-      url: "/images/thumb/1/15/Wardrobe.png/25px-Wardrobe.png",
+      url: "/images/thumb/1/15/Wardrobe.png/32px-Wardrobe.png",
     },
     spice_merchant: {
       name: "Chili",
-      url: "/images/thumb/d/de/Chili.png/25px-Chili.png",
+      url: "/images/thumb/d/de/Chili.png/32px-Chili.png",
     },
   },
   HM: {
     scribe: {
       name: "Grimoire",
-      url: "/images/thumb/2/2a/Grimoire.png/25px-Grimoire.png",
+      url: "/images/thumb/2/2a/Grimoire.png/32px-Grimoire.png",
     },
     carpenter: {
       name: "Secretary Desk",
-      url: "/images/thumb/8/85/Secretary_Desk.png/25px-Secretary_Desk.png",
+      url: "/images/thumb/8/85/Secretary_Desk.png/32px-Secretary_Desk.png",
     },
     spice_merchant: {
       name: "Cinnamon",
-      url: "/images/thumb/1/1b/Cinnamon.png/25px-Cinnamon.png",
+      url: "/images/thumb/1/1b/Cinnamon.png/32px-Cinnamon.png",
     },
   },
   EG: {
@@ -237,6 +246,82 @@ export const goodsUrlByEra: Record<
     },
   },
 } as const;
+
+// Mapping des vrais noms de goods vers le format Priority_Era
+// Certains noms de goods apparaissent dans plusieurs ères (ex: Wool dans SA et BA)
+export const goodsNameMapping: Record<
+  string,
+  Array<{ priority: "primary" | "secondary" | "tertiary"; era: EraAbbr }>
+> = {
+  // Bronze Age (mêmes noms que SA mais différente era)
+  Wool: [
+    { priority: "primary", era: "SA" },
+    { priority: "primary", era: "BA" },
+  ],
+  "Alabaster Idol": [
+    { priority: "secondary", era: "SA" },
+    { priority: "secondary", era: "BA" },
+  ],
+  "Bronze Bracelet": [
+    { priority: "tertiary", era: "SA" },
+    { priority: "tertiary", era: "BA" },
+  ],
+
+  // Minoan Era
+  "Linen Shirt": [{ priority: "primary", era: "ME" }],
+  "Marble Bust": [{ priority: "secondary", era: "ME" }],
+  "Iron Pendant": [{ priority: "tertiary", era: "ME" }],
+
+  // Classical Greece
+  Toga: [{ priority: "primary", era: "CG" }],
+  Column: [{ priority: "secondary", era: "CG" }],
+  "Silver Ring": [{ priority: "tertiary", era: "CG" }],
+
+  // Early Rome
+  Tunic: [{ priority: "primary", era: "ER" }],
+  "Stone Tablet": [{ priority: "secondary", era: "ER" }],
+  "Gold Laurel": [{ priority: "tertiary", era: "ER" }],
+
+  // Roman Empire
+  Cape: [{ priority: "primary", era: "RE" }],
+  Mosaic: [{ priority: "secondary", era: "RE" }],
+  Goblet: [{ priority: "tertiary", era: "RE" }],
+
+  // Byzantine Era
+  Parchment: [{ priority: "primary", era: "BE" }],
+  Planks: [{ priority: "secondary", era: "BE" }],
+  Pepper: [{ priority: "tertiary", era: "BE" }],
+
+  // Age of the Franks
+  Ink: [{ priority: "primary", era: "AF" }],
+  Cartwheel: [{ priority: "secondary", era: "AF" }],
+  Salt: [{ priority: "tertiary", era: "AF" }],
+
+  // Feudal Age
+  Manuscript: [{ priority: "primary", era: "FA" }],
+  Barrel: [{ priority: "secondary", era: "FA" }],
+  Herbs: [{ priority: "tertiary", era: "FA" }],
+
+  // Iberian Era
+  "Wax Seal": [{ priority: "primary", era: "IE" }],
+  Door: [{ priority: "secondary", era: "IE" }],
+  Saffron: [{ priority: "tertiary", era: "IE" }],
+
+  // Kingdom of Sicily
+  Tome: [{ priority: "primary", era: "KS" }],
+  Wardrobe: [{ priority: "secondary", era: "KS" }],
+  Chili: [{ priority: "tertiary", era: "KS" }],
+
+  // High Middle Ages
+  Grimoire: [{ priority: "primary", era: "HM" }],
+  "Secretary Desk": [{ priority: "secondary", era: "HM" }],
+  Cinnamon: [{ priority: "tertiary", era: "HM" }],
+
+  // Early Gothic
+  "Fine Jewelry": [{ priority: "primary", era: "EG" }],
+  Ointment: [{ priority: "secondary", era: "EG" }],
+  "Lead Glass": [{ priority: "tertiary", era: "EG" }],
+};
 
 export const formatColumns = [
   "coin",
