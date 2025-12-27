@@ -3,45 +3,45 @@ import { storage } from "#imports";
 
 const STORAGE_KEY = "roc_saved_buildings";
 
+const RESOURCE_TYPES = {
+  // Monnaies
+  coins: "coins",
+  coin: "coins",
+  pennies: "pennies",
+  "wu zhu": "wu_zhu",
+  deben: "deben",
+  dirham: "dirham",
+  asper: "asper",
+
+  // Nourriture et ressources
+  food: "food",
+  cocoa: "cocoa",
+  rice: "rice",
+
+  // Spéciaux
+  gems: "gems",
+  goods: "goods",
+} as const;
+
 export interface SavedBuilding {
   id: string;
-  pageUrl: string;
-  tableType: string;
-  era: string;
-  level: string;
-  mainSection: string;
-  subSection: string;
-  buildingName: string;
-  quantity: number;
-  maxQty: number;
-  h2Title: string;
   costs: {
-    coins?: number;
-    food?: number;
-    goods?: Array<{
-      type: string;
-      amount: number;
-    }>;
+    [key: string]: number | Array<{ type: string; amount: number }>;
   };
-  timestamp: number;
+  maxQty: number;
+  quantity: number;
 }
 
 export interface SavedData {
   buildings: SavedBuilding[];
-  totals: {
-    coins: number;
-    food: number;
-    goods: number;
-  };
 }
 
 // Define storage item avec fallback
 const savedBuildingsStorage = storage.defineItem<SavedData>(
-  `sync:${STORAGE_KEY}`,
+  `local:${STORAGE_KEY}`,
   {
     fallback: {
       buildings: [],
-      totals: { coins: 0, food: 0, goods: 0 },
     },
   }
 );
@@ -55,7 +55,6 @@ export async function loadSavedBuildings(): Promise<SavedData> {
     console.error("Error loading saved buildings:", error);
     return {
       buildings: [],
-      totals: { coins: 0, food: 0, goods: 0 },
     };
   }
 }
@@ -64,30 +63,21 @@ export async function loadSavedBuildings(): Promise<SavedData> {
 export async function saveBuilding(
   row: HTMLTableRowElement,
   rowId: string,
-  metadata: Omit<SavedBuilding, "id" | "costs" | "timestamp">
+  metadata: { maxQty: number; quantity: number }
 ) {
   const data = await loadSavedBuildings();
 
   // Supprime l'ancienne version si elle existe
   data.buildings = data.buildings.filter((b) => b.id !== rowId);
 
-  // Extrait les coûts UNITAIRES (depuis dataOriginal)
+  // Extrait les coûts UNITAIRES
   const unitCosts = extractCosts(row);
-
-  console.log("Saving building:", {
-    rowId,
-    quantity: metadata.quantity,
-    unitCosts,
-  });
 
   data.buildings.push({
     id: rowId,
-    ...metadata,
     costs: unitCosts,
-    timestamp: Date.now(),
+    ...metadata,
   });
-
-  recalculateTotals(data);
 
   await savedBuildingsStorage.setValue(data);
 }
@@ -101,12 +91,9 @@ export async function updateBuildingQuantity(
   const building = data.buildings.find((b) => b.id === rowId);
   if (!building) return;
 
-  const max = building.maxQty ?? Infinity;
-
+  const max = building.maxQty ?? 40; // Maximum de 40 pour éviter les valeurs excessives
   building.quantity = Math.max(1, Math.min(max, newQuantity));
-  building.timestamp = Date.now();
 
-  recalculateTotals(data);
   await savedBuildingsStorage.setValue(data);
 }
 
@@ -114,18 +101,17 @@ export async function updateBuildingQuantity(
 export async function removeBuilding(rowId: string) {
   const data = await loadSavedBuildings();
   data.buildings = data.buildings.filter((b) => b.id !== rowId);
-  recalculateTotals(data);
   await savedBuildingsStorage.setValue(data);
 }
 
 // Watch pour écouter les changements (utile pour popup/options page)
-export function watchSavedBuildings(
-  callback: (newData: SavedData, oldData: SavedData) => void
-) {
-  return savedBuildingsStorage.watch(callback);
+export function watchSavedBuildings(callback: (newData: SavedData) => void) {
+  return savedBuildingsStorage.watch((newData) => {
+    callback(newData);
+  });
 }
 
-// Extraction des coûts UNITAIRES (coins, food, goods uniquement)
+// Extraction des coûts UNITAIRES (coins, food, others, goods uniquement)
 function extractCosts(row: HTMLTableRowElement): SavedBuilding["costs"] {
   const cells = Array.from(row.cells);
   const costs: SavedBuilding["costs"] = {};
@@ -144,10 +130,19 @@ function extractCosts(row: HTMLTableRowElement): SavedBuilding["costs"] {
   cells.forEach((cell, index) => {
     const columnName = columnMap[index] || "";
 
-    // Skip tout sauf coins, food, goods
-    if (!["coins", "food", "goods"].includes(columnName)) return;
+    // Cherche si cette colonne correspond à un type de ressource connu
+    const resourceKey =
+      RESOURCE_TYPES[columnName as keyof typeof RESOURCE_TYPES];
 
-    // Extrait le texte ORIGINAL (non multiplié)
+    if (!resourceKey) return; // Skip les colonnes inconnues
+
+    // Cas spécial : goods (extraction complexe)
+    if (resourceKey === "goods") {
+      costs.goods = extractGoodsDetails(cell);
+      return;
+    }
+
+    // Cas général : ressources simples (coins, food, gems, etc.)
     let originalText = "";
 
     cell.childNodes.forEach((node) => {
@@ -160,126 +155,98 @@ function extractCosts(row: HTMLTableRowElement): SavedBuilding["costs"] {
 
     originalText = originalText.trim();
 
-    // Traite selon le type de colonne
-    switch (columnName) {
-      case "coins":
-        costs.coins = parseNumber(originalText.replace(/Coin\.png/g, ""));
-        break;
+    // Nettoie les références d'images (Coin.png, Food.png, etc.)
+    const cleanedText = originalText.replace(/\w+\.png/g, "").trim();
+    const value = parseNumber(cleanedText);
 
-      case "food":
-        costs.food = parseNumber(originalText.replace(/Food\.png/g, ""));
-        break;
-
-      case "goods":
-        costs.goods = extractGoodsDetails(cell);
-        break;
+    if (value > 0) {
+      costs[resourceKey] = value;
     }
   });
 
   return costs;
 }
 
-// Extrait les détails des goods depuis la cellule
+// Extrait les détails des goods depuis la cellule (img & textes)
 function extractGoodsDetails(
   cell: HTMLTableCellElement
 ): Array<{ type: string; amount: number }> {
   const details: Array<{ type: string; amount: number }> = [];
 
-  // Parcourt tous les enfants de la cellule
-  const children = Array.from(cell.childNodes);
+  // 🔹 Reconstruire un HTML "original" (img + texte unitaire)
+  let originalHTML = "";
 
-  for (let i = 0; i < children.length; i++) {
-    const node = children[i];
+  cell.childNodes.forEach((node) => {
+    if (node.nodeType === Node.TEXT_NODE) {
+      originalHTML += (node as any).dataOriginal ?? node.textContent ?? "";
+    } else if (node.nodeName === "BR") {
+      originalHTML += "<br>";
+    } else if (node.nodeType === Node.ELEMENT_NODE) {
+      originalHTML += (node as HTMLElement).outerHTML;
+    }
+  });
 
-    // Cherche les images suivies de valeurs
-    if (node.nodeType === Node.ELEMENT_NODE) {
-      const element = node as HTMLElement;
+  // 🔹 Split par ligne
+  const lines = originalHTML.split(/<br\s*\/?>/i);
 
-      if (element.tagName === "IMG") {
-        const alt = element.getAttribute("alt") || "";
+  for (const line of lines) {
+    if (!line.trim()) continue;
 
-        // Récupère le prochain noeud texte
-        let nextNode = children[i + 1];
-        if (nextNode && nextNode.nodeType === Node.TEXT_NODE) {
-          const textNode = nextNode as Text;
-          const originalValue =
-            (textNode as any).dataOriginal ?? textNode.textContent ?? "";
-          const valueMatch = originalValue.trim().match(/^([\d,]+)/);
+    const tempDiv = document.createElement("div");
+    tempDiv.innerHTML = line.trim();
 
-          if (valueMatch) {
-            const amount = parseNumber(valueMatch[1]);
+    const textContent = tempDiv.textContent || "";
 
-            // Détermine le type de good
-            let goodType = alt.replace(".png", "");
-
-            // Cas spécial : si alt contient "Primary" ou "Tertiary"
-            if (goodType.includes("Primary") || goodType.includes("Tertiary")) {
-              goodType = goodType.replace("_EG", "").replace("EG", "");
-              if (!goodType.includes("_")) {
-                goodType = goodType + "_EG";
-              }
-            }
-
-            details.push({ type: goodType, amount });
-          }
-        }
-      }
+    // === TEXTE Primary / Secondary / Tertiary ===
+    const primaryMatch = textContent.match(/Primary:\s*([A-Z]+)\s*([\d,]+)/i);
+    if (primaryMatch) {
+      details.push({
+        type: `Primary_${primaryMatch[1]}`,
+        amount: parseNumber(primaryMatch[2]),
+      });
+      continue;
     }
 
-    // Gère aussi le format texte pur "Primary: EG 1,000"
-    if (node.nodeType === Node.TEXT_NODE) {
-      const textNode = node as Text;
-      const originalText =
-        (textNode as any).dataOriginal ?? textNode.textContent ?? "";
+    const secondaryMatch = textContent.match(
+      /Secondary:\s*([A-Z]+)\s*([\d,]+)/i
+    );
+    if (secondaryMatch) {
+      details.push({
+        type: `Secondary_${secondaryMatch[1]}`,
+        amount: parseNumber(secondaryMatch[2]),
+      });
+      continue;
+    }
 
-      // Primary: EG 1,000
-      const primaryMatch = originalText.match(/Primary:\s*EG\s*([\d,]+)/i);
-      if (primaryMatch) {
-        const amount = parseNumber(primaryMatch[1]);
-        const exists = details.some((d) => d.type === "Primary_EG");
-        if (!exists) {
-          details.push({ type: "Primary_EG", amount });
-        }
-      }
+    const tertiaryMatch = textContent.match(/Tertiary:\s*([A-Z]+)\s*([\d,]+)/i);
+    if (tertiaryMatch) {
+      details.push({
+        type: `Tertiary_${tertiaryMatch[1]}`,
+        amount: parseNumber(tertiaryMatch[2]),
+      });
+      continue;
+    }
 
-      // Tertiary: EG 1,000
-      const tertiaryMatch = originalText.match(/Tertiary:\s*EG\s*([\d,]+)/i);
-      if (tertiaryMatch) {
-        const amount = parseNumber(tertiaryMatch[1]);
-        const exists = details.some((d) => d.type === "Tertiary_EG");
-        if (!exists) {
-          details.push({ type: "Tertiary_EG", amount });
-        }
-      }
+    // === IMG + nombre ===
+    const img = tempDiv.querySelector("img");
+    if (!img) continue;
+
+    // ✅ Priorité alt, fallback src
+    let goodType = "";
+    const alt = (img.getAttribute("alt") || "").replace(".png", "").trim();
+    if (alt) {
+      goodType = alt;
+    } else {
+      const src = img.getAttribute("src") || "";
+      const srcMatch = src.match(/\/([^\/]+)\.png/i);
+      if (srcMatch) goodType = srcMatch[1].replace(/^\d+px-/, "");
+    }
+
+    const valueMatch = textContent.match(/([\d,]+)/);
+    if (valueMatch && goodType) {
+      details.push({ type: goodType, amount: parseNumber(valueMatch[1]) });
     }
   }
 
   return details;
-}
-
-// Recalcule les totaux en multipliant par les quantités
-function recalculateTotals(data: SavedData) {
-  data.totals = {
-    coins: 0,
-    food: 0,
-    goods: 0,
-  };
-
-  data.buildings.forEach((building) => {
-    const qty = building.quantity;
-
-    if (building.costs.coins) {
-      data.totals.coins += building.costs.coins * qty;
-    }
-    if (building.costs.food) {
-      data.totals.food += building.costs.food * qty;
-    }
-    if (building.costs.goods) {
-      const goodsTotal = building.costs.goods.reduce(
-        (sum, g) => sum + g.amount,
-        0
-      );
-      data.totals.goods += goodsTotal * qty;
-    }
-  });
 }

@@ -1,12 +1,11 @@
 import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
+import { buildingsAbbr, itemsUrl, EraAbbr, goodsUrlByEra } from "./constants";
+import { assetGoods, defaultGood } from "./data/images";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
-
-import { buildingsAbbr, itemsUrl, EraAbbr, goodsUrlByEra } from "./constants";
-import { assetGoods, defaultGood } from "./data/images";
 
 export function getBuildingFromLocal(
   priority: string,
@@ -249,47 +248,7 @@ export function filterTables(
     );
 }
 
-// Génère un ID unique pour chaque ligne
-export function generateRowId(
-  pageUrl: string,
-  tableType: string,
-  era: string,
-  level: string
-): string {
-  return `${pageUrl}|${tableType}|${era}|${level}`.replace(/\s+/g, "_");
-}
-
-
-
-// lib/constants.ts ou lib/utils.ts
-
-// Mapping des buildingName vers les noms d'images
-export const BUILDING_IMAGE_NAMES: Record<string, string> = {
-  // Home Cultures - Farms
-  rural_farm: "Capital_Rural_Farm",
-  domestic_farm: "Capital_Domestic_Farm",
-  luxurious_farm: "Capital_Luxurious_Farm",
-  small_home: "Capital_Small_Home",
-  average_home: "Capital_Average_Home",
-};
-
 const IMAGE_BASE_URL = "https://riseofcultures.wiki.gg/images/thumb";
-
-/**
- * Extrait le niveau final depuis une string de level
- * @param level - "36 → 37" ou "10"
- * @returns "37" ou "10"
- */
-export function extractFinalLevel(level: string): string {
-  // Si format "36 → 37", prend le dernier nombre
-  if (level.includes("→")) {
-    const parts = level.split("→");
-    return parts[parts.length - 1].trim();
-  }
-  
-  // Sinon retourne le niveau tel quel
-  return level.trim();
-}
 
 /**
  * Génère l'URL de l'image d'un bâtiment
@@ -297,59 +256,74 @@ export function extractFinalLevel(level: string): string {
  * @param level - Niveau (ex: "36 → 37" ou "10")
  * @returns URL complète de l'image
  */
-export function getBuildingImageUrl(buildingName: string, level: string): string {
-  const imageName = BUILDING_IMAGE_NAMES[buildingName.toLowerCase()];
-  
-  if (!imageName) {
-    console.warn(`No image mapping found for building: ${buildingName}`);
-    // Fallback : essaie de générer un nom basique
-    const fallbackName = buildingName
-      .split('_')
-      .map(word => word.charAt(0).toUpperCase() + word.slice(1))
-      .join('_');
-    return `${IMAGE_BASE_URL}/${fallbackName}_Lv${extractFinalLevel(level)}.png/200px-${fallbackName}_Lv${extractFinalLevel(level)}.png`;
+export function getBuildingImageUrl(
+  buildingName: string,
+  level: string,
+  type: string
+): string {
+  const withCapital = [
+    "homes",
+    "farms",
+    "workshops",
+    "culture_sites",
+    "barracks",
+  ];
+  const alliedCity = [
+    { page: "maya_empire", suffix: "Maya_" },
+    { page: "china", suffix: "China_" },
+    { page: "viking_kingdom", suffix: "Viking_" },
+    { page: "arabia", suffix: "Arabia_" },
+    { page: "egypt", suffix: "Egypt_" },
+  ];
+
+  let suffix = "";
+
+  if (alliedCity.find((city) => city.page === type.toLowerCase())) {
+    suffix =
+      alliedCity.find((city) => city.page === type.toLowerCase())?.suffix || "";
   }
-  
-  const finalLevel = extractFinalLevel(level);
-  const fileName = `${imageName}_Lv${finalLevel}.png`;
-  
-  return `${IMAGE_BASE_URL}/${fileName}/200px-${fileName}`;
+  if (withCapital.includes(type.toLowerCase())) suffix = "Capital_";
+
+  const imageName = buildingName
+    .split("_")
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+    .join("_");
+
+  const fileName = `${imageName}_Lv${level}.png`;
+
+  return `${IMAGE_BASE_URL}/${suffix}${fileName}/200px-${suffix}${fileName}`;
 }
-
-
 
 export function getGoodImageUrlFromType(
   type: string,
   userSelections: string[][]
 ): string {
-  // 1️⃣ Primary / Secondary / Tertiary
-  const dynamicMatch = type.match(/^(Primary|Secondary|Tertiary)_([A-Z]{2})$/i);
+  // 1️⃣ Cas PRIORITY_ERA → image du building sélectionné
+  const match = type.match(/^(Primary|Secondary|Tertiary)_([A-Z]{2})$/);
 
-  if (dynamicMatch) {
-    const [, priorityRaw, eraRaw] = dynamicMatch;
+  if (match) {
+    const [, priorityRaw, eraRaw] = match;
 
     const priority = priorityRaw.toLowerCase() as
       | "primary"
       | "secondary"
       | "tertiary";
 
-    const era = eraRaw.toUpperCase() as EraAbbr;
+    const era = eraRaw as EraAbbr;
 
     const building = getBuildingFromLocal(priority, era, userSelections);
 
     if (building) {
       const normalized = building.toLowerCase().replace(/[^\w-]/g, "_");
-      const url = goodsUrlByEra[era]?.[normalized]?.url;
-      if (url) return url;
+      const meta = goodsUrlByEra[era]?.[normalized];
+      if (meta?.url) return meta.url;
     }
+
+    return itemsUrl.default;
   }
 
-  // 2️⃣ ALT direct → URL wiki (hors pri/sec/ter)
-  if (type) {
-    const fileName = type.trim().replace(/\s+/g, "_");
-    return `/images/thumb/${fileName}.png/25px-${fileName}.png`;
-  }
-
-  // 3️⃣ Fallback
-  return itemsUrl.default;
+  // 2️⃣ GOOD BRUT → image wiki directe
+  const fileName = type.replace(/\s+/g, "_");
+  return `/images/thumb/${fileName}.png/32px-${fileName}.png`;
 }
+

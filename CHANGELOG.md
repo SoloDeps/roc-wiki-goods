@@ -5,6 +5,25 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec2.0.0.html).
 
+## v1.2.9 - Dec 27, 2025
+
+### Added
+
+- Add shadcn components for popup
+- Add shadcn components for option page
+
+## Changed
+
+- Update table enhancement logic
+- Optimize save/load operations
+- Refactor hold functionality for better UX
+- Improve option page
+- Update building list 
+- Update total goods calculation
+- Update UI for better responsiveness
+- Improve data loading performance
+- Optimize memory usage
+
 
 ## v1.2.8 - Dec 22, 2025
 
