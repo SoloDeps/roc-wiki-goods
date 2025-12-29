@@ -250,6 +250,23 @@ export function filterTables(
 
 const IMAGE_BASE_URL = "https://riseofcultures.wiki.gg/images/thumb";
 
+export const buildingNoLvl = [
+  // arabia
+  "camel_farm",
+  "coffee_brewer",
+  "incense_maker",
+  "carpet_factory",
+  "oil_lamp_crafter",
+  // maya
+  "chronicler",
+  "mask_sculptor",
+  "ceremony_outfitter",
+  "luxurious_aviary",
+  "ritual_carver",
+  // viking
+  "market",
+];
+
 /**
  * Génère l'URL de l'image d'un bâtiment
  * @param buildingName - Nom du bâtiment (ex: "rural_farm")
@@ -289,7 +306,9 @@ export function getBuildingImageUrl(
     .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
     .join("_");
 
-  const fileName = `${imageName}_Lv${level}.png`;
+  const fileName = buildingNoLvl.includes(buildingName.toLowerCase())
+    ? `${imageName}.png`
+    : `${imageName}_Lv${level}.png`;
 
   return `${IMAGE_BASE_URL}/${suffix}${fileName}/200px-${suffix}${fileName}`;
 }
@@ -326,4 +345,3 @@ export function getGoodImageUrlFromType(
   const fileName = type.replace(/\s+/g, "_");
   return `/images/thumb/${fileName}.png/32px-${fileName}.png`;
 }
-

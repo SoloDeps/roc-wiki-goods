@@ -121,57 +121,102 @@ export default defineContentScript({
       (newData: SavedData | null) => {
         if (!newData) return;
 
-        newData.buildings.forEach((building) => {
-          const tables = document.querySelectorAll("table.article-table");
-          tables.forEach((table) => {
-            const rows = Array.from(table.querySelectorAll("tr"));
-            let currentEra = "";
+        // Créer un Set des IDs de buildings sauvegardés pour lookup rapide
+        const savedBuildingIds = new Set(newData.buildings.map((b) => b.id));
 
-            rows.forEach((row) => {
-              const cells = Array.from(row.children).filter(
-                (cell) => cell.tagName.toLowerCase() === "td"
-              ) as HTMLTableCellElement[];
+        const tables = document.querySelectorAll("table.article-table");
+        tables.forEach((table) => {
+          const rows = Array.from(table.querySelectorAll("tr"));
+          let currentEra = "";
 
-              if (cells.length === 0) return;
+          // Détecter le type de table (construction ou upgrade)
+          const tableType =
+            table.getAttribute("data-table-type") ||
+            (table
+              .querySelector("caption")
+              ?.textContent?.includes("Construction")
+              ? "construction"
+              : "upgrade");
 
-              const headerCells = Array.from(
-                table.querySelector("tr")?.children || []
-              );
-              const levelColumnIndex = headerCells.findIndex(
-                (cell) => cell.textContent?.trim().toLowerCase() === "level"
-              );
+          rows.forEach((row, index) => {
+            const cells = Array.from(row.children).filter(
+              (cell) => cell.tagName.toLowerCase() === "td"
+            ) as HTMLTableCellElement[];
 
-              const levelText =
-                levelColumnIndex >= 0 && cells[levelColumnIndex]
-                  ? cells[levelColumnIndex].textContent?.trim() || ""
-                  : "";
+            if (cells.length === 0) return;
 
-              const match = levelText.match(/(\d+)\s*$/);
-              const level = match ? match[1] : levelText;
+            const era = detectEraRow(row);
+            if (era) {
+              currentEra = era;
+            }
 
-              const era = detectEraRow(row);
-              if (era) {
-                currentEra = era;
-              }
+            const headerCells = Array.from(
+              table.querySelector("tr")?.children || []
+            );
+            const levelColumnIndex = headerCells.findIndex(
+              (cell) => cell.textContent?.trim().toLowerCase() === "level"
+            );
 
-              const pageUrl = window.location.pathname;
-              const rowId = `${pageUrl}|upgrade|${currentEra}|${level}`;
+            const levelText =
+              levelColumnIndex >= 0 && cells[levelColumnIndex]
+                ? cells[levelColumnIndex].textContent?.trim() || String(index)
+                : String(index);
 
-              if (rowId === building.id) {
-                const controlCell =
-                  row.querySelector("td:last-child")?.previousElementSibling;
-                if (controlCell) {
-                  const countSpan = controlCell.querySelector("span");
-                  if (
-                    countSpan &&
-                    countSpan.textContent !== building.quantity.toString()
-                  ) {
-                    countSpan.textContent = building.quantity.toString();
-                    multiplyRowTextContent(row, building.quantity);
+            const match = levelText.match(/(\d+)\s*$/);
+            const level = match ? match[1] : levelText;
+
+            const pageUrl = window.location.pathname;
+            const rowId = `${pageUrl}|${tableType}|${currentEra}|${level}`;
+
+            // Vérifier si ce building est dans les données sauvegardés
+            const savedBuilding = newData.buildings.find((b) => b.id === rowId);
+            const saveCell = row.querySelector("td:last-child");
+            const checkbox = saveCell?.querySelector(
+              "input[type='checkbox']"
+            ) as HTMLInputElement;
+
+            if (checkbox) {
+              // Ignorer seulement si c'est une mise à jour locale du wiki
+              const isLocalUpdate = row.hasAttribute("data-local-update");
+
+              if (!isLocalUpdate) {
+                if (savedBuilding) {
+                  // Le building est sauvegardé : cocher la case et mettre à jour la quantité
+                  checkbox.checked = true;
+
+                  const controlCell =
+                    row.querySelector("td:last-child")?.previousElementSibling;
+                  if (controlCell) {
+                    const countSpan = controlCell.querySelector("span");
+                    if (
+                      countSpan &&
+                      countSpan.textContent !==
+                        savedBuilding.quantity.toString()
+                    ) {
+                      countSpan.textContent = savedBuilding.quantity.toString();
+                      multiplyRowTextContent(row, savedBuilding.quantity);
+                    }
+                  }
+                } else {
+                  // Le building n'est plus sauvegardé : décocher la case et réinitialiser
+                  if (checkbox.checked) {
+                    checkbox.checked = false;
+
+                    const controlCell =
+                      row.querySelector(
+                        "td:last-child"
+                      )?.previousElementSibling;
+                    if (controlCell) {
+                      const countSpan = controlCell.querySelector("span");
+                      if (countSpan) {
+                        countSpan.textContent = "1";
+                        multiplyRowTextContent(row, 1);
+                      }
+                    }
                   }
                 }
               }
-            });
+            }
           });
         });
       }
