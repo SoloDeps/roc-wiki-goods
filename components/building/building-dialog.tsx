@@ -12,15 +12,17 @@ import {
 } from "@/components/ui/dialog";
 import { buildingsAbbr } from "@/lib/constants";
 import BuildingSelector from "./building-selector";
+import { useBuildingSelections } from "@/hooks/useBuildingSelections";
 
 export function BuildingDialog() {
   const [open, setOpen] = React.useState(false);
-  const [selections, setSelections] = useState(() => {
-    const savedData = localStorage.getItem("buildingSelections");
-    return savedData
-      ? JSON.parse(savedData)
-      : buildingsAbbr.map(() => ["", "", ""]);
-  });
+  const { selections, isLoading } = useBuildingSelections();
+  const [localSelections, setLocalSelections] = React.useState(selections);
+
+  // Synchroniser avec le storage global
+  React.useEffect(() => {
+    setLocalSelections(selections);
+  }, [selections]);
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
@@ -44,8 +46,8 @@ export function BuildingDialog() {
                     title={group.title}
                     buildings={group.buildings}
                     index={index}
-                    selections={selections}
-                    setSelections={setSelections}
+                    selections={localSelections}
+                    setSelections={setLocalSelections}
                   />
                 ))}
               </div>

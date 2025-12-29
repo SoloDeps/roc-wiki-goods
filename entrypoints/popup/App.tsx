@@ -5,14 +5,19 @@ import { buildingsAbbr, eras, WIKI_URL } from "@/lib/constants";
 import EraSelector from "@/components/popup/era-selector";
 import PopupHeader from "@/components/popup/header";
 import BuildingSelector from "@/components/building/building-selector";
+import { useBuildingSelections } from "@/hooks/useBuildingSelections";
+import { storage } from "#imports";
 
 function App() {
-  const [selections, setSelections] = useState(() => {
-    const savedData = localStorage.getItem("buildingSelections");
-    return savedData
-      ? JSON.parse(savedData)
-      : buildingsAbbr.map(() => ["", "", ""]);
-  });
+  const { selections, isLoading } = useBuildingSelections();
+
+  const updateSelections = async (newSelections: string[][]) => {
+    localStorage.setItem("buildingSelections", JSON.stringify(newSelections));
+    await storage.setItem(
+      "local:buildingSelections",
+      JSON.stringify(newSelections)
+    );
+  };
 
   const [era, setEra] = useState<Era | null>(() => {
     const saved = localStorage.getItem("eraSelection");
@@ -38,7 +43,7 @@ function App() {
     });
   }, []);
 
-  if (loading) {
+  if (loading || isLoading) {
     return <div className="p-4">Loading...</div>;
   }
 
@@ -97,7 +102,7 @@ function App() {
             buildings={group.buildings}
             index={index}
             selections={selections}
-            setSelections={setSelections}
+            setSelections={updateSelections}
           />
         ))}
       </div>

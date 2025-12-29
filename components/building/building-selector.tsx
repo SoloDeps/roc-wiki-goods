@@ -15,8 +15,8 @@ type BuildingSelectorType = {
   title: string;
   buildings: string[];
   index: number;
-  selections: string[];
-  setSelections: React.Dispatch<React.SetStateAction<string[]>>;
+  selections: string[][];
+  setSelections: (newSelections: string[][]) => void | Promise<void>;
 };
 
 export default function BuildingSelector({
