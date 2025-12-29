@@ -5,7 +5,8 @@ export type alliedCity =
   | "china"
   | "maya_empire"
   | "viking_kingdom"
-  | "arabia";
+  | "arabia"
+  | "ottoman_empire";
 
 export const WIKI_URL = "riseofcultures.wiki.gg";
 
@@ -24,6 +25,31 @@ export const eras = [
   { name: "High Middle Ages", abbr: "HM" },
   { name: "Early Gothic", abbr: "EG" },
 ] as const;
+
+export const eraColors: Record<EraAbbr, string> = {
+  SA: "191, 96, 96",
+  BA: "232, 149, 47",
+  ME: "93, 194, 152",
+  CG: "90, 152, 189",
+  ER: "104, 109, 196",
+  RE: "191, 96, 96",
+  BE: "232, 149, 47",
+  AF: "93, 194, 152",
+  FA: "90, 152, 189",
+  IE: "104, 109, 196",
+  KS: "191, 96, 96",
+  HM: "232, 149, 47",
+  EG: "93, 194, 152",
+};
+
+export const alliedCityColors: Record<alliedCity, string> = {
+  egypt: "93, 194, 152",
+  china: "104, 109, 196",
+  maya_empire: "232, 149, 47",
+  viking_kingdom: "90, 152, 189",
+  arabia: "191, 96, 96",
+  ottoman_empire: "93, 194, 152",
+};
 
 export const buildingsAbbr = [
   {
@@ -323,6 +349,74 @@ export const goodsNameMapping: Record<
   "Lead Glass": [{ priority: "tertiary", era: "EG" }],
 };
 
+// Mapping des goods par civilisation pour le regroupement des other goods
+export const goodsByCivilization: Record<
+  string,
+  { name: string; goods: string[] }
+> = {
+  EGYPT: {
+    name: "EGYPT",
+    goods: ["Papyrus Scroll", "Ankh", "Golden Mask", "Ceremonial Dress"],
+  },
+  CHINA: {
+    name: "CHINA",
+    goods: ["Moth Cocoons", "Silk Threads", "Clay", "Silk", "Porcelain"],
+  },
+  "MAYA EMPIRE": {
+    name: "MAYA EMPIRE",
+    goods: ["Ancestor Mask", "Headdress", "Ritual Dagger", "Calendar Stone"],
+  },
+  "VIKING KINGDOM": {
+    name: "VIKING KINGDOM",
+    goods: [
+      "Mead",
+      "Ceramic Treasure",
+      "Gold Treasure",
+      "Stockfish",
+      "Spice Treasure",
+      "Jewel Treasure",
+    ],
+  },
+  ARABIA: {
+    name: "ARABIA",
+    goods: ["Coffee", "Oil Lamp", "Incense", "Carpet"],
+  },
+  "OTTOMAN EMPIRE": {
+    name: "OTTOMAN EMPIRE",
+    goods: ["Confection", "Syrup", "Wheat", "Pomegranate"],
+  },
+};
+
+export const alliedCityResources: Record<
+  alliedCity,
+  { name: string; resources: string[] }
+> = {
+  egypt: {
+    name: "EGYPT",
+    resources: ["deben"],
+  },
+  china: {
+    name: "CHINA",
+    resources: ["rice", "wu_zhu"],
+  },
+  maya_empire: {
+    name: "MAYA EMPIRE",
+    resources: ["cocoa"],
+  },
+  viking_kingdom: {
+    name: "VIKING KINGDOM",
+    resources: ["pennies"],
+  },
+  arabia: {
+    name: "ARABIA",
+    resources: ["dirham"],
+  },
+  ottoman_empire: {
+    name: "OTTOMAN EMPIRE",
+    resources: ["asper"],
+  },
+};
+
 export const formatColumns = [
   "coin",
   "coins",
@@ -611,4 +705,5 @@ export const limitAlliedBuildingsByEra: Record<
     oil_lamp_crafter: { HM: 2 },
     luxurious_workshop: { KS: 2, HM: 2 },
   },
+  ottoman_empire: {},
 };

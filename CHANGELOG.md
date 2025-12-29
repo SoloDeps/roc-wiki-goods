@@ -5,6 +5,24 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec2.0.0.html).
 
+## v1.3.0 - Dec 29, 2025
+
+### Added
+
+- Add filter for building list
+- Add sync between content.ts and option page
+- Add real-time updates
+- Add data persistence
+- Add localStorage fallback
+
+## Changed
+
+- Update ui building list
+- Update total goods ui
+- Update building list display
+- Improve building list filtering
+- Optimize building list rendering
+
 ## v1.2.9 - Dec 27, 2025
 
 ### Added

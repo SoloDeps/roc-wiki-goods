@@ -1,5 +1,5 @@
 import type { ResourceTotals } from "@/lib/overview/calculator";
-import { useEffect, useState, useMemo } from "react";
+import { useEffect, useState, useMemo, memo } from "react";
 import {
   getCalculatorTotals,
   watchCalculatorTotals,
@@ -10,6 +10,10 @@ import {
   goodsUrlByEra,
   itemsUrl,
   goodsNameMapping,
+  goodsByCivilization,
+  alliedCityResources,
+  alliedCityColors,
+  eraColors,
   type EraAbbr,
   WIKI_URL,
 } from "@/lib/constants";
@@ -20,12 +24,29 @@ import {
 } from "@/lib/utils";
 import { getItemIcon } from "@/lib/helper";
 
-const ResourceItem = ({ icon, name, amount }: any) => {
+// Helper functions to get colors
+const getEraColor = (eraName: string): string => {
+  const era = eras.find((e) => e.name === eraName);
+  if (!era) return "";
+  return eraColors[era.abbr] || "";
+};
+
+const getCityColor = (cityName: string): string => {
+  const cityKey = Object.keys(alliedCityResources).find(
+    (key) =>
+      alliedCityResources[key as keyof typeof alliedCityResources].name ===
+      cityName
+  );
+  if (!cityKey) return "";
+  return alliedCityColors[cityKey as keyof typeof alliedCityColors] || "";
+};
+
+const ResourceItem = memo(({ icon, name, amount }: any) => {
   if (!icon && !name && amount === undefined) return null;
 
   return (
     <div className="flex items-center h-[60px] gap-2 px-2 py-1.5">
-      {icon && <img src={icon} alt="" className="size-8" />}
+      {icon && <img src={icon} alt="" className="size-8 select-none" draggable={false} />}
       <div className="flex flex-col min-w-0">
         {name && (
           <span className="text-[10px] font-medium leading-tight uppercase">
@@ -40,52 +61,94 @@ const ResourceItem = ({ icon, name, amount }: any) => {
       </div>
     </div>
   );
-};
+});
 
-const MainResourcesBlock = ({ resources }: any) => (
-  <section className="rounded-md overflow-hidden border">
-    <header className="py-1 px-2 border-b">
-      <h3 className="text-xs font-bold uppercase tracking-wide">
-        Main Resources
-      </h3>
-    </header>
-    <div className="grid grid-cols-5">
-      {resources.map((r: any) => (
-        <ResourceItem key={r.type} {...r} />
-      ))}
-    </div>
-  </section>
-);
-
-const EraBlock = ({ title, resources }: any) => {
-  const padded = [...resources];
-  while (padded.length < 3) padded.push({});
+const MainResourcesBlock = memo(({ resources }: any) => {
+  const bgRgbMain = "90, 152, 189";
   return (
-    <section className="rounded-md overflow-hidden border">
-      <header className="py-1 px-2 border-b">
+    <section className="rounded-sm overflow-hidden border">
+      <header
+        className="py-1 px-2 border-b border-alpha-200 text-white"
+        style={{
+          background: `linear-gradient(
+            to right,
+            rgb(${bgRgbMain}),
+            rgba(${bgRgbMain}, 0.4)
+          )`,
+          color: "#fff",
+        }}
+      >
+        <h3 className="text-xs font-bold uppercase tracking-wide">
+          Main Resources
+        </h3>
+      </header>
+      <div className="grid grid-cols-5 bg-background-300">
+        {resources.map((r: any) => (
+          <ResourceItem key={r.type} {...r} />
+        ))}
+      </div>
+    </section>
+  );
+});
+
+const EraBlock = memo(({ title, resources }: any) => {
+  const bgRgb = getEraColor(title);
+
+  const padded = useMemo(() => {
+    const padded = [...resources];
+    while (padded.length < 3) padded.push({});
+    return padded;
+  }, [resources]);
+
+  return (
+    <section className="rounded-sm overflow-hidden border">
+      <header
+        className="py-1 px-2 border-b text-white"
+        style={{
+          background: `linear-gradient(
+            to right,
+            rgb(${bgRgb}),
+            rgba(${bgRgb}, 0.4)
+          )`,
+        }}
+      >
         <h3 className="text-xs font-bold uppercase tracking-wide">{title}</h3>
       </header>
-      <div className="grid grid-cols-3">
+      <div className="grid grid-cols-3 bg-background-300">
         {padded.map((r: any, i: any) => (
           <ResourceItem key={i} {...r} />
         ))}
       </div>
     </section>
   );
-};
+});
 
-const OtherGoodsBlock = ({ resources }: any) => (
-  <section className="rounded-md overflow-hidden border">
-    <header className="py-1 px-2 border-b">
-      <h3 className="text-xs font-bold uppercase tracking-wide">Other Goods</h3>
-    </header>
-    <div className="grid grid-cols-2 sm:grid-cols-3">
-      {resources.map((r: any, i: any) => (
-        <ResourceItem key={i} {...r} />
-      ))}
-    </div>
-  </section>
-);
+const OtherGoodsBlock = memo(({ title, resources }: any) => {
+  const bgRgb = getCityColor(title);
+
+  return (
+    <section className="rounded-sm overflow-hidden border">
+      <header
+        className="py-1 px-2 border-b"
+        style={{
+          background: `linear-gradient(
+            to right,
+            rgb(${bgRgb}),
+            rgba(${bgRgb}, 0.4)
+          )`,
+          color: "#fff",
+        }}
+      >
+        <h3 className="text-xs font-bold uppercase tracking-wide">{title}</h3>
+      </header>
+      <div className="grid grid-cols-2 sm:grid-cols-3 bg-background-100 ">
+        {resources.map((r: any, i: any) => (
+          <ResourceItem key={i} {...r} />
+        ))}
+      </div>
+    </section>
+  );
+});
 
 const GoodsDisplay = () => {
   const { selections } = useBuildingSelections();
@@ -214,19 +277,102 @@ const GoodsDisplay = () => {
     });
   }, [selections, normalizedGoods]);
 
-  const otherGoods = useMemo(() => {
-    return Array.from(normalizedGoods.otherGoods.entries()).map(
-      ([type, amount]) => ({
-        icon: `https://${WIKI_URL}${getGoodImageUrlFromType(type, selections)}`,
-        name: type.replace(/_/g, " "),
-        amount,
-      })
+  const otherGoodsByCivilization = useMemo(() => {
+    const grouped: Record<
+      string,
+      Array<{ icon: string; name: string; amount: number }>
+    > = {};
+
+    // Initialiser les groupes de civilisations
+    Object.keys(goodsByCivilization).forEach((civ) => {
+      grouped[civ] = [];
+    });
+
+    // Grouper les other goods par civilisation
+    Array.from(normalizedGoods.otherGoods.entries()).forEach(
+      ([type, amount]) => {
+        // Utiliser le nom avec espaces pour la comparaison (format affiché)
+        const displayName = type.replace(/_/g, " ");
+
+        // Chercher à quelle civilisation appartient ce good
+        let foundCivilization = null;
+        for (const [civKey, civData] of Object.entries(goodsByCivilization)) {
+          if (civData.goods.includes(displayName)) {
+            foundCivilization = civKey;
+            break;
+          }
+        }
+
+        const resourceItem = {
+          icon: `https://${WIKI_URL}${getGoodImageUrlFromType(
+            type,
+            selections
+          )}`,
+          name: displayName, // Affichage avec espaces pour l'UI
+          amount,
+        };
+
+        if (foundCivilization) {
+          grouped[foundCivilization].push(resourceItem);
+        } else {
+          // Si le good n'appartient à aucune civilisation connue, le mettre dans un groupe "AUTRES"
+          if (!grouped["AUTRES"]) {
+            grouped["AUTRES"] = [];
+          }
+          grouped["AUTRES"].push(resourceItem);
+        }
+      }
     );
-  }, [normalizedGoods.otherGoods, selections]);
+
+    // Ajouter les ressources des villes alliées aux blocs de civilisation correspondants
+    Object.entries(totals.main).forEach(([type, amount]) => {
+      if (amount <= 0) return;
+
+      // Chercher à quelle ville alliée appartient cette ressource
+      let foundCity = null;
+      for (const [cityKey, cityData] of Object.entries(alliedCityResources)) {
+        if (cityData.resources.includes(type)) {
+          foundCity = cityKey;
+          break;
+        }
+      }
+
+      if (foundCity) {
+        const displayName = type.replace(/_/g, " ");
+        const cityName =
+          alliedCityResources[foundCity as keyof typeof alliedCityResources]
+            .name;
+
+        // Ajouter la ressource au bloc de la civilisation correspondante
+        if (!grouped[cityName]) {
+          grouped[cityName] = [];
+        }
+
+        grouped[cityName].push({
+          icon: `https://${WIKI_URL}${getItemIcon(type)}`,
+          name: displayName,
+          amount,
+        });
+      }
+    });
+
+    // Filtrer les civilisations vides
+    const filteredGrouped = Object.fromEntries(
+      Object.entries(grouped).filter(([_, resources]) => resources.length > 0)
+    );
+
+    return filteredGrouped;
+  }, [normalizedGoods.otherGoods, selections, totals.main, getItemIcon]);
 
   const mainResources = useMemo(() => {
     return Object.entries(totals.main)
-      .filter(([, amount]) => amount > 0)
+      .filter(([type, amount]) => {
+        // Exclure les ressources des villes alliées
+        const isAlliedResource = Object.values(alliedCityResources).some(
+          (city) => city.resources.includes(type)
+        );
+        return amount > 0 && !isAlliedResource;
+      })
       .map(([type, amount]) => ({
         type,
         amount,
@@ -238,6 +384,7 @@ const GoodsDisplay = () => {
   if (loading) return <div className="p-4">Loading...</div>;
 
   const visibleEraBlocks = eraBlocks.filter((block) => !block.shouldHide);
+  const hasOtherGoods = Object.keys(otherGoodsByCivilization).length > 0;
 
   return (
     <div className="p-4 pb-16">
@@ -253,9 +400,17 @@ const GoodsDisplay = () => {
             />
           ))}
         </div>
-        {otherGoods.length > 0 && (
+        {hasOtherGoods && (
           <div className="space-y-3">
-            <OtherGoodsBlock resources={otherGoods} />
+            {Object.entries(otherGoodsByCivilization).map(
+              ([civKey, resources]) => (
+                <OtherGoodsBlock
+                  key={civKey}
+                  title={civKey}
+                  resources={resources}
+                />
+              )
+            )}
           </div>
         )}
       </div>

@@ -4,7 +4,7 @@ import { ExternalLink, Info } from "lucide-react";
 
 export const navLinks = [
   {
-    label: "Wiki",
+    label: "Wiki Homepage",
     href: "#",
     icon: <ExternalLink />,
   },
@@ -26,7 +26,7 @@ export function SiteHeader() {
         {navLinks.map((link, i) => (
           <Button variant="outline" size="sm" asChild key={i}>
             <a href={link.href}>
-              {link.icon}
+              {/* {link.icon} */}
               {link.label}
             </a>
           </Button>

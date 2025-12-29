@@ -29,6 +29,9 @@ export async function enhanceTables(tables: TableInfo[]) {
     let currentEra = "";
     const rows = Array.from(element.querySelectorAll("tr"));
 
+    // Stocker le type de table comme attribut pour le content script
+    element.setAttribute("data-table-type", type);
+
     let levelColumnIndex = -1;
     const header = rows[0];
 
@@ -109,6 +112,7 @@ export async function enhanceTables(tables: TableInfo[]) {
       // Stocke le texte original
       if (!row.hasAttribute("data-original-stored")) {
         row.setAttribute("data-original-stored", "true");
+        row.setAttribute("data-wiki-source", "true");
         cells.forEach((cell) =>
           cell.childNodes.forEach((node) => {
             if (node.nodeType === Node.TEXT_NODE) {
@@ -152,10 +156,14 @@ export async function enhanceTables(tables: TableInfo[]) {
               count = newCount;
               updateRow();
               if (isSaved) {
+                // Marquer comme mise à jour locale pour éviter la resynchronisation
+                row.setAttribute("data-local-update", "true");
                 await saveBuilding(row, rowId, {
                   maxQty,
                   quantity: count,
                 });
+                // Retirer le flag après un court délai
+                setTimeout(() => row.removeAttribute("data-local-update"), 100);
               }
             }
           };
@@ -187,15 +195,45 @@ export async function enhanceTables(tables: TableInfo[]) {
       checkbox.addEventListener("change", async () => {
         isSaved = checkbox.checked;
         if (isSaved) {
+          // IMPORTANT: Lire la valeur actuelle du span, pas la variable locale
+          const currentSpanValue = countSpan
+            ? parseInt(countSpan.textContent || "1")
+            : 1;
+
+          // Forcer la relecture du storage ET resynchroniser la variable locale
+          const currentData = await loadSavedBuildings();
+          const existingBuilding = currentData.buildings.find(
+            (b) => b.id === rowId
+          );
+
+          if (existingBuilding) {
+            // Utiliser la quantité du storage et tout resynchroniser
+            count = existingBuilding.quantity;
+            if (countSpan) countSpan.textContent = count.toString();
+            multiplyRowTextContent(row, count);
+          } else {
+            // Le building n'existe plus dans le storage : utiliser la valeur du span (qui devrait être 1)
+            count = currentSpanValue;
+            multiplyRowTextContent(row, count);
+          }
+
+          // Marquer comme mise à jour locale pour éviter la resynchronisation
+          row.setAttribute("data-local-update", "true");
           await saveBuilding(row, rowId, {
             maxQty,
             quantity: count,
           });
+          // Retirer le flag après un court délai
+          setTimeout(() => row.removeAttribute("data-local-update"), 100);
         } else {
+          // Marquer comme mise à jour locale pour éviter la resynchronisation
+          row.setAttribute("data-local-update", "true");
           await removeBuilding(rowId);
           count = 1;
           if (countSpan) countSpan.textContent = "1";
           multiplyRowTextContent(row, count);
+          // Retirer le flag après un court délai
+          setTimeout(() => row.removeAttribute("data-local-update"), 100);
         }
       });
 
