@@ -10,19 +10,17 @@ import BuildingList from "./building/building-list";
 import { TailwindIndicator } from "./tailwind-indicator";
 import BuildingFilters from "./building/building-filters";
 import {
+  useBuildingFilters,
+  type BuildingFilters as BuildingFiltersType,
+} from "@/hooks/useBuildingFilters";
+import {
   loadSavedBuildings,
   watchSavedBuildings,
-  type SavedData,
 } from "@/lib/overview/storage";
-import { parseBuildingId } from "@/lib/overview/parseBuildingId";
-import { getBuildingLocation } from "./building/building-list";
 
 export default function OptionLayout() {
   const [showFilters, setShowFilters] = useState(false);
-  const [filters, setFilters] = useState<{
-    tableType?: "construction" | "upgrade";
-    location?: string;
-  }>({});
+  const [filters, setFilters] = useState<BuildingFiltersType>({});
   const [availableLocations, setAvailableLocations] = useState<string[]>([]);
   const [availableTypes, setAvailableTypes] = useState<
     ("construction" | "upgrade")[]
@@ -31,103 +29,11 @@ export default function OptionLayout() {
   // Utiliser useDeferredValue pour les filtres - évite les rerenders pendant la saisie
   const deferredFilters = useDeferredValue(filters);
 
-  // Fonction pour extraire les données disponibles en fonction des filtres
-  const getAvailableData = useCallback(
-    (
-      data: SavedData,
-      currentFilters: {
-        tableType?: "construction" | "upgrade";
-        location?: string;
-      }
-    ): { locations: string[]; types: ("construction" | "upgrade")[] } => {
-      const locations = new Set<string>();
-      const types = new Set<"construction" | "upgrade">();
+  const { getAvailableData } = useBuildingFilters();
 
-      data.buildings.forEach((b) => {
-        const parsed = parseBuildingId(b.id);
-        const locationInfo = getBuildingLocation(
-          parsed.section1,
-          parsed.section2,
-          parsed.buildingName
-        );
-
-        // Logique asymétrique :
-
-        // Si un filtre de TYPE est actif, ne considérer que les buildings de ce type
-        if (
-          currentFilters.tableType &&
-          parsed.tableType !== currentFilters.tableType
-        ) {
-          return;
-        }
-
-        // Si un filtre de LOCATION est actif, ne considérer que les buildings de cette location POUR LES TYPES
-        // mais on garde toutes les locations pour l'affichage
-        const shouldConsiderForTypes =
-          !currentFilters.location ||
-          locationInfo.location === currentFilters.location;
-
-        // Extraire les locations (toujours toutes les villes, sauf si on filtre par type)
-        if (!currentFilters.tableType) {
-          locations.add(locationInfo.location);
-        } else {
-          // Si on filtre par type, n'ajouter que les villes qui ont ce type
-          locations.add(locationInfo.location);
-        }
-
-        // Extraire les types (seulement si pertinent pour le filtre de location actif)
-        if (shouldConsiderForTypes && !currentFilters.tableType) {
-          types.add(parsed.tableType);
-        }
-      });
-
-      // Si un filtre de type est actif, ajouter le type filtré pour le maintenir dans les options
-      if (currentFilters.tableType && types.size === 0) {
-        types.add(currentFilters.tableType);
-      }
-
-      // Si un filtre de location est actif, ajouter la location filtrée pour la maintenir dans les options
-      if (currentFilters.location && !locations.has(currentFilters.location)) {
-        locations.add(currentFilters.location);
-      }
-
-      // Logique spéciale :
-      // Si on filtre par location, on veut TOUTES les villes visibles
-      if (currentFilters.location && !currentFilters.tableType) {
-        // Réextraire TOUTES les villes (sans filtre)
-        const allLocations = new Set<string>();
-        data.buildings.forEach((b) => {
-          const parsed = parseBuildingId(b.id);
-          const locationInfo = getBuildingLocation(
-            parsed.section1,
-            parsed.section2,
-            parsed.buildingName
-          );
-          allLocations.add(locationInfo.location);
-        });
-        return {
-          locations: Array.from(allLocations),
-          types: Array.from(types),
-        };
-      }
-
-      return {
-        locations: Array.from(locations),
-        types: Array.from(types),
-      };
-    },
-    []
-  );
-
-  const handleFilterChange = useCallback(
-    (newFilters: {
-      tableType?: "construction" | "upgrade";
-      location?: string;
-    }) => {
-      setFilters(newFilters);
-    },
-    []
-  );
+  const handleFilterChange = useCallback((newFilters: BuildingFiltersType) => {
+    setFilters(newFilters);
+  }, []);
 
   useEffect(() => {
     let unwatch: (() => void) | undefined;
