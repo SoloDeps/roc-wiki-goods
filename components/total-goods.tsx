@@ -141,7 +141,7 @@ const OtherGoodsBlock = memo(({ title, resources }: any) => {
       >
         <h3 className="text-xs font-bold uppercase tracking-wide">{title}</h3>
       </header>
-      <div className="grid grid-cols-2 sm:grid-cols-3 bg-background-100 ">
+      <div className="grid grid-cols-2 sm:grid-cols-3 bg-background-300 ">
         {resources.map((r: any, i: any) => (
           <ResourceItem key={i} {...r} />
         ))}

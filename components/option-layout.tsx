@@ -5,7 +5,7 @@ import { PlusIcon, Filter } from "lucide-react";
 import { Badge } from "./ui/badge";
 import { useState, useCallback, useEffect, useDeferredValue } from "react";
 import GoodsDisplay from "@/components/total-goods";
-import { BuildingDialog } from "@/components/building/building-dialog";
+import { WorkshopModal } from "@/components/modals/workshop-modal";
 import BuildingList from "./building/building-list";
 import { TailwindIndicator } from "./tailwind-indicator";
 import BuildingFilters from "./building/building-filters";
@@ -66,10 +66,11 @@ export default function OptionLayout() {
 
       <div className="flex min-h-0 flex-1 container-wrapper gap-4">
         <aside className="sticky top-0 hidden origin-left xl:block mb-2 material-medium 2xl:w-6/11 lg:w-5/11 overflow-hidden">
+          {/* total list header */}
           <header className="flex shrink-0 flex-col w-full transition-colors border-b">
             <div className="flex shrink-0 w-full justify-between items-center gap-3 pl-4 pr-3 sm:pl-3 sm:pr-2 h-12 sm:mx-0">
-              <h2 className="text-base font-semibold">Resource Totals</h2>
-              <BuildingDialog />
+              <h2 className="text-[15px] font-semibold">Resource Totals</h2>
+              <WorkshopModal />
             </div>
           </header>
 
@@ -81,13 +82,14 @@ export default function OptionLayout() {
         <div className="relative flex min-w-0 flex-1 flex-col 2xl:w-5/11 lg:w-6/11">
           <main className="material-medium relative mb-2 mt-0 flex-1 grow overflow-hidden">
             <div className="@container/page-layout relative flex size-full min-h-0 flex-col">
+              {/* building list header */}
               <header className="flex shrink-0 flex-col w-full transition-colors border-b">
                 <div className="flex shrink-0 w-full justify-between items-center gap-3 px-3 h-12 sm:mx-0">
-                  <h2 className="hidden xl:block text-base font-semibold">
+                  <h2 className="hidden xl:block text-[15px] font-semibold">
                     Building List
                   </h2>
                   <div className="block xl:hidden">
-                    <BuildingDialog />
+                    <WorkshopModal />
                   </div>
 
                   <div className="flex items-center gap-2">
@@ -123,6 +125,7 @@ export default function OptionLayout() {
                   </div>
                 )}
               </header>
+
               <div className="size-full overflow-y-auto no-scrollbar flex flex-col">
                 <BuildingList filters={deferredFilters} />
               </div>

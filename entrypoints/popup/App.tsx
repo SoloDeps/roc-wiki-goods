@@ -35,7 +35,8 @@ function App() {
     browser.tabs.query({ active: true, currentWindow: true }).then((tabs) => {
       if (tabs.length > 0 && tabs[0].url) {
         let url = new URL(tabs[0].url);
-        if (url.hostname === WIKI_URL) {
+        console.log(url)
+        if (url.origin === WIKI_URL) {
           setIsAllowedSite(true);
         }
       }
@@ -44,7 +45,7 @@ function App() {
   }, []);
 
   if (loading || isLoading) {
-    return <div className="p-4">Loading...</div>;
+    return <div className="bg-background size-0" />;
   }
 
   if (!isAllowedSite) {

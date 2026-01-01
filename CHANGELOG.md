@@ -5,6 +5,18 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec2.0.0.html).
 
+## v1.3.2 - Jan 1, 2026
+
+### Added
+
+- Add drawer vaul component
+
+### Changed
+
+- Update workshop modal
+- Update building selector
+- Update modal/drawer ui
+
 ## v1.3.0 - Dec 29, 2025
 
 ### Added

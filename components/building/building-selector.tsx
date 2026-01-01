@@ -69,7 +69,7 @@ export default function BuildingSelector({
   }, [primary]);
 
   return (
-    <div className="pt-3 not-last:border-b">
+    <div className="pt-3 not-last:border-b border-alpha-400">
       {/* Title + reset */}
       <div className="flex justify-between items-center h-4">
         <h2 className="block text-xs font-medium">{title}</h2>
