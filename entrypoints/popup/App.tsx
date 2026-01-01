@@ -1,7 +1,7 @@
 import { browser } from "wxt/browser";
 import { useState, useEffect } from "react";
 import type { Era } from "@/lib/constants";
-import { buildingsAbbr, eras, WIKI_URL } from "@/lib/constants";
+import { buildingsAbbr, eras, WIKI_URL, WIKI_DISPLAY } from "@/lib/constants";
 import EraSelector from "@/components/popup/era-selector";
 import PopupHeader from "@/components/popup/header";
 import BuildingSelector from "@/components/building/building-selector";
@@ -76,11 +76,11 @@ function App() {
                 onClick={async (e) => {
                   e.preventDefault();
                   await browser.tabs.create({
-                    url: "https://" + WIKI_URL,
+                    url: WIKI_URL,
                   });
                 }}
               >
-                {WIKI_URL}
+                {WIKI_DISPLAY}
               </a>
               .
             </h3>

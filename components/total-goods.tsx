@@ -242,7 +242,7 @@ const GoodsDisplay = () => {
         : undefined;
       const url = meta?.url ?? itemsUrl.default;
       return {
-        icon: `https://${WIKI_URL}${url}`,
+        icon: `${WIKI_URL}${url}`,
         name:
           meta?.name ??
           (priority === "primary"
@@ -304,7 +304,7 @@ const GoodsDisplay = () => {
         }
 
         const resourceItem = {
-          icon: `https://${WIKI_URL}${getGoodImageUrlFromType(
+          icon: `${WIKI_URL}${getGoodImageUrlFromType(
             type,
             selections
           )}`,
@@ -349,7 +349,7 @@ const GoodsDisplay = () => {
         }
 
         grouped[cityName].push({
-          icon: `https://${WIKI_URL}${getItemIcon(type)}`,
+          icon: `${WIKI_URL}${getItemIcon(type)}`,
           name: displayName,
           amount,
         });
@@ -376,7 +376,7 @@ const GoodsDisplay = () => {
       .map(([type, amount]) => ({
         type,
         amount,
-        icon: `https://${WIKI_URL}${getItemIcon(type)}`,
+        icon: `${WIKI_URL}${getItemIcon(type)}`,
         name: type.replace(/_/g, " "),
       }));
   }, [totals.main, getItemIcon]);

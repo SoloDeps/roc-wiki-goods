@@ -8,7 +8,8 @@ export type alliedCity =
   | "arabia"
   | "ottoman_empire";
 
-export const WIKI_URL = "riseofcultures.wiki.gg";
+export const WIKI_URL = "https://riseofcultures.wiki.gg";
+export const WIKI_DISPLAY = "riseofcultures.wiki.gg";
 
 export const eras = [
   { name: "Stone Age", abbr: "SA" },

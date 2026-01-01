@@ -17,6 +17,7 @@ import {
   loadSavedBuildings,
   watchSavedBuildings,
 } from "@/lib/overview/storage";
+import AddBuildingSheet from "./add-building-sheet";
 
 export default function OptionLayout() {
   const [showFilters, setShowFilters] = useState(false);
@@ -105,13 +106,8 @@ export default function OptionLayout() {
                         </Badge>
                       )}
                     </Button>
-                    <Button
-                      size="sm"
-                      variant="outline"
-                      className="cursor-pointer"
-                    >
-                      <PlusIcon /> Add building
-                    </Button>
+
+                    <AddBuildingSheet />
                   </div>
                 </div>
 

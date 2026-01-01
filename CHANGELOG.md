@@ -14,6 +14,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec2.0.0.h
 - Add real-time updates
 - Add data persistence
 - Add localStorage fallback
+- Add building sheet + filter links
 
 ## Changed
 

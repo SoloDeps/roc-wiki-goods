@@ -70,7 +70,7 @@ export const BuildingCard = memo(function BuildingCard({
       return (
         <ResourceBadge
           key={`${g.type}-${i}`}
-          icon={`https://${WIKI_URL}${iconPath}`}
+          icon={`${WIKI_URL}${iconPath}`}
           value={questsFormatNumber(g.amount * localQty)}
           alt={g.type}
         />
@@ -118,7 +118,7 @@ export const BuildingCard = memo(function BuildingCard({
             {mainResources.map((r) => (
               <ResourceBadge
                 key={r.type}
-                icon={`https://${WIKI_URL}${r.icon}`}
+                icon={`${WIKI_URL}${r.icon}`}
                 value={questsFormatNumber(r.value)}
                 alt={r.type}
               />

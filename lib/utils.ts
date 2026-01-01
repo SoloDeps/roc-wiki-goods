@@ -263,6 +263,7 @@ export const buildingNoLvl = [
   "ceremony_outfitter",
   "luxurious_aviary",
   "ritual_carver",
+  "ritual_sites",
   // viking
   "market",
 ];
