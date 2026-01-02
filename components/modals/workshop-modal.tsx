@@ -26,7 +26,7 @@ import { useMediaQuery } from "@/hooks/use-media-query";
 import BuildingSelector from "@/components/building/building-selector";
 import { useBuildingSelections } from "@/hooks/useBuildingSelections";
 
-export function WorkshopModal() {
+export function WorkshopModal({ variant = "outline" }: { variant?: "default" | "outline" }) {
   const [open, setOpen] = useState(false);
   const isDesktop = useMediaQuery("(min-width: 768px)");
   const { selections, isLoading } = useBuildingSelections();
@@ -41,7 +41,7 @@ export function WorkshopModal() {
     return (
       <Dialog open={open} onOpenChange={setOpen}>
         <DialogTrigger asChild>
-          <Button size="sm" variant="outline" className="cursor-pointer">
+          <Button size="sm" variant={variant} className="cursor-pointer">
             <Store /> Change workshops
           </Button>
         </DialogTrigger>

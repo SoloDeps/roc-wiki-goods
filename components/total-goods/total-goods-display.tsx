@@ -15,14 +15,12 @@ import {
   type EraAbbr,
   WIKI_URL,
 } from "@/lib/constants";
-import {
-  getBuildingFromLocal,
-  getGoodImageUrlFromType,
-  questsFormatNumber,
-} from "@/lib/utils";
+import { getBuildingFromLocal, getGoodImageUrlFromType } from "@/lib/utils";
 import { getItemIcon } from "@/lib/helper";
 import { ResourceBlock } from "./resource-block";
 import { Loader2Icon } from "lucide-react";
+import { EmptyOutline } from "@/components/empty-card";
+import { ScrollArea } from "../ui/scroll-area";
 
 export const TotalGoodsDisplay = () => {
   const { selections } = useBuildingSelections();
@@ -291,53 +289,55 @@ export const TotalGoodsDisplay = () => {
 
   if (!hasAnyResources) {
     return (
-      <div className="p-4 text-center">
-        <div className="text-muted-foreground text-sm">
-          Aucune ressource à afficher. Sélectionnez des bâtiments pour voir les
-          ressources générées.
+      <div className="p-8 size-full m-auto flex items-center justify-center bg-background-200">
+        {/* prevent header issue */}
+        <div className="-mt-12"> 
+          <EmptyOutline perso="female" type="total" />
         </div>
       </div>
     );
   }
 
   return (
-    <div className="p-4 pb-16">
-      <div className="grid grid-cols-1 gap-3 2xl:grid-cols-5">
-        <div className="col-span-3 2xl:col-start-2">
-          <ResourceBlock
-            title="Main Resources"
-            resources={mainResources}
-            type="main"
-          />
-        </div>
-      </div>
-
-      <div className="grid grid-cols-1 gap-3 2xl:grid-cols-2 pt-3">
-        <div className="space-y-3">
-          {visibleEraBlocks.map((block) => (
+    <ScrollArea className="size-full overflow-y-auto bg-background-200">
+      <div className="p-4 pb-16">
+        <div className="grid grid-cols-1 gap-3 2xl:grid-cols-5">
+          <div className="col-span-3 2xl:col-start-2">
             <ResourceBlock
-              key={block.title}
-              title={block.title}
-              resources={block.resources}
-              type="era"
+              title="Main Resources"
+              resources={mainResources}
+              type="main"
             />
-          ))}
-        </div>
-        {hasOtherGoods && (
-          <div className="space-y-3">
-            {Object.entries(otherGoodsByCivilization).map(
-              ([civKey, resources]) => (
-                <ResourceBlock
-                  key={civKey}
-                  title={civKey}
-                  resources={resources}
-                  type="other"
-                />
-              )
-            )}
           </div>
-        )}
+        </div>
+
+        <div className="grid grid-cols-1 gap-3 2xl:grid-cols-2 pt-3">
+          <div className="space-y-3">
+            {visibleEraBlocks.map((block) => (
+              <ResourceBlock
+                key={block.title}
+                title={block.title}
+                resources={block.resources}
+                type="era"
+              />
+            ))}
+          </div>
+          {hasOtherGoods && (
+            <div className="space-y-3">
+              {Object.entries(otherGoodsByCivilization).map(
+                ([civKey, resources]) => (
+                  <ResourceBlock
+                    key={civKey}
+                    title={civKey}
+                    resources={resources}
+                    type="other"
+                  />
+                )
+              )}
+            </div>
+          )}
+        </div>
       </div>
-    </div>
+    </ScrollArea>
   );
 };

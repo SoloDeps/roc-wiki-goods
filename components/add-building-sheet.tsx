@@ -15,13 +15,13 @@ import { useState } from "react";
 import SelectWikiTable from "./select-wiki-table";
 import LinkTree from "./link-tree";
 
-export const AddBuildingSheet = () => {
+export const AddBuildingSheet = ({ variant = "outline" }: { variant?: "default" | "outline" }) => {
   const [selectedTable, setSelectedTable] = useState("construction");
 
   return (
     <Sheet>
       <SheetTrigger asChild>
-        <Button size="sm" variant="outline" className="cursor-pointer">
+        <Button size="sm" variant={variant} className="cursor-pointer">
           <PlusIcon /> Add building
         </Button>
       </SheetTrigger>

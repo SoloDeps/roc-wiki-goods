@@ -25,6 +25,7 @@ import {
 import { getBuildingImageUrl, buildingNoLvl } from "@/lib/utils";
 import { parseBuildingId } from "@/lib/overview/parseBuildingId";
 import { Loader2Icon } from "lucide-react";
+import { EmptyOutline } from "@/components/empty-card";
 
 // Fonction pour déterminer si un building est de la Capital ou d'une ville alliée
 export const getBuildingLocation = (
@@ -233,18 +234,8 @@ const BuildingListWithRef = forwardRef<BuildingListRef, BuildingListProps>(
 
     if (categories.length === 0) {
       return (
-        <div className="mx-auto w-full flex flex-col gap-4 has-[.chat-warning]:h-full has-[.ignore-max-width]:max-w-none! max-w-[1360px]">
-          <div className="flex h-full w-full flex-col">
-            <div className="shadow-base bg-v0-background-300 rounded-lg flex size-full flex-1 items-center justify-center p-4 sm:p-6">
-              <div className="flex items-center justify-center">
-                <div className="flex flex-col items-center gap-4 text-center">
-                  <div className="text-sm text-v0-gray-900 mt-0">
-                    Deleted chats will remain here for 30 days
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+        <div className="p-8 size-full m-auto flex items-center justify-center bg-background-200">
+          <EmptyOutline perso="male" type="building" />
         </div>
       );
     }

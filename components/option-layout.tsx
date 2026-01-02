@@ -1,18 +1,17 @@
-import { SiteHeader } from "@/components/site-header";
-import { ScrollArea } from "./ui/scroll-area";
 import { useState, useCallback, useDeferredValue, useRef } from "react";
-import { WorkshopModal } from "@/components/modals/workshop-modal";
-import { BuildingList, type BuildingListRef } from "./building/building-list";
-import { TailwindIndicator } from "./tailwind-indicator";
+import { loadSavedBuildings, removeBuilding } from "@/lib/overview/storage";
 import { type BuildingFilters as BuildingFiltersType } from "@/hooks/useBuildingFilters";
+
+import { SiteHeader } from "@/components/site-header";
+import { WorkshopModal } from "@/components/modals/workshop-modal";
+import {
+  BuildingList,
+  type BuildingListRef,
+} from "@/components/building/building-list";
+import { TailwindIndicator } from "@/components/tailwind-indicator";
 import { TotalGoodsDisplay } from "@/components/total-goods/total-goods-display";
 import { ButtonFilter } from "@/components/buttons/button-filter";
 import { ButtonGroupBuilding } from "@/components/buttons/button-group-building";
-import {
-  loadSavedBuildings,
-  removeBuilding,
-  type SavedData,
-} from "@/lib/overview/storage";
 
 export default function OptionLayout() {
   const [filters, setFilters] = useState<BuildingFiltersType>({});
@@ -86,9 +85,7 @@ export default function OptionLayout() {
             </div>
           </header>
 
-          <ScrollArea className="size-full overflow-y-auto bg-background-200">
-            <TotalGoodsDisplay />
-          </ScrollArea>
+          <TotalGoodsDisplay />
         </aside>
 
         <div className="relative flex min-w-0 flex-1 flex-col 2xl:w-5/11 lg:w-6/11">
