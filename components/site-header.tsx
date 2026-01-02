@@ -1,6 +1,7 @@
 import { ModeToggle } from "@/components/mode-toggle";
 import { Button } from "@/components/ui/button";
 import { ExternalLink, Info } from "lucide-react";
+import { Badge } from "./ui/badge";
 
 export const navLinks = [
   {
@@ -21,6 +22,7 @@ export function SiteHeader() {
       <div className="flex items-center gap-2">
         <img src="/icon/24.png?url" alt="logo" />
         <a href="/" className="text-sm font-semibold">RoC Wiki Goods</a>
+        <Badge className="h-6 rounded-sm beta-badge">Beta</Badge>
       </div>
       <nav className="flex items-center gap-1.5">
         {navLinks.map((link, i) => (

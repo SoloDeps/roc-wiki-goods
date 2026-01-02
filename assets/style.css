@@ -125,6 +125,9 @@ html.changing-theme *::after {
   --alpha-300: oklch(0% 0 0/.102);
   --alpha-400: oklch(0% 0 0/.078);
   --alpha-500: oklch(0% 0 0/.212);
+
+  --beta-badge-bg: hsla(210, 100%, 92%, 1);
+  --beta-badge-color: hsla(211, 100%, 42%, 1);
 }
 
 .dark {
@@ -174,6 +177,9 @@ html.changing-theme *::after {
   --alpha-300: oklch(100% 0 0/.125);
   --alpha-400: oklch(100% 0 0/.145);
   --alpha-500: oklch(100% 0 0/.239);
+
+  --beta-badge-bg: hsla(214, 59%, 15%, 1);
+  --beta-badge-color: hsla(210, 100%, 66%, 1);
 }
 
 @layer base {
@@ -256,6 +262,11 @@ html.changing-theme *::after {
 
   .border-alpha-500 {
     border-color: var(--alpha-500);
+  }
+
+  .beta-badge {
+    background-color: var(--beta-badge-bg)!important;
+    color: var(--beta-badge-color)!important;
   }
 }
 
