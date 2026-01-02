@@ -89,7 +89,7 @@ html.changing-theme *::after {
   --primary-foreground: oklch(0.985 0 0);
   --secondary: oklch(0.97 0 0);
   --secondary-foreground: oklch(0.205 0 0);
-  --muted: oklch(0.97 0 0);
+  --muted: oklch(0.95 0 0);
   --muted-foreground: oklch(0.556 0 0);
   --accent: oklch(0.97 0 0);
   --accent-foreground: oklch(0.205 0 0);
@@ -141,7 +141,7 @@ html.changing-theme *::after {
   --primary-foreground: oklch(0.205 0 0);
   --secondary: oklch(0.269 0 0);
   --secondary-foreground: oklch(0.985 0 0);
-  --muted: oklch(0.269 0 0);
+  --muted: oklch(0.35 0 0);
   --muted-foreground: oklch(0.708 0 0);
   --accent: oklch(0.269 0 0);
   --accent-foreground: oklch(0.985 0 0);
@@ -193,7 +193,6 @@ html.changing-theme *::after {
 
   .container-wrapper {
     @apply mx-auto w-full px-2 sm:px-4 max-xl:max-w-3xl max-w-[1620px];
-    /* @apply mx-auto w-full px-4 max-w-screen-2xl max-xl:max-w-5xl; */
   }
 
   .material-medium {

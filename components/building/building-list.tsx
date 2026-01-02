@@ -189,6 +189,14 @@ const BuildingListWithRef = forwardRef<BuildingListRef, BuildingListProps>(
 
         // Tri des catégories par location puis par nom de building (Capital d'abord, puis autres villes par ordre alphabétique)
         const categories = Array.from(map.values());
+
+        // Tri des buildings par level croissant dans chaque catégorie
+        categories.forEach((category) => {
+          category.buildings.sort(
+            (a, b) => parseInt(a.parsed.level) - parseInt(b.parsed.level)
+          );
+        });
+
         categories.sort((a, b) => {
           // Capital toujours en premier
           if (a.location === "Capital" && b.location !== "Capital") return -1;
@@ -213,11 +221,19 @@ const BuildingListWithRef = forwardRef<BuildingListRef, BuildingListProps>(
 
       async function init() {
         const data = await loadSavedBuildings();
-        setCategories(transformData(data));
+        const newCategories = transformData(data);
+        setCategories(newCategories);
+
+        // Ouvrir tous les accordions par défaut
+        setExpandedItems(newCategories.map((c) => c.id));
+
         setLoading(false);
 
         unwatch = watchSavedBuildings((newData) => {
-          setCategories(transformData(newData));
+          const updatedCategories = transformData(newData);
+          setCategories(updatedCategories);
+          // Garder les accordions ouverts quand les données changent
+          setExpandedItems(updatedCategories.map((c) => c.id));
         });
       }
 
@@ -246,14 +262,14 @@ const BuildingListWithRef = forwardRef<BuildingListRef, BuildingListProps>(
           type="multiple"
           value={expandedItems}
           onValueChange={setExpandedItems}
-          defaultValue={categories.map((c) => c.id)}
+          // defaultValue={categories.map((c) => c.id)}
           className="w-full space-y-2 p-3"
         >
           {categories.map((category) => (
             <AccordionItem
               key={category.id}
               value={category.id}
-              className="rounded-md border bg-background-200 px-4 py-2 border-alpha-200"
+              className="rounded-md border bg-background-200 px-4 py-2 border-alpha-300"
             >
               <AccordionTrigger className="hover:no-underline [&>svg]:-order-1 justify-start gap-3 py-1 text-sm">
                 <div className="flex justify-between items-center w-full">

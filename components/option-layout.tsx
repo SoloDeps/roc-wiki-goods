@@ -12,6 +12,7 @@ import { TailwindIndicator } from "@/components/tailwind-indicator";
 import { TotalGoodsDisplay } from "@/components/total-goods/total-goods-display";
 import { ButtonFilter } from "@/components/buttons/button-filter";
 import { ButtonGroupBuilding } from "@/components/buttons/button-group-building";
+import { ButtonGroupTotal } from "@/components/buttons/button-group-total";
 
 export default function OptionLayout() {
   const [filters, setFilters] = useState<BuildingFiltersType>({});
@@ -98,7 +99,7 @@ export default function OptionLayout() {
                     Building List
                   </h2>
                   <div className="block xl:hidden">
-                    <WorkshopModal />
+                    <ButtonGroupTotal />
                   </div>
 
                   <div className="flex items-center gap-2">

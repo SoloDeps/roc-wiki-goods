@@ -23,6 +23,7 @@ import { EmptyOutline } from "@/components/empty-card";
 import { ScrollArea } from "../ui/scroll-area";
 
 export const TotalGoodsDisplay = () => {
+  // #region logic
   const { selections } = useBuildingSelections();
   const [loading, setLoading] = useState(true);
 
@@ -273,13 +274,15 @@ export const TotalGoodsDisplay = () => {
         return a.type.localeCompare(b.type);
       });
   }, [totals.main, getItemIcon]);
+  // #endregion
 
-  if (loading)
+  if (loading) {
     return (
       <div className="p-4 flex items-center justify-center">
         <Loader2Icon className="size-5 animate-spin" />
       </div>
     );
+  }
 
   const visibleEraBlocks = eraBlocks.filter((block) => !block.shouldHide);
   const hasOtherGoods = Object.keys(otherGoodsByCivilization).length > 0;
@@ -289,9 +292,9 @@ export const TotalGoodsDisplay = () => {
 
   if (!hasAnyResources) {
     return (
-      <div className="p-8 size-full m-auto flex items-center justify-center bg-background-200">
+      <div className="p-8 size-full m-auto flex items-center justify-center bg-background-200 overflow-hidden">
         {/* prevent header issue */}
-        <div className="-mt-12"> 
+        <div className="-mt-12">
           <EmptyOutline perso="female" type="total" />
         </div>
       </div>
@@ -300,9 +303,9 @@ export const TotalGoodsDisplay = () => {
 
   return (
     <ScrollArea className="size-full overflow-y-auto bg-background-200">
-      <div className="p-4 pb-16">
-        <div className="grid grid-cols-1 gap-3 2xl:grid-cols-5">
-          <div className="col-span-3 2xl:col-start-2">
+      <div className="p-4 pb-16 max-w-[870px] mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-5 xl:grid-cols-1 2xl:grid-cols-5 gap-3">
+          <div className="col-span-3 md:col-start-2 xl:col-start-1 2xl:col-start-2">
             <ResourceBlock
               title="Main Resources"
               resources={mainResources}
@@ -311,7 +314,7 @@ export const TotalGoodsDisplay = () => {
           </div>
         </div>
 
-        <div className="grid grid-cols-1 gap-3 2xl:grid-cols-2 pt-3">
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-1 2xl:grid-cols-2 gap-3 pt-3">
           <div className="space-y-3">
             {visibleEraBlocks.map((block) => (
               <ResourceBlock

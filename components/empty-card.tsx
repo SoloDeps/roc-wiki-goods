@@ -32,7 +32,7 @@ const content: Record<"male" | "female", ContentItem> = {
 
 export function EmptyOutline({ perso, type }: EmptyType) {
   return (
-    <div className="relative max-w-xl w-full h-48 border rounded-xl border-alpha-400 bg-background-300">
+    <div className="relative max-w-xl w-full h-48 border rounded-xl border-alpha-400 bg-background-300 shadow-xs">
       <div className="relative size-full ps-40 p-4 flex flex-col justify-center gap-3 text-center">
         <h3 className="text-[17px] font-semibold">{content[perso].text}</h3>
         <p className="text-[15px] text-muted-foreground whitespace-pre-line">
