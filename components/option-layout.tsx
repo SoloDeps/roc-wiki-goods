@@ -1,63 +1,75 @@
 import { SiteHeader } from "@/components/site-header";
 import { ScrollArea } from "./ui/scroll-area";
-import { Button } from "./ui/button";
-import { PlusIcon, Filter } from "lucide-react";
-import { Badge } from "./ui/badge";
-import { useState, useCallback, useEffect, useDeferredValue } from "react";
-import GoodsDisplay from "@/components/total-goods";
+import { useState, useCallback, useDeferredValue, useRef } from "react";
 import { WorkshopModal } from "@/components/modals/workshop-modal";
-import BuildingList from "./building/building-list";
+import { BuildingList, type BuildingListRef } from "./building/building-list";
 import { TailwindIndicator } from "./tailwind-indicator";
-import BuildingFilters from "./building/building-filters";
-import {
-  useBuildingFilters,
-  type BuildingFilters as BuildingFiltersType,
-} from "@/hooks/useBuildingFilters";
+import { type BuildingFilters as BuildingFiltersType } from "@/hooks/useBuildingFilters";
+import { TotalGoodsDisplay } from "@/components/total-goods/total-goods-display";
+import { ButtonFilter } from "@/components/buttons/button-filter";
+import { ButtonGroupBuilding } from "@/components/buttons/button-group-building";
 import {
   loadSavedBuildings,
-  watchSavedBuildings,
+  removeBuilding,
+  type SavedData,
 } from "@/lib/overview/storage";
-import AddBuildingSheet from "./add-building-sheet";
 
 export default function OptionLayout() {
-  const [showFilters, setShowFilters] = useState(false);
   const [filters, setFilters] = useState<BuildingFiltersType>({});
-  const [availableLocations, setAvailableLocations] = useState<string[]>([]);
-  const [availableTypes, setAvailableTypes] = useState<
-    ("construction" | "upgrade")[]
-  >([]);
-
-  // Utiliser useDeferredValue pour les filtres - évite les rerenders pendant la saisie
   const deferredFilters = useDeferredValue(filters);
+  const buildingListRef = useRef<BuildingListRef>(null);
 
-  const { getAvailableData } = useBuildingFilters();
-
-  const handleFilterChange = useCallback((newFilters: BuildingFiltersType) => {
+  const handleFiltersChange = useCallback((newFilters: BuildingFiltersType) => {
     setFilters(newFilters);
   }, []);
 
-  useEffect(() => {
-    let unwatch: (() => void) | undefined;
+  const filterComponents = ButtonFilter({
+    onFiltersChange: handleFiltersChange,
+  });
 
-    async function init() {
-      const data = await loadSavedBuildings();
+  // Calculer le nombre de filtres actifs
+  const activeFiltersCount =
+    (filters.tableType ? 1 : 0) + (filters.location ? 1 : 0);
 
-      // Extraire les villes et types disponibles en fonction des filtres actuels (deferred)
-      const availableData = getAvailableData(data, deferredFilters);
-      setAvailableLocations(availableData.locations);
-      setAvailableTypes(availableData.types);
+  const handleToggleFilters = () => {
+    // Inverser l'état d'affichage des filtres
+    filterComponents.button.props.onClick();
+  };
 
-      unwatch = watchSavedBuildings((newData) => {
-        // Mettre à jour les villes et types disponibles en fonction des filtres actuels (deferred)
-        const newAvailableData = getAvailableData(newData, deferredFilters);
-        setAvailableLocations(newAvailableData.locations);
-        setAvailableTypes(newAvailableData.types);
-      });
+  const handleExpandAll = () => {
+    // Développer tous les accordéons
+    if (buildingListRef.current) {
+      // Utiliser la méthode expandAll sans paramètres pour développer toutes les catégories visibles
+      buildingListRef.current.expandAll();
     }
+  };
 
-    init();
-    return () => unwatch?.();
-  }, [getAvailableData, deferredFilters]);
+  const handleCollapseAll = async () => {
+    // Réduire tous les accordéons
+    if (buildingListRef.current && buildingListRef.current.collapseAll) {
+      buildingListRef.current.collapseAll();
+    }
+  };
+
+  const handleDeleteAll = async () => {
+    // Supprimer tous les bâtiments sauvegardés
+    const confirmed = window.confirm(
+      "Are you sure you want to delete all saved buildings? This action cannot be undone."
+    );
+
+    if (confirmed) {
+      try {
+        const data = await loadSavedBuildings();
+        // Supprimer chaque bâtiment individuellement pour déclencher les watchers
+        for (const building of data.buildings) {
+          await removeBuilding(building.id);
+        }
+      } catch (error) {
+        console.error("Error deleting all buildings:", error);
+        alert("An error occurred while deleting buildings. Please try again.");
+      }
+    }
+  };
 
   return (
     <div className="max-h-screen-patched min-h-screen-patched flex w-full flex-col overflow-auto bg-background-200">
@@ -75,7 +87,7 @@ export default function OptionLayout() {
           </header>
 
           <ScrollArea className="size-full overflow-y-auto bg-background-200">
-            <GoodsDisplay />
+            <TotalGoodsDisplay />
           </ScrollArea>
         </aside>
 
@@ -93,41 +105,24 @@ export default function OptionLayout() {
                   </div>
 
                   <div className="flex items-center gap-2">
-                    <Button
-                      size="sm"
-                      variant="outline"
-                      onClick={() => setShowFilters(!showFilters)}
-                      className="flex items-center gap-2"
-                    >
-                      <Filter className="size-4" />
-                      Filters
-                      {(filters.tableType || filters.location) && (
-                        <Badge variant="default" className="h-5 px-1.5 text-xs">
-                          {(filters.tableType ? 1 : 0) +
-                            (filters.location ? 1 : 0)}
-                        </Badge>
-                      )}
-                    </Button>
-
-                    <AddBuildingSheet />
-                  </div>
-                </div>
-
-                {/* Collapsible filters */}
-                {showFilters && (
-                  <div className="border-t border-alpha-200">
-                    <BuildingFilters
-                      onFilterChange={handleFilterChange}
-                      availableLocations={availableLocations}
-                      availableTypes={availableTypes}
-                      currentFilters={filters}
+                    <ButtonGroupBuilding
+                      onFiltersChange={handleFiltersChange}
+                      filters={filters}
+                      activeFiltersCount={activeFiltersCount}
+                      onToggleFilters={handleToggleFilters}
+                      onExpandAll={handleExpandAll}
+                      onCollapseAll={handleCollapseAll}
+                      onDeleteAll={handleDeleteAll}
                     />
                   </div>
-                )}
+                </div>
               </header>
 
+              {/* Collapsible filters */}
+              {filterComponents.panel}
+
               <div className="size-full overflow-y-auto no-scrollbar flex flex-col">
-                <BuildingList filters={deferredFilters} />
+                <BuildingList ref={buildingListRef} filters={deferredFilters} />
               </div>
             </div>
           </main>

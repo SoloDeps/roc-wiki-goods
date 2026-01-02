@@ -1,9 +1,9 @@
-// Exemple de composant de filtre à ajouter
+// Panneau de filtres pour les buildings
 import { useState, useMemo, memo } from "react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 
-interface BuildingFiltersProps {
+interface PanelFiltersProps {
   onFilterChange: (filters: {
     tableType?: "construction" | "upgrade";
     location?: string;
@@ -16,12 +16,12 @@ interface BuildingFiltersProps {
   };
 }
 
-export default memo(function BuildingFilters({
+export default memo(function PanelFilters({
   onFilterChange,
   availableLocations,
   availableTypes,
   currentFilters,
-}: BuildingFiltersProps) {
+}: PanelFiltersProps) {
   // Use currentFilters to determine the selected values, default to "all" if not set
   const tableType = currentFilters.tableType || "all";
   const selectedLocation = currentFilters.location || "all";
@@ -111,15 +111,15 @@ export default memo(function BuildingFilters({
 
       {/* Active filters */}
       {(tableType !== "all" || selectedLocation !== "all") && (
-        <div className="flex gap-2 items-center">
+        <div className="flex gap-1.5 items-center">
           <span className="text-sm text-muted-foreground">Active filters:</span>
           {tableType !== "all" && (
-            <Badge variant="secondary">
+            <Badge variant="secondary" className="rounded-md h-6">
               {tableType === "construction" ? "Construction" : "Upgrade"}
             </Badge>
           )}
           {selectedLocation !== "all" && (
-            <Badge variant="secondary">{selectedLocation}</Badge>
+            <Badge variant="secondary" className="rounded-md h-6">{selectedLocation}</Badge>
           )}
           <Button
             variant="ghost"

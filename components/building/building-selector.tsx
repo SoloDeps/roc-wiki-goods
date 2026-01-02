@@ -7,7 +7,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import clsx from "clsx";
 import { getGoodsImg } from "@/lib/utils";
 import { RotateCw } from "lucide-react";
 

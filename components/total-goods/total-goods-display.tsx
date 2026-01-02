@@ -1,5 +1,5 @@
 import type { ResourceTotals } from "@/lib/overview/calculator";
-import { useEffect, useState, useMemo, memo } from "react";
+import { useEffect, useState, useMemo } from "react";
 import {
   getCalculatorTotals,
   watchCalculatorTotals,
@@ -12,8 +12,6 @@ import {
   goodsNameMapping,
   goodsByCivilization,
   alliedCityResources,
-  alliedCityColors,
-  eraColors,
   type EraAbbr,
   WIKI_URL,
 } from "@/lib/constants";
@@ -23,134 +21,10 @@ import {
   questsFormatNumber,
 } from "@/lib/utils";
 import { getItemIcon } from "@/lib/helper";
+import { ResourceBlock } from "./resource-block";
+import { Loader2Icon } from "lucide-react";
 
-// Helper functions to get colors
-const getEraColor = (eraName: string): string => {
-  const era = eras.find((e) => e.name === eraName);
-  if (!era) return "";
-  return eraColors[era.abbr] || "";
-};
-
-const getCityColor = (cityName: string): string => {
-  const cityKey = Object.keys(alliedCityResources).find(
-    (key) =>
-      alliedCityResources[key as keyof typeof alliedCityResources].name ===
-      cityName
-  );
-  if (!cityKey) return "";
-  return alliedCityColors[cityKey as keyof typeof alliedCityColors] || "";
-};
-
-const ResourceItem = memo(({ icon, name, amount }: any) => {
-  if (!icon && !name && amount === undefined) return null;
-
-  return (
-    <div className="flex items-center h-[60px] gap-2 px-2 py-1.5">
-      {icon && <img src={icon} alt="" className="size-8 select-none" draggable={false} />}
-      <div className="flex flex-col min-w-0">
-        {name && (
-          <span className="text-[10px] font-medium leading-tight uppercase">
-            {name}
-          </span>
-        )}
-        {amount !== undefined && (
-          <span className="text-sm font-bold leading-tight">
-            {questsFormatNumber(amount)}
-          </span>
-        )}
-      </div>
-    </div>
-  );
-});
-
-const MainResourcesBlock = memo(({ resources }: any) => {
-  const bgRgbMain = "90, 152, 189";
-  return (
-    <section className="rounded-sm overflow-hidden border">
-      <header
-        className="py-1 px-2 border-b border-alpha-200 text-white"
-        style={{
-          background: `linear-gradient(
-            to right,
-            rgb(${bgRgbMain}),
-            rgba(${bgRgbMain}, 0.4)
-          )`,
-          color: "#fff",
-        }}
-      >
-        <h3 className="text-xs font-bold uppercase tracking-wide">
-          Main Resources
-        </h3>
-      </header>
-      <div className="grid grid-cols-5 bg-background-300">
-        {resources.map((r: any) => (
-          <ResourceItem key={r.type} {...r} />
-        ))}
-      </div>
-    </section>
-  );
-});
-
-const EraBlock = memo(({ title, resources }: any) => {
-  const bgRgb = getEraColor(title);
-
-  const padded = useMemo(() => {
-    const padded = [...resources];
-    while (padded.length < 3) padded.push({});
-    return padded;
-  }, [resources]);
-
-  return (
-    <section className="rounded-sm overflow-hidden border">
-      <header
-        className="py-1 px-2 border-b text-white"
-        style={{
-          background: `linear-gradient(
-            to right,
-            rgb(${bgRgb}),
-            rgba(${bgRgb}, 0.4)
-          )`,
-        }}
-      >
-        <h3 className="text-xs font-bold uppercase tracking-wide">{title}</h3>
-      </header>
-      <div className="grid grid-cols-3 bg-background-300">
-        {padded.map((r: any, i: any) => (
-          <ResourceItem key={i} {...r} />
-        ))}
-      </div>
-    </section>
-  );
-});
-
-const OtherGoodsBlock = memo(({ title, resources }: any) => {
-  const bgRgb = getCityColor(title);
-
-  return (
-    <section className="rounded-sm overflow-hidden border">
-      <header
-        className="py-1 px-2 border-b"
-        style={{
-          background: `linear-gradient(
-            to right,
-            rgb(${bgRgb}),
-            rgba(${bgRgb}, 0.4)
-          )`,
-          color: "#fff",
-        }}
-      >
-        <h3 className="text-xs font-bold uppercase tracking-wide">{title}</h3>
-      </header>
-      <div className="grid grid-cols-2 sm:grid-cols-3 bg-background-300 ">
-        {resources.map((r: any, i: any) => (
-          <ResourceItem key={i} {...r} />
-        ))}
-      </div>
-    </section>
-  );
-});
-
-const GoodsDisplay = () => {
+export const TotalGoodsDisplay = () => {
   const { selections } = useBuildingSelections();
   const [loading, setLoading] = useState(true);
 
@@ -304,10 +178,7 @@ const GoodsDisplay = () => {
         }
 
         const resourceItem = {
-          icon: `${WIKI_URL}${getGoodImageUrlFromType(
-            type,
-            selections
-          )}`,
+          icon: `${WIKI_URL}${getGoodImageUrlFromType(type, selections)}`,
           name: displayName, // Affichage avec espaces pour l'UI
           amount,
         };
@@ -365,6 +236,8 @@ const GoodsDisplay = () => {
   }, [normalizedGoods.otherGoods, selections, totals.main, getItemIcon]);
 
   const mainResources = useMemo(() => {
+    const resourceOrder = ["coins", "food", "gems"];
+
     return Object.entries(totals.main)
       .filter(([type, amount]) => {
         // Exclure les ressources des villes alliées
@@ -378,25 +251,75 @@ const GoodsDisplay = () => {
         amount,
         icon: `${WIKI_URL}${getItemIcon(type)}`,
         name: type.replace(/_/g, " "),
-      }));
+      }))
+      .sort((a, b) => {
+        const aIndex = resourceOrder.indexOf(a.type);
+        const bIndex = resourceOrder.indexOf(b.type);
+
+        // Si les deux sont dans l'ordre prédéfini, utiliser cet ordre
+        if (aIndex !== -1 && bIndex !== -1) {
+          return aIndex - bIndex;
+        }
+
+        // Si seul a est dans l'ordre prédéfini, le mettre en premier
+        if (aIndex !== -1) {
+          return -1;
+        }
+
+        // Si seul b est dans l'ordre prédéfini, le mettre en premier
+        if (bIndex !== -1) {
+          return 1;
+        }
+
+        // Sinon, ordre alphabétique pour les autres ressources
+        return a.type.localeCompare(b.type);
+      });
   }, [totals.main, getItemIcon]);
 
-  if (loading) return <div className="p-4">Loading...</div>;
+  if (loading)
+    return (
+      <div className="p-4 flex items-center justify-center">
+        <Loader2Icon className="size-5 animate-spin" />
+      </div>
+    );
 
   const visibleEraBlocks = eraBlocks.filter((block) => !block.shouldHide);
   const hasOtherGoods = Object.keys(otherGoodsByCivilization).length > 0;
+  const hasMainResources = mainResources.length > 0;
+  const hasAnyResources =
+    hasMainResources || visibleEraBlocks.length > 0 || hasOtherGoods;
+
+  if (!hasAnyResources) {
+    return (
+      <div className="p-4 text-center">
+        <div className="text-muted-foreground text-sm">
+          Aucune ressource à afficher. Sélectionnez des bâtiments pour voir les
+          ressources générées.
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="p-4 pb-16">
-      <MainResourcesBlock resources={mainResources} />
+      <div className="grid grid-cols-1 gap-3 2xl:grid-cols-5">
+        <div className="col-span-3 2xl:col-start-2">
+          <ResourceBlock
+            title="Main Resources"
+            resources={mainResources}
+            type="main"
+          />
+        </div>
+      </div>
 
       <div className="grid grid-cols-1 gap-3 2xl:grid-cols-2 pt-3">
         <div className="space-y-3">
           {visibleEraBlocks.map((block) => (
-            <EraBlock
+            <ResourceBlock
               key={block.title}
               title={block.title}
               resources={block.resources}
+              type="era"
             />
           ))}
         </div>
@@ -404,10 +327,11 @@ const GoodsDisplay = () => {
           <div className="space-y-3">
             {Object.entries(otherGoodsByCivilization).map(
               ([civKey, resources]) => (
-                <OtherGoodsBlock
+                <ResourceBlock
                   key={civKey}
                   title={civKey}
                   resources={resources}
+                  type="other"
                 />
               )
             )}
@@ -417,5 +341,3 @@ const GoodsDisplay = () => {
     </div>
   );
 };
-
-export default GoodsDisplay;

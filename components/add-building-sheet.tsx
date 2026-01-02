@@ -15,7 +15,7 @@ import { useState } from "react";
 import SelectWikiTable from "./select-wiki-table";
 import LinkTree from "./link-tree";
 
-const AddBuildingSheet = () => {
+export const AddBuildingSheet = () => {
   const [selectedTable, setSelectedTable] = useState("construction");
 
   return (
@@ -47,4 +47,3 @@ const AddBuildingSheet = () => {
   );
 };
 
-export default AddBuildingSheet;
