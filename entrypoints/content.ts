@@ -8,9 +8,15 @@ import {
 } from "@/lib/features";
 import { useUpgrade } from "@/lib/features/upgrade/index";
 import { replaceTextByImage, isValidData } from "@/lib/utils";
-import { loadSavedBuildings, type SavedData } from "@/lib/overview/storage";
+import {
+  loadSavedBuildings,
+  loadSavedTechnos,
+  type SavedData,
+  type SavedTechnosData,
+} from "@/lib/overview/storage";
 import { multiplyRowTextContent } from "@/lib/features/upgrade/rowMultiplier";
 import { detectEraRow } from "@/lib/features/upgrade/eraDetector";
+import { getTitlePage } from "@/lib/utils";
 
 export default defineContentScript({
   matches: ["*://*.riseofcultures.wiki.gg/*"],
@@ -107,12 +113,77 @@ export default defineContentScript({
       document.querySelectorAll("table.article-table")
     ) as HTMLTableElement[];
 
-    useTechno(tables);
+    await useTechno(tables);
     useUpgrade(tables);
     useBuilding(storedBuildings);
     useWonders(tables);
 
     useQuestlines(storedEra, storedBuildings);
+
+    // ========= Observer les changements de page pour ré-exécuter useTechno =========
+
+    const technoObserver = new MutationObserver(async (mutations) => {
+      let shouldReapplyTechno = false;
+
+      mutations.forEach((mutation) => {
+        if (mutation.type === "childList") {
+          // Vérifier si de nouvelles tables ont été ajoutées
+          mutation.addedNodes.forEach((node) => {
+            if (node.nodeType === Node.ELEMENT_NODE) {
+              const element = node as Element;
+              if (
+                element.tagName === "TABLE" &&
+                element.classList.contains("article-table")
+              ) {
+                shouldReapplyTechno = true;
+              }
+              // Vérifier si une table a été ajoutée dans les noeuds parents
+              const tables = element.querySelectorAll?.("table.article-table");
+              if (tables && tables.length > 0) {
+                shouldReapplyTechno = true;
+              }
+            }
+          });
+        }
+      });
+
+      if (shouldReapplyTechno) {
+        console.log("Tables changed, reapplying useTechno...");
+        const currentTables = Array.from(
+          document.querySelectorAll("table.article-table")
+        ) as HTMLTableElement[];
+        await useTechno(currentTables);
+      }
+    });
+
+    // Observer les changements dans le contenu principal
+    const mainContent =
+      document.querySelector("#mw-content-text") || document.body;
+    technoObserver.observe(mainContent, {
+      childList: true,
+      subtree: true,
+    });
+
+    // Aussi observer les changements d'URL (navigation)
+    let lastUrl = window.location.pathname;
+    const urlObserver = new MutationObserver(async () => {
+      const currentUrl = window.location.pathname;
+      if (currentUrl !== lastUrl) {
+        lastUrl = currentUrl;
+        console.log("URL changed, reapplying useTechno...");
+        setTimeout(async () => {
+          const currentTables = Array.from(
+            document.querySelectorAll("table.article-table")
+          ) as HTMLTableElement[];
+          await useTechno(currentTables);
+        }, 500); // Petit délai pour laisser le contenu se charger
+      }
+    });
+
+    urlObserver.observe(document.body, {
+      childList: true,
+      subtree: true,
+    });
 
     // ========= Synchronisation depuis Options vers Wiki =========
 
@@ -218,6 +289,83 @@ export default defineContentScript({
               }
             }
           });
+        });
+      }
+    );
+
+    // ========= Synchronisation des technologies depuis Options vers Wiki =========
+
+    storage.watch<SavedTechnosData>(
+      "local:roc_saved_technos",
+      (newData: SavedTechnosData | null) => {
+        if (!newData) return;
+
+        // Créer un Set des IDs de technologies sauvegardés pour lookup rapide
+        const savedTechnoIds = new Set<string>();
+        Object.values(newData.technos).forEach((eraTechnos) => {
+          Object.values(eraTechnos).forEach((techno) => {
+            savedTechnoIds.add(techno.id);
+          });
+        });
+
+        const tables = document.querySelectorAll("table.article-table");
+        tables.forEach((table) => {
+          // Vérifier si c'est une table de technologies
+          const firstCell = table.querySelector("tr > td");
+          if (
+            firstCell &&
+            firstCell.textContent &&
+            firstCell.textContent.trim() === "Technology"
+          ) {
+            const rows = Array.from(table.querySelectorAll("tr"));
+
+            rows.forEach((row, index) => {
+              const cells = Array.from(row.children).filter(
+                (cell) => cell.tagName.toLowerCase() === "td"
+              ) as HTMLTableCellElement[];
+
+              if (cells.length < 4) return; // Skip les lignes sans assez de cellules
+
+              // Générer le même ID que dans createCheckboxCell
+              const [mainSection, subSection, thirdSection] = getTitlePage();
+              const pageParts = [mainSection, subSection, thirdSection].filter(
+                Boolean
+              );
+              const pagePath = pageParts.join("_");
+              const technoId = `techno_${pagePath}_${index}`;
+
+              // Vérifier si cette technologie est dans les données sauvegardées
+              const isSaved = savedTechnoIds.has(technoId);
+              const checkbox = row.querySelector(
+                ".checkbox-selection"
+              ) as HTMLInputElement;
+
+              if (checkbox) {
+                // Ignorer seulement si c'est une mise à jour locale du wiki
+                const isLocalUpdate = row.hasAttribute("data-local-update");
+
+                if (!isLocalUpdate) {
+                  checkbox.checked = isSaved;
+                }
+              }
+            });
+
+            // Mettre à jour le total après avoir restauré les cases
+            const checkboxes = table.querySelectorAll(
+              ".checkbox-selection"
+            ) as NodeListOf<HTMLInputElement>;
+
+            // Simuler un changement pour mettre à jour le total
+            const totalRow = table.querySelector("#totalRow");
+            if (totalRow) {
+              const event = new Event("change", { bubbles: true });
+              checkboxes.forEach((cb) => {
+                if (cb.checked) {
+                  cb.dispatchEvent(event);
+                }
+              });
+            }
+          }
         });
       }
     );

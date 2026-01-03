@@ -12,6 +12,15 @@ export interface ParsedBuildingId {
   level: string;
 }
 
+export interface ParsedTechnoId {
+  id: string;
+  mainSection: string;
+  subSection: string;
+  thirdSection: string;
+  era: string;
+  index: string;
+}
+
 export function parseBuildingId(id: string): ParsedBuildingId {
   // ex:
   // /wiki/Home_Cultures/Barracks/Infantry_Barracks|upgrade|HM|12
@@ -39,5 +48,30 @@ export function parseBuildingId(id: string): ParsedBuildingId {
     tableType: tableType as "construction" | "upgrade",
     era,
     level,
+  };
+}
+
+export function parseTechnoId(id: string): ParsedTechnoId {
+  // ex: techno_home_cultures_high_middle_ages_42
+
+  const parts = id.split("_");
+
+  if (parts.length < 5) {
+    throw new Error(`Invalid techno id format: ${id}`);
+  }
+
+  // Remove "techno" prefix
+  const [, mainSection, subSection, thirdSection, ...rest] = parts;
+  const index = rest[rest.length - 1]; // Last part is the index
+  const eraParts = rest.slice(0, -1); // Everything except the last part
+  const era = eraParts.join("_");
+
+  return {
+    id,
+    mainSection,
+    subSection,
+    thirdSection,
+    era,
+    index,
   };
 }

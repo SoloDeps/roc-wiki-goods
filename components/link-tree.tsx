@@ -35,14 +35,24 @@ export default function LinkTree({ selectedTable }: { selectedTable: string }) {
     dataLoader: {
       getChildren: (itemId) => {
         const children = links[itemId].children ?? [];
-        // Sort children: "Capital" first, then alphabetically
+        // Sort children: "Technologies" first, "Capital" second, then alphabetically
         return children.sort((a, b) => {
           const itemA = links[a];
           const itemB = links[b];
 
-          // Capital always first
+          // Technologies always first
+          if (itemA.name === "Technologies") return -1;
+          if (itemB.name === "Technologies") return 1;
+
+          // Capital always second
           if (itemA.name === "Capital") return -1;
           if (itemB.name === "Capital") return 1;
+
+          // For children of Technologies, keep original order
+          const parent = links[itemId];
+          if (parent?.name === "Technologies") {
+            return 0; // Don't sort, keep original order
+          }
 
           // Otherwise alphabetical
           return itemA.name.localeCompare(itemB.name);
@@ -279,10 +289,7 @@ export default function LinkTree({ selectedTable }: { selectedTable: string }) {
                 key={item.getId()}
               >
                 {!item.isFolder() && item.getItemData()?.href ? (
-                  <a
-                    target="_blank"
-                    href={finalHref}
-                  >
+                  <a target="_blank" href={finalHref}>
                     <TreeItemLabel className="before:-inset-y-0.5 before:-z-10 relative before:absolute before:inset-x-0 before:bg-background">
                       <span className="flex items-center gap-2">
                         <LinkIcon className="pointer-events-none size-4 text-muted-foreground" />

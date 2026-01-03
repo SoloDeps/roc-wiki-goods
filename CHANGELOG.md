@@ -5,6 +5,24 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec2.0.0.html).
 
+## v1.3.5 - Jan 3, 2026
+
+### Added
+
+- Add link button in techno card
+- Add techno accordion component
+- Add techno links in building sheet
+- Add techno card component
+- Add techno in storage 
+
+## Changed
+
+- Update building list for combine buildings + technos
+- Update technos.ts
+- Update storage logic
+- Update workshops modal ui
+- Update calculator logic
+
 ## v1.3.4 - Jan 1, 2026
 
 ### Added

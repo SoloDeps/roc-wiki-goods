@@ -15,7 +15,7 @@ export default defineConfig({
     },
   }),
   manifest: {
-    version: "1.3.4",
+    version: "1.3.5",
     name: "RoC Wiki Goods",
     description: "Show item icons based on user info and tech calculator on RoC Wiki.gg",
     permissions: ["storage", "activeTab"],

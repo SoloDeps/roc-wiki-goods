@@ -154,6 +154,7 @@ export function questsFormatNumber(value: number): string {
       maximumFractionDigits: 2,
     });
 
+  if (value >= 1_000_000_000) return formatWithDecimals(value / 1_000_000_000) + " B";
   if (value >= 1_000_000) return formatWithDecimals(value / 1_000_000) + " M";
   if (value >= 100_000) return formatWithDecimals(value / 1_000) + " K";
   if (value >= 1_000) return value.toLocaleString("en-US");

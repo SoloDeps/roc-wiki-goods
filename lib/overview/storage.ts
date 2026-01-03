@@ -1,7 +1,10 @@
+// Import des eras pour le tri
+import { eras } from "@/lib/constants";
 import { parseNumber } from "@/lib/utils";
 import { storage } from "#imports";
 
 const STORAGE_KEY = "roc_saved_buildings";
+const TECHNOS_STORAGE_KEY = "roc_saved_technos";
 
 const RESOURCE_TYPES = {
   // Monnaies
@@ -32,8 +35,23 @@ export interface SavedBuilding {
   quantity: number;
 }
 
+export interface SavedTechno {
+  id: string;
+  costs: {
+    [key: string]: number | Array<{ type: string; amount: number }>;
+  };
+}
+
 export interface SavedData {
   buildings: SavedBuilding[];
+}
+
+export interface SavedTechnosData {
+  technos: {
+    [era: string]: {
+      [technoIndex: string]: SavedTechno;
+    };
+  };
 }
 
 // Define storage item avec fallback
@@ -42,6 +60,16 @@ const savedBuildingsStorage = storage.defineItem<SavedData>(
   {
     fallback: {
       buildings: [],
+    },
+  }
+);
+
+// Define storage item pour les technos avec fallback
+export const savedTechnosStorage = storage.defineItem<SavedTechnosData>(
+  `local:${TECHNOS_STORAGE_KEY}`,
+  {
+    fallback: {
+      technos: {},
     },
   }
 );
@@ -111,8 +139,166 @@ export function watchSavedBuildings(callback: (newData: SavedData) => void) {
   });
 }
 
+// Chargement des technos depuis WXT storage
+export async function loadSavedTechnos(): Promise<SavedTechnosData> {
+  try {
+    const data = await savedTechnosStorage.getValue();
+    return data;
+  } catch (error) {
+    console.error("Error loading saved technos:", error);
+    return {
+      technos: {},
+    };
+  }
+}
+
+// Mettre à jour les technologies d'une ère spécifique (ajoute et supprime selon la sélection)
+export async function updateEraTechnos(
+  eraPath: string,
+  technos: SavedTechno[]
+) {
+  const data = await loadSavedTechnos();
+
+  // Organiser les technologies par index
+  const organizedTechnos: { [index: string]: SavedTechno } = {};
+
+  technos.forEach((techno) => {
+    // Extraire l'index depuis l'ID : techno_mainSection_subSection_thirdSection_index
+    const idParts = techno.id.split("_");
+    if (idParts.length >= 5) {
+      const index = idParts[idParts.length - 1]; // Dernière partie est l'index
+      organizedTechnos[index] = techno;
+    }
+  });
+
+  // Remplacer complètement les technologies de cette ère
+  data.technos[eraPath] = organizedTechnos;
+
+  await savedTechnosStorage.setValue(data);
+}
+
+// Sauvegarde des technos sélectionnées
+export async function saveTechnos(technos: SavedTechno[]) {
+  const data = await loadSavedTechnos();
+
+  // Organiser les technologies par ère en utilisant exactement la même logique que les IDs
+  technos.forEach((techno) => {
+    // Extraire l'ère depuis l'ID : techno_mainSection_subSection_thirdSection_index
+    const idParts = techno.id.split("_");
+    if (idParts.length >= 5) {
+      // techno + au moins 3 parties + index
+      const era = idParts.slice(1, -1).join("_"); // Prend tout sauf "techno" et l'index
+
+      if (!data.technos[era]) {
+        data.technos[era] = {};
+      }
+
+      // Extraire l'index (dernière partie)
+      const index = idParts[idParts.length - 1];
+      data.technos[era][index] = techno;
+    }
+  });
+
+  await savedTechnosStorage.setValue(data);
+}
+
+// Watch pour écouter les changements des technos
+export function watchSavedTechnos(
+  callback: (newData: SavedTechnosData) => void
+) {
+  return savedTechnosStorage.watch((newData) => {
+    callback(newData);
+  });
+}
+
+// Suppression d'une techno
+export async function removeTechno(technoId: string) {
+  const data = await loadSavedTechnos();
+
+  // Parcourir toutes les ères pour trouver et supprimer la techno
+  Object.keys(data.technos).forEach((era) => {
+    const technosInEra = data.technos[era];
+    Object.keys(technosInEra).forEach((index) => {
+      if (technosInEra[index].id === technoId) {
+        delete technosInEra[index];
+      }
+    });
+
+    // Si l'ère est vide après suppression, la supprimer aussi
+    if (Object.keys(technosInEra).length === 0) {
+      delete data.technos[era];
+    }
+  });
+
+  await savedTechnosStorage.setValue(data);
+}
+
+// Suppression de toutes les technos
+export async function removeAllTechnos() {
+  const data = {
+    technos: {},
+  };
+  await savedTechnosStorage.setValue(data);
+}
+
+// Fonction pour aplatir et trier les technos selon l'ordre des eras
+export function flattenAndSortTechnos(
+  technosData: SavedTechnosData
+): SavedTechno[] {
+  const flattenedTechnos: SavedTechno[] = [];
+
+  // Créer un mapping des noms d'ères normalisés vers les abréviations
+  const eraNameToAbbr: Record<string, string> = {};
+  eras.forEach((era) => {
+    eraNameToAbbr[era.id] = era.abbr;
+  });
+
+  // Obtenir l'ordre des eras à partir du tableau eras
+  const eraOrder = eras.map((era) => era.abbr);
+
+  // Trier les clés (ères) selon l'ordre défini dans constants.ts
+  const sortedEras = Object.keys(technosData.technos).sort((a, b) => {
+    const abbrA = eraNameToAbbr[a] || a;
+    const abbrB = eraNameToAbbr[b] || b;
+
+    const indexA = eraOrder.indexOf(abbrA as (typeof eras)[0]["abbr"]);
+    const indexB = eraOrder.indexOf(abbrB as (typeof eras)[0]["abbr"]);
+
+    // Si les deux sont dans la liste des eras, trier selon leur ordre
+    if (indexA !== -1 && indexB !== -1) {
+      return indexA - indexB;
+    }
+
+    // Si seulement un est dans la liste, mettre celui qui est dans la liste en premier
+    if (indexA !== -1) return -1;
+    if (indexB !== -1) return 1;
+
+    // Si aucun n'est dans la liste, trier alphabétiquement
+    return a.localeCompare(b);
+  });
+
+  // Aplatir les technos dans l'ordre trié
+  sortedEras.forEach((era) => {
+    const technosInEra = technosData.technos[era];
+    if (technosInEra) {
+      // Trier les technos dans chaque ère par index (numérique)
+      const sortedTechnosInEra = Object.entries(technosInEra)
+        .sort(([indexA], [indexB]) => {
+          const numA = parseInt(indexA, 10);
+          const numB = parseInt(indexB, 10);
+          return isNaN(numA) || isNaN(numB) ? 0 : numA - numB;
+        })
+        .map(([, techno]) => techno);
+
+      flattenedTechnos.push(...sortedTechnosInEra);
+    }
+  });
+
+  return flattenedTechnos;
+}
+
 // Extraction des coûts UNITAIRES (coins, food, others, goods uniquement)
-function extractCosts(row: HTMLTableRowElement): SavedBuilding["costs"] {
+export function extractCosts(row: HTMLTableRowElement): SavedBuilding["costs"] {
   const cells = Array.from(row.cells);
   const costs: SavedBuilding["costs"] = {};
 

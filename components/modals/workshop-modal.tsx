@@ -46,15 +46,15 @@ export function WorkshopModal({
       <Dialog open={open} onOpenChange={setOpen}>
         <DialogTrigger asChild>
           <Button size="sm" variant={variant} className="cursor-pointer">
-            <Store /> Change workshops
+            <Store /> Manage Workshops
           </Button>
         </DialogTrigger>
 
         <DialogContent className="flex flex-col gap-0 p-0 sm:max-h-[min(640px,80vh)] sm:max-w-[600px] bg-background-100 shadow-lg">
           <DialogHeader className="px-6 py-4 text-left gap-1 border border-x-0 border-alpha-400 border-t-transparent">
-            <DialogTitle className="text-base">Update Workshops</DialogTitle>
+            <DialogTitle className="text-base">Manage Workshops</DialogTitle>
             <DialogDescription className="text-left text-sm">
-              Manage your workshops here. Changes are saved automatically.
+              Update your workshop selections here. All changes are saved automatically.
             </DialogDescription>
           </DialogHeader>
           <div className="overflow-y-auto">
@@ -72,17 +72,17 @@ export function WorkshopModal({
     <Drawer open={open} onOpenChange={setOpen}>
       <DrawerTrigger asChild>
         <Button size="sm" variant={variant} className="cursor-pointer">
-          <Store /> Change workshops
+          <Store /> Manage Workshops
         </Button>
       </DrawerTrigger>
       <DrawerContent className="bg-background-100">
         <DrawerHeader className="border-b border-alpha-300">
           <div className="sm:w-[600px] w-full sm:mx-auto px-4">
             <DrawerTitle className="text-left text-base">
-              Update Workshops
+              Manage Workshops
             </DrawerTitle>
             <DrawerDescription className="text-left text-sm">
-              Manage your workshops here. Changes are saved automatically.
+              Update your workshop selections here. All changes are saved automatically.
             </DrawerDescription>
           </div>
         </DrawerHeader>

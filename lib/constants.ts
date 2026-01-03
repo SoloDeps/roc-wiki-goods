@@ -12,20 +12,33 @@ export const WIKI_URL = "https://riseofcultures.wiki.gg";
 export const WIKI_DISPLAY = "riseofcultures.wiki.gg";
 
 export const eras = [
-  { name: "Stone Age", abbr: "SA" },
-  { name: "Bronze Age", abbr: "BA" },
-  { name: "Minoan Era", abbr: "ME" },
-  { name: "Classical Greece", abbr: "CG" },
-  { name: "Early Rome", abbr: "ER" },
-  { name: "Roman Empire", abbr: "RE" },
-  { name: "Byzantine Era", abbr: "BE" },
-  { name: "Age of the Franks", abbr: "AF" },
-  { name: "Feudal Age", abbr: "FA" },
-  { name: "Iberian Era", abbr: "IE" },
-  { name: "Kingdom of Sicily", abbr: "KS" },
-  { name: "High Middle Ages", abbr: "HM" },
-  { name: "Early Gothic", abbr: "EG" },
+  { name: "Stone Age", abbr: "SA", id: "stone_age" },
+  { name: "Bronze Age", abbr: "BA", id: "bronze_age" },
+  { name: "Minoan Era", abbr: "ME", id: "minoan_era" },
+  { name: "Classical Greece", abbr: "CG", id: "classical_greece" },
+  { name: "Early Rome", abbr: "ER", id: "early_rome" },
+  { name: "Roman Empire", abbr: "RE", id: "roman_empire" },
+  { name: "Byzantine Era", abbr: "BE", id: "byzantine_era" },
+  { name: "Age of the Franks", abbr: "AF", id: "age_of_the_franks" },
+  { name: "Feudal Age", abbr: "FA", id: "feudal_age" },
+  { name: "Iberian Era", abbr: "IE", id: "iberian_era" },
+  { name: "Kingdom of Sicily", abbr: "KS", id: "kingdom_of_sicily" },
+  { name: "High Middle Ages", abbr: "HM", id: "high_middle_ages" },
+  { name: "Early Gothic Era", abbr: "EG", id: "early_gothic_era" },
 ] as const;
+
+// Mapping des noms d'ères (format wiki) vers les IDs standardisés
+export const eraWikiToId: Record<string, string> = eras.reduce((acc, era) => {
+  acc[era.name.toLowerCase().replace(/ /g, "_")] = era.id;
+  return acc;
+}, {} as Record<string, string>);
+
+// Fonction pour obtenir l'ID d'une ère à partir de son nom wiki
+export function getEraId(wikiEraName: string | null): string {
+  if (!wikiEraName) return "";
+  const normalized = wikiEraName.toLowerCase().replace(/ /g, "_");
+  return eraWikiToId[normalized] || normalized;
+}
 
 export const eraColors: Record<EraAbbr, string> = {
   SA: "191, 96, 96",

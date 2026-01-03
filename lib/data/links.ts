@@ -9,6 +9,7 @@ export const links: Record<string, Item> = {
   // racine
   root: {
     children: [
+      "technology",
       "capital",
       "egypt",
       "china",
@@ -631,4 +632,91 @@ export const links: Record<string, Item> = {
 
   // runestones
   // viking_runestones: { name: "Runestones", href: "/wiki/Allied_Cultures/Viking/Runestones" },
+
+  // #endregion
+
+  // #region Technos
+  technology: {
+    children: [
+      "stone_age",
+      "bronze_age",
+      "minoan_era",
+      "classical_greece",
+      "early_rome",
+      "roman_empire",
+      "byzantine_era",
+      "age_of_the_franks",
+      "feudal_age",
+      "iberian_era",
+      "kingdom_of_sicily",
+      "high_middle_ages",
+      "early_gothic_era",
+    ],
+    name: "Technologies",
+  },
+
+  stone_age: {
+    name: "Stone Age",
+    href: "/wiki/Home_Cultures/Stone_Age",
+    useRawHref: true,
+  },
+  bronze_age: {
+    name: "Bronze Age",
+    href: "/wiki/Home_Cultures/Bronze_Age",
+    useRawHref: true,
+  },
+  minoan_era: {
+    name: "Minoan Era",
+    href: "/wiki/Home_Cultures/Minoan_Era",
+    useRawHref: true,
+  },
+  classical_greece: {
+    name: "Classical Greece",
+    href: "/wiki/Home_Cultures/Classical_Greece",
+    useRawHref: true,
+  },
+  early_rome: {
+    name: "Early Rome",
+    href: "/wiki/Home_Cultures/Early_Rome",
+    useRawHref: true,
+  },
+  roman_empire: {
+    name: "Roman Empire",
+    href: "/wiki/Home_Cultures/Roman_Empire",
+    useRawHref: true,
+  },
+  byzantine_era: {
+    name: "Byzantine Era",
+    href: "/wiki/Home_Cultures/Byzantine_Era",
+    useRawHref: true,
+  },
+  age_of_the_franks: {
+    name: "Age of the Franks",
+    href: "/wiki/Home_Cultures/Age_of_the_Franks",
+    useRawHref: true,
+  },
+  feudal_age: {
+    name: "Feudal Age",
+    href: "/wiki/Home_Cultures/Feudal_Age",
+    useRawHref: true,
+  },
+  iberian_era: {
+    name: "Iberian Era",
+    href: "/wiki/Home_Cultures/Iberian_Era",
+    useRawHref: true,
+  },
+  kingdom_of_sicily: {
+    name: "Kingdom of Sicily",
+    href: "/wiki/Home_Cultures/Kingdom_of_Sicily",
+    useRawHref: true,
+  },
+  high_middle_ages: {
+    name: "High Middle Ages",
+    href: "/wiki/Home_Cultures/High_Middle_Ages",
+    useRawHref: true,
+  },
+  early_gothic_era: {
+    name: "Early Gothic",
+    href: "/wiki/Home_Cultures/Early_Gothic_Era",
+    },
 };
