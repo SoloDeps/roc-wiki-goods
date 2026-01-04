@@ -5,18 +5,13 @@ import {
   DropdownMenuContent,
   DropdownMenuGroup,
   DropdownMenuItem,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import {
-  ChevronDownIcon,
-  ListCollapseIcon,
-  ListTreeIcon,
-  TrashIcon,
-} from "lucide-react";
+import { ChevronDownIcon } from "lucide-react";
 
 import { TotalDrawer } from "@/components/modals/total-drawer";
 import { WorkshopModal } from "@/components/modals/workshop-modal";
+import { PresetListModal } from "@/components/modals/preset-list-modal";
 
 export function ButtonGroupTotal() {
   return (
@@ -33,6 +28,9 @@ export function ButtonGroupTotal() {
           <DropdownMenuGroup>
             <DropdownMenuItem asChild>
               <WorkshopModal variant="ghost" />
+            </DropdownMenuItem>
+            <DropdownMenuItem asChild>
+              <PresetListModal variant="ghost" />
             </DropdownMenuItem>
           </DropdownMenuGroup>
         </DropdownMenuContent>

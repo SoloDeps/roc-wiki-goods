@@ -258,7 +258,7 @@ function extractTechnoCosts(row: HTMLTableRowElement): SavedTechno["costs"] {
 
         if (value > 0) {
           if (src.includes("research.png") || src.includes("research")) {
-            costs.research = value;
+            costs.research_points = value;
           } else if (src.includes("coin.png") || src.includes("coin")) {
             costs.coins = value;
           } else if (src.includes("food.png") || src.includes("food")) {

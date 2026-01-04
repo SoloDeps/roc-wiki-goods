@@ -294,7 +294,11 @@ export function useQuestlines(era: EraAbbr | null, buildings: string[][]) {
           return text.includes("goods");
         if (type === "coins") return text.includes("coins");
         if (type === "food") return text.includes("food");
-        if (["cavalry", "heavyinfantry", "infantry", "ranged", "siege"].includes(type))
+        if (
+          ["cavalry", "heavyinfantry", "infantry", "ranged", "siege"].includes(
+            type
+          )
+        )
           return text;
         return false;
       });
@@ -309,16 +313,16 @@ export function useQuestlines(era: EraAbbr | null, buildings: string[][]) {
         // Parcourir les nœuds enfants du <b>
         const childNodes = Array.from(boldNode.childNodes);
         let foundBr = false;
-        
+
         for (let i = 0; i < childNodes.length; i++) {
           const node = childNodes[i];
-          
+
           // Détecter le <br>
           if (node.nodeName === "BR") {
             foundBr = true;
             continue;
           }
-          
+
           // Après le <br>, chercher le texte contenant le mot-clé
           if (foundBr && node.nodeType === Node.TEXT_NODE) {
             const textContent = node.textContent || "";
@@ -326,20 +330,20 @@ export function useQuestlines(era: EraAbbr | null, buildings: string[][]) {
             if (["primary", "secondary", "tertiary"].includes(type)) {
               keyword = "goods";
             }
-            
+
             const regex = new RegExp(`\\b${keyword}\\b`, "i");
-            
+
             if (regex.test(textContent)) {
               // Créer le fragment de remplacement
               const fragment = document.createDocumentFragment();
-              
+
               // Texte avant le mot-clé
               const parts = textContent.split(regex);
               const beforeMatch = parts[0];
               if (beforeMatch) {
                 fragment.appendChild(document.createTextNode(beforeMatch));
               }
-              
+
               // Image + label
               if (result.imgSrc) {
                 const img = document.createElement("img");
@@ -350,22 +354,22 @@ export function useQuestlines(era: EraAbbr | null, buildings: string[][]) {
                 fragment.appendChild(img);
                 fragment.appendChild(document.createTextNode(" "));
               }
-              
+
               fragment.appendChild(document.createTextNode(result.label));
-              
+
               // Texte après le mot-clé
               const afterMatch = parts[1];
               if (afterMatch) {
                 fragment.appendChild(document.createTextNode(afterMatch));
               }
-              
+
               // Remplacer le nœud texte
               boldNode.replaceChild(fragment, node);
               break;
             }
           }
         }
-        
+
         continue;
       }
 
@@ -448,7 +452,7 @@ export function useQuestlines(era: EraAbbr | null, buildings: string[][]) {
             const hasImg = b.previousSibling instanceof HTMLImageElement;
             if (!hasImg) {
               const img = document.createElement("img");
-              img.src = itemsUrl.research;
+              img.src = itemsUrl.research_points;
               img.alt = "Research Points";
               img.width = 25;
               img.height = 25;
@@ -474,7 +478,7 @@ export function useQuestlines(era: EraAbbr | null, buildings: string[][]) {
             const hasImg = b.previousSibling instanceof HTMLImageElement;
             if (!hasImg) {
               const img = document.createElement("img");
-              img.src = itemsUrl.research;
+              img.src = itemsUrl.research_points;
               img.alt = "Research Points";
               img.width = 25;
               img.height = 25;

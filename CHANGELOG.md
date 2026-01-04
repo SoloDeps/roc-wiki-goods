@@ -5,6 +5,21 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec2.0.0.html).
 
+## v1.3.6 - Jan 4, 2026
+
+### Added
+
+- Add preset modal/drawer
+- Add preset select era + confirm button
+- Add alert dialog component
+- Add alert dialog in preset modal
+
+## Changed
+
+- Update alert dialog for "delete all" in dropdown
+- Add technos in delete all logic
+- Update research_points image
+
 ## v1.3.5 - Jan 3, 2026
 
 ### Added

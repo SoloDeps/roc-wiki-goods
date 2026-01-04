@@ -1,9 +1,15 @@
 import { useState, useCallback, useDeferredValue, useRef } from "react";
-import { loadSavedBuildings, removeBuilding } from "@/lib/overview/storage";
+import {
+  loadSavedBuildings,
+  removeBuilding,
+  loadSavedTechnos,
+} from "@/lib/overview/storage";
+import { clearEraTechnos } from "@/lib/features/techno";
 import { type BuildingFilters as BuildingFiltersType } from "@/hooks/useBuildingFilters";
 
 import { SiteHeader } from "@/components/site-header";
 import { WorkshopModal } from "@/components/modals/workshop-modal";
+import { PresetListModal } from "@/components/modals/preset-list-modal";
 import {
   BuildingList,
   type BuildingListRef,
@@ -52,22 +58,24 @@ export default function OptionLayout() {
   };
 
   const handleDeleteAll = async () => {
-    // Supprimer tous les bâtiments sauvegardés
-    const confirmed = window.confirm(
-      "Are you sure you want to delete all saved buildings? This action cannot be undone."
-    );
-
-    if (confirmed) {
-      try {
-        const data = await loadSavedBuildings();
-        // Supprimer chaque bâtiment individuellement pour déclencher les watchers
-        for (const building of data.buildings) {
-          await removeBuilding(building.id);
-        }
-      } catch (error) {
-        console.error("Error deleting all buildings:", error);
-        alert("An error occurred while deleting buildings. Please try again.");
+    try {
+      // Supprimer tous les bâtiments
+      const data = await loadSavedBuildings();
+      for (const building of data.buildings) {
+        await removeBuilding(building.id);
       }
+
+      // Supprimer toutes les technologies
+      const technosData = await loadSavedTechnos();
+      const eras = Object.keys(technosData.technos);
+      for (const era of eras) {
+        await clearEraTechnos(era);
+      }
+    } catch (error) {
+      console.error("Error deleting all buildings and technologies:", error);
+      alert(
+        "An error occurred while deleting buildings and technologies.\nPlease try again."
+      );
     }
   };
 
@@ -82,7 +90,10 @@ export default function OptionLayout() {
           <header className="flex shrink-0 flex-col w-full transition-colors border-b">
             <div className="flex shrink-0 w-full justify-between items-center gap-3 pl-4 pr-3 sm:pl-3 sm:pr-2 h-12 sm:mx-0">
               <h2 className="text-[15px] font-semibold">Resource Totals</h2>
-              <WorkshopModal />
+              <div className="flex gap-2">
+                <WorkshopModal />
+                <PresetListModal />
+              </div>
             </div>
           </header>
 

@@ -11,7 +11,7 @@ export function TechnoCard({ techno }: TechnoCardProps) {
   const costs = techno.costs;
 
   // Extraire les ressources principales
-  const research = (costs.research as number) || 0;
+  const research = (costs.research_points as number) || 0;
   const gold = (costs.gold as number) || (costs.coins as number) || 0;
   const food = (costs.food as number) || 0;
   const goods = (costs.goods as Array<{ type: string; amount: number }>) || [];

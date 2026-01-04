@@ -279,11 +279,9 @@ const BuildingListWithRef = forwardRef<BuildingListRef, BuildingListProps>(
             aggregatedData.technoCount++;
 
             // Agréger les coûts
-            if (
-              techno.costs.research &&
-              typeof techno.costs.research === "number"
-            ) {
-              aggregatedData.totalResearch += techno.costs.research;
+            const research = (techno.costs.research_points as number) || 0;
+            if (research) {
+              aggregatedData.totalResearch += research;
             }
 
             if (techno.costs.coins && typeof techno.costs.coins === "number") {

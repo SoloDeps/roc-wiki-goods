@@ -54,9 +54,9 @@ export const TechnoCard = memo(function TechnoCard({
 
     if (aggregatedTechnos.totalResearch > 0) {
       resources.push({
-        type: "research",
+        type: "research_points",
         value: aggregatedTechnos.totalResearch,
-        icon: itemsUrl.research ?? itemsUrl.default,
+        icon: itemsUrl.research_points ?? itemsUrl.default,
       });
     }
 

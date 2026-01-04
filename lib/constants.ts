@@ -87,7 +87,7 @@ export const itemsUrl = {
   default: "/images/thumb/3/36/Goods.png/32px-Goods.png",
   coins: "/images/thumb/Coin.png/32px-Coin.png",
   food: "/images/thumb/Food.png/32px-Food.png",
-  research: "/images/thumb/Research.png/32px-Research.png",
+  research_points: "/images/thumb/Research.png/32px-Research.png",
   gems: "/images/thumb/Gems.png/32px-Gems.png",
   // others
   asper: "/images/thumb/Asper.png/32px-Asper.png",

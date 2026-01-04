@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import {
   ChevronDownIcon,
   ListCollapseIcon,
@@ -9,6 +10,17 @@ import {
 
 import { Button } from "@/components/ui/button";
 import { ButtonGroup } from "@/components/ui/button-group";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -40,6 +52,12 @@ export function ButtonGroupBuilding({
   onCollapseAll,
   onDeleteAll,
 }: ButtonGroupBuildingProps) {
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+
+  const handleDeleteAll = () => {
+    onDeleteAll?.();
+    setDropdownOpen(false);
+  };
   return (
     <>
       <ButtonGroup>
@@ -60,29 +78,60 @@ export function ButtonGroupBuilding({
             </Badge>
           )}
         </Button>
-        <DropdownMenu>
+
+        <DropdownMenu open={dropdownOpen} onOpenChange={setDropdownOpen}>
           <DropdownMenuTrigger asChild>
             <Button variant="outline" size="sm" className="pl-2!">
               <ChevronDownIcon />
             </Button>
           </DropdownMenuTrigger>
+
           <DropdownMenuContent align="end" className="rounded-sm">
             <DropdownMenuGroup>
               <DropdownMenuItem onClick={onCollapseAll}>
                 <ListCollapseIcon />
                 Collapse All
               </DropdownMenuItem>
+
               <DropdownMenuItem onClick={onExpandAll}>
                 <ListTreeIcon />
                 Expand All
               </DropdownMenuItem>
             </DropdownMenuGroup>
+
             <DropdownMenuSeparator />
+
             <DropdownMenuGroup>
-              <DropdownMenuItem variant="destructive" onClick={onDeleteAll}>
-                <TrashIcon />
-                Delete All
-              </DropdownMenuItem>
+              <AlertDialog>
+                <AlertDialogTrigger asChild>
+                  <DropdownMenuItem
+                    variant="destructive"
+                    onSelect={(e) => e.preventDefault()}
+                  >
+                    <TrashIcon />
+                    Delete All
+                  </DropdownMenuItem>
+                </AlertDialogTrigger>
+
+                <AlertDialogContent className="bg-background-100">
+                  <AlertDialogHeader>
+                    <AlertDialogTitle>
+                      Are you absolutely sure?
+                    </AlertDialogTitle>
+                    <AlertDialogDescription className="dark:text-neutral-400">
+                      This action cannot be <b>undone</b>.<br />
+                      This will permanently{" "}
+                      <b>replace the current selections</b>.
+                    </AlertDialogDescription>
+                  </AlertDialogHeader>
+                  <AlertDialogFooter>
+                    <AlertDialogCancel>Cancel</AlertDialogCancel>
+                    <AlertDialogAction onClick={handleDeleteAll}>
+                      Continue
+                    </AlertDialogAction>
+                  </AlertDialogFooter>
+                </AlertDialogContent>
+              </AlertDialog>
             </DropdownMenuGroup>
           </DropdownMenuContent>
         </DropdownMenu>
