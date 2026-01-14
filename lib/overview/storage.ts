@@ -55,7 +55,7 @@ export interface SavedTechnosData {
 }
 
 // Define storage item avec fallback
-const savedBuildingsStorage = storage.defineItem<SavedData>(
+export const savedBuildingsStorage = storage.defineItem<SavedData>(
   `local:${STORAGE_KEY}`,
   {
     fallback: {

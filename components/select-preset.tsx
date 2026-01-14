@@ -1,3 +1,4 @@
+import { useState } from "react";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -20,9 +21,30 @@ import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 
 import { eras } from "@/lib/constants";
+import { applyPreset } from "@/lib/features/presets";
 import WarningBanner from "@/components/alerts/warning-banner";
 
-export default function SelectPreset() {
+interface SelectPresetProps {
+  onPresetApplied?: () => void;
+}
+
+export default function SelectPreset({ onPresetApplied }: SelectPresetProps) {
+  const [selectedEra, setSelectedEra] = useState<string>("");
+  const [isApplying, setIsApplying] = useState(false);
+
+  const handleApplyPreset = async () => {
+    if (!selectedEra) return;
+
+    setIsApplying(true);
+    try {
+      await applyPreset(selectedEra);
+      onPresetApplied?.();
+    } catch (error) {
+      console.error("Failed to apply preset:", error);
+    } finally {
+      setIsApplying(false);
+    }
+  };
   return (
     <div className="w-full p-4">
       <WarningBanner
@@ -37,7 +59,7 @@ export default function SelectPreset() {
           <Label className="text-sm sm:shrink-0">
             Select an era to load presets:
           </Label>
-          <Select>
+          <Select value={selectedEra} onValueChange={setSelectedEra}>
             <SelectTrigger className="w-full h-8 text-[13px]">
               <SelectValue placeholder="Choose an era..." />
             </SelectTrigger>
@@ -56,7 +78,12 @@ export default function SelectPreset() {
 
         <AlertDialog>
           <AlertDialogTrigger asChild>
-            <Button className="w-full sm:w-32">Confirm</Button>
+            <Button
+              className="w-full sm:w-32"
+              disabled={!selectedEra || isApplying}
+            >
+              {isApplying ? "Applying..." : "Confirm"}
+            </Button>
           </AlertDialogTrigger>
           <AlertDialogContent className="bg-background-100">
             <AlertDialogHeader>
@@ -68,7 +95,9 @@ export default function SelectPreset() {
             </AlertDialogHeader>
             <AlertDialogFooter>
               <AlertDialogCancel>Cancel</AlertDialogCancel>
-              <AlertDialogAction>Continue</AlertDialogAction>
+              <AlertDialogAction onClick={handleApplyPreset}>
+                Continue
+              </AlertDialogAction>
             </AlertDialogFooter>
           </AlertDialogContent>
         </AlertDialog>

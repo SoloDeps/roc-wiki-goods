@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { SwatchBook } from "lucide-react";
 
 import {
@@ -21,10 +21,7 @@ import {
 } from "@/components/ui/drawer";
 import { Button } from "@/components/ui/button";
 
-import { buildingsAbbr } from "@/lib/constants";
 import { useMediaQuery } from "@/hooks/use-media-query";
-import BuildingSelector from "@/components/building/building-selector";
-import { useBuildingSelections } from "@/hooks/useBuildingSelections";
 import SelectPreset from "@/components/select-preset";
 
 export function PresetListModal({
@@ -34,13 +31,10 @@ export function PresetListModal({
 }) {
   const [open, setOpen] = useState(false);
   const isDesktop = useMediaQuery("(min-width: 768px)");
-  const { selections } = useBuildingSelections();
-  const [localSelections, setLocalSelections] = useState(selections);
 
-  // Synchroniser avec le storage global
-  useEffect(() => {
-    setLocalSelections(selections);
-  }, [selections]);
+  const handlePresetApplied = () => {
+    setOpen(false);
+  };
 
   if (isDesktop) {
     return (
@@ -59,7 +53,7 @@ export function PresetListModal({
             </DialogDescription>
           </DialogHeader>
 
-          <SelectPreset />
+          <SelectPreset onPresetApplied={handlePresetApplied} />
         </DialogContent>
       </Dialog>
     );
@@ -85,7 +79,7 @@ export function PresetListModal({
           </div>
         </DrawerHeader>
         <div className="sm:w-[600px] w-full sm:mx-auto">
-          <SelectPreset />
+          <SelectPreset onPresetApplied={handlePresetApplied} />
           <DrawerFooter className="pt-2">
             <DrawerClose asChild>
               <Button variant="outline" className="rounded-sm">

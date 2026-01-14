@@ -370,7 +370,7 @@ export const goodsByCivilization: Record<
 > = {
   EGYPT: {
     name: "EGYPT",
-    goods: ["Papyrus Scroll", "Ankh", "Golden Mask", "Ceremonial Dress"],
+    goods: ["Papyrus Scroll", "Ankh", "Golden Mask", "Ceremonial Dress", "Deben"],
   },
   CHINA: {
     name: "CHINA",

@@ -185,11 +185,11 @@ export const TotalGoodsDisplay = () => {
         if (foundCivilization) {
           grouped[foundCivilization].push(resourceItem);
         } else {
-          // Si le good n'appartient à aucune civilisation connue, le mettre dans un groupe "AUTRES"
-          if (!grouped["AUTRES"]) {
-            grouped["AUTRES"] = [];
+          // Si le good n'appartient à aucune civilisation connue, le mettre dans un groupe "OTHERS"
+          if (!grouped["OTHERS"]) {
+            grouped["OTHERS"] = [];
           }
-          grouped["AUTRES"].push(resourceItem);
+          grouped["OTHERS"].push(resourceItem);
         }
       }
     );
