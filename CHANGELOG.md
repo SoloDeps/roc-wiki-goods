@@ -5,6 +5,51 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec2.0.0.html).
 
+## v1.3.8 - Jan 15, 2026
+
+### Added
+
+- Add comprehensive game data export system with API integration
+- Add auto-save functionality for game data synchronization
+- Add authentication token capture and management
+- Add injected script for game page integration
+- Add background script for data processing
+- Add checkbox UI component
+- Add ROC API integration for real-time data fetching
+- Add game data structure and constants
+- Add building selector group component for popup
+- Add era selector with enhanced functionality
+
+### Changed
+
+- Refactor popup architecture with conditional rendering
+- Move building selector to popup components
+- Update workshop modal with simplified logic
+- Enhance popup header with game site detection
+- Improve total goods display integration
+- Update hooks for better state management
+- Restructure project for better modularity
+
+### Fixed
+
+- Improve error handling for data export
+- Enhance authentication flow validation
+
+## v1.3.7 - Jan 14, 2026
+
+### Added
+
+- Add presets feature with comprehensive preset management
+- Add preset list modal with era selection
+- Add preset data structure and constants
+- Add preset selection component in popup
+
+### Changed
+
+- Update total goods display to integrate with presets
+- Update storage logic for preset persistence
+- Improve preset list modal UI and interactions
+
 ## v1.3.6 - Jan 4, 2026
 
 ### Added
@@ -28,7 +73,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec2.0.0.h
 - Add techno accordion component
 - Add techno links in building sheet
 - Add techno card component
-- Add techno in storage 
+- Add techno in storage
 
 ## Changed
 
@@ -103,12 +148,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec2.0.0.h
 - Optimize save/load operations
 - Refactor hold functionality for better UX
 - Improve option page
-- Update building list 
+- Update building list
 - Update total goods calculation
 - Update UI for better responsiveness
 - Improve data loading performance
 - Optimize memory usage
-
 
 ## v1.2.8 - Dec 22, 2025
 

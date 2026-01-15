@@ -8,7 +8,6 @@ import {
 export function useSavedBuildings() {
   const [data, setData] = useState<SavedData>({
     buildings: [],
-    totals: { coins: 0, food: 0, goods: 0 },
   });
   const [isLoading, setIsLoading] = useState(true);
 

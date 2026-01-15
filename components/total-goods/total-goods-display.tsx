@@ -24,7 +24,7 @@ import { ScrollArea } from "../ui/scroll-area";
 
 export const TotalGoodsDisplay = () => {
   // #region logic
-  const { selections } = useBuildingSelections();
+  const selections = useBuildingSelections();
   const [loading, setLoading] = useState(true);
 
   const [totals, setTotals] = useState<ResourceTotals>({

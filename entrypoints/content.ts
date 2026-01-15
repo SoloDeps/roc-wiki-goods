@@ -17,11 +17,109 @@ import {
 import { multiplyRowTextContent } from "@/lib/features/upgrade/rowMultiplier";
 import { detectEraRow } from "@/lib/features/upgrade/eraDetector";
 import { getTitlePage } from "@/lib/utils";
+import {
+  ApiConfig,
+  injectTokenCapture,
+  listenForToken,
+} from "@/lib/roc/tokenCapture";
 
 export default defineContentScript({
-  matches: ["*://*.riseofcultures.wiki.gg/*"],
+  matches: ["*://*.riseofcultures.wiki.gg/*", "*://*.riseofcultures.com/*"],
   runAt: "document_end",
   async main() {
+    const isGameSite = window.location.hostname.includes("riseofcultures.com");
+    const isWikiSite = window.location.hostname.includes("wiki.gg");
+
+    // ========= CAPTURE TOKEN (seulement sur RoC.com) =========
+    if (isGameSite) {
+      await injectTokenCapture();
+      listenForToken();
+
+      // Écouter les demandes de requêtes API du popup
+      chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+        if (message.type === "API_REQUEST") {
+          handleApiRequest(message.endpoint, message.options)
+            .then((data) => {
+              // ✅ Requête API réussie, notifier le background pour afficher le badge
+              chrome.runtime
+                .sendMessage({
+                  type: "DATA_SAVED",
+                  success: true,
+                  endpoint: message.endpoint,
+                })
+                .catch((err) =>
+                  console.error("[RoC] Erreur envoi message badge:", err)
+                );
+
+              sendResponse({ data });
+            })
+            .catch((error) => {
+              // ❌ Erreur API, notifier le background (optionnel)
+              chrome.runtime
+                .sendMessage({
+                  type: "DATA_ERROR",
+                  error: error.message,
+                })
+                .catch((err) =>
+                  console.error("[RoC] Erreur envoi message erreur:", err)
+                );
+
+              sendResponse({ error: error.message });
+            });
+
+          return true; // Important pour les réponses async
+        }
+      });
+
+      // Fonction qui fait la requête depuis le content script (pas de CORS !)
+      async function handleApiRequest(
+        endpoint: string,
+        options: RequestInit = {}
+      ) {
+        const result = await chrome.storage.local.get(["apiConfig"]);
+        const config = result.apiConfig as ApiConfig;
+
+        if (!config) {
+          throw new Error("Config API non disponible");
+        }
+
+        const url = endpoint.startsWith("http")
+          ? endpoint
+          : `${config.apiServer}${endpoint}`;
+
+        console.log("[RoC Content] Requête API vers:", url);
+
+        const headers: HeadersInit = {
+          accept: "application/json",
+          "accept-language": config.acceptLanguage,
+          "content-type": "application/json",
+          "x-auth-token": config.authToken,
+          "x-clientversion": config.clientVersion,
+          "x-platform": config.platform,
+          "x-os": config.os,
+          "x-appstore": config.appStore,
+          ...options.headers,
+        };
+
+        const response = await fetch(url, {
+          ...options,
+          headers,
+          credentials: "include",
+        });
+
+        if (!response.ok) {
+          throw new Error(`Erreur API ${response.status}`);
+        }
+
+        return response.json();
+      }
+
+      return; // Arrêter ici
+    }
+
+    // ========= WIKI LOGIC =========
+    if (!isWikiSite) return;
+
     // ========= IMAGE REPLACEMENT =========
     const storedBuildingsData = await storage.getItem<string>(
       "local:buildingSelections"

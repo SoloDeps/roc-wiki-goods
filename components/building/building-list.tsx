@@ -115,7 +115,7 @@ const BuildingListWithRef = forwardRef<BuildingListRef, BuildingListProps>(
     const [loading, setLoading] = useState(true);
     const [expandedItems, setExpandedItems] = useState<string[]>([]);
 
-    const { selections } = useBuildingSelections();
+    const selections = useBuildingSelections();
 
     useImperativeHandle(ref, () => ({
       expandAll: (categoryIds?: string[]) => {

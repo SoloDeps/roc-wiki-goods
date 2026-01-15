@@ -15,27 +15,27 @@ type BuildingSelectorType = {
   buildings: string[];
   index: number;
   selections: string[][];
-  setSelections: (newSelections: string[][]) => void | Promise<void>;
 };
 
-export default function BuildingSelector({
+export function BuildingSelector({
   title,
   buildings,
   index,
   selections,
-  setSelections,
 }: BuildingSelectorType) {
   const [primary, setPrimary] = useState(selections[index]?.[0] || "");
   const [secondary, setSecondary] = useState(selections[index]?.[1] || "");
   const [tertiary, setTertiary] = useState(selections[index]?.[2] || "");
 
-  const updateSelections = async (pri: string, sec: string, ter: string) => {
+  const updateSelectionsLocal = async (
+    pri: string,
+    sec: string,
+    ter: string
+  ) => {
     const newSelections = [...selections];
     // @ts-ignore
     newSelections[index] = [pri, sec, ter];
-    setSelections(newSelections);
 
-    localStorage.setItem("buildingSelections", JSON.stringify(newSelections));
     await storage.setItem(
       "local:buildingSelections",
       JSON.stringify(newSelections)
@@ -54,21 +54,21 @@ export default function BuildingSelector({
     setPrimary("");
     setSecondary("");
     setTertiary("");
-    updateSelections("", "", "");
+    updateSelectionsLocal("", "", "");
   };
 
   useEffect(() => {
     const ter = tertiaryOptions[0] || "";
     setTertiary(ter);
-    updateSelections(primary, secondary, ter);
+    updateSelectionsLocal(primary, secondary, ter);
   }, [secondary]);
 
   useEffect(() => {
-    updateSelections(primary, secondary, tertiary);
+    updateSelectionsLocal(primary, secondary, tertiary);
   }, [primary]);
 
   return (
-    <div className="pt-3 not-last:border-b border-alpha-400">
+    <div className="pt-3 not-last:border-b border-alpha-400 min-w-[600px]">
       {/* Title + reset */}
       <div className="flex justify-between items-center h-4">
         <h2 className="block text-xs font-medium">{title}</h2>
@@ -93,7 +93,7 @@ export default function BuildingSelector({
             setTertiary("");
           }}
         >
-          <SelectTrigger className="w-44 h-8 text-xs">
+          <SelectTrigger className="min-w-44 w-full h-8 text-xs">
             <SelectValue placeholder="Select Primary" />
           </SelectTrigger>
 
@@ -119,7 +119,7 @@ export default function BuildingSelector({
           onValueChange={setSecondary}
           disabled={!primary}
         >
-          <SelectTrigger className="w-44 h-8 text-xs">
+          <SelectTrigger className="min-w-44 w-full h-8 text-xs">
             <SelectValue placeholder="Select Secondary" />
           </SelectTrigger>
 
@@ -141,7 +141,7 @@ export default function BuildingSelector({
 
         {/* TERTIARY (read-only) */}
         <Select value={tertiary} disabled={!secondary}>
-          <SelectTrigger className="w-44 h-8 text-xs ">
+          <SelectTrigger className="min-w-44 w-full h-8 text-xs">
             <SelectValue placeholder="Select Tertiary" />
           </SelectTrigger>
 

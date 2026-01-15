@@ -21,10 +21,8 @@ import {
 } from "@/components/ui/drawer";
 import { Button } from "@/components/ui/button";
 
-import { buildingsAbbr } from "@/lib/constants";
 import { useMediaQuery } from "@/hooks/use-media-query";
-import BuildingSelector from "@/components/building/building-selector";
-import { useBuildingSelections } from "@/hooks/useBuildingSelections";
+import { BuildingSelectorGroup } from "@/components/popup/building-selector-group";
 
 export function WorkshopModal({
   variant = "outline",
@@ -33,13 +31,6 @@ export function WorkshopModal({
 }) {
   const [open, setOpen] = useState(false);
   const isDesktop = useMediaQuery("(min-width: 768px)");
-  const { selections, isLoading } = useBuildingSelections();
-  const [localSelections, setLocalSelections] = useState(selections);
-
-  // Synchroniser avec le storage global
-  useEffect(() => {
-    setLocalSelections(selections);
-  }, [selections]);
 
   if (isDesktop) {
     return (
@@ -54,14 +45,12 @@ export function WorkshopModal({
           <DialogHeader className="px-6 py-4 text-left gap-1 border border-x-0 border-alpha-400 border-t-transparent">
             <DialogTitle className="text-base">Manage Workshops</DialogTitle>
             <DialogDescription className="text-left text-sm">
-              Update your workshop selections here. All changes are saved automatically.
+              Update your workshop selections here. All changes are saved
+              automatically.
             </DialogDescription>
           </DialogHeader>
           <div className="overflow-y-auto">
-            <WorkshopSelector
-              localSelections={localSelections}
-              setLocalSelections={setLocalSelections}
-            />
+            <BuildingSelectorGroup />
           </div>
         </DialogContent>
       </Dialog>
@@ -82,15 +71,13 @@ export function WorkshopModal({
               Manage Workshops
             </DrawerTitle>
             <DrawerDescription className="text-left text-sm">
-              Update your workshop selections here. All changes are saved automatically.
+              Update your workshop selections here. All changes are saved
+              automatically.
             </DrawerDescription>
           </div>
         </DrawerHeader>
         <div className="sm:w-[600px] w-full sm:mx-auto">
-          <WorkshopSelector
-            localSelections={localSelections}
-            setLocalSelections={setLocalSelections}
-          />
+          <BuildingSelectorGroup />
           <DrawerFooter className="pt-2">
             <DrawerClose asChild>
               <Button variant="outline" className="rounded-sm">
@@ -101,30 +88,5 @@ export function WorkshopModal({
         </div>
       </DrawerContent>
     </Drawer>
-  );
-}
-
-function WorkshopSelector({
-  localSelections,
-  setLocalSelections,
-  className,
-}: {
-  localSelections: string[][];
-  setLocalSelections: (newSelections: string[][]) => void;
-  className?: string;
-}) {
-  return (
-    <div className="px-4 md:px-6 py-4">
-      {buildingsAbbr.map((group, index) => (
-        <BuildingSelector
-          key={index}
-          title={group.title}
-          buildings={group.buildings}
-          index={index}
-          selections={localSelections}
-          setSelections={setLocalSelections}
-        />
-      ))}
-    </div>
   );
 }
