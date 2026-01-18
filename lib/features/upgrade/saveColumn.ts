@@ -1,10 +1,8 @@
 export function createSaveCell(rowId: string) {
   const td = document.createElement("td");
-
   const center = document.createElement("div");
-  center.style.display = "flex";
-  center.style.justifyContent = "center";
-  center.style.alignItems = "center";
+  center.style.cssText =
+    "display:flex;justify-content:center;align-items:center";
 
   const checkbox = document.createElement("input");
   checkbox.type = "checkbox";

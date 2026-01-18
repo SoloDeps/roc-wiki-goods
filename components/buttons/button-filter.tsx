@@ -7,10 +7,7 @@ import {
   useBuildingFilters,
   type BuildingFilters as BuildingFiltersType,
 } from "@/hooks/useBuildingFilters";
-import {
-  loadSavedBuildings,
-  watchSavedBuildings,
-} from "@/lib/overview/storage";
+import { getBuildings } from "@/lib/overview/storage";
 
 interface ButtonFilterProps {
   onFiltersChange: (filters: BuildingFiltersType) => void;
@@ -40,23 +37,23 @@ export function ButtonFilter({
   );
 
   useEffect(() => {
-    let unwatch: (() => void) | undefined;
+    let isMounted = true;
 
-    async function init() {
-      const data = await loadSavedBuildings();
-      const availableData = getAvailableData(data, deferredFilters);
+    (async () => {
+      const data = await getBuildings();
+      if (!isMounted) return;
+
+      const availableData = getAvailableData(
+        { buildings: data },
+        deferredFilters
+      );
       setAvailableLocations(availableData.locations);
       setAvailableTypes(availableData.types);
+    })();
 
-      unwatch = watchSavedBuildings((newData) => {
-        const newAvailableData = getAvailableData(newData, deferredFilters);
-        setAvailableLocations(newAvailableData.locations);
-        setAvailableTypes(newAvailableData.types);
-      });
-    }
-
-    init();
-    return () => unwatch?.();
+    return () => {
+      isMounted = false;
+    };
   }, [getAvailableData, deferredFilters]);
 
   const activeFiltersCount =

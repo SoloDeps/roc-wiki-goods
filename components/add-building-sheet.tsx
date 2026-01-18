@@ -22,13 +22,13 @@ export const AddBuildingSheet = ({ variant = "outline" }: { variant?: "default" 
     <Sheet>
       <SheetTrigger asChild>
         <Button size="sm" variant={variant} className="cursor-pointer">
-          <PlusIcon /> Add building
+          <PlusIcon /> Add More
         </Button>
       </SheetTrigger>
       <SheetContent>
         <ScrollArea className="h-full">
           <SheetHeader className="border-b border-alpha-400">
-            <SheetTitle>Add building</SheetTitle>
+            <SheetTitle>Add building & technos</SheetTitle>
             <SheetDescription>
               Choose the wiki table type you want to open. <br />
               Click a link to go to the wiki.
@@ -46,4 +46,3 @@ export const AddBuildingSheet = ({ variant = "outline" }: { variant?: "default" 
     </Sheet>
   );
 };
-

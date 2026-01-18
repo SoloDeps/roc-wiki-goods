@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { SwatchBook } from "lucide-react";
-
 import {
   Dialog,
   DialogHeader,
@@ -20,7 +19,6 @@ import {
   DrawerTrigger,
 } from "@/components/ui/drawer";
 import { Button } from "@/components/ui/button";
-
 import { useMediaQuery } from "@/hooks/use-media-query";
 import SelectPreset from "@/components/select-preset";
 
@@ -32,9 +30,7 @@ export function PresetListModal({
   const [open, setOpen] = useState(false);
   const isDesktop = useMediaQuery("(min-width: 768px)");
 
-  const handlePresetApplied = () => {
-    setOpen(false);
-  };
+  const handlePresetApplied = () => setOpen(false);
 
   if (isDesktop) {
     return (
@@ -49,10 +45,9 @@ export function PresetListModal({
           <DialogHeader className="px-5 py-3 text-left gap-0.5 border border-x-0 border-alpha-400 border-t-transparent">
             <DialogTitle className="text-base">Preset List</DialogTitle>
             <DialogDescription className="text-left text-sm">
-              Select a preset to see all data for one era.
+              Select a preset to load all data for one era.
             </DialogDescription>
           </DialogHeader>
-
           <SelectPreset onPresetApplied={handlePresetApplied} />
         </DialogContent>
       </Dialog>
@@ -73,8 +68,7 @@ export function PresetListModal({
               Preset List
             </DrawerTitle>
             <DrawerDescription className="text-left text-sm">
-              Update your workshop selections here. All changes are saved
-              automatically.
+              Select a preset to load all data for one era.
             </DrawerDescription>
           </div>
         </DrawerHeader>

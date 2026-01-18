@@ -17,22 +17,22 @@ function createSelect(
   idName: string,
   labelName: string,
   minOpt: number,
-  maxOpt: number
+  maxOpt: number,
 ) {
-  // Créer un conteneur pour regrouper label + select
+  // create container to group label + select
   const wrapper = document.createElement("div");
 
-  // Créer le label
+  // create label
   const label = document.createElement("label");
   label.htmlFor = idName;
   label.textContent = labelName;
   label.style.marginRight = "8px";
 
-  // Créer le select
+  // create select
   const select = document.createElement("select");
   select.id = idName;
 
-  // Ajouter les options de minOpt à maxOpt
+  // add options from minOpt to maxOpt
   for (let i = minOpt; i <= maxOpt; i++) {
     const option = document.createElement("option");
     option.value = i.toString();
@@ -40,7 +40,7 @@ function createSelect(
     select.appendChild(option);
   }
 
-  // Ajouter le label et le select au wrapper
+  // add label and select to wrapper
   wrapper.appendChild(label);
   wrapper.appendChild(select);
 
@@ -50,7 +50,7 @@ function createSelect(
 function createResourceDiv(
   alt: string,
   src: string,
-  id: string
+  id: string,
 ): HTMLDivElement {
   const div = document.createElement("div");
   const img = document.createElement("img");
@@ -151,7 +151,7 @@ function createTotalSelectionCell(nbColumns: number): HTMLTableCellElement {
 
 function createPlanTokenCell(
   planImgUrl: string,
-  tokenImgUrls: string[]
+  tokenImgUrls: string[],
 ): HTMLTableCellElement {
   const td = document.createElement("td");
   td.id = "totalPlanToken";
@@ -166,7 +166,7 @@ function createPlanTokenCell(
   div.appendChild(createResourceDiv("Plan", planImgUrl, "planTotal"));
   tokenImgUrls.forEach((tokenImgUrl, index) => {
     div.appendChild(
-      createResourceDiv("Token", tokenImgUrl, `tokenTotal${index}`)
+      createResourceDiv("Token", tokenImgUrl, `tokenTotal${index}`),
     );
   });
   td.appendChild(div);
@@ -239,15 +239,15 @@ function createCoinFoodCell(): HTMLTableCellElement {
     createResourceDiv(
       "Coins",
       "/images/thumb/6/6d/Coin.png/25px-Coin.png",
-      "goldTotal"
-    )
+      "goldTotal",
+    ),
   );
   div.appendChild(
     createResourceDiv(
       "Food",
       "/images/thumb/c/c6/Food.png/25px-Food.png",
-      "foodTotal"
-    )
+      "foodTotal",
+    ),
   );
   td.appendChild(div);
   return td;
@@ -336,7 +336,7 @@ function preloadGoodImages(table: HTMLTableElement, nbCol: number) {
 
   const goodImages = new Map<string, string>();
   const rows = table.querySelectorAll<HTMLTableRowElement>(
-    "tr:not(:first-child)"
+    "tr:not(:first-child)",
   );
 
   rows.forEach((row, index) => {
@@ -396,7 +396,7 @@ function preloadGoodImages(table: HTMLTableElement, nbCol: number) {
   const eraOrder = eras.map((e) => e.abbr);
   const sortedEras = Array.from(erasPresent)
     .filter((abbr): abbr is (typeof eras)[number]["abbr"] =>
-      eras.some((e) => e.abbr === abbr)
+      eras.some((e) => e.abbr === abbr),
     )
     .sort((a, b) => eraOrder.indexOf(a) - eraOrder.indexOf(b));
 
@@ -465,28 +465,28 @@ function columnsInfos(table: HTMLTableElement): ColumnsInfos {
     columns.push(cell as HTMLTableCellElement);
   }
 
-  // Définir les largeurs minimales selon le nombre de colonnes
+  // set minimum widths based on column count
   const minWidth =
     nbColumns === 1
       ? "210px"
       : nbColumns <= 2 || cellsWidth <= 270
-      ? "105px"
-      : "";
+        ? "105px"
+        : "";
 
-  // Appliquer la largeur minimale à toutes les colonnes
+  // apply minimum width to all columns
   columns.forEach((cell) => {
     (cell as HTMLElement).style.minWidth = minWidth;
   });
 
-  // extract plan img url
+  // get plan image url
   const planImgUrl = cells[columns.length + 1].querySelector("img")?.src || "";
 
   const tokenCell = cells[columns.length + 5];
   const tokenImgUrls = tokenCell
     ? Array.from(
         new Set(
-          Array.from(tokenCell.querySelectorAll("img")).map((img) => img.src)
-        )
+          Array.from(tokenCell.querySelectorAll("img")).map((img) => img.src),
+        ),
       )
     : [];
 
@@ -497,25 +497,25 @@ function columnsInfos(table: HTMLTableElement): ColumnsInfos {
 
 function syncMinMaxSelects(
   minSelect: HTMLSelectElement,
-  maxSelect: HTMLSelectElement
+  maxSelect: HTMLSelectElement,
 ): { min: number; max: number } | null {
   if (!minSelect || !maxSelect) return null;
 
-  // Parse the current selected values
+  // parse the current selected values
   const minValue = parseInt(minSelect.value, 10);
   let maxValue = parseInt(maxSelect.value, 10);
 
-  // Ensure maxValue is at least minValue + 1
+  // ensure maxValue is at least minValue + 1
   if (maxValue <= minValue) {
     maxValue = minValue + 1;
   }
 
-  // Remove all existing options in maxSelect
+  // remove all existing options in maxSelect
   while (maxSelect.firstChild) {
     maxSelect.removeChild(maxSelect.firstChild);
   }
 
-  // Rebuild options for maxSelect starting from minValue + 1 up to 30
+  // rebuild options for maxSelect starting from minValue + 1 up to 30
   for (let i = minValue + 1; i <= 30; i++) {
     const option = document.createElement("option");
     option.value = i.toString();
@@ -523,7 +523,7 @@ function syncMinMaxSelects(
     maxSelect.appendChild(option);
   }
 
-  // Set maxSelect's value to maxValue (clamp if it exceeds 30)
+  // set maxSelect value to maxValue (clamp if it exceeds 30)
   maxSelect.value = maxValue <= 30 ? maxValue.toString() : "30";
 
   return { min: minValue, max: maxValue };
@@ -533,7 +533,7 @@ function updateMinMaxSelect(
   minSelect: HTMLSelectElement,
   maxSelect: HTMLSelectElement,
   minValue: string,
-  maxValue: string
+  maxValue: string,
 ) {
   if (!minSelect || !maxSelect) return;
 
@@ -545,7 +545,7 @@ function updateMinMaxSelect(
 function updateCheckboxSelectAll(
   minSelect: HTMLSelectElement,
   maxSelect: HTMLSelectElement,
-  checkboxSelectAll: HTMLInputElement | null
+  checkboxSelectAll: HTMLInputElement | null,
 ) {
   if (!checkboxSelectAll) return;
   checkboxSelectAll.checked =
@@ -554,7 +554,7 @@ function updateCheckboxSelectAll(
 
 function extractData(
   row: HTMLTableRowElement,
-  nbColumns: number
+  nbColumns: number,
 ): { plan: number; gold: number; food: number } {
   const planCell = row?.cells[nbColumns + 1];
   const goldCell = row?.cells[nbColumns + 7];
@@ -570,6 +570,7 @@ function extractData(
 
     cell.childNodes.forEach((node) => {
       if (node.nodeType === Node.TEXT_NODE) {
+        // get text from node
         const rawText = node.textContent?.trim();
         if (!rawText) return;
 
@@ -745,7 +746,7 @@ function updateTotalRow(
   rowData: Map<
     HTMLTableRowElement,
     { resourceData: any; prData: any; tokensData: any; goodsData: any }
-  >
+  >,
 ) {
   const selectedRows = Array.from(rowData.values()).slice(min, max);
   let totalGoods: Record<string, { value: number; src: string }> = {};
@@ -766,7 +767,7 @@ function updateTotalRow(
           } else {
             acc.tokensData[key] = value;
           }
-        }
+        },
       );
 
       Object.keys(row.goodsData).forEach((key) => {
@@ -784,7 +785,7 @@ function updateTotalRow(
       prData: { pr3: 0, pr5: 0, pr10: 0 },
       tokensData: {} as Record<string, number>,
       totalGoods,
-    }
+    },
   );
 
   updateTotalGoods(totalRow.totalGoods);
@@ -825,7 +826,7 @@ export function useWonders(tables: HTMLTableElement[]) {
   const minSelect = document.getElementById("minSelect") as HTMLSelectElement;
   const maxSelect = document.getElementById("maxSelect") as HTMLSelectElement;
   const checkboxSelectAll = document.getElementById(
-    "checkboxSelectAll"
+    "checkboxSelectAll",
   ) as HTMLInputElement;
 
   if (!minSelect || !maxSelect || !checkboxSelectAll) return;

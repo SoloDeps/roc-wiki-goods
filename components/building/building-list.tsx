@@ -1,10 +1,10 @@
-// Import des eras pour le tri
 import { eras } from "@/lib/constants";
 import {
   useState,
   useCallback,
   useMemo,
   useEffect,
+  useRef,
   forwardRef,
   useImperativeHandle,
 } from "react";
@@ -19,85 +19,80 @@ import { BuildingCard } from "@/components/building/building-card";
 import { TechnoCard } from "@/components/building/techno-card";
 import { useBuildingSelections } from "@/hooks/useBuildingSelections";
 import {
-  loadSavedBuildings,
-  watchSavedBuildings,
   removeBuilding,
   updateBuildingQuantity,
-  loadSavedTechnos,
-  watchSavedTechnos,
-  removeTechno,
-  removeAllTechnos,
+  toggleBuildingHidden,
+  toggleTechnoHidden,
+  clearEraTechnos,
   flattenAndSortTechnos,
-  type SavedData,
-  type SavedTechnosData,
+  watchBuildings,
+  watchTechnos,
 } from "@/lib/overview/storage";
-import { clearEraTechnos } from "@/lib/features/techno";
 import { getBuildingImageUrl, buildingNoLvl } from "@/lib/utils";
 import { parseBuildingId, parseTechnoId } from "@/lib/overview/parseBuildingId";
 import { Loader2Icon } from "lucide-react";
 import { EmptyOutline } from "@/components/empty-card";
+import { TechnoEntity, BuildingEntity } from "@/lib/storage/dexie";
 
-// Fonction pour déterminer si un building est de la Capital ou d'une ville alliée
 export const getBuildingLocation = (
   section1: string,
   section2: string,
-  buildingName: string
-): { location: string; displayName: string } => {
-  // Si section1 est "Home_Cultures", c'est la Capital
-  if (section1 === "Home_Cultures") {
-    return {
-      location: "Capital",
-      displayName: buildingName,
-    };
-  }
-
-  // Sinon, c'est une ville alliée, utiliser section2 comme nom de la ville
+  name: string,
+) => {
+  if (section1 === "Home_Cultures")
+    return { location: "Capital", displayName: name };
   const cityName = section2.replace(/_/g, " ");
-
-  return {
-    location: cityName,
-    displayName: `${buildingName} - ${cityName}`,
-  };
+  return { location: cityName, displayName: `${name} - ${cityName}` };
 };
+
+interface Goods {
+  type: string;
+  amount: number;
+}
+
+interface AggregatedData {
+  totalResearch: number;
+  totalCoins: number;
+  totalFood: number;
+  goods: Goods[];
+  technoCount: number;
+}
 
 interface BuildingCardData {
   id: string;
   name: string;
   parsed: ReturnType<typeof parseBuildingId>;
-  costs: SavedData["buildings"][number]["costs"];
+  costs: any;
   quantity: number;
   maxQty: number;
   image: string;
+  hidden?: boolean;
 }
 
 interface TechnoCardData {
   id: string;
   era: string;
   parsed: ReturnType<typeof parseTechnoId>;
-  aggregatedData: AggregatedTechnoData; // données agrégées pour cette ère
-}
-
-interface AggregatedTechnoData {
-  totalResearch: number;
-  totalCoins: number;
-  totalFood: number;
-  goods: Array<{ type: string; amount: number }>;
-  technoCount: number;
+  aggregatedData: AggregatedData;
+  hidden?: boolean;
 }
 
 interface BuildingCategory {
-  id: string; // buildingName ou era pour technos
+  id: string;
   name: string;
   location: string;
-  era: string; // era abbreviation
+  era: string;
   buildings: BuildingCardData[];
-  technos?: TechnoCardData[]; // technos par ère optionnelles
+  technos?: TechnoCardData[];
+  hiddenCount: number;
 }
 
 interface BuildingListProps {
   filters?: {
     tableType?: "construction" | "upgrade";
     location?: string;
+    hideHidden?: boolean;
+    hideTechnos?: boolean;
   };
 }
 
@@ -107,315 +102,274 @@ export interface BuildingListRef {
 }
 
 const BuildingListWithRef = forwardRef<BuildingListRef, BuildingListProps>(
-  function BuildingList(
-    { filters: externalFilters }: BuildingListProps,
-    ref: React.Ref<BuildingListRef>
-  ) {
-    const [categories, setCategories] = useState<BuildingCategory[]>([]);
+  function BuildingList({ filters }, ref) {
+    const [buildings, setBuildings] = useState<BuildingEntity[]>([]);
+    const [technos, setTechnos] = useState<TechnoEntity[]>([]);
     const [loading, setLoading] = useState(true);
     const [expandedItems, setExpandedItems] = useState<string[]>([]);
-
     const selections = useBuildingSelections();
 
-    useImperativeHandle(ref, () => ({
-      expandAll: (categoryIds?: string[]) => {
-        if (categoryIds) {
-          setExpandedItems(categoryIds);
-        } else {
-          // Utiliser directement les catégories actuelles
-          setExpandedItems(categories.map((c) => c.id));
-        }
-      },
-      collapseAll: () => {
-        setExpandedItems([]);
-      },
-    }));
+    // Track previous categories to detect new ones
+    const previousCategoryIdsRef = useRef<Set<string>>(new Set());
 
-    const handleRemove = useCallback(async (id: string) => {
-      await removeBuilding(id);
+    useEffect(() => {
+      const unwatchBuildings = watchBuildings((data) => {
+        setBuildings(data);
+        setLoading(false);
+      });
+
+      const unwatchTechnos = watchTechnos((data) => {
+        setTechnos(flattenAndSortTechnos(data));
+        setLoading(false);
+      });
+
+      return () => {
+        unwatchBuildings();
+        unwatchTechnos();
+      };
     }, []);
 
-    const handleRemoveTechno = useCallback(async (id: string) => {
-      // Extraire le nom de l'ère depuis l'ID (format: "technos-${era}")
-      const era = id.replace("technos-", "");
-      await clearEraTechnos(era);
-    }, []);
+    const categories = useMemo(() => {
+      const map = new Map<string, BuildingCategory>();
+      const eraOrder = eras.map((e) => e.abbr);
+      const eraNameToAbbr = Object.fromEntries(eras.map((e) => [e.id, e.abbr]));
 
-    const handleRemoveAllTechnos = useCallback(async () => {
-      await removeAllTechnos();
-    }, []);
+      // Filter and group buildings
+      buildings
+        .filter((b) => {
+          // Apply hideHidden filter
+          if (filters?.hideHidden && b.hidden) return false;
 
-    const handleUpdateQuantity = useCallback(
-      async (id: string, qty: number) => {
-        await updateBuildingQuantity(id, qty);
-      },
-      []
-    );
-
-    const transformData = useCallback(
-      (
-        buildingsData: SavedData,
-        technosData: SavedTechnosData
-      ): BuildingCategory[] => {
-        const map = new Map<string, BuildingCategory>();
-
-        // Filtrer les buildings selon les filtres actifs
-        const filteredBuildings = buildingsData.buildings.filter(
-          (b: SavedData["buildings"][0]) => {
-            const parsed = parseBuildingId(b.id);
-
-            // Filtre par type (construction/upgrade)
-            if (
-              externalFilters?.tableType &&
-              parsed.tableType !== externalFilters.tableType
-            ) {
-              return false;
-            }
-
-            // Filtre par location
-            if (externalFilters?.location) {
-              const locationInfo = getBuildingLocation(
-                parsed.section1,
-                parsed.section2,
-                parsed.buildingName
-              );
-              if (locationInfo.location !== externalFilters.location) {
-                return false;
-              }
-            }
-
-            return true;
-          }
-        );
-
-        filteredBuildings.forEach((b: SavedData["buildings"][0]) => {
           const parsed = parseBuildingId(b.id);
-          const buildingName = parsed.buildingName;
-
-          const locationInfo = getBuildingLocation(
+          if (filters?.tableType && parsed.tableType !== filters.tableType)
+            return false;
+          if (filters?.location) {
+            const loc = getBuildingLocation(
+              parsed.section1,
+              parsed.section2,
+              parsed.buildingName,
+            );
+            if (loc.location !== filters.location) return false;
+          }
+          return true;
+        })
+        .forEach((b) => {
+          const parsed = parseBuildingId(b.id);
+          const loc = getBuildingLocation(
             parsed.section1,
             parsed.section2,
-            buildingName
+            parsed.buildingName,
           );
-
-          const key = `${buildingName}-${locationInfo.location}`;
-          const era = parsed.era;
+          const key = `${parsed.buildingName}-${loc.location}`;
 
           if (!map.has(key)) {
             map.set(key, {
               id: key,
-              name: locationInfo.displayName.replace(/_/g, " "),
-              location: locationInfo.location,
-              era: era,
+              name: loc.displayName.replace(/_/g, " "),
+              location: loc.location,
+              era: parsed.era,
               buildings: [],
+              hiddenCount: 0,
             });
           }
 
-          map.get(key)!.buildings.push({
+          const category = map.get(key)!;
+          category.buildings.push({
             id: b.id,
             name: buildingNoLvl.includes(parsed.section3.toLowerCase())
               ? parsed.buildingName
-              : `${parsed.buildingName} – Lvl ${parsed.level}`,
-            parsed: parsed,
+              : `${parsed.buildingName} — Lvl ${parsed.level}`,
+            parsed,
             costs: b.costs,
             quantity: b.quantity,
             maxQty: b.maxQty,
             image: getBuildingImageUrl(
               parsed.section3,
               parsed.level,
-              parsed.section2
+              parsed.section2,
             ),
+            hidden: b.hidden,
           });
-        });
 
-        // Traiter les technos - créer une seule catégorie Technologies avec plusieurs cartes par ère
-        const allTechnosByEra: TechnoCardData[] = [];
-
-        // Obtenir l'ordre des eras à partir du tableau eras
-        const eraOrder = eras.map((era) => era.abbr);
-
-        // Créer un mapping des noms d'ères normalisés vers les abréviations
-        const eraNameToAbbr: Record<string, string> = {};
-        eras.forEach((era) => {
-          eraNameToAbbr[era.id] = era.abbr;
-        });
-
-        // Trier les clés (ères) selon l'ordre défini dans constants.ts
-        const sortedEras = Object.keys(technosData.technos).sort((a, b) => {
-          const abbrA = eraNameToAbbr[a] || a;
-          const abbrB = eraNameToAbbr[b] || b;
-
-          const indexA = eraOrder.indexOf(abbrA as (typeof eras)[0]["abbr"]);
-          const indexB = eraOrder.indexOf(abbrB as (typeof eras)[0]["abbr"]);
-
-          // Si les deux sont dans la liste des eras, trier selon leur ordre
-          if (indexA !== -1 && indexB !== -1) {
-            return indexA - indexB;
+          if (b.hidden) {
+            category.hiddenCount++;
           }
-
-          // Si seulement un est dans la liste, mettre celui qui est dans la liste en premier
-          if (indexA !== -1) return -1;
-          if (indexB !== -1) return 1;
-
-          // Si aucun n'est dans la liste, trier alphabétiquement
-          return a.localeCompare(b);
         });
 
-        // Traiter les technos dans l'ordre trié
-        sortedEras.forEach((era) => {
-          const technosInEra = technosData.technos[era];
-          if (!technosInEra || Object.keys(technosInEra).length === 0) return;
+      // Group and aggregate technos (only if not filtered out)
+      if (!filters?.hideTechnos) {
+        const technosByEra: Record<string, TechnoEntity[]> = {};
+        technos
+          .filter((t) => {
+            // Apply hideHidden filter
+            if (filters?.hideHidden && t.hidden) return false;
 
-          const aggregatedData: AggregatedTechnoData = {
-            totalResearch: 0,
-            totalCoins: 0,
-            totalFood: 0,
-            goods: [],
-            technoCount: 0,
-          };
-
-          // Agréger les données pour cette ère
-          Object.values(technosInEra).forEach((techno) => {
-            aggregatedData.technoCount++;
-
-            // Agréger les coûts
-            const research = (techno.costs.research_points as number) || 0;
-            if (research) {
-              aggregatedData.totalResearch += research;
+            // Apply location filter if set
+            if (filters?.location) {
+              const parts = t.id.split("_");
+              if (parts.length >= 2) {
+                const technoLocation = parts[1];
+                return technoLocation === filters.location;
+              }
+              return false;
             }
-
-            if (techno.costs.coins && typeof techno.costs.coins === "number") {
-              aggregatedData.totalCoins += techno.costs.coins;
-            }
-
-            if (techno.costs.food && typeof techno.costs.food === "number") {
-              aggregatedData.totalFood += techno.costs.food;
-            }
-
-            // Agréger les goods
-            if (techno.costs.goods && Array.isArray(techno.costs.goods)) {
-              techno.costs.goods.forEach((good: any) => {
-                const existingGood = aggregatedData.goods.find(
-                  (g) => g.type === good.type
-                );
-                if (existingGood) {
-                  existingGood.amount += good.amount;
-                } else {
-                  aggregatedData.goods.push({ ...good });
-                }
-              });
-            }
+            return true;
+          })
+          .forEach((t) => {
+            const era = t.id.split("_").slice(1, -1).join("_");
+            (technosByEra[era] ??= []).push(t);
           });
 
-          // Ajouter une carte pour cette ère
-          allTechnosByEra.push({
-            id: `technos-${era}`,
-            era: era,
-            parsed: {
+        const technoCards = Object.keys(technosByEra)
+          .sort((a, b) => {
+            const idxA = eraOrder.indexOf(eraNameToAbbr[a] || a);
+            const idxB = eraOrder.indexOf(eraNameToAbbr[b] || b);
+            return (
+              (idxA === -1 ? Infinity : idxA) - (idxB === -1 ? Infinity : idxB)
+            );
+          })
+          .map((era) => {
+            const techs = technosByEra[era];
+            const aggregated = techs.reduce<AggregatedData>(
+              (acc, t) => {
+                acc.technoCount++;
+                acc.totalResearch += Number(t.costs.research_points || 0);
+                acc.totalCoins += Number(t.costs.coins || 0);
+                acc.totalFood += Number(t.costs.food || 0);
+
+                const goodsMap = new Map(acc.goods.map((g) => [g.type, g]));
+                const goodsArray = Array.isArray(t.costs.goods)
+                  ? t.costs.goods
+                  : [];
+                goodsArray.forEach((g) => {
+                  const existing = goodsMap.get(g.type);
+                  if (existing) {
+                    existing.amount += g.amount;
+                  } else {
+                    goodsMap.set(g.type, { ...g });
+                  }
+                });
+
+                acc.goods = Array.from(goodsMap.values());
+                return acc;
+              },
+              {
+                totalResearch: 0,
+                totalCoins: 0,
+                totalFood: 0,
+                goods: [] as Goods[],
+                technoCount: 0,
+              },
+            );
+
+            return {
               id: `technos-${era}`,
-              mainSection: "",
-              subSection: "",
-              thirdSection: "",
-              era: era,
-              index: "",
-            },
-            aggregatedData: aggregatedData,
+              era,
+              parsed: {
+                id: `technos-${era}`,
+                mainSection: "",
+                subSection: "",
+                thirdSection: "",
+                era,
+                index: "",
+              },
+              aggregatedData: aggregated,
+              hidden: techs[0]?.hidden,
+            };
           });
-        });
 
-        // Créer une seule catégorie pour toutes les technos si yen a
-        if (allTechnosByEra.length > 0) {
+        if (technoCards.length > 0) {
+          const hiddenTechnosCount = technoCards.filter((t) => t.hidden).length;
           map.set("technos-all", {
             id: "technos-all",
             name: "Technologies",
             location: "Technologies",
             era: "All",
             buildings: [],
-            technos: allTechnosByEra,
+            technos: technoCards,
+            hiddenCount: hiddenTechnosCount,
           });
         }
+      }
 
-        // Tri des catégories par location puis par nom de building (Capital d'abord, puis autres villes par ordre alphabétique)
-        const categories = Array.from(map.values());
-
-        // Tri des buildings par level croissant dans chaque catégorie
-        categories.forEach((category) => {
-          category.buildings.sort(
-            (a, b) => parseInt(a.parsed.level) - parseInt(b.parsed.level)
-          );
+      return Array.from(map.values())
+        .map((c) => ({
+          ...c,
+          buildings: c.buildings.sort(
+            (a, b) => parseInt(a.parsed.level) - parseInt(b.parsed.level),
+          ),
+        }))
+        .sort((a, b) => {
+          if (a.location === "Technologies") return -1;
+          if (b.location === "Technologies") return 1;
+          if (a.location === "Capital") return -1;
+          if (b.location === "Capital") return 1;
+          return a.location === b.location
+            ? a.name.localeCompare(b.name)
+            : a.location.localeCompare(b.location);
         });
+    }, [buildings, technos, filters]);
 
-        categories.sort((a, b) => {
-          // Technologies toujours en premier
-          if (a.location === "Technologies" && b.location !== "Technologies")
-            return -1;
-          if (a.location !== "Technologies" && b.location === "Technologies")
-            return 1;
-
-          // Capital toujours en deuxième
-          if (a.location === "Capital" && b.location !== "Capital") return -1;
-          if (a.location !== "Capital" && b.location === "Capital") return 1;
-
-          // Si même location, tri par nom de building
-          if (a.location === b.location) {
-            return a.name.localeCompare(b.name);
-          }
-
-          // Sinon, ordre alphabétique pour les autres villes
-          return a.location.localeCompare(b.location);
-        });
-
-        return categories;
-      },
-      [externalFilters]
-    );
-
+    // Auto-expand only new categories when items are added
     useEffect(() => {
-      let unwatchBuildings: (() => void) | undefined;
-      let unwatchTechnos: (() => void) | undefined;
+      if (loading) return;
 
-      async function init() {
-        const buildingsData = await loadSavedBuildings();
-        const technosData = await loadSavedTechnos();
-        const newCategories = transformData(buildingsData, technosData);
-        setCategories(newCategories);
+      const currentCategoryIds = new Set(categories.map((c) => c.id));
+      const previousIds = previousCategoryIdsRef.current;
 
-        setLoading(false);
+      // Find truly new categories (not present before)
+      const newCategories = Array.from(currentCategoryIds).filter(
+        (id) => !previousIds.has(id),
+      );
 
-        unwatchBuildings = watchSavedBuildings(async (newBuildingsData) => {
-          const currentTechnosData = await loadSavedTechnos();
-          const updatedCategories = transformData(
-            newBuildingsData,
-            currentTechnosData
-          );
-          setCategories(updatedCategories);
-        });
-
-        unwatchTechnos = watchSavedTechnos(async (newTechnosData) => {
-          const currentBuildingsData = await loadSavedBuildings();
-          const updatedCategories = transformData(
-            currentBuildingsData,
-            newTechnosData
-          );
-          setCategories(updatedCategories);
-          // Garder les accordions ouverts quand les données changent
-          setExpandedItems(updatedCategories.map((c) => c.id));
+      if (newCategories.length > 0) {
+        console.log("[Building List] New categories detected:", newCategories);
+        setExpandedItems((prev) => {
+          const updated = [...prev, ...newCategories];
+          console.log("[Building List] Expanding:", updated);
+          return updated;
         });
       }
 
-      init();
-      return () => {
-        unwatchBuildings?.();
-        unwatchTechnos?.();
-      };
-    }, [transformData]);
+      // Update ref for next comparison
+      previousCategoryIdsRef.current = currentCategoryIds;
+    }, [categories, loading]);
 
-    if (loading)
+    useImperativeHandle(ref, () => ({
+      expandAll: (ids) => setExpandedItems(ids || categories.map((c) => c.id)),
+      collapseAll: () => setExpandedItems([]),
+    }));
+
+    const handleUpdateQuantity = useCallback((id: string, qty: number) => {
+      setBuildings((prev) =>
+        prev.map((b) => (b.id === id ? { ...b, quantity: qty } : b)),
+      );
+      updateBuildingQuantity(id, qty);
+    }, []);
+
+    const handleRemove = useCallback(async (id: string) => {
+      await removeBuilding(id);
+    }, []);
+
+    const handleToggleBuildingHidden = useCallback(async (id: string) => {
+      await toggleBuildingHidden(id);
+    }, []);
+
+    const handleToggleTechnoHidden = useCallback(async (eraPath: string) => {
+      await toggleTechnoHidden(eraPath);
+    }, []);
+
+    const handleRemoveTechno = useCallback(async (id: string) => {
+      await clearEraTechnos(id.replace("technos-", ""));
+    }, []);
+
+    if (loading) {
       return (
         <div className="p-4 flex items-center justify-center">
           <Loader2Icon className="size-5 animate-spin" />
         </div>
       );
+    }
 
     if (categories.length === 0) {
       return (
@@ -426,64 +380,75 @@ const BuildingListWithRef = forwardRef<BuildingListRef, BuildingListProps>(
     }
 
     return (
-      <div className="w-full">
-        <Accordion
-          type="multiple"
-          value={expandedItems}
-          onValueChange={setExpandedItems}
-          // defaultValue={categories.map((c) => c.id)}
-          className="w-full space-y-2 p-3"
-        >
-          {categories.map((category) => (
+      <Accordion
+        type="multiple"
+        value={expandedItems}
+        onValueChange={setExpandedItems}
+        className="w-full space-y-2 p-3"
+      >
+        {categories.map((cat) => {
+          const totalCount = cat.buildings.length + (cat.technos?.length || 0);
+
+          return (
             <AccordionItem
-              key={category.id}
-              value={category.id}
+              key={cat.id}
+              value={cat.id}
               className="rounded-md border bg-background-200 px-4 py-2 border-alpha-300"
             >
               <AccordionTrigger className="hover:no-underline [&>svg]:-order-1 justify-start gap-3 py-1 text-sm">
                 <div className="flex justify-between items-center w-full">
                   <span className="capitalize">
-                    {category.location === "Capital"
-                      ? `${category.name} - ${category.location}`
-                      : category.name}
+                    {cat.location === "Capital"
+                      ? `${cat.name} - ${cat.location}`
+                      : cat.name}
                   </span>
-                  <Badge
-                    variant="outline"
-                    className="bg-background-300 rounded-sm h-6 px-2 text-sm border-alpha-400 "
-                  >
-                    {category.buildings.length +
-                      (category.technos?.length || 0)}{" "}
-                    selected
-                  </Badge>
+                  <div className="flex gap-1.5">
+                    {cat.hiddenCount > 0 && (
+                      <Badge
+                        variant="outline"
+                        className="bg-orange-100 dark:bg-orange-900/30 text-orange-700 dark:text-orange-400 rounded-sm h-6 px-2 text-sm border-orange-300 dark:border-orange-700"
+                      >
+                        {cat.hiddenCount} hidden
+                      </Badge>
+                    )}
+                    <Badge
+                      variant="outline"
+                      className="bg-background-300 rounded-sm h-6 px-2 text-sm border-alpha-400"
+                    >
+                      {totalCount} selected
+                    </Badge>
+                  </div>
                 </div>
               </AccordionTrigger>
-
               <AccordionContent className="space-y-3 pt-3 2xl:ps-6">
-                {category.buildings.map((b) => (
+                {cat.buildings.map((b) => (
                   <BuildingCard
                     key={b.id}
                     building={b}
                     userSelections={selections}
                     onRemove={handleRemove}
                     onUpdateQuantity={handleUpdateQuantity}
+                    onToggleHidden={handleToggleBuildingHidden}
                   />
                 ))}
-                {category.technos?.map((t) => (
+                {cat.technos?.map((t) => (
                   <TechnoCard
                     key={t.id}
                     aggregatedTechnos={t.aggregatedData}
                     userSelections={selections}
                     onRemoveAll={() => handleRemoveTechno(t.id)}
+                    onToggleHidden={() => handleToggleTechnoHidden(t.era)}
                     era={t.era}
+                    hidden={t.hidden}
                   />
                 ))}
               </AccordionContent>
             </AccordionItem>
-          ))}
-        </Accordion>
-      </div>
+          );
+        })}
+      </Accordion>
     );
-  }
+  },
 );
 
 export const BuildingList = BuildingListWithRef;

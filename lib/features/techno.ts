@@ -1,48 +1,47 @@
-import { eras, getEraId } from "@/lib/constants";
-import { parseNumber, getTitlePage, formatNumber } from "@/lib/utils";
+import { getEraId, eras } from "@/lib/constants";
+import { parseNumber, formatNumber, getTitlePage } from "@/lib/utils";
 import {
-  saveTechnos,
-  loadSavedTechnos,
-  savedTechnosStorage,
-  type SavedTechno,
+  getTechnos,
+  flattenAndSortTechnos,
+  saveEraTechnos,
+  clearEraTechnos,
 } from "@/lib/overview/storage";
+import { type TechnoEntity } from "@/lib/storage/dexie";
+
+const RESOURCE_ICONS = {
+  research: "/images/thumb/2/20/Research.png/25px-Research.png",
+  coins: "/images/thumb/6/6d/Coin.png/25px-Coin.png",
+  food: "/images/thumb/c/c6/Food.png/25px-Food.png",
+  goods: "/images/thumb/3/36/Goods.png/25px-Goods.png",
+} as const;
 
 function findTechnoTable(tables: HTMLTableElement[]) {
-  // Chercher une table avec "Technology" dans la première cellule
   const [mainSection] = getTitlePage();
   if (mainSection !== "home_cultures") return;
 
-  for (let i = 0; i < tables.length; i++) {
-    const firstCell = tables[i].querySelector("tr > td");
-    if (
-      firstCell &&
-      firstCell.textContent &&
-      firstCell.textContent.trim() === "Technology"
-    ) {
-      return tables[i];
-    }
-  }
-  return null;
+  return tables.find((table) => {
+    const firstCell = table.querySelector("tr > td");
+    return firstCell?.textContent?.trim() === "Technology";
+  });
 }
 
 function createCheckboxCell(
   row: HTMLTableRowElement,
-  index: number
+  index: number,
 ): HTMLTableCellElement {
   const td = document.createElement("td");
   td.style.textAlign = "center";
   td.style.whiteSpace = "normal";
+
   const checkbox = document.createElement("input");
   checkbox.type = "checkbox";
   checkbox.classList.add("checkbox-selection");
   checkbox.style.transform = "scale(1.25)";
 
-  // Générer un ID unique basé sur la structure de la page + index
   const [_, subSection] = getTitlePage();
   const normalizedEra = getEraId(subSection);
-  const technoId = `techno_${normalizedEra}_${index}`;
+  checkbox.id = `techno_${normalizedEra}_${index}`;
 
-  checkbox.id = technoId;
   td.appendChild(checkbox);
   return td;
 }
@@ -58,7 +57,7 @@ function addCheckboxColumn(table: HTMLTableElement) {
   }
 
   const rows = table.querySelectorAll<HTMLTableRowElement>(
-    "tr:not(:first-child)"
+    "tr:not(:first-child)",
   );
   rows.forEach((row, index) => {
     const td = createCheckboxCell(row, index);
@@ -70,17 +69,21 @@ function createTotalCheckboxCell(): HTMLTableCellElement {
   const td = document.createElement("td");
   td.style.textAlign = "center";
   td.style.whiteSpace = "normal";
+
   const checkbox = document.createElement("input");
   checkbox.type = "checkbox";
   checkbox.id = "checkboxSelectAll";
   checkbox.name = "checkboxSelectAll";
   checkbox.style.transform = "scale(1.25)";
+
   const label = document.createElement("label");
   label.setAttribute("for", "checkboxSelectAll");
   label.textContent = "All";
+
   td.appendChild(checkbox);
   td.appendChild(document.createElement("br"));
   td.appendChild(label);
+
   return td;
 }
 
@@ -88,29 +91,31 @@ function createTotalLabelCell(): HTMLTableCellElement {
   const td = document.createElement("td");
   td.style.textAlign = "center";
   td.style.fontWeight = "500";
+
   const span = document.createElement("span");
   span.id = "counterSelection";
   span.textContent = "0";
   span.style.fontSize = "15px";
   span.style.display = "block";
   span.style.marginBottom = "-4px";
-  td.appendChild(span);
+
   const span2 = document.createElement("span");
   span2.textContent = "selected";
   span2.style.fontSize = "15px";
+
+  td.appendChild(span);
   td.appendChild(span2);
 
-  // Ajouter la checkbox Save dans la même cellule
+  // Save checkbox
   const saveContainer = document.createElement("div");
   saveContainer.style.marginTop = "8px";
 
-  const checkbox = document.createElement("input");
-  checkbox.type = "checkbox";
-
-  // Ajouter un ID unique basé sur l'ère actuelle
   const [_, subSection] = getTitlePage();
   const normalizedEra = getEraId(subSection);
   const checkboxName = `checkboxSave_${normalizedEra}`;
+
+  const checkbox = document.createElement("input");
+  checkbox.type = "checkbox";
   checkbox.id = checkboxName;
   checkbox.name = checkboxName;
   checkbox.style.transform = "scale(1.25)";
@@ -133,7 +138,7 @@ function createTotalLabelCell(): HTMLTableCellElement {
 function createResourceDiv(
   alt: string,
   src: string,
-  id: string
+  id: string,
 ): HTMLDivElement {
   const div = document.createElement("div");
   const img = document.createElement("img");
@@ -141,9 +146,11 @@ function createResourceDiv(
   img.src = src;
   img.width = 25;
   img.height = 25;
+
   const span = document.createElement("span");
   span.id = id;
   span.textContent = " 0";
+
   div.appendChild(img);
   div.appendChild(span);
   return div;
@@ -153,75 +160,62 @@ function createResourcesContainer(): HTMLDivElement {
   const container = document.createElement("div");
   container.style.textAlign = "left";
   container.appendChild(
-    createResourceDiv(
-      "PR",
-      "/images/thumb/2/20/Research.png/25px-Research.png",
-      "researchTotal"
-    )
+    createResourceDiv("PR", RESOURCE_ICONS.research, "researchTotal"),
   );
   container.appendChild(
-    createResourceDiv(
-      "Gold",
-      "/images/thumb/6/6d/Coin.png/25px-Coin.png",
-      "goldTotal"
-    )
+    createResourceDiv("Gold", RESOURCE_ICONS.coins, "goldTotal"),
   );
   container.appendChild(
-    createResourceDiv(
-      "Food",
-      "/images/thumb/c/c6/Food.png/25px-Food.png",
-      "foodTotal"
-    )
+    createResourceDiv("Food", RESOURCE_ICONS.food, "foodTotal"),
   );
   return container;
 }
 
 function createDefaultGoodsContainer(): HTMLDivElement {
-  const defaultGoodsContainer = document.createElement("div");
-  defaultGoodsContainer.id = "defaultGoodsContainer";
-  defaultGoodsContainer.style.display = "block";
-  defaultGoodsContainer.style.width = "max-content";
-  defaultGoodsContainer.style.justifyContent = "start";
-  defaultGoodsContainer.style.textAlign = "left";
+  const container = document.createElement("div");
+  container.id = "defaultGoodsContainer";
+  container.style.display = "block";
+  container.style.width = "max-content";
+  container.style.textAlign = "left";
 
   for (let i = 0; i < 3; i++) {
     const divItem = document.createElement("div");
     const img = document.createElement("img");
-    img.src = "/images/thumb/3/36/Goods.png/25px-Goods.png";
+    img.src = RESOURCE_ICONS.goods;
     img.width = 25;
     img.height = 25;
     divItem.appendChild(img);
     divItem.appendChild(document.createTextNode(" 0"));
-    defaultGoodsContainer.appendChild(divItem);
+    container.appendChild(divItem);
   }
-  return defaultGoodsContainer;
+
+  return container;
 }
 
 function createDynamicGoodsContainer(): HTMLDivElement {
-  const dynamicGoodsContainer = document.createElement("div");
-  dynamicGoodsContainer.id = "dynamicGoodsContainer";
-  dynamicGoodsContainer.style.display = "none";
-  dynamicGoodsContainer.style.width = "max-content";
-  dynamicGoodsContainer.style.justifyContent = "start";
-  dynamicGoodsContainer.style.textAlign = "left";
-  return dynamicGoodsContainer;
+  const container = document.createElement("div");
+  container.id = "dynamicGoodsContainer";
+  container.style.display = "none";
+  container.style.width = "max-content";
+  container.style.textAlign = "left";
+  return container;
 }
 
 function addTotalRow(table: HTMLTableElement) {
-  const newRow = document.createElement("tr");
-  newRow.id = "totalRow";
-  newRow.style.background = "rgba(36, 89, 113, 1)";
-  newRow.style.height = "100px";
+  const row = document.createElement("tr");
+  row.id = "totalRow";
+  row.style.background = "rgba(36, 89, 113, 1)";
+  row.style.height = "100px";
 
-  newRow.appendChild(createTotalCheckboxCell());
-  newRow.appendChild(createTotalLabelCell());
+  row.appendChild(createTotalCheckboxCell());
+  row.appendChild(createTotalLabelCell());
 
   const td3 = document.createElement("td");
   td3.id = "totalRessources";
   td3.style.verticalAlign = "baseline";
   td3.style.paddingTop = "12px";
   td3.appendChild(createResourcesContainer());
-  newRow.appendChild(td3);
+  row.appendChild(td3);
 
   const td4 = document.createElement("td");
   td4.id = "totalGoods";
@@ -230,122 +224,83 @@ function addTotalRow(table: HTMLTableElement) {
   td4.colSpan = 2;
   td4.appendChild(createDefaultGoodsContainer());
   td4.appendChild(createDynamicGoodsContainer());
-  newRow.appendChild(td4);
+  row.appendChild(td4);
 
-  table.querySelector("tbody")?.appendChild(newRow);
+  table.querySelector("tbody")?.appendChild(row);
 }
 
-function extractTechnoCosts(row: HTMLTableRowElement): SavedTechno["costs"] {
-  const costs: SavedTechno["costs"] = {};
+function extractTechnoCosts(row: HTMLTableRowElement): TechnoEntity["costs"] {
+  const costs: TechnoEntity["costs"] = {};
 
-  // Extraire Research, Coins, Food depuis la cellule 2 (index 2)
+  // resources (research, coins, food)
   const resourceCell = row.cells[2];
   if (resourceCell) {
-    // Parser le HTML directement pour mieux gérer les images + text
     const images = resourceCell.querySelectorAll("img");
     const lines = resourceCell.innerHTML
       .split("<br>")
       .map((line) => line.trim());
 
     lines.forEach((line, index) => {
-      const cleanLine = line.replace(/<[^>]*>/g, "").trim(); // Enlever les balises HTML
+      const cleanLine = line.replace(/<[^>]*>/g, "").trim();
       const img = images[index];
+      if (!img) return;
 
-      if (img) {
-        // Utiliser src au lieu de alt car alt peut être vide
-        const src = img.src?.toLowerCase() || "";
-        const value = parseNumber(cleanLine);
+      const src = img.src?.toLowerCase() || "";
+      const value = parseNumber(cleanLine);
+      if (value <= 0) return;
 
-        if (value > 0) {
-          if (src.includes("research.png") || src.includes("research")) {
-            costs.research_points = value;
-          } else if (src.includes("coin.png") || src.includes("coin")) {
-            costs.coins = value;
-          } else if (src.includes("food.png") || src.includes("food")) {
-            costs.food = value;
-          }
-        }
-      }
+      if (src.includes("research")) costs.research_points = value;
+      else if (src.includes("coin")) costs.coins = value;
+      else if (src.includes("food")) costs.food = value;
     });
   }
 
-  // Extraire les goods depuis la cellule 3 (index 3) seulement s'il y a des images de goods
+  // Goods
   const goodsCell = row.cells[3];
   if (goodsCell) {
     const goodsImages = goodsCell.querySelectorAll("img");
-    // Vérifier s'il y a des images qui ressemblent à des goods (pas les icônes de recherche/coins/food)
     const hasGoods = Array.from(goodsImages).some((img) => {
       const alt = img.alt?.toLowerCase() || "";
       return (
-        !alt.includes("research") &&
-        !alt.includes("coin") &&
-        !alt.includes("food") &&
-        alt !== ""
+        !["research", "coin", "food"].some((r) => alt.includes(r)) && alt !== ""
       );
     });
 
-    if (hasGoods) {
-      costs.goods = extractGoodsDetails(goodsCell);
-    }
+    if (hasGoods) costs.goods = extractGoodsDetails(goodsCell);
   }
 
   return costs;
 }
 
 function extractGoodsDetails(
-  cell: HTMLTableCellElement
+  cell: HTMLTableCellElement,
 ): Array<{ type: string; amount: number }> {
   const details: Array<{ type: string; amount: number }> = [];
-
-  // Parser le HTML directement pour mieux gérer les images + text
   const images = cell.querySelectorAll("img");
   const lines = cell.innerHTML.split("<br>").map((line) => line.trim());
 
   lines.forEach((line, index) => {
     const cleanLine = line.replace(/<[^>]*>/g, "").trim();
 
-    // Primary: FA 15,500
-    const primaryMatch = cleanLine.match(/Primary:\s*([A-Z]{2})\s*([\d,]+)/i);
-    if (primaryMatch) {
-      details.push({
-        type: `Primary_${primaryMatch[1]}`,
-        amount: parseNumber(primaryMatch[2]),
-      });
-      return;
-    }
-
-    // Secondary: KS 3,950
-    const secondaryMatch = cleanLine.match(
-      /Secondary:\s*([A-Z]{2})\s*([\d,]+)/i
+    // Primary/Secondary/Tertiary format
+    const priorityMatch = cleanLine.match(
+      /(Primary|Secondary|Tertiary):\s*([A-Z]{2})\s*([\d,]+)/i,
     );
-    if (secondaryMatch) {
+    if (priorityMatch) {
       details.push({
-        type: `Secondary_${secondaryMatch[1]}`,
-        amount: parseNumber(secondaryMatch[2]),
+        type: `${priorityMatch[1]}_${priorityMatch[2]}`,
+        amount: parseNumber(priorityMatch[3]),
       });
       return;
     }
 
-    // Tertiary: FA 15,500
-    const tertiaryMatch = cleanLine.match(/Tertiary:\s*([A-Z]{2})\s*([\d,]+)/i);
-    if (tertiaryMatch) {
-      details.push({
-        type: `Tertiary_${tertiaryMatch[1]}`,
-        amount: parseNumber(tertiaryMatch[2]),
-      });
-      return;
-    }
-
-    // Parser les images + montant: <img> Carpet.png 2,000
+    // regular goods with image
     const img = images[index];
-    if (img && img.alt) {
+    if (img?.alt) {
       const goodName = img.alt.replace(".png", "").trim();
       const value = parseNumber(cleanLine);
       if (value > 0 && goodName) {
-        details.push({
-          type: goodName,
-          amount: value,
-        });
+        details.push({ type: goodName, amount: value });
       }
     }
   });
@@ -355,99 +310,24 @@ function extractGoodsDetails(
 
 function extractTechnoInfo(
   row: HTMLTableRowElement,
-  index: number
-): { id: string; costs: SavedTechno["costs"] } | null {
-  const cells = row.cells;
-  if (cells.length < 4) return null;
+  index: number,
+): TechnoEntity | null {
+  if (row.cells.length < 4) return null;
 
-  // Générer le même ID que dans createCheckboxCell
   const [_, subSection] = getTitlePage();
   const normalizedEra = getEraId(subSection);
-  const technoId = `techno_${normalizedEra}_${index}`;
-
-  // Utiliser la fonction d'extraction spécifique aux technologies
-  const costs = extractTechnoCosts(row);
 
   return {
-    id: technoId,
-    costs,
+    id: `techno_${normalizedEra}_${index}`,
+    costs: extractTechnoCosts(row),
+    updatedAt: Date.now(),
   };
-}
-
-// Fonction pour sauvegarder les technologies d'une ère spécifique en remplaçant tout
-async function saveEraTechnos(eraPath: string, technos: SavedTechno[]) {
-  const data = await loadSavedTechnos();
-
-  // Remplacer complètement les technologies de cette ère
-  data.technos[eraPath] = {};
-
-  // Ajouter les nouvelles technologies
-  technos.forEach((techno) => {
-    // Extraire l'index depuis l'ID : techno_era_index
-    const idParts = techno.id.split("_");
-    if (idParts.length >= 3) {
-      const index = idParts[idParts.length - 1];
-      data.technos[eraPath][index] = techno;
-    }
-  });
-
-  await savedTechnosStorage.setValue(data);
-}
-
-// Fonction pour mettre à jour les technologies d'une ère avec la sélection actuelle
-async function updateEraTechnosWithCurrentSelection(
-  eraPath: string,
-  checkboxes: NodeListOf<HTMLInputElement>,
-  rowData: Map<HTMLTableRowElement, { resourceData: any; goodsData: any }>
-) {
-  const selectedTechnos: SavedTechno[] = [];
-
-  checkboxes.forEach((checkbox, index) => {
-    if (checkbox.checked) {
-      const row = checkbox.closest("tr") as HTMLTableRowElement;
-      if (row) {
-        const technoInfo = extractTechnoInfo(row, index);
-        if (technoInfo) {
-          selectedTechnos.push(technoInfo);
-        }
-      }
-    }
-  });
-
-  // Utiliser saveEraTechnos pour remplacer complètement l'ère actuelle
-  await saveEraTechnos(eraPath, selectedTechnos);
-}
-
-async function saveSelectedTechnos(
-  checkboxes: NodeListOf<HTMLInputElement>,
-  rowData: Map<HTMLTableRowElement, { resourceData: any; goodsData: any }>
-) {
-  const selectedTechnos: SavedTechno[] = [];
-
-  checkboxes.forEach((checkbox, index) => {
-    if (checkbox.checked) {
-      const row = checkbox.closest("tr") as HTMLTableRowElement;
-      if (row) {
-        const technoInfo = extractTechnoInfo(row, index);
-        if (technoInfo) {
-          selectedTechnos.push(technoInfo);
-        }
-      }
-    }
-  });
-
-  // Récupérer l'ère normalisée pour sauvegarder correctement
-  const [_, subSection] = getTitlePage();
-  const normalizedEra = getEraId(subSection);
-
-  await saveEraTechnos(normalizedEra, selectedTechnos);
-
-  // La checkbox reste cochée pour indiquer que la sauvegarde est active
 }
 
 function extractResources(row: HTMLTableRowElement) {
   const cell = row?.cells[2];
   if (!cell) return { research: 0, gold: 0, food: 0 };
+
   const values: string[] = [];
   cell.childNodes.forEach((node) => {
     if (node.nodeType === Node.TEXT_NODE) {
@@ -455,6 +335,7 @@ function extractResources(row: HTMLTableRowElement) {
       if (text) values.push(text);
     }
   });
+
   return {
     research: parseNumber(values[0]),
     gold: parseNumber(values[1]),
@@ -466,46 +347,44 @@ function extractGoods(row: HTMLTableRowElement) {
   const cell = row?.cells[3];
   if (!cell) return {};
 
-  // Vérifier s'il y a des images de goods dans cette cellule
   const goodsImages = cell.querySelectorAll("img");
-  if (goodsImages.length === 0) {
-    return {}; // Pas de goods dans cette ère (ex: Stone Age)
-  }
+  if (!goodsImages.length) return {};
 
-  let goods: Record<string, { value: number; src: string }> = {};
+  const goods: Record<string, { value: number; src: string }> = {};
+
   goodsImages.forEach((img: HTMLImageElement) => {
     const key = img.alt.trim();
     const rawValue = img.nextSibling?.textContent?.trim().replace(/,/g, "");
-    const value: number = rawValue ? parseInt(rawValue, 10) || 0 : 0;
-    const src = img.src;
+    const value = rawValue ? parseInt(rawValue, 10) || 0 : 0;
+
     if (goods[key]) {
       goods[key].value += value;
     } else {
-      goods[key] = { value, src };
+      goods[key] = { value, src: img.src };
     }
   });
+
   return goods;
 }
 
 function preloadGoodImages(table: HTMLTableElement) {
-  const goodsContainer = document.getElementById("dynamicGoodsContainer");
-  if (!goodsContainer) return;
+  const container = document.getElementById("dynamicGoodsContainer");
+  if (!container) return;
 
-  goodsContainer.replaceChildren();
-  goodsContainer.style.display = "grid";
+  container.replaceChildren();
+  container.style.display = "grid";
 
   const goodImages = new Map<string, string>();
   const rows = table.querySelectorAll<HTMLTableRowElement>(
-    "tr:not(:first-child)"
+    "tr:not(:first-child)",
   );
+
   rows.forEach((row) => {
     const cell = row?.cells[3];
     if (cell) {
       cell.querySelectorAll("img").forEach((img: HTMLImageElement) => {
         const key = img.alt.trim();
-        if (!goodImages.has(key)) {
-          goodImages.set(key, img.src);
-        }
+        if (!goodImages.has(key)) goodImages.set(key, img.src);
       });
     }
   });
@@ -520,14 +399,17 @@ function preloadGoodImages(table: HTMLTableElement) {
     divItem.className = "good-item";
     divItem.id = `good-${key}`;
     divItem.style.display = "none";
+
     const img = document.createElement("img");
     img.src = src;
     img.width = 25;
     img.height = 25;
     img.alt = key;
+
     const valueSpan = document.createElement("span");
     valueSpan.id = `goodValue-${key}`;
     valueSpan.textContent = " 0";
+
     divItem.appendChild(img);
     divItem.appendChild(valueSpan);
     goodDivs.set(key, divItem);
@@ -541,9 +423,7 @@ function preloadGoodImages(table: HTMLTableElement) {
       const category = match[1];
       const abbr = match[2];
       erasPresent.add(abbr);
-      if (!goodsByEra[abbr]) {
-        goodsByEra[abbr] = {};
-      }
+      if (!goodsByEra[abbr]) goodsByEra[abbr] = {};
       goodsByEra[abbr][category] = divItem;
     } else {
       otherGoods.push(divItem);
@@ -553,26 +433,23 @@ function preloadGoodImages(table: HTMLTableElement) {
   const eraOrder = eras.map((e) => e.abbr);
   const sortedEras = Array.from(erasPresent)
     .filter((abbr): abbr is (typeof eras)[number]["abbr"] =>
-      eras.some((e) => e.abbr === abbr)
+      eras.some((e) => e.abbr === abbr),
     )
     .sort((a, b) => eraOrder.indexOf(a) - eraOrder.indexOf(b));
 
-  let maxRows = 3;
-  if (otherGoods.length > maxRows) maxRows = otherGoods.length;
-
+  const maxRows = Math.max(3, otherGoods.length);
   const nbColumns = sortedEras.length + (otherGoods.length > 0 ? 1 : 0);
-  goodsContainer.style.display = "none";
-  goodsContainer.style.gridAutoFlow = "column";
-  goodsContainer.style.gridTemplateRows = `repeat(${maxRows}, auto)`;
-  goodsContainer.style.gridTemplateColumns = `repeat(${nbColumns}, auto)`;
-  goodsContainer.style.justifyContent = "start";
+
+  container.style.gridAutoFlow = "column";
+  container.style.gridTemplateRows = `repeat(${maxRows}, auto)`;
+  container.style.gridTemplateColumns = `repeat(${nbColumns}, auto)`;
+  container.style.justifyContent = "start";
 
   function createColumnDiv(abbr: string, isOther = false): HTMLDivElement {
     const colDiv = document.createElement("div");
     colDiv.className = isOther ? "colonne_autres" : `colonne_${abbr}`;
     colDiv.style.display = "block";
     colDiv.style.marginRight = "15px";
-    colDiv.style.gridTemplateRows = `repeat(auto-fill, auto)`;
     return colDiv;
   }
 
@@ -585,7 +462,7 @@ function preloadGoodImages(table: HTMLTableElement) {
         colDiv.appendChild(goodDiv);
       }
     });
-    goodsContainer.appendChild(colDiv);
+    container.appendChild(colDiv);
   });
 
   if (otherGoods.length > 0) {
@@ -594,11 +471,11 @@ function preloadGoodImages(table: HTMLTableElement) {
       divItem.style.display = "";
       colDiv.appendChild(divItem);
     });
-    goodsContainer.appendChild(colDiv);
+    container.appendChild(colDiv);
   }
 }
 
-function updateTotalRessources(totalRessources: {
+function updateTotalRessources(totals: {
   research: number;
   gold: number;
   food: number;
@@ -606,29 +483,33 @@ function updateTotalRessources(totalRessources: {
   const researchTotal = document.getElementById("researchTotal");
   const goldTotal = document.getElementById("goldTotal");
   const foodTotal = document.getElementById("foodTotal");
-  if (researchTotal) researchTotal.textContent = ` ${totalRessources.research}`;
-  if (goldTotal)
-    goldTotal.textContent = ` ${formatNumber(totalRessources.gold)}`;
-  if (foodTotal)
-    foodTotal.textContent = ` ${formatNumber(totalRessources.food)}`;
+
+  if (researchTotal) researchTotal.textContent = ` ${totals.research}`;
+  if (goldTotal) goldTotal.textContent = ` ${formatNumber(totals.gold)}`;
+  if (foodTotal) foodTotal.textContent = ` ${formatNumber(totals.food)}`;
 }
 
 export function updateTotalGoods(
-  totalGoods: Record<string, { value: number }>
+  totalGoods: Record<string, { value: number }>,
 ) {
   const defaultContainer = document.getElementById("defaultGoodsContainer");
   const dynamicContainer = document.getElementById("dynamicGoodsContainer");
   if (!defaultContainer || !dynamicContainer) return;
 
-  if (Object.keys(totalGoods).length === 0) {
+  const hasGoods = Object.keys(totalGoods).length > 0;
+
+  if (!hasGoods) {
+    // show default images with 0
     defaultContainer.style.display = "block";
     dynamicContainer.style.display = "none";
     return;
   }
 
+  // hide default container and show dynamic container
   defaultContainer.style.display = "none";
   dynamicContainer.style.display = "flex";
 
+  // reset all good items
   const allGoodItems =
     dynamicContainer.querySelectorAll<HTMLElement>(".good-item");
   allGoodItems.forEach((item) => {
@@ -637,6 +518,7 @@ export function updateTotalGoods(
     if (valueSpan) valueSpan.textContent = " 0";
   });
 
+  // update only goods with values
   Object.entries(totalGoods).forEach(([key, { value }]) => {
     const goodDiv = document.getElementById(`good-${key}`);
     if (goodDiv) {
@@ -648,24 +530,25 @@ export function updateTotalGoods(
     }
   });
 
+  // Gérer l'affichage des colonnes
   dynamicContainer
     .querySelectorAll<HTMLDivElement>("div[class^='colonne_']")
     .forEach((colDiv) => {
       const visibleGoods = Array.from(
-        colDiv.querySelectorAll<HTMLElement>(".good-item")
+        colDiv.querySelectorAll<HTMLElement>(".good-item"),
       ).some((item) => item.style.display !== "none");
       colDiv.style.display = visibleGoods ? "block" : "none";
     });
 }
 
-export function updateTotalSelected(totalSelected: number) {
+export function updateTotalSelected(count: number) {
   const counterSelection = document.getElementById("counterSelection");
-  if (counterSelection) counterSelection.textContent = totalSelected.toString();
+  if (counterSelection) counterSelection.textContent = count.toString();
 }
 
 function updateTotal(
   checkboxes: NodeListOf<HTMLInputElement>,
-  rowData: Map<HTMLTableRowElement, { resourceData: any; goodsData: any }>
+  rowData: Map<HTMLTableRowElement, { resourceData: any; goodsData: any }>,
 ) {
   let totalGoods: Record<string, { value: number; src: string }> = {};
   let totalResources = { research: 0, gold: 0, food: 0 };
@@ -679,6 +562,7 @@ function updateTotal(
         totalResources.research += resourceData.research;
         totalResources.gold += resourceData.gold;
         totalResources.food += resourceData.food;
+
         Object.keys(goodsData).forEach((key) => {
           if (totalGoods[key]) {
             totalGoods[key].value += goodsData[key].value;
@@ -690,13 +574,30 @@ function updateTotal(
       }
     }
   });
+
   updateTotalSelected(totalSelected);
   updateTotalRessources(totalResources);
   updateTotalGoods(totalGoods);
 }
 
+async function saveSelectedTechnos(checkboxes: NodeListOf<HTMLInputElement>) {
+  const selectedTechnos: TechnoEntity[] = [];
+
+  checkboxes.forEach((checkbox, index) => {
+    if (!checkbox.checked) return;
+    const row = checkbox.closest("tr") as HTMLTableRowElement;
+    if (!row) return;
+    const technoInfo = extractTechnoInfo(row, index);
+    if (technoInfo) selectedTechnos.push(technoInfo);
+  });
+
+  const [_, subSection] = getTitlePage();
+  const normalizedEra = getEraId(subSection);
+  await saveEraTechnos(normalizedEra, selectedTechnos);
+}
+
 export async function useTechno(tables: HTMLTableElement[]) {
-  const technoTable = findTechnoTable(tables) as HTMLTableElement;
+  const technoTable = findTechnoTable(tables);
   if (!technoTable) return;
 
   addCheckboxColumn(technoTable);
@@ -708,20 +609,21 @@ export async function useTechno(tables: HTMLTableElement[]) {
     { resourceData: any; goodsData: any }
   >();
   const rows = technoTable.querySelectorAll<HTMLTableRowElement>(
-    "tr:not(:first-child)"
+    "tr:not(:first-child)",
   );
+
   rows.forEach((row) => {
-    const tr = row as HTMLTableRowElement;
-    const resourceData = extractResources(tr);
-    const goodsData = extractGoods(tr);
-    rowData.set(tr, { resourceData, goodsData });
+    rowData.set(row, {
+      resourceData: extractResources(row),
+      goodsData: extractGoods(row),
+    });
   });
 
   const checkboxes = technoTable.querySelectorAll(
-    ".checkbox-selection"
+    ".checkbox-selection",
   ) as NodeListOf<HTMLInputElement>;
   const selectAllCheckbox = document.getElementById(
-    "checkboxSelectAll"
+    "checkboxSelectAll",
   ) as HTMLInputElement | null;
 
   if (selectAllCheckbox) {
@@ -742,172 +644,60 @@ export async function useTechno(tables: HTMLTableElement[]) {
     }
   });
 
-  // Ajouter l'event listener pour la checkbox Save
+  // Save checkbox logic
   const [_, subSection] = getTitlePage();
   const normalizedEra = getEraId(subSection);
-  const pagePath = normalizedEra;
-  console.log(pagePath);
-
   const saveCheckbox = document.getElementById(
-    `checkboxSave_${pagePath}`
-  ) as HTMLInputElement | null;
-  const allCheckbox = document.getElementById(
-    "checkboxSelectAll"
+    `checkboxSave_${normalizedEra}`,
   ) as HTMLInputElement | null;
 
   if (saveCheckbox) {
     saveCheckbox.addEventListener("change", async () => {
       if (saveCheckbox.checked) {
-        // Quand on coche : sauvegarder les technologies sélectionnées de cette ère
-        await saveSelectedTechnos(checkboxes, rowData);
+        await saveSelectedTechnos(checkboxes);
       } else {
-        // Quand on décoche : effacer les technologies de cette ère seulement
-        await clearEraTechnos(pagePath || "");
+        await clearEraTechnos(normalizedEra);
       }
     });
 
-    // Ajouter un event listener pour la checkbox "All"
-    if (allCheckbox) {
-      allCheckbox.addEventListener("change", async () => {
+    // Auto-save when All checkbox changes and Save is checked
+    if (selectAllCheckbox) {
+      selectAllCheckbox.addEventListener("change", async () => {
         if (saveCheckbox.checked) {
-          // Recréer les données actuelles au moment du changement
-          const currentRowData = new Map<
-            HTMLTableRowElement,
-            { resourceData: any; goodsData: any }
-          >();
-
-          checkboxes.forEach((cb) => {
-            const row = cb.closest("tr") as HTMLTableRowElement;
-            if (row) {
-              currentRowData.set(row, {
-                resourceData: extractResources(row),
-                goodsData: extractGoods(row),
-              });
-            }
-          });
-
-          // Utiliser updateEraTechnosWithCurrentSelection pour la cohérence
-          await updateEraTechnosWithCurrentSelection(
-            pagePath || "",
-            checkboxes,
-            currentRowData
-          );
+          await saveSelectedTechnos(checkboxes);
         }
       });
     }
 
-    // Ajouter un event listener pour les changements sur les checkboxes individuelles
-    // quand la checkbox Save est déjà cochée (permet de modifier la sélection)
+    // Auto-save when individual checkboxes change and Save is checked
     checkboxes.forEach((checkbox) => {
       checkbox.addEventListener("change", async () => {
         if (saveCheckbox.checked) {
-          // Recréer les données actuelles au moment du changement
-          const currentRowData = new Map<
-            HTMLTableRowElement,
-            { resourceData: any; goodsData: any }
-          >();
-
-          checkboxes.forEach((cb) => {
-            const row = cb.closest("tr") as HTMLTableRowElement;
-            if (row) {
-              currentRowData.set(row, {
-                resourceData: extractResources(row),
-                goodsData: extractGoods(row),
-              });
-            }
-          });
-
-          // Mettre à jour les données sauvegardées avec les données fraîches
-          // Utiliser updateEraTechnos pour remplacer complètement l'ère actuelle
-          await updateEraTechnosWithCurrentSelection(
-            pagePath || "",
-            checkboxes,
-            currentRowData
-          );
+          await saveSelectedTechnos(checkboxes);
         }
       });
     });
 
-    // Au chargement, cocher la checkbox s'il y a des technologies sauvegardées pour cette ère
-    const savedData = await loadSavedTechnos();
-    const eraTechnos = savedData.technos[pagePath || ""] || {};
-    const eraTechnoCount = Object.keys(eraTechnos).length;
-    if (eraTechnoCount > 0) {
+    // restore saved checkboxes
+    const allTechs = flattenAndSortTechnos(await getTechnos());
+    const eraTechs = allTechs.filter((t) =>
+      t.id.startsWith(`techno_${normalizedEra}_`),
+    );
+
+    if (eraTechs.length > 0) {
       saveCheckbox.checked = true;
+      const savedIds = new Set(eraTechs.map((t) => t.id));
+
+      checkboxes.forEach((cb) => {
+        if (cb.id && savedIds.has(cb.id)) cb.checked = true;
+      });
+
+      if (selectAllCheckbox) {
+        const allChecked = Array.from(checkboxes).every((cb) => cb.checked);
+        selectAllCheckbox.checked = allChecked;
+      }
     }
   }
 
   updateTotal(checkboxes, rowData);
-
-  // Restaurer les cases cochées depuis le storage
-  await restoreSavedCheckboxes(checkboxes);
-}
-
-async function restoreSavedCheckboxes(
-  checkboxes: NodeListOf<HTMLInputElement>
-) {
-  const savedData = await loadSavedTechnos();
-
-  // Récupérer l'ère actuelle en utilisant exactement la même logique que les IDs
-  const [_, subSection] = getTitlePage();
-  const normalizedEra = getEraId(subSection);
-  const pagePath = normalizedEra;
-
-  // Vérifier seulement les technologies de cette ère
-  const eraTechnos = savedData.technos[pagePath || ""] || {};
-  const eraTechnoCount = Object.keys(eraTechnos).length;
-
-  if (eraTechnoCount === 0) return;
-
-  // Créer un Set des IDs de technologies sauvegardées pour cette ère
-  const savedTechnoIds = new Set<string>();
-  Object.values(eraTechnos).forEach((techno: SavedTechno) => {
-    savedTechnoIds.add(techno.id);
-  });
-
-  checkboxes.forEach((checkbox) => {
-    if (checkbox.id && savedTechnoIds.has(checkbox.id)) {
-      checkbox.checked = true;
-    }
-  });
-
-  // Vérifier si toutes les checkboxes sont cochées pour cocher "All"
-  const allCheckbox = document.getElementById(
-    "checkboxSelectAll"
-  ) as HTMLInputElement;
-  if (allCheckbox) {
-    const allCheckboxes = Array.from(checkboxes);
-    const allChecked =
-      allCheckboxes.length > 0 && allCheckboxes.every((cb) => cb.checked);
-    allCheckbox.checked = allChecked;
-  }
-
-  // Mettre à jour le total après avoir restauré les cases
-  const rows = Array.from(checkboxes).map(
-    (cb) => cb.closest("tr") as HTMLTableRowElement
-  );
-  const rowData = new Map<
-    HTMLTableRowElement,
-    { resourceData: any; goodsData: any }
-  >();
-
-  rows.forEach((row) => {
-    rowData.set(row, {
-      resourceData: extractResources(row),
-      goodsData: extractGoods(row),
-    });
-  });
-
-  updateTotal(checkboxes, rowData);
-}
-
-// Fonction pour effacer les technologies d'une ère spécifique
-export async function clearEraTechnos(eraPath: string) {
-  const data = await loadSavedTechnos();
-
-  // Supprimer complètement l'ère spécifiée du storage
-  if (data.technos[eraPath]) {
-    delete data.technos[eraPath];
-    await savedTechnosStorage.setValue(data);
-  }
 }

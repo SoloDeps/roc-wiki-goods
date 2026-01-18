@@ -5,6 +5,37 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec2.0.0.html).
 
+## v1.4.0 - Jan 18, 2026
+
+### Added
+
+- Add comprehensive game data export system with ROC API integration
+- Add presets feature with comprehensive preset management
+- Add techno integration with building sheets and cards
+- Add shadcn UI components for modern interface
+- Add advanced filtering system for building lists
+- Add real-time synchronization and data persistence
+- Add option page with dark mode support
+- Add units data support in questlines
+- Add character images and enhanced UI components
+
+### Changed
+
+- Refactor popup architecture with conditional rendering
+- Update total goods display with preset integration
+- Optimize building list rendering and filtering
+- Improve UI responsiveness and performance
+- Upgrade dependencies to latest version (wxt 0.20.11)
+- Enhance security by removing innerHtml usage
+- Restructure project for better modularity
+
+### Fixed
+
+- Improve error handling for data export and authentication
+- Fix era selector functionality and warnings
+- Fix building limits and era detection
+- Fix various UI bugs and display issues
+
 ## v1.3.8 - Jan 15, 2026
 
 ### Added

@@ -1,350 +1,364 @@
-export const goodsList = [
+interface goodType {
+  gameName: string;
+  wikiName?: string;
+  type: string;
+}
+
+export const goodsList: goodType[] = [
   {
-    name: "premium",
+    gameName: "research_points",
+    type: "good",
+  },
+  {
+    gameName: "premium",
+    wikiName: "gems",
     type: "premium",
   },
   {
-    name: "pomegranate",
+    gameName: "pomegranate",
     type: "soft_currency",
   },
   {
-    name: "cocoa",
+    gameName: "cocoa",
     type: "soft_currency",
   },
   {
-    name: "papyrus",
+    gameName: "papyrus",
     type: "soft_currency",
   },
   {
-    name: "wheat",
+    gameName: "wheat",
     type: "soft_currency",
   },
   {
-    name: "food",
+    gameName: "food",
     type: "soft_currency",
   },
   {
-    name: "rice",
+    gameName: "rice",
     type: "soft_currency",
   },
   {
-    name: "cotton",
+    gameName: "cotton",
     type: "soft_currency",
   },
   {
-    name: "coins",
+    gameName: "coins",
     type: "soft_currency",
   },
   {
-    name: "brass",
+    gameName: "brass",
     type: "soft_currency",
   },
   {
-    name: "oil",
+    gameName: "oil",
     type: "soft_currency",
   },
   {
-    name: "deben",
+    gameName: "deben",
     type: "soft_currency",
   },
   {
-    name: "asper",
+    gameName: "asper",
     type: "soft_currency",
   },
   {
-    name: "gold_dinar",
+    gameName: "gold_dinar",
     type: "soft_currency",
   },
   {
-    name: "dirham",
+    gameName: "dirham",
     type: "soft_currency",
   },
   {
-    name: "feathers",
+    gameName: "feathers",
     type: "soft_currency",
   },
   {
-    name: "obsidian",
+    gameName: "obsidian",
     type: "soft_currency",
   },
   {
-    name: "myrrh",
+    gameName: "myrrh",
     type: "soft_currency",
   },
   {
-    name: "honey",
+    gameName: "honey",
     type: "soft_currency",
   },
   {
-    name: "pennies",
+    gameName: "pennies",
     type: "soft_currency",
   },
   {
-    name: "coffee_beans",
+    gameName: "coffee_beans",
     type: "soft_currency",
   },
   {
-    name: "fish",
+    gameName: "fish",
     type: "soft_currency",
   },
   {
-    name: "wu_zhu",
+    gameName: "wu_zhu",
     type: "soft_currency",
   },
   {
-    name: "jade",
+    gameName: "jade",
     type: "soft_currency",
   },
   {
-    name: "gold_ore",
+    gameName: "gold_ore",
     type: "soft_currency",
   },
   {
-    name: "gold_laurel",
+    gameName: "gold_laurel",
     type: "good",
   },
   {
-    name: "gem_treasure",
+    gameName: "gem_treasure",
+    wikiName: "jewel_treasure",
     type: "good",
   },
   {
-    name: "fine_jewelry",
+    gameName: "fine_jewelry",
     type: "good",
   },
   {
-    name: "salt",
+    gameName: "salt",
     type: "good",
   },
   {
-    name: "column",
+    gameName: "column",
     type: "good",
   },
   {
-    name: "parchment",
+    gameName: "parchment",
     type: "good",
   },
   {
-    name: "chili",
+    gameName: "chili",
     type: "good",
   },
   {
-    name: "toga",
+    gameName: "toga",
     type: "good",
   },
   {
-    name: "silk_threads",
+    gameName: "silk_threads",
     type: "good",
   },
   {
-    name: "cinnamon",
+    gameName: "cinnamon",
     type: "good",
   },
   {
-    name: "golden_mask",
+    gameName: "golden_mask",
     type: "good",
   },
   {
-    name: "mosaic",
+    gameName: "mosaic",
     type: "good",
   },
   {
-    name: "syrup",
+    gameName: "syrup",
     type: "good",
   },
   {
-    name: "lead_glass",
+    gameName: "lead_glass",
     type: "good",
   },
   {
-    name: "coffee",
+    gameName: "coffee",
     type: "good",
   },
   {
-    name: "porcelain",
+    gameName: "porcelain",
     type: "good",
   },
   {
-    name: "ointment",
+    gameName: "ointment",
     type: "good",
   },
   {
-    name: "bronze_bracelet",
+    gameName: "bronze_bracelet",
     type: "good",
   },
   {
-    name: "saffron",
+    gameName: "saffron",
     type: "good",
   },
   {
-    name: "papyrus_scroll",
+    gameName: "papyrus_scroll",
     type: "good",
   },
   {
-    name: "tome",
+    gameName: "tome",
     type: "good",
   },
   {
-    name: "goblet",
+    gameName: "goblet",
     type: "good",
   },
   {
-    name: "tunic",
+    gameName: "tunic",
     type: "good",
   },
   {
-    name: "confections",
+    gameName: "confections",
+    wikiName: "confection",
     type: "good",
   },
   {
-    name: "ceremonial_dress",
+    gameName: "ceremonial_dress",
     type: "good",
   },
   {
-    name: "cartwheel",
+    gameName: "cartwheel",
     type: "good",
   },
   {
-    name: "spice_treasure",
+    gameName: "spice_treasure",
     type: "good",
   },
   {
-    name: "stone_tablet",
+    gameName: "stone_tablet",
     type: "good",
   },
   {
-    name: "iron_pendant",
+    gameName: "iron_pendant",
     type: "good",
   },
   {
-    name: "stockfish",
+    gameName: "stockfish",
     type: "good",
   },
   {
-    name: "manuscript",
+    gameName: "manuscript",
     type: "good",
   },
   {
-    name: "ceramic_treasure",
+    gameName: "ceramic_treasure",
     type: "good",
   },
   {
-    name: "ancestor_mask",
+    gameName: "ancestor_mask",
     type: "good",
   },
   {
-    name: "kaolin",
+    gameName: "kaolin",
     type: "good",
   },
   {
-    name: "clay",
+    gameName: "clay",
     type: "good",
   },
   {
-    name: "secretary",
+    gameName: "secretary",
+    wikiName: "secretary_desk",
     type: "good",
   },
   {
-    name: "incense",
+    gameName: "incense",
     type: "good",
   },
   {
-    name: "silk",
+    gameName: "silk",
     type: "good",
   },
   {
-    name: "ankh",
+    gameName: "ankh",
     type: "good",
   },
   {
-    name: "gold_treasure",
+    gameName: "gold_treasure",
     type: "good",
   },
   {
-    name: "silver_ring",
+    gameName: "silver_ring",
     type: "good",
   },
   {
-    name: "moth_cocoons",
+    gameName: "moth_cocoons",
     type: "good",
   },
   {
-    name: "wool",
+    gameName: "wool",
     type: "good",
   },
   {
-    name: "wardrobe",
+    gameName: "wardrobe",
     type: "good",
   },
   {
-    name: "carpet",
+    gameName: "carpet",
     type: "good",
   },
   {
-    name: "pepper",
+    gameName: "pepper",
     type: "good",
   },
   {
-    name: "grimoire",
+    gameName: "grimoire",
     type: "good",
   },
   {
-    name: "oil_lamp",
+    gameName: "oil_lamp",
     type: "good",
   },
   {
-    name: "cape",
+    gameName: "cape",
     type: "good",
   },
   {
-    name: "linen_shirt",
+    gameName: "linen_shirt",
     type: "good",
   },
   {
-    name: "calendar_stone",
+    gameName: "calendar_stone",
     type: "good",
   },
   {
-    name: "barrel",
+    gameName: "barrel",
     type: "good",
   },
   {
-    name: "headdress",
+    gameName: "headdress",
     type: "good",
   },
   {
-    name: "planks",
+    gameName: "planks",
     type: "good",
   },
   {
-    name: "marble_bust",
+    gameName: "marble_bust",
     type: "good",
   },
   {
-    name: "door",
+    gameName: "door",
     type: "good",
   },
   {
-    name: "mead",
+    gameName: "mead",
     type: "good",
   },
   {
-    name: "wax_seal",
+    gameName: "wax_seal",
     type: "good",
   },
   {
-    name: "alabaster_idol",
+    gameName: "alabaster_idol",
     type: "good",
   },
   {
-    name: "herbs",
+    gameName: "herbs",
     type: "good",
   },
   {
-    name: "ritual_dagger",
+    gameName: "ritual_dagger",
     type: "good",
   },
   {
-    name: "ink",
+    gameName: "ink",
     type: "good",
   },
 ];

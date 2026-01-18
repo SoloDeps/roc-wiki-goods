@@ -20,7 +20,6 @@ export function addHoldListener(
   button.addEventListener("mousedown", start);
   button.addEventListener("mouseup", stop);
   button.addEventListener("mouseleave", stop);
-
   button.addEventListener("touchstart", (e) => {
     e.preventDefault();
     start();

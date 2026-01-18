@@ -1,14 +1,10 @@
-import { memo, useMemo, useCallback } from "react";
-import { X, ExternalLink } from "lucide-react";
+import { memo, useMemo, useCallback, useState } from "react";
+import { X, ExternalLink, EyeOff, Eye } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { getGoodImageUrlFromType, questsFormatNumber } from "@/lib/utils";
 import { WIKI_URL, itemsUrl, eras } from "@/lib/constants";
-
-interface Good {
-  type: string;
-  amount: number;
-}
+import { ResourceBadge } from "./resource-badge";
 
 interface AggregatedTechnoData {
   totalResearch: number;
@@ -22,22 +18,26 @@ export const TechnoCard = memo(function TechnoCard({
   aggregatedTechnos,
   userSelections,
   onRemoveAll,
+  onToggleHidden,
   era,
+  hidden,
 }: {
   aggregatedTechnos: AggregatedTechnoData;
   userSelections: any;
   onRemoveAll: () => void;
+  onToggleHidden: () => void;
   era?: string;
+  hidden?: boolean;
 }) {
+  const [isHovered, setIsHovered] = useState(false);
+
   const handleRemove = useCallback(() => {
     onRemoveAll();
   }, [onRemoveAll]);
 
-  // Générer l'URL wiki pour l'ère technologique
   const wikiUrl = useMemo(() => {
     if (!era) return "";
 
-    // Trouver le nom de l'ère à partir de l'ID
     const eraData = eras.find((e) => e.id === era);
     const eraName = eraData
       ? eraData.name.replace(/ /g, "_")
@@ -46,9 +46,6 @@ export const TechnoCard = memo(function TechnoCard({
     return `${WIKI_URL}/wiki/Home_Cultures/${eraName}`;
   }, [era]);
 
-  // =========================
-  // MAIN RESOURCES
-  // =========================
   const mainResources = useMemo(() => {
     const resources = [];
 
@@ -79,9 +76,6 @@ export const TechnoCard = memo(function TechnoCard({
     return resources;
   }, [aggregatedTechnos]);
 
-  // =========================
-  // GOODS
-  // =========================
   const goodsBadges = useMemo(() => {
     if (!aggregatedTechnos.goods || aggregatedTechnos.goods.length === 0)
       return null;
@@ -102,33 +96,96 @@ export const TechnoCard = memo(function TechnoCard({
   }, [aggregatedTechnos.goods, userSelections]);
 
   return (
-    <div className="@container/bcard group relative flex gap-4 rounded-sm bg-background-300 border h-auto min-h-32 pl-2">
-      <div className="flex py-3 gap-2 lg:gap-4 size-full">
+    <div
+      className="@container/bcard group relative flex gap-4 rounded-sm bg-background-300 border h-auto min-h-32 pl-2"
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
+      {/* Hidden overlay - applied after everything else */}
+      {hidden && (
+        <div
+          className="absolute inset-0 pointer-events-none opacity-50 rounded-sm"
+          style={{
+            backgroundImage: `repeating-linear-gradient(
+              45deg,
+              var(--gray-400) 0,
+              var(--gray-400) 1px,
+              transparent 0,
+              transparent 50%
+            )`,
+            backgroundSize: "10px 10px",
+            backgroundAttachment: "fixed",
+          }}
+        />
+      )}
+
+      <div className="flex py-3 gap-2 lg:gap-4 size-full relative">
         <div className="flex-1">
           <div className="flex items-center gap-2 mb-3">
-            <h3 className="text-sm lg:text-[15px] font-medium truncate capitalize pl-1">
+            <h3
+              className={`text-sm lg:text-[15px] font-medium truncate capitalize pl-1 ${hidden ? "opacity-50" : ""}`}
+            >
               {era ? `${era.replace(/_/g, " ")} ` : "Era"}
             </h3>
-            <Badge
-              variant="outline"
-              className="bg-blue-200 dark:bg-blue-300 text-blue-950 border-alpha-100 border rounded-sm"
-            >
-              {aggregatedTechnos.technoCount} techno
-              {aggregatedTechnos.technoCount > 1 ? "s" : ""}
-            </Badge>
+            <div className={hidden ? "opacity-50" : ""}>
+              <Badge
+                variant="outline"
+                className="bg-blue-200 dark:bg-blue-300 text-blue-950 border-alpha-100 border rounded-sm"
+              >
+                {aggregatedTechnos.technoCount} techno
+                {aggregatedTechnos.technoCount > 1 ? "s" : ""}
+              </Badge>
+            </div>
 
-            <Button
-              size="sm"
-              variant="ghost"
-              className="rounded-sm opacity-0 group-hover:opacity-100 transition-opacity duration-200"
-              onClick={() => window.open(wikiUrl, "_blank")}
-              title="Go to the wiki page"
+            <div
+              className={`transition-opacity duration-200 ${
+                hidden
+                  ? "opacity-100"
+                  : isHovered
+                    ? "opacity-100"
+                    : "opacity-0 pointer-events-none"
+              }`}
             >
-              Link <ExternalLink className="size-4 " />
-            </Button>
+              <Button
+                size="sm"
+                variant={hidden ? "outline" : "ghost"}
+                className="rounded-sm h-6"
+                onClick={onToggleHidden}
+                title={
+                  hidden
+                    ? "Include in total calculation"
+                    : "Exclude from total calculation"
+                }
+              >
+                {hidden ? (
+                  <Eye className="size-4" />
+                ) : (
+                  <EyeOff className="size-4" />
+                )}
+                {hidden ? "Show" : "Hide"}
+              </Button>
+            </div>
+
+            <div
+              className={`ml-auto transition-opacity duration-200 ${
+                isHovered ? "opacity-100" : "opacity-0 pointer-events-none"
+              }`}
+            >
+              <Button
+                size="sm"
+                variant="ghost"
+                className="rounded-sm h-6"
+                onClick={() => window.open(wikiUrl, "_blank")}
+                title="Go to the wiki page"
+              >
+                Link <ExternalLink className="size-4" />
+              </Button>
+            </div>
           </div>
 
-          <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 gap-1.5 text-sm w-full">
+          <div
+            className={`grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 gap-1.5 text-sm w-full ${hidden ? "opacity-50" : ""}`}
+          >
             {mainResources.map((r) => (
               <ResourceBadge
                 key={r.type}
@@ -142,37 +199,19 @@ export const TechnoCard = memo(function TechnoCard({
           </div>
         </div>
 
-        <div className="flex flex-col items-end justify-between shrink-0 pr-3">
+        <div
+          className={`flex flex-col items-end justify-between shrink-0 pr-3 ${hidden ? "opacity-50" : ""}`}
+        >
           <Button
             size="icon-sm"
             variant="destructive"
             className="rounded-sm size-6"
-            onClick={handleRemove}
+            onClick={!hidden ? handleRemove : undefined}
           >
             <X className="size-4 stroke-3" />
           </Button>
         </div>
       </div>
-    </div>
-  );
-});
-
-// =========================
-// RESOURCE BADGE
-// =========================
-const ResourceBadge = memo(function ResourceBadge({
-  icon,
-  value,
-  alt,
-}: {
-  icon: string;
-  value: string;
-  alt: string;
-}) {
-  return (
-    <div className="flex items-center justify-between px-2 rounded-md bg-background-100 border border-alpha-200 h-8 shrink-0">
-      <img src={icon} alt={alt} className="size-[25px]" />
-      <span className="text-[13px] font-medium">{value}</span>
     </div>
   );
 });

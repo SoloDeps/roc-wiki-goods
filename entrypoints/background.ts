@@ -1,175 +1,310 @@
-// entrypoints/background.ts
 import { storage } from "#imports";
 import { getApiConfig } from "@/lib/roc/tokenCapture";
 import { syncGameResources } from "@/lib/roc/rocApi";
+import { db, TechnoEntity } from "@/lib/storage/dexie";
+
+const BADGE_CONFIG = {
+  LOADING: { text: "...", color: "#FF8800" },
+  SUCCESS: { text: "✓", color: "#00C851" },
+  ERROR: { text: "×", color: "#FF4444" },
+} as const;
+
+const setBadge = (tabId: number, type: keyof typeof BADGE_CONFIG) => {
+  const { text, color } = BADGE_CONFIG[type];
+  chrome.action.setBadgeText({ text, tabId });
+  chrome.action.setBadgeBackgroundColor({ color, tabId });
+  chrome.action.setBadgeTextColor({ color: "#FFFFFF", tabId });
+};
+
+const sendMessage = (tabId: number, type: string, data: any = {}) => {
+  chrome.tabs.sendMessage(tabId, { type, ...data }).catch(() => {
+    console.log(`[RoC Background] Content script unavailable for ${type}`);
+  });
+};
 
 export default defineBackground(() => {
-  // Détecter quand un onglet est mis à jour (navigation)
+  // auto-sync on page load
   chrome.tabs.onUpdated.addListener(async (tabId, changeInfo, tab) => {
-    // Vérifier si la page est complètement chargée et si c'est une page de jeu
     if (
-      changeInfo.status === "complete" &&
-      tab.url &&
-      tab.url.includes("riseofcultures.com")
-    ) {
-      // Permettre les pages avec -play pour gérer la redirection automatique
-      console.log("[RoC Background] 🎮 Page de jeu détectée:", tab.url);
+      changeInfo.status !== "complete" ||
+      !tab.url?.includes("riseofcultures.com")
+    )
+      return;
+    if (tab.url.includes("-play")) return;
 
-      // Vérifier si c'est une page de jeu (pas de connexion) et si l'auto-save est activé
-      const isPlayPage = tab.url.includes("-play");
-      if (!isPlayPage) {
-        const autoSave = await storage.getItem("local:autoSave");
-        if (autoSave === true) {
-          console.log(
-            "[RoC Background] 🔄 Auto-sync activé, vérification du token..."
-          );
+    const autoSave = await storage.getItem("local:autoSave");
+    if (!autoSave) return;
 
-          // Afficher le badge de traitement uniquement si auto-save est activé
-          chrome.action.setBadgeText({
-            text: "...",
-            tabId: tabId,
-          });
+    console.log("[RoC Background] 🔄 Auto-sync enabled");
+    setBadge(tabId, "LOADING");
 
-          chrome.action.setBadgeBackgroundColor({
-            color: "#FF8800", // Orange moderne
-            tabId: tabId,
-          });
+    await new Promise((resolve) => setTimeout(resolve, 3000));
 
-          chrome.action.setBadgeTextColor({
-            color: "#FFFFFF", // Texte blanc
-            tabId: tabId,
-          });
+    const config = await getApiConfig();
+    if (!config?.authToken) {
+      console.log("[RoC Background] ❌ No token available");
+      return;
+    }
 
-          // Attendre 3 secondes pour que la page se charge complètement
-          await new Promise((resolve) => setTimeout(resolve, 3000));
-
-          // Vérifier si on a un token
-          const config = await getApiConfig();
-          if (config?.authToken) {
-            console.log(
-              "[RoC Background] Token trouvé, lancement de la synchronisation..."
-            );
-
-            try {
-              // Lancer la synchronisation
-              await syncGameResources();
-
-              // Petit délai pour que le badge orange soit visible
-              await new Promise((resolve) => setTimeout(resolve, 1000));
-
-              // Envoyer un message de succès au content script pour le badge
-              try {
-                chrome.tabs.sendMessage(tabId, {
-                  type: "DATA_SAVED",
-                  success: true,
-                });
-              } catch (msgError) {
-                console.log(
-                  "[RoC Background] ⚠️ Content script non disponible pour le message de succès"
-                );
-              }
-
-              // Mettre le badge de succès directement
-              chrome.action.setBadgeText({
-                text: "✓",
-                tabId: tabId,
-              });
-
-              chrome.action.setBadgeBackgroundColor({
-                color: "#00C851",
-                tabId: tabId,
-              });
-
-              chrome.action.setBadgeTextColor({
-                color: "#FFFFFF",
-                tabId: tabId,
-              });
-
-              console.log(
-                "[RoC Background] ✅ Synchronisation automatique réussie"
-              );
-            } catch (error: any) {
-              console.log(
-                "[RoC Background] ❌ Erreur lors de la synchronisation:" + error
-              );
-
-              // Envoyer un message d'erreur
-              try {
-                chrome.tabs.sendMessage(tabId, {
-                  type: "DATA_ERROR",
-                  error: error.message || "Erreur inconnue",
-                });
-              } catch (msgError) {
-                console.log(
-                  "[RoC Background] ⚠️ Content script non disponible pour le message d'erreur"
-                );
-              }
-
-              // Mettre le badge d'erreur directement
-              chrome.action.setBadgeText({
-                text: "Ｘ",
-                tabId: tabId,
-              });
-
-              chrome.action.setBadgeBackgroundColor({
-                color: "#FF4444",
-                tabId: tabId,
-              });
-
-              chrome.action.setBadgeTextColor({
-                color: "#FFFFFF",
-                tabId: tabId,
-              });
-            }
-          } else {
-            console.log("[RoC Background] ❌ Pas de token disponible");
-          }
-        }
-      }
+    try {
+      await syncGameResources();
+      await new Promise((resolve) => setTimeout(resolve, 1000));
+      sendMessage(tabId, "DATA_SAVED", { success: true });
+      setBadge(tabId, "SUCCESS");
+      console.log("[RoC Background] ✅ Auto-sync successful");
+    } catch (error: any) {
+      console.error("[RoC Background] ❌ Sync error:", error);
+      sendMessage(tabId, "DATA_ERROR", { error: error.message });
+      setBadge(tabId, "ERROR");
     }
   });
 
+  // badge updates
   chrome.runtime.onMessage.addListener((message, sender) => {
     if (!sender.tab?.id) return;
 
-    const tabId = sender.tab.id;
-
-    // Badge de succès - style Wappalyzer
     if (message.type === "DATA_SAVED" && message.success) {
-      chrome.action.setBadgeText({
-        text: "✓",
-        tabId: tabId,
-      });
-
-      chrome.action.setBadgeBackgroundColor({
-        color: "#00C851", // Vert moderne (comme Wappalyzer)
-        tabId: tabId,
-      });
-
-      chrome.action.setBadgeTextColor({
-        color: "#FFFFFF", // Texte blanc
-        tabId: tabId,
-      });
-    }
-
-    // Badge d'erreur - style moderne
-    if (message.type === "DATA_ERROR") {
-      chrome.action.setBadgeText({
-        text: "×",
-        tabId: tabId,
-      });
-
-      chrome.action.setBadgeBackgroundColor({
-        color: "#FF4444", // Rouge moderne
-        tabId: tabId,
-      });
-
-      chrome.action.setBadgeTextColor({
-        color: "#FFFFFF", // Texte blanc
-        tabId: tabId,
-      });
-
-      console.error("[RoC Background] Erreur API:", message.error);
+      setBadge(sender.tab.id, "SUCCESS");
+    } else if (message.type === "DATA_ERROR") {
+      setBadge(sender.tab.id, "ERROR");
+      console.error("[RoC Background] API Error:", message.error);
     }
   });
+
+  // dexie handler
+  chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+    if (!message.type?.startsWith("DEXIE_")) return;
+
+    handleDexieMessage(message)
+      .then(sendResponse)
+      .catch((error) => {
+        console.error("[RoC Background] Dexie error:", error);
+        sendResponse({ success: false, error: error.message });
+      });
+
+    return true; // keep async channel
+  });
+
+  // broadcast changes
+  async function broadcastChange(type: string, data: any) {
+    const tabs = await chrome.tabs.query({});
+    tabs.forEach((tab) => {
+      if (tab.id) {
+        chrome.tabs
+          .sendMessage(tab.id, {
+            type: "DEXIE_CHANGED",
+            payload: { type, data },
+          })
+          .catch(() => {});
+      }
+    });
+  }
+
+  async function handleDexieMessage(message: any) {
+    if (!message?.type) {
+      return { success: false, error: "Invalid message structure" };
+    }
+
+    const { type, payload } = message;
+
+    try {
+      switch (type) {
+        case "DEXIE_GET_BUILDINGS":
+          return { success: true, data: await db.buildings.toArray() };
+
+        case "DEXIE_SAVE_BUILDING": {
+          await db.buildings.put({ ...payload, updatedAt: Date.now() });
+          await broadcastChange("BUILDINGS", await db.buildings.toArray());
+          return { success: true };
+        }
+
+        case "DEXIE_UPDATE_BUILDING_QUANTITY": {
+          const { id, newQuantity } = payload;
+          const building = await db.buildings.get(id);
+          if (!building) return { success: false, error: "Building not found" };
+
+          building.quantity = Math.max(
+            1,
+            Math.min(building.maxQty ?? 40, newQuantity),
+          );
+          building.updatedAt = Date.now();
+          await db.buildings.put(building);
+          await broadcastChange("BUILDINGS", await db.buildings.toArray());
+          return { success: true };
+        }
+
+        case "DEXIE_TOGGLE_BUILDING_HIDDEN": {
+          const { id } = payload;
+          const building = await db.buildings.get(id);
+          if (!building) return { success: false, error: "Building not found" };
+
+          building.hidden = !building.hidden;
+          building.updatedAt = Date.now();
+          await db.buildings.put(building);
+          await broadcastChange("BUILDINGS", await db.buildings.toArray());
+          return { success: true };
+        }
+
+        case "DEXIE_REMOVE_BUILDING": {
+          await db.buildings.delete(payload.id);
+          await broadcastChange("BUILDINGS", await db.buildings.toArray());
+          return { success: true };
+        }
+
+        case "DEXIE_GET_TECHNOS":
+          return { success: true, data: await db.technos.toArray() };
+
+        case "DEXIE_SAVE_TECHNO": {
+          await db.technos.put({ ...payload, updatedAt: Date.now() });
+          await broadcastChange("TECHNOS", await db.technos.toArray());
+          return { success: true };
+        }
+
+        case "DEXIE_TOGGLE_TECHNO_HIDDEN": {
+          const { eraPath } = payload;
+          const technos = await db.technos
+            .filter((t) => t.id.startsWith(`techno_${eraPath}_`))
+            .toArray();
+
+          if (technos.length === 0)
+            return { success: false, error: "No technos found for this era" };
+
+          const newHiddenState = !technos[0].hidden;
+          const timestamp = Date.now();
+
+          await Promise.all(
+            technos.map((t) =>
+              db.technos.put({
+                ...t,
+                hidden: newHiddenState,
+                updatedAt: timestamp,
+              }),
+            ),
+          );
+
+          await broadcastChange("TECHNOS", await db.technos.toArray());
+          return { success: true };
+        }
+
+        case "DEXIE_REMOVE_TECHNO": {
+          await db.technos.delete(payload.id);
+          await broadcastChange("TECHNOS", await db.technos.toArray());
+          return { success: true };
+        }
+
+        case "DEXIE_REMOVE_ALL_TECHNOS": {
+          await db.technos.clear();
+          await broadcastChange("TECHNOS", []);
+          return { success: true };
+        }
+
+        case "DEXIE_SAVE_ERA_TECHNOS": {
+          const { eraPath, technos } = payload;
+
+          // remove all existing technos for this era
+          const existing = await db.technos.toArray();
+          const toDelete = existing.filter((t) =>
+            t.id.startsWith(`techno_${eraPath}_`),
+          );
+          if (toDelete.length)
+            await db.technos.bulkDelete(toDelete.map((t) => t.id));
+
+          // add new technos
+          if (technos.length) {
+            await db.technos.bulkAdd(
+              technos.map((t: TechnoEntity) => ({
+                ...t,
+                updatedAt: Date.now(),
+              })),
+            );
+          }
+
+          await broadcastChange("TECHNOS", await db.technos.toArray());
+          return { success: true };
+        }
+
+        case "DEXIE_CLEAR_ERA_TECHNOS": {
+          const { eraPath } = payload;
+          const existing = await db.technos.toArray();
+          const toDelete = existing.filter((t) =>
+            t.id.startsWith(`techno_${eraPath}_`),
+          );
+          if (toDelete.length)
+            await db.technos.bulkDelete(toDelete.map((t) => t.id));
+
+          await broadcastChange("TECHNOS", await db.technos.toArray());
+          return { success: true };
+        }
+
+        case "DEXIE_HIDE_ALL_BUILDINGS": {
+          const buildings = await db.buildings.toArray();
+          const timestamp = Date.now();
+
+          await db.buildings.bulkPut(
+            buildings.map((b) => ({
+              ...b,
+              hidden: true,
+              updatedAt: timestamp,
+            })),
+          );
+
+          await broadcastChange("BUILDINGS", await db.buildings.toArray());
+          return { success: true };
+        }
+
+        case "DEXIE_SHOW_ALL_BUILDINGS": {
+          const buildings = await db.buildings.toArray();
+          const timestamp = Date.now();
+
+          await db.buildings.bulkPut(
+            buildings.map((b) => ({
+              ...b,
+              hidden: false,
+              updatedAt: timestamp,
+            })),
+          );
+
+          await broadcastChange("BUILDINGS", await db.buildings.toArray());
+          return { success: true };
+        }
+
+        case "DEXIE_HIDE_ALL_TECHNOS": {
+          const technos = await db.technos.toArray();
+          const timestamp = Date.now();
+
+          await db.technos.bulkPut(
+            technos.map((t) => ({
+              ...t,
+              hidden: true,
+              updatedAt: timestamp,
+            })),
+          );
+
+          await broadcastChange("TECHNOS", await db.technos.toArray());
+          return { success: true };
+        }
+
+        case "DEXIE_SHOW_ALL_TECHNOS": {
+          const technos = await db.technos.toArray();
+          const timestamp = Date.now();
+
+          await db.technos.bulkPut(
+            technos.map((t) => ({
+              ...t,
+              hidden: false,
+              updatedAt: timestamp,
+            })),
+          );
+
+          await broadcastChange("TECHNOS", await db.technos.toArray());
+          return { success: true };
+        }
+
+        default:
+          return { success: false, error: "Unknown DEXIE operation" };
+      }
+    } catch (error) {
+      throw error instanceof Error ? error : new Error(String(error));
+    }
+  }
 });

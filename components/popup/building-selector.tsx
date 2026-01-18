@@ -27,13 +27,19 @@ export function BuildingSelector({
   const [secondary, setSecondary] = useState(selections[index]?.[1] || "");
   const [tertiary, setTertiary] = useState(selections[index]?.[2] || "");
 
+  // Synchroniser l'état local avec les props
+  useEffect(() => {
+    setPrimary(selections[index]?.[0] || "");
+    setSecondary(selections[index]?.[1] || "");
+    setTertiary(selections[index]?.[2] || "");
+  }, [selections, index]);
+
   const updateSelectionsLocal = async (
     pri: string,
     sec: string,
     ter: string
   ) => {
     const newSelections = [...selections];
-    // @ts-ignore
     newSelections[index] = [pri, sec, ter];
 
     await storage.setItem(
@@ -57,18 +63,25 @@ export function BuildingSelector({
     updateSelectionsLocal("", "", "");
   };
 
+  // Éviter la boucle infinie en ajoutant les dépendances correctes
   useEffect(() => {
-    const ter = tertiaryOptions[0] || "";
-    setTertiary(ter);
-    updateSelectionsLocal(primary, secondary, ter);
-  }, [secondary]);
+    if (secondary) {
+      const ter = tertiaryOptions[0] || "";
+      if (tertiary !== ter) {
+        setTertiary(ter);
+        updateSelectionsLocal(primary, secondary, ter);
+      }
+    }
+  }, [secondary, primary]); // Retirer tertiaryOptions et tertiary des deps
 
   useEffect(() => {
-    updateSelectionsLocal(primary, secondary, tertiary);
-  }, [primary]);
+    if (primary) {
+      updateSelectionsLocal(primary, secondary, tertiary);
+    }
+  }, [primary]); // Ne déclencher que quand primary change
 
   return (
-    <div className="pt-3 not-last:border-b border-alpha-400 min-w-[600px]">
+    <div className="pt-3 not-last:border-b border-alpha-400 md:min-w-[600px]">
       {/* Title + reset */}
       <div className="flex justify-between items-center h-4">
         <h2 className="block text-xs font-medium">{title}</h2>
@@ -93,7 +106,7 @@ export function BuildingSelector({
             setTertiary("");
           }}
         >
-          <SelectTrigger className="min-w-44 w-full h-8 text-xs">
+          <SelectTrigger className="md:min-w-44 w-full h-8 text-xs">
             <SelectValue placeholder="Select Primary" />
           </SelectTrigger>
 
@@ -119,7 +132,7 @@ export function BuildingSelector({
           onValueChange={setSecondary}
           disabled={!primary}
         >
-          <SelectTrigger className="min-w-44 w-full h-8 text-xs">
+          <SelectTrigger className="md:min-w-44 w-full h-8 text-xs">
             <SelectValue placeholder="Select Secondary" />
           </SelectTrigger>
 
@@ -141,7 +154,7 @@ export function BuildingSelector({
 
         {/* TERTIARY (read-only) */}
         <Select value={tertiary} disabled={!secondary}>
-          <SelectTrigger className="min-w-44 w-full h-8 text-xs">
+          <SelectTrigger className="md:min-w-44 w-full h-8 text-xs">
             <SelectValue placeholder="Select Tertiary" />
           </SelectTrigger>
 

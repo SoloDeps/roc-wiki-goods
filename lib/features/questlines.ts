@@ -154,7 +154,7 @@ export function getPreviousAndCurrentEra(abbr: string) {
 function getRequirementsValueSafe(
   dataAttr: string,
   userEra: EraAbbr,
-  userWorkshops: string[]
+  userWorkshops: string[],
 ) {
   const [typeRaw, sizeRaw] = dataAttr.split("_");
   const type = typeRaw.toLowerCase() as QuestRequirementCategory;
@@ -239,7 +239,7 @@ function getRequirementsValueSafe(
   }
 
   const amount = questsFormatNumber(
-    questsRequirements[category][size][userEra] as number
+    questsRequirements[category][size][userEra] as number,
   );
 
   return {
@@ -260,7 +260,7 @@ export function useQuestlines(era: EraAbbr | null, buildings: string[][]) {
 
   const userWorkshops = buildings[index];
   const tables = Array.from(
-    document.querySelectorAll("table.mw-collapsible")
+    document.querySelectorAll("table.mw-collapsible"),
   ) as HTMLTableElement[];
   if (tables.length === 0) return;
 
@@ -269,7 +269,7 @@ export function useQuestlines(era: EraAbbr | null, buildings: string[][]) {
 
   tables.forEach((table) => {
     const spans = Array.from(
-      table.querySelectorAll("span[data-attr]")
+      table.querySelectorAll("span[data-attr]"),
     ) as HTMLSpanElement[];
 
     for (const span of spans) {
@@ -280,7 +280,7 @@ export function useQuestlines(era: EraAbbr | null, buildings: string[][]) {
       if (!cache.has(dataAttr)) {
         cache.set(
           dataAttr,
-          getRequirementsValueSafe(dataAttr, era, userWorkshops)
+          getRequirementsValueSafe(dataAttr, era, userWorkshops),
         );
       }
       const result = cache.get(dataAttr)!;
@@ -296,7 +296,7 @@ export function useQuestlines(era: EraAbbr | null, buildings: string[][]) {
         if (type === "food") return text.includes("food");
         if (
           ["cavalry", "heavyinfantry", "infantry", "ranged", "siege"].includes(
-            type
+            type,
           )
         )
           return text;
@@ -306,7 +306,7 @@ export function useQuestlines(era: EraAbbr | null, buildings: string[][]) {
 
       // --- Cas spécial : si le <b> contient un <br> ---
       const hasBr = Array.from(boldNode.childNodes).some(
-        (node) => node.nodeName === "BR"
+        (node) => node.nodeName === "BR",
       );
 
       if (hasBr) {
@@ -334,17 +334,17 @@ export function useQuestlines(era: EraAbbr | null, buildings: string[][]) {
             const regex = new RegExp(`\\b${keyword}\\b`, "i");
 
             if (regex.test(textContent)) {
-              // Créer le fragment de remplacement
+              // create replacement fragment
               const fragment = document.createDocumentFragment();
 
-              // Texte avant le mot-clé
+              // text before keyword
               const parts = textContent.split(regex);
               const beforeMatch = parts[0];
               if (beforeMatch) {
                 fragment.appendChild(document.createTextNode(beforeMatch));
               }
 
-              // Image + label
+              // image + label
               if (result.imgSrc) {
                 const img = document.createElement("img");
                 img.src = result.imgSrc;
@@ -357,13 +357,13 @@ export function useQuestlines(era: EraAbbr | null, buildings: string[][]) {
 
               fragment.appendChild(document.createTextNode(result.label));
 
-              // Texte après le mot-clé
+              // text after keyword
               const afterMatch = parts[1];
               if (afterMatch) {
                 fragment.appendChild(document.createTextNode(afterMatch));
               }
 
-              // Remplacer le nœud texte
+              // replace text node
               boldNode.replaceChild(fragment, node);
               break;
             }
@@ -401,14 +401,14 @@ export function useQuestlines(era: EraAbbr | null, buildings: string[][]) {
 
       // --- Supprime le texte "(or era equivalent)" s'il existe dans le même span ---
       const textNodes = Array.from(span.childNodes).filter(
-        (n) => n.nodeType === Node.TEXT_NODE
+        (n) => n.nodeType === Node.TEXT_NODE,
       ) as Text[];
 
       for (const node of textNodes) {
         if (/\(or\s+era\s+equivalent\)/i.test(node.textContent || "")) {
           node.textContent = (node.textContent || "").replace(
             /\(or\s+era\s+equivalent\)/gi,
-            ""
+            "",
           );
         }
       }
@@ -433,7 +433,7 @@ export function useQuestlines(era: EraAbbr | null, buildings: string[][]) {
             newText = newText
               .replace(
                 /\[Previous Era\]\s*or\s*\[Current Era\]/gi,
-                currentEraName
+                currentEraName,
               )
               .replace(/\[Current Era\]/g, currentEraName);
           }
@@ -473,7 +473,7 @@ export function useQuestlines(era: EraAbbr | null, buildings: string[][]) {
             b.textContent = (b.textContent || "") + " Research Points";
             nextNode.textContent = nextNode.textContent.replace(
               /research points/i,
-              ""
+              "",
             );
             const hasImg = b.previousSibling instanceof HTMLImageElement;
             if (!hasImg) {

@@ -1,8 +1,8 @@
 import { presets } from "@/lib/data/presets";
-import {
-  savedBuildingsStorage,
-  savedTechnosStorage,
-} from "@/lib/overview/storage";
+// import {
+//   savedBuildingsStorage,
+//   savedTechnosStorage,
+// } from "@/lib/overview/storage";
 
 export async function applyPreset(eraId: string) {
   const preset = presets[eraId as keyof typeof presets];
@@ -13,8 +13,8 @@ export async function applyPreset(eraId: string) {
 
   try {
     // Appliquer les données du preset aux storages
-    await savedBuildingsStorage.setValue(preset.roc_saved_buildings);
-    await savedTechnosStorage.setValue(preset.roc_saved_technos);
+    // await savedBuildingsStorage.setValue(preset.roc_saved_buildings);
+    // await savedTechnosStorage.setValue(preset.roc_saved_technos);
 
     return true;
   } catch (error) {

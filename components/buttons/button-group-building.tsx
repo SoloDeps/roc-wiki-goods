@@ -1,15 +1,17 @@
-"use client";
-
 import { useState } from "react";
 import {
   ChevronDownIcon,
   ListCollapseIcon,
   ListTreeIcon,
   TrashIcon,
+  Filter,
+  EyeOff,
+  Eye,
 } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { ButtonGroup } from "@/components/ui/button-group";
+import { Badge } from "@/components/ui/badge";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -29,9 +31,13 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Badge } from "@/components/ui/badge";
-import { Filter } from "lucide-react";
 import { AddBuildingSheet } from "../add-building-sheet";
+import {
+  hideAllBuildings,
+  showAllBuildings,
+  hideAllTechnos,
+  showAllTechnos,
+} from "@/lib/overview/storage";
 
 interface ButtonGroupBuildingProps {
   onFiltersChange?: (filters: any) => void;
@@ -44,8 +50,6 @@ interface ButtonGroupBuildingProps {
 }
 
 export function ButtonGroupBuilding({
-  onFiltersChange,
-  filters,
   activeFiltersCount = 0,
   onToggleFilters,
   onExpandAll,
@@ -58,11 +62,43 @@ export function ButtonGroupBuilding({
     onDeleteAll?.();
     setDropdownOpen(false);
   };
+
+  const handleHideAll = async () => {
+    await hideAllBuildings();
+    await hideAllTechnos();
+    setDropdownOpen(false);
+  };
+
+  const handleShowAll = async () => {
+    await showAllBuildings();
+    await showAllTechnos();
+    setDropdownOpen(false);
+  };
+
   return (
     <>
-      <ButtonGroup>
+      <ButtonGroup className="block xl:hidden">
         <AddBuildingSheet />
       </ButtonGroup>
+
+      <ButtonGroup className="hidden md:block">
+        <Button variant="outline" size="sm" onClick={onCollapseAll}>
+          Collapse All
+        </Button>
+        <Button variant="outline" size="sm" onClick={onExpandAll}>
+          Expand All
+        </Button>
+      </ButtonGroup>
+
+      <ButtonGroup className="hidden xl:block">
+        <Button variant="outline" size="sm" onClick={handleHideAll}>
+          Hide All
+        </Button>
+        <Button variant="outline" size="sm" onClick={handleShowAll}>
+          Show All
+        </Button>
+      </ButtonGroup>
+
       <ButtonGroup>
         <Button
           variant="outline"
@@ -88,18 +124,28 @@ export function ButtonGroupBuilding({
 
           <DropdownMenuContent align="end" className="rounded-sm">
             <DropdownMenuGroup>
-              <DropdownMenuItem onClick={onCollapseAll}>
+              <DropdownMenuItem onClick={onCollapseAll} className="lg:hidden">
                 <ListCollapseIcon />
                 Collapse All
               </DropdownMenuItem>
 
-              <DropdownMenuItem onClick={onExpandAll}>
+              <DropdownMenuItem onClick={onExpandAll} className="lg:hidden">
                 <ListTreeIcon />
                 Expand All
               </DropdownMenuItem>
+
+              <DropdownMenuItem onClick={handleHideAll} className="lg:hidden">
+                <EyeOff />
+                Hide All
+              </DropdownMenuItem>
+
+              <DropdownMenuItem onClick={handleShowAll} className="lg:hidden">
+                <Eye />
+                Show All
+              </DropdownMenuItem>
             </DropdownMenuGroup>
 
-            <DropdownMenuSeparator />
+            <DropdownMenuSeparator className="lg:hidden" />
 
             <DropdownMenuGroup>
               <AlertDialog>
@@ -121,7 +167,7 @@ export function ButtonGroupBuilding({
                     <AlertDialogDescription className="dark:text-neutral-400">
                       This action cannot be <b>undone</b>.<br />
                       This will permanently{" "}
-                      <b>replace the current selections</b>.
+                      <b>delete all buildings and technologies</b>.
                     </AlertDialogDescription>
                   </AlertDialogHeader>
                   <AlertDialogFooter>

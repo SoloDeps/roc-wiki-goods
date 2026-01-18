@@ -1,18 +1,24 @@
-// Panneau de filtres pour les buildings
-import { useState, useMemo, memo } from "react";
+import { useMemo, memo, useId } from "react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { cn } from "@/lib/utils";
+import { buttonVariants } from "@/components/ui/button";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 
 interface PanelFiltersProps {
   onFilterChange: (filters: {
     tableType?: "construction" | "upgrade";
     location?: string;
+    hideHidden?: boolean;
+    hideTechnos?: boolean;
   }) => void;
-  availableLocations: string[]; // Liste des villes disponibles dans les données
-  availableTypes: ("construction" | "upgrade")[]; // Liste des types disponibles dans les données
+  availableLocations: string[];
+  availableTypes: ("construction" | "upgrade")[];
   currentFilters: {
     tableType?: "construction" | "upgrade";
     location?: string;
+    hideHidden?: boolean;
+    hideTechnos?: boolean;
   };
 }
 
@@ -22,112 +28,229 @@ export default memo(function PanelFilters({
   availableTypes,
   currentFilters,
 }: PanelFiltersProps) {
-  // Use currentFilters to determine the selected values, default to "all" if not set
+  const hideHiddenId = useId();
+  const hideTechnosId = useId();
+
   const tableType = currentFilters.tableType || "all";
-  const selectedLocation = currentFilters.location || "all";
+  const location = currentFilters.location || "all";
+  const hideHidden = currentFilters.hideHidden ?? false;
+  const hideTechnos = currentFilters.hideTechnos ?? false;
 
-  // Créer la liste des locations pour les boutons (commence par "all" puis les villes disponibles triées)
   const locations = useMemo(
-    () => ["all", ...availableLocations.sort()],
-    [availableLocations]
+    () => ["all", ...availableLocations],
+    [availableLocations],
   );
+  const types = useMemo(() => ["all", ...availableTypes], [availableTypes]);
 
-  // Créer la liste des types pour les boutons (commence par "all" puis les types disponibles)
-  const types = useMemo(
-    () => ["all", ...availableTypes.sort()],
-    [availableTypes]
-  );
-
-  const handleTableTypeChange = (type: "all" | "construction" | "upgrade") => {
-    // Vérifier que le type existe toujours dans les données disponibles
-    if (
-      type !== "all" &&
-      !availableTypes.includes(type as "construction" | "upgrade")
-    ) {
-      return; // Ne pas permettre la sélection si le type n'existe plus
-    }
-
+  const handleTypeChange = (type: "all" | "construction" | "upgrade") => {
+    if (type !== "all" && !availableTypes.includes(type)) return;
     onFilterChange({
       tableType: type === "all" ? undefined : type,
-      location: selectedLocation === "all" ? undefined : selectedLocation,
+      location: location === "all" ? undefined : location,
+      hideHidden,
+      hideTechnos,
     });
   };
 
-  const handleLocationChange = (location: string) => {
-    // Vérifier que la location existe toujours dans les données disponibles
-    if (location !== "all" && !availableLocations.includes(location)) {
-      return; // Ne pas permettre la sélection si la ville n'existe plus
-    }
+  const handleLocationChange = (loc: string) => {
+    if (loc !== "all" && !availableLocations.includes(loc)) return;
+    onFilterChange({
+      tableType: tableType === "all" ? undefined : tableType,
+      location: loc === "all" ? undefined : loc,
+      hideHidden,
+      hideTechnos,
+    });
+  };
 
+  const handleHideHiddenToggle = (value: string) => {
+    const checked = value === "true";
     onFilterChange({
       tableType: tableType === "all" ? undefined : tableType,
       location: location === "all" ? undefined : location,
+      hideHidden: checked,
+      hideTechnos,
     });
   };
 
+  const handleHideTechnosToggle = (value: string) => {
+    const checked = value === "true";
+    onFilterChange({
+      tableType: tableType === "all" ? undefined : tableType,
+      location: location === "all" ? undefined : location,
+      hideHidden,
+      hideTechnos: checked,
+    });
+  };
+
+  const hasActiveFilters =
+    tableType !== "all" || location !== "all" || hideHidden || hideTechnos;
+
   return (
-    <div className="p-4 space-y-4">
-      {/* Filter by type */}
-      <div className="space-y-2">
-        <h4 className="text-sm font-medium">Building Type</h4>
-        <div className="flex gap-2">
-          {types.map((type) => (
-            <Button
-              key={type}
-              variant={tableType === type ? "default" : "outline"}
-              size="sm"
-              onClick={() =>
-                handleTableTypeChange(
-                  type as "all" | "construction" | "upgrade"
-                )
-              }
+    <div className="">
+      <div className="w-full flex p-3 gap-6">
+        {/* Left section - Main filters */}
+        <div className="flex-1 space-y-4">
+          <div className="space-y-2">
+            <h4 className="text-sm font-medium">Building Type</h4>
+            <div className="flex gap-2">
+              {types.map((type) => (
+                <Button
+                  key={type}
+                  variant={tableType === type ? "default" : "outline"}
+                  size="sm"
+                  onClick={() =>
+                    handleTypeChange(type as "all" | "construction" | "upgrade")
+                  }
+                >
+                  {type === "all"
+                    ? "All"
+                    : type === "construction"
+                      ? "Construction"
+                      : "Upgrade"}
+                </Button>
+              ))}
+            </div>
+          </div>
+
+          <div className="space-y-2">
+            <h4 className="text-sm font-medium">City</h4>
+            <div className="flex flex-wrap gap-2">
+              {locations.map((loc) => (
+                <Button
+                  key={loc}
+                  variant={location === loc ? "default" : "outline"}
+                  size="sm"
+                  onClick={() => handleLocationChange(loc)}
+                >
+                  {loc === "all" ? "All" : loc}
+                </Button>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* Right section - Display options */}
+        <div className="w-56 space-y-4 border-l pl-5">
+          <div className="space-y-2">
+            <h4 className="text-sm font-medium">Hide "hidden" cards</h4>
+            <RadioGroup
+              value={hideHidden.toString()}
+              onValueChange={handleHideHiddenToggle}
+              className="flex gap-2"
             >
-              {type === "all"
-                ? "All"
-                : type === "construction"
-                ? "Construction"
-                : "Upgrade"}
-            </Button>
-          ))}
+              <label
+                className={cn(
+                  buttonVariants({ variant: "outline", size: "sm" }),
+                  "has-data-[state=checked]:bg-primary",
+                  "has-data-[state=checked]:text-primary-foreground",
+                  "has-data-[state=checked]:border-primary",
+                  "has-data-[state=checked]:hover:bg-primary!",
+                  "has-data-[state=checked]:hover:text-primary-foreground!",
+                  "has-data-[state=checked]:hover:opacity-100!",
+                )}
+              >
+                <RadioGroupItem
+                  id={`${hideHiddenId}-off`}
+                  value="false"
+                  className="sr-only after:absolute after:inset-0"
+                />
+                <span className="text-sm font-medium">Off</span>
+              </label>
+
+              <label
+                className={cn(
+                  buttonVariants({ variant: "outline", size: "sm" }),
+                  "has-data-[state=checked]:bg-primary",
+                  "has-data-[state=checked]:text-primary-foreground",
+                  "has-data-[state=checked]:border-primary",
+                  "has-data-[state=checked]:hover:bg-primary!",
+                  "has-data-[state=checked]:hover:text-primary-foreground!",
+                  "has-data-[state=checked]:hover:opacity-100!",
+                )}
+              >
+                <RadioGroupItem
+                  id={`${hideHiddenId}-on`}
+                  value="true"
+                  className="sr-only after:absolute after:inset-0"
+                />
+                <span className="text-sm font-medium">On</span>
+              </label>
+            </RadioGroup>
+          </div>
+
+          <div className="space-y-2">
+            <h4 className="text-sm font-medium">Hide "Technologies"</h4>
+            <RadioGroup
+              value={hideTechnos.toString()}
+              onValueChange={handleHideTechnosToggle}
+              className="flex gap-2"
+            >
+              <label
+                className={cn(
+                  buttonVariants({ variant: "outline", size: "sm" }),
+                  "has-data-[state=checked]:bg-primary",
+                  "has-data-[state=checked]:text-primary-foreground",
+                  "has-data-[state=checked]:border-primary",
+                  "has-data-[state=checked]:hover:bg-primary!",
+                  "has-data-[state=checked]:hover:text-primary-foreground!",
+                  "has-data-[state=checked]:hover:opacity-100!",
+                )}
+              >
+                <RadioGroupItem
+                  id={`${hideTechnosId}-off`}
+                  value="false"
+                  className="sr-only after:absolute after:inset-0"
+                />
+                <span className="text-sm font-medium">Off</span>
+              </label>
+
+              <label
+                className={cn(
+                  buttonVariants({ variant: "outline", size: "sm" }),
+                  "has-data-[state=checked]:bg-primary",
+                  "has-data-[state=checked]:text-primary-foreground",
+                  "has-data-[state=checked]:border-primary",
+                  "has-data-[state=checked]:hover:bg-primary!",
+                  "has-data-[state=checked]:hover:text-primary-foreground!",
+                  "has-data-[state=checked]:hover:opacity-100!",
+                )}
+              >
+                <RadioGroupItem
+                  id={`${hideTechnosId}-on`}
+                  value="true"
+                  className="sr-only after:absolute after:inset-0"
+                />
+                <span className="text-sm font-medium">On</span>
+              </label>
+            </RadioGroup>
+          </div>
         </div>
       </div>
 
-      {/* Filter by city */}
-      <div className="space-y-2">
-        <h4 className="text-sm font-medium">City</h4>
-        <div className="flex flex-wrap gap-2">
-          {locations.map((location) => (
-            <Button
-              key={location}
-              variant={selectedLocation === location ? "default" : "outline"}
-              size="sm"
-              onClick={() => handleLocationChange(location)}
-            >
-              {location === "all" ? "All" : location}
-            </Button>
-          ))}
-        </div>
-      </div>
-
-      {/* Active filters */}
-      {(tableType !== "all" || selectedLocation !== "all") && (
-        <div className="flex gap-1.5 items-center">
+      {hasActiveFilters && (
+        <div className="flex gap-1.5 items-center py-2 px-3 border-t">
           <span className="text-sm text-muted-foreground">Active filters:</span>
           {tableType !== "all" && (
             <Badge variant="secondary" className="rounded-md h-6">
               {tableType === "construction" ? "Construction" : "Upgrade"}
             </Badge>
           )}
-          {selectedLocation !== "all" && (
-            <Badge variant="secondary" className="rounded-md h-6">{selectedLocation}</Badge>
+          {location !== "all" && (
+            <Badge variant="secondary" className="rounded-md h-6">
+              {location}
+            </Badge>
           )}
-          <Button
-            variant="ghost"
-            size="sm"
-            onClick={() => {
-              onFilterChange({});
-            }}
-          >
+          {hideHidden && (
+            <Badge variant="secondary" className="rounded-md h-6">
+              Hide Hidden
+            </Badge>
+          )}
+          {hideTechnos && (
+            <Badge variant="secondary" className="rounded-md h-6">
+              Hide Technos
+            </Badge>
+          )}
+          <Button variant="ghost" size="sm" onClick={() => onFilterChange({})}>
             Clear
           </Button>
         </div>

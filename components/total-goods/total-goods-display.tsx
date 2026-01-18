@@ -1,8 +1,8 @@
-import type { ResourceTotals } from "@/lib/overview/calculator";
 import { useEffect, useState, useMemo } from "react";
 import {
   getCalculatorTotals,
   watchCalculatorTotals,
+  type ComparedTotals,
 } from "@/lib/overview/calculator";
 import { useBuildingSelections } from "@/hooks/useBuildingSelections";
 import {
@@ -15,266 +15,269 @@ import {
   type EraAbbr,
   WIKI_URL,
 } from "@/lib/constants";
-import { getBuildingFromLocal, getGoodImageUrlFromType } from "@/lib/utils";
+import {
+  getBuildingFromLocal,
+  getGoodImageUrlFromType,
+  slugify,
+} from "@/lib/utils";
 import { getItemIcon } from "@/lib/helper";
 import { ResourceBlock } from "./resource-block";
 import { Loader2Icon } from "lucide-react";
 import { EmptyOutline } from "@/components/empty-card";
-import { ScrollArea } from "../ui/scroll-area";
+import { ScrollArea } from "@/components/ui/scroll-area";
 
-export const TotalGoodsDisplay = () => {
-  // #region logic
+const RESOURCE_ORDER = ["coins", "food", "research_points", "gems"];
+
+interface TotalGoodsDisplayProps {
+  compareMode?: boolean;
+}
+
+export const TotalGoodsDisplay = ({
+  compareMode = false,
+}: TotalGoodsDisplayProps) => {
   const selections = useBuildingSelections();
   const [loading, setLoading] = useState(true);
-
-  const [totals, setTotals] = useState<ResourceTotals>({
+  const [totals, setTotals] = useState<ComparedTotals>({
     main: {},
     goods: {},
+    isCompareMode: false,
   });
 
-  // Charge les totaux au montage
   useEffect(() => {
-    async function fetchTotals() {
-      const result = await getCalculatorTotals();
-      setTotals({
-        main: result.main,
-        goods: result.goods,
-      });
-
+    (async () => {
+      const result = await getCalculatorTotals(compareMode);
+      setTotals(result);
       setLoading(false);
-    }
-    fetchTotals();
+    })();
 
-    // Watch les changements
-    const unwatch = watchCalculatorTotals((result) => {
-      setTotals({
-        main: result.main,
-        goods: result.goods,
-      });
-    });
+    return watchCalculatorTotals((result) => {
+      setTotals(result);
+    }, compareMode);
+  }, [compareMode]);
 
-    return () => unwatch?.();
-  }, []);
+  const getDifferenceColor = (difference: number): string => {
+    if (difference >= 0) return "34, 197, 94";
+    return "239, 68, 68";
+  };
 
-  // Crée un index global au montage pour lookup rapide
-  // Crée un index global Priority_Era → good brut ET good brut → Priority_Era
-  const goodToPriorityEra = useMemo(() => {
-    const map = new Map<string, string>();
-    const reverseMap = new Map<string, string>();
+  const goodMappings = useMemo(() => {
+    const toKey = new Map<string, string>();
+    const fromKey = new Map<string, string>();
 
     Object.entries(goodsNameMapping).forEach(([good, mappings]) => {
       mappings.forEach((m) => {
-        const normalized = good.toLowerCase().replace(/[^\w-]/g, "_");
-        const value = `${m.priority[0].toUpperCase()}${m.priority.slice(1)}_${
+        const normalized = slugify(good);
+        const key = `${m.priority[0].toUpperCase()}${m.priority.slice(1)}_${
           m.era
         }`;
-        map.set(normalized, value);
-        reverseMap.set(value, normalized);
+        toKey.set(normalized, key);
+        fromKey.set(key, normalized);
       });
     });
 
-    return { map, reverseMap };
+    return { toKey, fromKey };
   }, []);
 
-  // Normalisation des goods (Priority_Era)
   const normalizedGoods = useMemo(() => {
-    const priorityGoods = new Map<string, number>();
-    const otherGoods = new Map<string, number>();
+    const priority = new Map<string, number>();
+    const other = new Map<string, number>();
 
-    Object.entries(totals.goods).forEach(([type, amount]) => {
-      // Vérifie si c'est déjà au format Priority_Era (ex: Secondary_IE)
-      if (/^(Primary|Secondary|Tertiary)_[A-Z]{2}$/.test(type)) {
-        priorityGoods.set(type, (priorityGoods.get(type) ?? 0) + amount);
+    const goodsToUse = totals.goods;
+
+    Object.entries(goodsToUse).forEach(([type, amount]) => {
+      if (/^(Primary|Secondary|Tertiary)_[A-Z]{2}$/i.test(type)) {
+        const displayAmount =
+          compareMode && totals.differences
+            ? (totals.differences.goods[type] ?? amount)
+            : amount;
+
+        priority.set(type, (priority.get(type) ?? 0) + displayAmount);
         return;
       }
 
-      // Sinon, essaie de mapper un good brut vers Priority_Era
-      const normalizedType = type.toLowerCase().replace(/[^\w-]/g, "_");
-      const key = goodToPriorityEra.map.get(normalizedType);
+      const normalized = slugify(type);
+      const key = goodMappings.toKey.get(normalized);
+
+      const displayAmount =
+        compareMode && totals.differences
+          ? (totals.differences.goods[type] ?? amount)
+          : amount;
+
       if (key) {
-        priorityGoods.set(key, (priorityGoods.get(key) ?? 0) + amount);
+        priority.set(key, (priority.get(key) ?? 0) + displayAmount);
       } else {
-        otherGoods.set(type, (otherGoods.get(type) ?? 0) + amount);
+        other.set(type, (other.get(type) ?? 0) + displayAmount);
       }
     });
 
-    return { priorityGoods, otherGoods };
-  }, [totals.goods, goodToPriorityEra]);
+    eras.forEach((era) => {
+      const abbr = era.abbr as EraAbbr;
+      ["Primary", "Secondary", "Tertiary"].forEach((priorityType) => {
+        const key = `${priorityType}_${abbr}`;
+
+        if (!priority.has(key)) {
+          if (compareMode && totals.differences?.goods?.[key] !== undefined) {
+            priority.set(key, totals.differences.goods[key]);
+          } else {
+            priority.set(key, 0);
+          }
+        }
+      });
+    });
+
+    return { priority, other };
+  }, [totals.goods, totals.differences, goodMappings, compareMode]);
 
   const eraBlocks = useMemo(() => {
     const getPriorityMeta = (
       priority: "primary" | "secondary" | "tertiary",
-      eraAbbr: EraAbbr
+      era: EraAbbr,
     ) => {
-      const building = getBuildingFromLocal(priority, eraAbbr, selections);
-      const normalizedName = building
-        ? building.toLowerCase().replace(/[^\w-]/g, "_")
-        : "";
-      const meta = normalizedName
-        ? goodsUrlByEra[eraAbbr]?.[normalizedName]
-        : undefined;
-      const url = meta?.url ?? itemsUrl.default;
+      const building = getBuildingFromLocal(priority, era, selections);
+      const normalized = slugify(building ?? "");
+      const meta = normalized ? goodsUrlByEra[era]?.[normalized] : undefined;
+
       return {
-        icon: `${WIKI_URL}${url}`,
+        icon: `${WIKI_URL}${meta?.url ?? itemsUrl.default}`,
         name:
-          meta?.name ??
-          (priority === "primary"
-            ? "Primary"
-            : priority === "secondary"
-            ? "Secondary"
-            : "Tertiary"),
+          meta?.name ?? priority.charAt(0).toUpperCase() + priority.slice(1),
       };
     };
 
     return eras.map((era) => {
       const abbr = era.abbr as EraAbbr;
-      const primaryAmount =
-        normalizedGoods.priorityGoods.get(`Primary_${abbr}`) ?? 0;
-      const secondaryAmount =
-        normalizedGoods.priorityGoods.get(`Secondary_${abbr}`) ?? 0;
-      const tertiaryAmount =
-        normalizedGoods.priorityGoods.get(`Tertiary_${abbr}`) ?? 0;
-
-      const resources = [
-        { ...getPriorityMeta("primary", abbr), amount: primaryAmount },
-        { ...getPriorityMeta("secondary", abbr), amount: secondaryAmount },
-        { ...getPriorityMeta("tertiary", abbr), amount: tertiaryAmount },
-      ];
+      const amounts = {
+        primary: normalizedGoods.priority.get(`Primary_${abbr}`) ?? 0,
+        secondary: normalizedGoods.priority.get(`Secondary_${abbr}`) ?? 0,
+        tertiary: normalizedGoods.priority.get(`Tertiary_${abbr}`) ?? 0,
+      };
 
       return {
         title: era.name,
-        resources,
-        shouldHide:
-          primaryAmount === 0 && secondaryAmount === 0 && tertiaryAmount === 0,
+        resources: [
+          {
+            ...getPriorityMeta("primary", abbr),
+            amount: amounts.primary,
+            difference: amounts.primary,
+          },
+          {
+            ...getPriorityMeta("secondary", abbr),
+            amount: amounts.secondary,
+            difference: amounts.secondary,
+          },
+          {
+            ...getPriorityMeta("tertiary", abbr),
+            amount: amounts.tertiary,
+            difference: amounts.tertiary,
+          },
+        ],
+        shouldHide: Object.values(amounts).every((v) => v === 0),
       };
     });
-  }, [selections, normalizedGoods]);
+  }, [selections, normalizedGoods, compareMode]);
 
-  const otherGoodsByCivilization = useMemo(() => {
+  const otherGoodsByCiv = useMemo(() => {
     const grouped: Record<
       string,
-      Array<{ icon: string; name: string; amount: number }>
+      Array<{ icon: string; name: string; amount: number; difference?: number }>
     > = {};
 
-    // Initialiser les groupes de civilisations
-    Object.keys(goodsByCivilization).forEach((civ) => {
-      grouped[civ] = [];
-    });
+    Object.keys(goodsByCivilization).forEach((civ) => (grouped[civ] = []));
 
-    // Grouper les other goods par civilisation
-    Array.from(normalizedGoods.otherGoods.entries()).forEach(
-      ([type, amount]) => {
-        // Utiliser le nom avec espaces pour la comparaison (format affiché)
-        const displayName = type.replace(/_/g, " ");
+    normalizedGoods.other.forEach((amount, type) => {
+      const displayName = type.replace(/_/g, " ");
+      let foundCiv: string | null = null;
 
-        // Chercher à quelle civilisation appartient ce good
-        let foundCivilization = null;
-        for (const [civKey, civData] of Object.entries(goodsByCivilization)) {
-          if (civData.goods.includes(displayName)) {
-            foundCivilization = civKey;
-            break;
-          }
-        }
-
-        const resourceItem = {
-          icon: `${WIKI_URL}${getGoodImageUrlFromType(type, selections)}`,
-          name: displayName, // Affichage avec espaces pour l'UI
-          amount,
-        };
-
-        if (foundCivilization) {
-          grouped[foundCivilization].push(resourceItem);
-        } else {
-          // Si le good n'appartient à aucune civilisation connue, le mettre dans un groupe "OTHERS"
-          if (!grouped["OTHERS"]) {
-            grouped["OTHERS"] = [];
-          }
-          grouped["OTHERS"].push(resourceItem);
-        }
-      }
-    );
-
-    // Ajouter les ressources des villes alliées aux blocs de civilisation correspondants
-    Object.entries(totals.main).forEach(([type, amount]) => {
-      if (amount <= 0) return;
-
-      // Chercher à quelle ville alliée appartient cette ressource
-      let foundCity = null;
-      for (const [cityKey, cityData] of Object.entries(alliedCityResources)) {
-        if (cityData.resources.includes(type)) {
-          foundCity = cityKey;
+      for (const [civKey, civData] of Object.entries(goodsByCivilization)) {
+        if (civData.goods.includes(displayName)) {
+          foundCiv = civKey;
           break;
         }
       }
 
-      if (foundCity) {
-        const displayName = type.replace(/_/g, " ");
-        const cityName =
-          alliedCityResources[foundCity as keyof typeof alliedCityResources]
-            .name;
+      const item = {
+        icon: `${WIKI_URL}${getGoodImageUrlFromType(type, selections)}`,
+        name: displayName,
+        amount,
+        difference: amount,
+      };
 
-        // Ajouter la ressource au bloc de la civilisation correspondante
-        if (!grouped[cityName]) {
-          grouped[cityName] = [];
-        }
-
-        grouped[cityName].push({
-          icon: `${WIKI_URL}${getItemIcon(type)}`,
-          name: displayName,
-          amount,
-        });
+      if (foundCiv) {
+        grouped[foundCiv].push(item);
+      } else {
+        if (!grouped.OTHERS) grouped.OTHERS = [];
+        grouped.OTHERS.push(item);
       }
     });
 
-    // Filtrer les civilisations vides
-    const filteredGrouped = Object.fromEntries(
-      Object.entries(grouped).filter(([_, resources]) => resources.length > 0)
-    );
+    Object.entries(totals.main).forEach(([type, originalAmount]) => {
+      if (originalAmount === 0 && !compareMode) return;
 
-    return filteredGrouped;
-  }, [normalizedGoods.otherGoods, selections, totals.main, getItemIcon]);
+      for (const [cityKey, cityData] of Object.entries(alliedCityResources)) {
+        if (cityData.resources.includes(type)) {
+          const cityName = cityData.name;
+          if (!grouped[cityName]) grouped[cityName] = [];
+
+          const displayAmount =
+            compareMode && totals.differences
+              ? (totals.differences.main[type] ?? originalAmount)
+              : originalAmount;
+
+          grouped[cityName].push({
+            icon: `${WIKI_URL}${getItemIcon(type)}`,
+            name: type.replace(/_/g, " "),
+            amount: displayAmount,
+            difference: displayAmount,
+          });
+          break;
+        }
+      }
+    });
+
+    return Object.fromEntries(
+      Object.entries(grouped).filter(([_, resources]) => resources.length > 0),
+    );
+  }, [
+    normalizedGoods.other,
+    selections,
+    totals.main,
+    totals.differences,
+    compareMode,
+  ]);
 
   const mainResources = useMemo(() => {
-    const resourceOrder = ["coins", "food", "gems"];
-
     return Object.entries(totals.main)
-      .filter(([type, amount]) => {
-        // Exclure les ressources des villes alliées
-        const isAlliedResource = Object.values(alliedCityResources).some(
-          (city) => city.resources.includes(type)
+      .filter(([type, originalAmount]) => {
+        const isAllied = Object.values(alliedCityResources).some((city) =>
+          city.resources.includes(type),
         );
-        return amount > 0 && !isAlliedResource;
+        if (!compareMode && originalAmount <= 0) return false;
+        return !isAllied;
       })
-      .map(([type, amount]) => ({
-        type,
-        amount,
-        icon: `${WIKI_URL}${getItemIcon(type)}`,
-        name: type.replace(/_/g, " "),
-      }))
+      .map(([type, originalAmount]) => {
+        const displayAmount =
+          compareMode && totals.differences
+            ? (totals.differences.main[type] ?? originalAmount)
+            : originalAmount;
+
+        return {
+          type,
+          amount: displayAmount,
+          icon: `${WIKI_URL}${getItemIcon(type)}`,
+          name: type.replace(/_/g, " "),
+          difference: displayAmount,
+        };
+      })
       .sort((a, b) => {
-        const aIndex = resourceOrder.indexOf(a.type);
-        const bIndex = resourceOrder.indexOf(b.type);
+        const aIdx = RESOURCE_ORDER.indexOf(a.type);
+        const bIdx = RESOURCE_ORDER.indexOf(b.type);
 
-        // Si les deux sont dans l'ordre prédéfini, utiliser cet ordre
-        if (aIndex !== -1 && bIndex !== -1) {
-          return aIndex - bIndex;
-        }
-
-        // Si seul a est dans l'ordre prédéfini, le mettre en premier
-        if (aIndex !== -1) {
-          return -1;
-        }
-
-        // Si seul b est dans l'ordre prédéfini, le mettre en premier
-        if (bIndex !== -1) {
-          return 1;
-        }
-
-        // Sinon, ordre alphabétique pour les autres ressources
+        if (aIdx !== -1 && bIdx !== -1) return aIdx - bIdx;
+        if (aIdx !== -1) return -1;
+        if (bIdx !== -1) return 1;
         return a.type.localeCompare(b.type);
       });
-  }, [totals.main, getItemIcon]);
-  // #endregion
+  }, [totals.main, totals.differences, compareMode]);
 
   if (loading) {
     return (
@@ -284,16 +287,16 @@ export const TotalGoodsDisplay = () => {
     );
   }
 
-  const visibleEraBlocks = eraBlocks.filter((block) => !block.shouldHide);
-  const hasOtherGoods = Object.keys(otherGoodsByCivilization).length > 0;
-  const hasMainResources = mainResources.length > 0;
+  const visibleEras = eraBlocks.filter((b) => !b.shouldHide);
+  const hasOtherGoods = Object.keys(otherGoodsByCiv).length > 0;
   const hasAnyResources =
-    hasMainResources || visibleEraBlocks.length > 0 || hasOtherGoods;
+    mainResources.length > 0 || visibleEras.length > 0 || hasOtherGoods;
 
-  if (!hasAnyResources) {
+  // En mode normal, afficher la empty card seulement si pas de ressources
+  // En mode compare, toujours afficher le contenu (même vide) pour éviter le flash
+  if (!hasAnyResources && !compareMode) {
     return (
-      <div className="p-8 size-full m-auto flex items-center justify-center bg-background-200 overflow-hidden">
-        {/* prevent header issue */}
+      <div className="p-8 size-full m-auto flex items-center justify-center bg-background-200">
         <div className="-mt-12">
           <EmptyOutline perso="female" type="total" />
         </div>
@@ -304,39 +307,48 @@ export const TotalGoodsDisplay = () => {
   return (
     <ScrollArea className="size-full overflow-y-auto bg-background-200">
       <div className="p-4 pb-16 max-w-[870px] mx-auto">
-        <div className="grid grid-cols-1 md:grid-cols-5 xl:grid-cols-1 2xl:grid-cols-5 gap-3">
-          <div className="col-span-3 md:col-start-2 xl:col-start-1 2xl:col-start-2">
+        <div className="grid grid-cols-1 md:grid-cols-6 xl:grid-cols-1 2xl:grid-cols-6 gap-3">
+          <div className="col-span-4 md:col-start-2 xl:col-start-1 2xl:col-start-2">
             <ResourceBlock
-              title="Main Resources"
+              title={
+                compareMode ? "Difference (You - Needed)" : "Main Resources"
+              }
               resources={mainResources}
               type="main"
+              className={
+                mainResources.length > 3 ? "grid-cols-4" : "grid-cols-3"
+              }
+              compareMode={compareMode}
+              getDifferenceColor={getDifferenceColor}
             />
           </div>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-1 2xl:grid-cols-2 gap-3 pt-3">
           <div className="space-y-3">
-            {visibleEraBlocks.map((block) => (
+            {visibleEras.map((block) => (
               <ResourceBlock
                 key={block.title}
-                title={block.title}
-                resources={block.resources}
+                {...block}
                 type="era"
+                compareMode={compareMode}
+                getDifferenceColor={getDifferenceColor}
               />
             ))}
           </div>
+
           {hasOtherGoods && (
             <div className="space-y-3">
-              {Object.entries(otherGoodsByCivilization).map(
-                ([civKey, resources]) => (
-                  <ResourceBlock
-                    key={civKey}
-                    title={civKey}
-                    resources={resources}
-                    type="other"
-                  />
-                )
-              )}
+              {Object.entries(otherGoodsByCiv).map(([civ, resources]) => (
+                <ResourceBlock
+                  key={civ}
+                  title={civ}
+                  resources={resources}
+                  type="other"
+                  compareMode={compareMode}
+                  getDifferenceColor={getDifferenceColor}
+                />
+              ))}
             </div>
           )}
         </div>

@@ -13,10 +13,21 @@ import { TotalDrawer } from "@/components/modals/total-drawer";
 import { WorkshopModal } from "@/components/modals/workshop-modal";
 import { PresetListModal } from "@/components/modals/preset-list-modal";
 
-export function ButtonGroupTotal() {
+interface ButtonGroupTotalProps {
+  compareMode?: boolean;
+  onToggleCompare?: (enabled: boolean) => void;
+}
+
+export function ButtonGroupTotal({
+  compareMode = false,
+  onToggleCompare,
+}: ButtonGroupTotalProps) {
   return (
     <ButtonGroup>
-      <TotalDrawer />
+      <TotalDrawer
+        compareMode={compareMode}
+        onToggleCompare={onToggleCompare}
+      />
 
       <DropdownMenu>
         <DropdownMenuTrigger asChild>

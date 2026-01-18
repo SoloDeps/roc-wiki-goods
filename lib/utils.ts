@@ -7,10 +7,14 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
+export function slugify(str: string): string {
+  return str.toLowerCase().replace(/[^\w-]/g, "_");
+}
+
 export function getBuildingFromLocal(
   priority: string,
   era: string,
-  buildings: string[][]
+  buildings: string[][],
 ): string | undefined {
   // Create mapping for priority levels with case-insensitive handling
   const priorityMapping = {
@@ -28,10 +32,12 @@ export function getBuildingFromLocal(
 
   // Find group index with flexible abbreviation matching
   const groupIndex = buildingsAbbr.findIndex((group) =>
-    group.abbreviations.some((abbr) => abbr.toUpperCase() === era.toUpperCase())
+    group.abbreviations.some(
+      (abbr) => abbr.toUpperCase() === era.toUpperCase(),
+    ),
   );
 
-  // Return building if valid, otherwise undefined
+  // return building if valid, otherwise undefined
   return groupIndex !== -1 ? buildings[groupIndex][priorityIndex] : undefined;
 }
 
@@ -62,10 +68,10 @@ export function replaceTextByImage(buildings: string[][]): void {
       const fragment = document.createDocumentFragment();
 
       text.replace(imageReplaceRegex, (match, priority, era, offset) => {
-        // Ajouter le texte avant la correspondance
+        // add text before match
         if (offset > lastIndex) {
           fragment.appendChild(
-            document.createTextNode(text.slice(lastIndex, offset))
+            document.createTextNode(text.slice(lastIndex, offset)),
           );
         }
         lastIndex = offset + match.length;
@@ -80,7 +86,7 @@ export function replaceTextByImage(buildings: string[][]): void {
           goodsUrlByEra[era.toUpperCase() as EraAbbr]?.[normalizedBuilding]
             ?.url || itemsUrl.default;
 
-        // Créer et configurer l'image
+        // create and configure image
         const img = document.createElement("img");
         img.src = imgUrl;
         img.alt = `${priority}_${era.replace(/[<>"'/]/g, "")}`;
@@ -96,7 +102,7 @@ export function replaceTextByImage(buildings: string[][]): void {
         return ""; // Empêche le remplacement par du texte
       });
 
-      // Ajouter le texte restant après la dernière correspondance
+      // add remaining text after last match
       if (lastIndex < text.length) {
         fragment.appendChild(document.createTextNode(text.slice(lastIndex)));
       }
@@ -148,17 +154,32 @@ export function formatNumber(value: number) {
 }
 
 export function questsFormatNumber(value: number): string {
+  // Gérer le signe négatif
+  const isNegative = value < 0;
+  const absValue = Math.abs(value);
+
   const formatWithDecimals = (num: number) =>
     num.toLocaleString("fr-FR", {
       minimumFractionDigits: 2,
       maximumFractionDigits: 2,
     });
 
-  if (value >= 1_000_000_000) return formatWithDecimals(value / 1_000_000_000) + " B";
-  if (value >= 1_000_000) return formatWithDecimals(value / 1_000_000) + " M";
-  if (value >= 100_000) return formatWithDecimals(value / 1_000) + " K";
-  if (value >= 1_000) return value.toLocaleString("en-US");
-  return value.toString();
+  let formatted = "";
+
+  if (absValue >= 1_000_000_000) {
+    formatted = formatWithDecimals(absValue / 1_000_000_000) + " B";
+  } else if (absValue >= 1_000_000) {
+    formatted = formatWithDecimals(absValue / 1_000_000) + " M";
+  } else if (absValue >= 100_000) {
+    formatted = formatWithDecimals(absValue / 1_000) + " K";
+  } else if (absValue >= 1_000) {
+    formatted = absValue.toLocaleString("en-US");
+  } else {
+    formatted = absValue.toString();
+  }
+
+  // add negative sign if needed
+  return isNegative ? `-${formatted}` : formatted;
 }
 
 export function getTitlePage(): [string | null, string | null, string | null] {
@@ -181,7 +202,7 @@ export function getTitlePage(): [string | null, string | null, string | null] {
 
 export function getClosestLowerOrEqualMaxQty(
   level: number,
-  levelMaxQty: Record<number, number>
+  levelMaxQty: Record<number, number>,
 ): number {
   const levels = Object.keys(levelMaxQty).map(Number);
   const validLevels = levels.filter((l) => l <= level);
@@ -191,13 +212,13 @@ export function getClosestLowerOrEqualMaxQty(
 }
 
 export function getGoodsImg(buildingName: string) {
-  const nameFormatted = buildingName.toLowerCase().replace(/[^\w-]/g, "_");
+  const nameFormatted = slugify(buildingName);
 
   return assetGoods[nameFormatted] || defaultGood;
 }
 
 export function findPreviousH2SpanWithId(
-  element: Element
+  element: Element,
 ): HTMLSpanElement | null {
   let current: Element | null = element;
 
@@ -218,7 +239,7 @@ export function findPreviousH2SpanWithId(
 
 export function filterTables(
   tables: HTMLTableElement[],
-  targetIds: string[]
+  targetIds: string[],
 ): { element: HTMLTableElement; type: string }[] {
   // Normalise les targetIds en minuscule
   const lowerTargetIds = targetIds.map((id) => id.toLowerCase());
@@ -245,7 +266,7 @@ export function filterTables(
     })
     .filter(
       (item): item is { element: HTMLTableElement; type: string } =>
-        item !== null
+        item !== null,
     );
 }
 
@@ -278,7 +299,7 @@ export const buildingNoLvl = [
 export function getBuildingImageUrl(
   buildingName: string,
   level: string,
-  type: string
+  type: string,
 ): string {
   const withCapital = [
     "homes",
@@ -317,10 +338,10 @@ export function getBuildingImageUrl(
 
 export function getGoodImageUrlFromType(
   type: string,
-  userSelections: string[][]
+  userSelections: string[][],
 ): string {
   // 1️⃣ Cas PRIORITY_ERA → image du building sélectionné
-  const match = type.match(/^(Primary|Secondary|Tertiary)_([A-Z]{2})$/);
+  const match = type.match(/^(Primary|Secondary|Tertiary)_([A-Z]{2})$/i);
 
   if (match) {
     const [, priorityRaw, eraRaw] = match;
@@ -335,7 +356,7 @@ export function getGoodImageUrlFromType(
     const building = getBuildingFromLocal(priority, era, userSelections);
 
     if (building) {
-      const normalized = building.toLowerCase().replace(/[^\w-]/g, "_");
+      const normalized = slugify(building);
       const meta = goodsUrlByEra[era]?.[normalized];
       if (meta?.url) return meta.url;
     }
@@ -346,4 +367,19 @@ export function getGoodImageUrlFromType(
   // 2️⃣ GOOD BRUT → image wiki directe
   const fileName = type.replace(/\s+/g, "_");
   return `/images/thumb/${fileName}.png/32px-${fileName}.png`;
+}
+
+export function getGoodNameFromPriorityEra(
+  priority: string,
+  era: string,
+  userSelections: string[][],
+): string | null {
+  const building = getBuildingFromLocal(priority, era, userSelections);
+  if (!building) return null;
+
+  const normalizedBuilding = slugify(building);
+  const goodMeta =
+    goodsUrlByEra[era.toUpperCase() as EraAbbr]?.[normalizedBuilding];
+
+  return goodMeta?.name ? slugify(goodMeta.name) : null;
 }

@@ -1,13 +1,112 @@
-// Import des eras pour le tri
-import { eras } from "@/lib/constants";
+import { BuildingEntity, TechnoEntity } from "@/lib/storage/dexie";
+import { buildingsAbbr, eras } from "@/lib/constants";
 import { parseNumber } from "@/lib/utils";
 import { storage } from "#imports";
 
-const STORAGE_KEY = "roc_saved_buildings";
-const TECHNOS_STORAGE_KEY = "roc_saved_technos";
+// background communication
+async function sendDexieMessage(type: string, payload?: any): Promise<any> {
+  return new Promise((resolve, reject) => {
+    chrome.runtime.sendMessage({ type, payload }, (response) => {
+      if (chrome.runtime.lastError) {
+        reject(new Error(chrome.runtime.lastError.message));
+      } else if (response?.success) {
+        resolve(response.data);
+      } else {
+        reject(new Error(response?.error || "Unknown error"));
+      }
+    });
+  });
+}
 
+// buildings operations
+export const getBuildings = () => sendDexieMessage("DEXIE_GET_BUILDINGS");
+export const saveBuilding = (building: Omit<BuildingEntity, "updatedAt">) =>
+  sendDexieMessage("DEXIE_SAVE_BUILDING", building);
+export const updateBuildingQuantity = (id: string, newQuantity: number) =>
+  sendDexieMessage("DEXIE_UPDATE_BUILDING_QUANTITY", { id, newQuantity });
+export const toggleBuildingHidden = (id: string) =>
+  sendDexieMessage("DEXIE_TOGGLE_BUILDING_HIDDEN", { id });
+export const removeBuilding = (id: string) =>
+  sendDexieMessage("DEXIE_REMOVE_BUILDING", { id });
+
+// technologies operations
+export const getTechnos = () => sendDexieMessage("DEXIE_GET_TECHNOS");
+export const saveTechno = (techno: Omit<TechnoEntity, "updatedAt">) =>
+  sendDexieMessage("DEXIE_SAVE_TECHNO", techno);
+export const toggleTechnoHidden = (eraPath: string) =>
+  sendDexieMessage("DEXIE_TOGGLE_TECHNO_HIDDEN", { eraPath });
+export const removeTechno = (id: string) =>
+  sendDexieMessage("DEXIE_REMOVE_TECHNO", { id });
+export const removeAllTechnos = () =>
+  sendDexieMessage("DEXIE_REMOVE_ALL_TECHNOS");
+export const saveEraTechnos = (eraPath: string, technos: TechnoEntity[]) =>
+  sendDexieMessage("DEXIE_SAVE_ERA_TECHNOS", { eraPath, technos });
+export const clearEraTechnos = (eraPath: string) =>
+  sendDexieMessage("DEXIE_CLEAR_ERA_TECHNOS", { eraPath });
+
+// hide/show all
+export const hideAllBuildings = () =>
+  sendDexieMessage("DEXIE_HIDE_ALL_BUILDINGS");
+export const showAllBuildings = () =>
+  sendDexieMessage("DEXIE_SHOW_ALL_BUILDINGS");
+export const hideAllTechnos = () =>
+  sendDexieMessage("DEXIE_HIDE_ALL_TECHNOS");
+export const showAllTechnos = () =>
+  sendDexieMessage("DEXIE_SHOW_ALL_TECHNOS");
+
+// watch system
+const buildingsListeners = new Set<(data: BuildingEntity[]) => void>();
+const technosListeners = new Set<(data: TechnoEntity[]) => void>();
+
+// cache initialization
+let cacheInitialized = false;
+let buildingsCache: BuildingEntity[] = [];
+let technosCache: TechnoEntity[] = [];
+
+async function initCache() {
+  if (cacheInitialized) return;
+  [buildingsCache, technosCache] = await Promise.all([
+    getBuildings(),
+    getTechnos(),
+  ]);
+  cacheInitialized = true;
+}
+
+// background listener
+if (typeof chrome !== "undefined" && chrome.runtime?.onMessage) {
+  chrome.runtime.onMessage.addListener((message) => {
+    if (message.type !== "DEXIE_CHANGED") return;
+
+    const { type: changeType, data } = message.payload;
+
+    if (changeType === "BUILDINGS") {
+      buildingsCache = data || [];
+      buildingsListeners.forEach((cb) => cb(buildingsCache));
+    } else if (changeType === "TECHNOS") {
+      technosCache = data || [];
+      technosListeners.forEach((cb) => cb(technosCache));
+    }
+  });
+}
+
+export function watchBuildings(callback: (data: BuildingEntity[]) => void) {
+  buildingsListeners.add(callback);
+
+  initCache().then(() => callback(buildingsCache));
+
+  return () => buildingsListeners.delete(callback);
+}
+
+export function watchTechnos(callback: (data: TechnoEntity[]) => void) {
+  technosListeners.add(callback);
+
+  initCache().then(() => callback(technosCache));
+
+  return () => technosListeners.delete(callback);
+}
+
+// utilities
 const RESOURCE_TYPES = {
-  // Monnaies
   coins: "coins",
   coin: "coins",
   pennies: "pennies",
@@ -15,294 +114,47 @@ const RESOURCE_TYPES = {
   deben: "deben",
   dirham: "dirham",
   asper: "asper",
-
-  // Nourriture et ressources
   food: "food",
   cocoa: "cocoa",
   rice: "rice",
-
-  // Spéciaux
   gems: "gems",
   goods: "goods",
 } as const;
 
 export interface SavedBuilding {
   id: string;
-  costs: {
-    [key: string]: number | Array<{ type: string; amount: number }>;
-  };
+  costs: Record<string, number | Array<{ type: string; amount: number }>>;
   maxQty: number;
   quantity: number;
 }
 
-export interface SavedTechno {
-  id: string;
-  costs: {
-    [key: string]: number | Array<{ type: string; amount: number }>;
-  };
-}
+export function flattenAndSortTechnos(technos: TechnoEntity[]): TechnoEntity[] {
+  const eraOrder = eras.map((e) => e.abbr);
+  const eraNameToAbbr = Object.fromEntries(eras.map((e) => [e.id, e.abbr]));
+  const byEra: Record<string, TechnoEntity[]> = {};
 
-export interface SavedData {
-  buildings: SavedBuilding[];
-}
-
-export interface SavedTechnosData {
-  technos: {
-    [era: string]: {
-      [technoIndex: string]: SavedTechno;
-    };
-  };
-}
-
-// Define storage item avec fallback
-export const savedBuildingsStorage = storage.defineItem<SavedData>(
-  `local:${STORAGE_KEY}`,
-  {
-    fallback: {
-      buildings: [],
-    },
-  }
-);
-
-// Define storage item pour les technos avec fallback
-export const savedTechnosStorage = storage.defineItem<SavedTechnosData>(
-  `local:${TECHNOS_STORAGE_KEY}`,
-  {
-    fallback: {
-      technos: {},
-    },
-  }
-);
-
-// Chargement depuis WXT storage
-export async function loadSavedBuildings(): Promise<SavedData> {
-  try {
-    const data = await savedBuildingsStorage.getValue();
-    return data;
-  } catch (error) {
-    console.error("Error loading saved buildings:", error);
-    return {
-      buildings: [],
-    };
-  }
-}
-
-// Sauvegarde d'un bâtiment
-export async function saveBuilding(
-  row: HTMLTableRowElement,
-  rowId: string,
-  metadata: { maxQty: number; quantity: number }
-) {
-  const data = await loadSavedBuildings();
-
-  // Supprime l'ancienne version si elle existe
-  data.buildings = data.buildings.filter((b) => b.id !== rowId);
-
-  // Extrait les coûts UNITAIRES
-  const unitCosts = extractCosts(row);
-
-  data.buildings.push({
-    id: rowId,
-    costs: unitCosts,
-    ...metadata,
+  technos.forEach((t) => {
+    const era = t.id.split("_").slice(1, -1).join("_");
+    (byEra[era] ??= []).push(t);
   });
 
-  await savedBuildingsStorage.setValue(data);
+  return Object.keys(byEra)
+    .sort((a, b) => {
+      const idxA = eraOrder.indexOf(eraNameToAbbr[a] || a);
+      const idxB = eraOrder.indexOf(eraNameToAbbr[b] || b);
+      return (idxA === -1 ? Infinity : idxA) - (idxB === -1 ? Infinity : idxB);
+    })
+    .flatMap((era) =>
+      byEra[era].sort((a, b) => {
+        const numA = parseInt(a.id.split("_").pop() || "0");
+        const numB = parseInt(b.id.split("_").pop() || "0");
+        return numA - numB;
+      }),
+    );
 }
 
-// Mise à jour de la quantité
-export async function updateBuildingQuantity(
-  rowId: string,
-  newQuantity: number
-) {
-  const data = await loadSavedBuildings();
-  const building = data.buildings.find((b) => b.id === rowId);
-  if (!building) return;
-
-  const max = building.maxQty ?? 40; // Maximum de 40 pour éviter les valeurs excessives
-  building.quantity = Math.max(1, Math.min(max, newQuantity));
-
-  await savedBuildingsStorage.setValue(data);
-}
-
-// Suppression d'un bâtiment
-export async function removeBuilding(rowId: string) {
-  const data = await loadSavedBuildings();
-  data.buildings = data.buildings.filter((b) => b.id !== rowId);
-  await savedBuildingsStorage.setValue(data);
-}
-
-// Watch pour écouter les changements (utile pour popup/options page)
-export function watchSavedBuildings(callback: (newData: SavedData) => void) {
-  return savedBuildingsStorage.watch((newData) => {
-    callback(newData);
-  });
-}
-
-// Chargement des technos depuis WXT storage
-export async function loadSavedTechnos(): Promise<SavedTechnosData> {
-  try {
-    const data = await savedTechnosStorage.getValue();
-    return data;
-  } catch (error) {
-    console.error("Error loading saved technos:", error);
-    return {
-      technos: {},
-    };
-  }
-}
-
-// Mettre à jour les technologies d'une ère spécifique (ajoute et supprime selon la sélection)
-export async function updateEraTechnos(
-  eraPath: string,
-  technos: SavedTechno[]
-) {
-  const data = await loadSavedTechnos();
-
-  // Organiser les technologies par index
-  const organizedTechnos: { [index: string]: SavedTechno } = {};
-
-  technos.forEach((techno) => {
-    // Extraire l'index depuis l'ID : techno_mainSection_subSection_thirdSection_index
-    const idParts = techno.id.split("_");
-    if (idParts.length >= 5) {
-      const index = idParts[idParts.length - 1]; // Dernière partie est l'index
-      organizedTechnos[index] = techno;
-    }
-  });
-
-  // Remplacer complètement les technologies de cette ère
-  data.technos[eraPath] = organizedTechnos;
-
-  await savedTechnosStorage.setValue(data);
-}
-
-// Sauvegarde des technos sélectionnées
-export async function saveTechnos(technos: SavedTechno[]) {
-  const data = await loadSavedTechnos();
-
-  // Organiser les technologies par ère en utilisant exactement la même logique que les IDs
-  technos.forEach((techno) => {
-    // Extraire l'ère depuis l'ID : techno_mainSection_subSection_thirdSection_index
-    const idParts = techno.id.split("_");
-    if (idParts.length >= 5) {
-      // techno + au moins 3 parties + index
-      const era = idParts.slice(1, -1).join("_"); // Prend tout sauf "techno" et l'index
-
-      if (!data.technos[era]) {
-        data.technos[era] = {};
-      }
-
-      // Extraire l'index (dernière partie)
-      const index = idParts[idParts.length - 1];
-      data.technos[era][index] = techno;
-    }
-  });
-
-  await savedTechnosStorage.setValue(data);
-}
-
-// Watch pour écouter les changements des technos
-export function watchSavedTechnos(
-  callback: (newData: SavedTechnosData) => void
-) {
-  return savedTechnosStorage.watch((newData) => {
-    callback(newData);
-  });
-}
-
-// Suppression d'une techno
-export async function removeTechno(technoId: string) {
-  const data = await loadSavedTechnos();
-
-  // Parcourir toutes les ères pour trouver et supprimer la techno
-  Object.keys(data.technos).forEach((era) => {
-    const technosInEra = data.technos[era];
-    Object.keys(technosInEra).forEach((index) => {
-      if (technosInEra[index].id === technoId) {
-        delete technosInEra[index];
-      }
-    });
-
-    // Si l'ère est vide après suppression, la supprimer aussi
-    if (Object.keys(technosInEra).length === 0) {
-      delete data.technos[era];
-    }
-  });
-
-  await savedTechnosStorage.setValue(data);
-}
-
-// Suppression de toutes les technos
-export async function removeAllTechnos() {
-  const data = {
-    technos: {},
-  };
-  await savedTechnosStorage.setValue(data);
-}
-
-// Fonction pour aplatir et trier les technos selon l'ordre des eras
-export function flattenAndSortTechnos(
-  technosData: SavedTechnosData
-): SavedTechno[] {
-  const flattenedTechnos: SavedTechno[] = [];
-
-  // Créer un mapping des noms d'ères normalisés vers les abréviations
-  const eraNameToAbbr: Record<string, string> = {};
-  eras.forEach((era) => {
-    eraNameToAbbr[era.id] = era.abbr;
-  });
-
-  // Obtenir l'ordre des eras à partir du tableau eras
-  const eraOrder = eras.map((era) => era.abbr);
-
-  // Trier les clés (ères) selon l'ordre défini dans constants.ts
-  const sortedEras = Object.keys(technosData.technos).sort((a, b) => {
-    const abbrA = eraNameToAbbr[a] || a;
-    const abbrB = eraNameToAbbr[b] || b;
-
-    const indexA = eraOrder.indexOf(abbrA as (typeof eras)[0]["abbr"]);
-    const indexB = eraOrder.indexOf(abbrB as (typeof eras)[0]["abbr"]);
-
-    // Si les deux sont dans la liste des eras, trier selon leur ordre
-    if (indexA !== -1 && indexB !== -1) {
-      return indexA - indexB;
-    }
-
-    // Si seulement un est dans la liste, mettre celui qui est dans la liste en premier
-    if (indexA !== -1) return -1;
-    if (indexB !== -1) return 1;
-
-    // Si aucun n'est dans la liste, trier alphabétiquement
-    return a.localeCompare(b);
-  });
-
-  // Aplatir les technos dans l'ordre trié
-  sortedEras.forEach((era) => {
-    const technosInEra = technosData.technos[era];
-    if (technosInEra) {
-      // Trier les technos dans chaque ère par index (numérique)
-      const sortedTechnosInEra = Object.entries(technosInEra)
-        .sort(([indexA], [indexB]) => {
-          const numA = parseInt(indexA, 10);
-          const numB = parseInt(indexB, 10);
-          return isNaN(numA) || isNaN(numB) ? 0 : numA - numB;
-        })
-        .map(([, techno]) => techno);
-
-      flattenedTechnos.push(...sortedTechnosInEra);
-    }
-  });
-
-  return flattenedTechnos;
-}
-
-// Extraction des coûts UNITAIRES (coins, food, others, goods uniquement)
 export function extractCosts(row: HTMLTableRowElement): SavedBuilding["costs"] {
   const cells = Array.from(row.cells);
-  const costs: SavedBuilding["costs"] = {};
-
-  // Récupère les noms de colonnes depuis le header
   const headerRow = row.parentElement?.querySelector("tr");
   const columnMap: Record<number, string> = {};
 
@@ -312,127 +164,142 @@ export function extractCosts(row: HTMLTableRowElement): SavedBuilding["costs"] {
     });
   }
 
-  // Parcourt chaque cellule
-  cells.forEach((cell, index) => {
-    const columnName = columnMap[index] || "";
+  const costs: SavedBuilding["costs"] = {};
 
-    // Cherche si cette colonne correspond à un type de ressource connu
+  cells.forEach((cell, i) => {
     const resourceKey =
-      RESOURCE_TYPES[columnName as keyof typeof RESOURCE_TYPES];
+      RESOURCE_TYPES[columnMap[i] as keyof typeof RESOURCE_TYPES];
+    if (!resourceKey) return;
 
-    if (!resourceKey) return; // Skip les colonnes inconnues
-
-    // Cas spécial : goods (extraction complexe)
     if (resourceKey === "goods") {
       costs.goods = extractGoodsDetails(cell);
       return;
     }
 
-    // Cas général : ressources simples (coins, food, gems, etc.)
-    let originalText = "";
-
+    let text = "";
     cell.childNodes.forEach((node) => {
       if (node.nodeType === Node.TEXT_NODE) {
-        const textNode = node as Text;
-        originalText +=
-          (textNode as any).dataOriginal ?? textNode.textContent ?? "";
+        text += (node as any).dataOriginal ?? node.textContent ?? "";
       }
     });
 
-    originalText = originalText.trim();
-
-    // Nettoie les références d'images (Coin.png, Food.png, etc.)
-    const cleanedText = originalText.replace(/\w+\.png/g, "").trim();
-    const value = parseNumber(cleanedText);
-
-    if (value > 0) {
-      costs[resourceKey] = value;
-    }
+    const value = parseNumber(text.replace(/\w+\.png/g, "").trim());
+    if (value > 0) costs[resourceKey] = value;
   });
 
   return costs;
 }
 
-// Extrait les détails des goods depuis la cellule (img & textes)
 function extractGoodsDetails(
-  cell: HTMLTableCellElement
+  cell: HTMLTableCellElement,
 ): Array<{ type: string; amount: number }> {
   const details: Array<{ type: string; amount: number }> = [];
-
-  // 🔹 Reconstruire un HTML "original" (img + texte unitaire)
-  let originalHTML = "";
+  let html = "";
 
   cell.childNodes.forEach((node) => {
     if (node.nodeType === Node.TEXT_NODE) {
-      originalHTML += (node as any).dataOriginal ?? node.textContent ?? "";
+      html += (node as any).dataOriginal ?? node.textContent ?? "";
     } else if (node.nodeName === "BR") {
-      originalHTML += "<br>";
+      html += "<br>";
     } else if (node.nodeType === Node.ELEMENT_NODE) {
-      originalHTML += (node as HTMLElement).outerHTML;
+      html += (node as HTMLElement).outerHTML;
     }
   });
 
-  // 🔹 Split par ligne
-  const lines = originalHTML.split(/<br\s*\/?>/i);
+  html.split(/<br\s*\/?>/i).forEach((line) => {
+    if (!line.trim()) return;
 
-  for (const line of lines) {
-    if (!line.trim()) continue;
+    const div = document.createElement("div");
+    div.innerHTML = line.trim();
+    const text = div.textContent || "";
 
-    const tempDiv = document.createElement("div");
-    tempDiv.innerHTML = line.trim();
+    const patterns = [
+      { regex: /Primary:\s*([A-Z]+)\s*([\d,]+)/i, prefix: "Primary_" },
+      { regex: /Secondary:\s*([A-Z]+)\s*([\d,]+)/i, prefix: "Secondary_" },
+      { regex: /Tertiary:\s*([A-Z]+)\s*([\d,]+)/i, prefix: "Tertiary_" },
+    ];
 
-    const textContent = tempDiv.textContent || "";
-
-    // === TEXTE Primary / Secondary / Tertiary ===
-    const primaryMatch = textContent.match(/Primary:\s*([A-Z]+)\s*([\d,]+)/i);
-    if (primaryMatch) {
-      details.push({
-        type: `Primary_${primaryMatch[1]}`,
-        amount: parseNumber(primaryMatch[2]),
-      });
-      continue;
+    for (const { regex, prefix } of patterns) {
+      const match = text.match(regex);
+      if (match) {
+        details.push({
+          type: `${prefix}${match[1]}`,
+          amount: parseNumber(match[2]),
+        });
+        return;
+      }
     }
 
-    const secondaryMatch = textContent.match(
-      /Secondary:\s*([A-Z]+)\s*([\d,]+)/i
-    );
-    if (secondaryMatch) {
-      details.push({
-        type: `Secondary_${secondaryMatch[1]}`,
-        amount: parseNumber(secondaryMatch[2]),
-      });
-      continue;
-    }
-
-    const tertiaryMatch = textContent.match(/Tertiary:\s*([A-Z]+)\s*([\d,]+)/i);
-    if (tertiaryMatch) {
-      details.push({
-        type: `Tertiary_${tertiaryMatch[1]}`,
-        amount: parseNumber(tertiaryMatch[2]),
-      });
-      continue;
-    }
-
-    // === IMG + nombre ===
-    const img = tempDiv.querySelector("img");
-    if (!img) continue;
-
-    // ✅ Priorité alt, fallback src
-    let goodType = "";
-    const alt = (img.getAttribute("alt") || "").replace(".png", "").trim();
-    if (alt) {
-      goodType = alt;
-    } else {
+    const img = div.querySelector("img");
+    if (img) {
+      const alt = img.getAttribute("alt")?.replace(".png", "").trim();
       const src = img.getAttribute("src") || "";
-      const srcMatch = src.match(/\/([^\/]+)\.png/i);
-      if (srcMatch) goodType = srcMatch[1].replace(/^\d+px-/, "");
-    }
+      const goodType =
+        alt || src.match(/\/([^\/]+)\.png/i)?.[1].replace(/^\d+px-/, "") || "";
+      const valueMatch = text.match(/([\d,]+)/);
 
-    const valueMatch = textContent.match(/([\d,]+)/);
-    if (valueMatch && goodType) {
-      details.push({ type: goodType, amount: parseNumber(valueMatch[1]) });
+      if (goodType && valueMatch) {
+        details.push({
+          type: goodType.replace(/[^\w-]/g, "_"),
+          amount: parseNumber(valueMatch[1]),
+        });
+      }
     }
-  }
+  });
 
   return details;
+}
+
+// building selections
+const DEFAULT_SELECTIONS = buildingsAbbr.map(() => ["", "", ""]);
+
+export async function getBuildingSelections(): Promise<string[][]> {
+  try {
+    const stored = await storage.getItem<string>("local:buildingSelections");
+
+    if (!stored) {
+      return DEFAULT_SELECTIONS;
+    }
+
+    const parsed = JSON.parse(stored);
+    return Array.isArray(parsed) ? parsed : DEFAULT_SELECTIONS;
+  } catch {
+    return DEFAULT_SELECTIONS;
+  }
+}
+
+const selectionsListeners = new Set<(data: string[][]) => void>();
+let selectionsCache: string[][] = DEFAULT_SELECTIONS;
+let selectionsCacheInitialized = false;
+
+async function initSelectionsCache() {
+  if (selectionsCacheInitialized) return;
+  selectionsCache = await getBuildingSelections();
+  selectionsCacheInitialized = true;
+}
+
+export function watchBuildingSelections(callback: (data: string[][]) => void) {
+  selectionsListeners.add(callback);
+
+  initSelectionsCache().then(() => callback(selectionsCache));
+
+  const unwatch = storage.watch<string>(
+    "local:buildingSelections",
+    (newValue) => {
+      if (!newValue) return;
+
+      try {
+        const parsed = JSON.parse(newValue);
+        if (Array.isArray(parsed)) {
+          selectionsCache = parsed;
+          selectionsListeners.forEach((cb) => cb(selectionsCache));
+        }
+      } catch {}
+    },
+  );
+
+  return () => {
+    selectionsListeners.delete(callback);
+    unwatch();
+  };
 }

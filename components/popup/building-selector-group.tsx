@@ -6,7 +6,7 @@ export function BuildingSelectorGroup() {
   const selections = useBuildingSelections();
 
   return (
-    <div className="px-4 border-y">
+    <div className="px-4 border-y border-b-transparent">
       {buildingsAbbr.map((group, index) => (
         <BuildingSelector
           key={index}

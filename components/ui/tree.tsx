@@ -35,7 +35,7 @@ function Tree({ indent = 20, tree, className, ...props }: TreeProps) {
       : {};
   const mergedProps = { ...props, ...containerProps };
 
-  // Extract style from mergedProps to merge with our custom styles
+  // extract style from merged props
   const { style: propStyle, ...otherProps } = mergedProps;
 
   // Merge styles
@@ -56,8 +56,9 @@ function Tree({ indent = 20, tree, className, ...props }: TreeProps) {
   );
 }
 
-interface TreeItemProps<T = any>
-  extends React.HTMLAttributes<HTMLButtonElement> {
+interface TreeItemProps<
+  T = any,
+> extends React.HTMLAttributes<HTMLButtonElement> {
   item: ItemInstance<T>;
   indent?: number;
   asChild?: boolean;
@@ -75,7 +76,7 @@ function TreeItem<T = any>({
   const itemProps = typeof item.getProps === "function" ? item.getProps() : {};
   const mergedProps = { ...props, ...itemProps };
 
-  // Extract style from mergedProps to merge with our custom styles
+  // extract style from merged props
   const { style: propStyle, ...otherProps } = mergedProps;
 
   // Merge styles
@@ -129,8 +130,9 @@ function TreeItem<T = any>({
   );
 }
 
-interface TreeItemLabelProps<T = any>
-  extends React.HTMLAttributes<HTMLSpanElement> {
+interface TreeItemLabelProps<
+  T = any,
+> extends React.HTMLAttributes<HTMLSpanElement> {
   item?: ItemInstance<T>;
 }
 

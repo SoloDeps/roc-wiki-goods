@@ -15,8 +15,7 @@ export function getMaxQty(
   if (!buildingName) return 1;
 
   if (mainSection === "home_cultures") {
-    const name =
-      subSection === "workshops" ? "workshops" : buildingName;
+    const name = subSection === "workshops" ? "workshops" : buildingName;
     return limitAllBuildingsByEra[eraAbbr]?.[name] ?? 1;
   }
 
@@ -31,9 +30,7 @@ export function getMaxQty(
       return values[values.length - 1] ?? 1;
     }
 
-    return (
-      limitAlliedBuildingsByEra[city]?.[buildingName]?.[eraAbbr] ?? 1
-    );
+    return limitAlliedBuildingsByEra[city]?.[buildingName]?.[eraAbbr] ?? 1;
   }
 
   return limitAllBuildingsByEra[eraAbbr]?.[buildingName] ?? 1;

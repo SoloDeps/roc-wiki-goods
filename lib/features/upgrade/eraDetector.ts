@@ -1,26 +1,22 @@
 import { eras } from "@/lib/constants";
 
-export function detectEraRow(
-  row: HTMLTableRowElement
-): string | null {
+export function detectEraRow(row: HTMLTableRowElement): string | null {
   const cells = Array.from(row.cells);
 
-  // Ligne avec colspan
   if (cells.some((c) => c.hasAttribute("colspan"))) {
     const text = row.textContent?.trim() || "";
     const match = eras.find((era) =>
       text.toLowerCase().includes(era.name.toLowerCase())
     );
-    return match ? match.abbr : null;
+    return match?.abbr ?? null;
   }
 
-  // Première cellule
   if (cells.length > 0) {
     const text = cells[0].textContent?.trim() || "";
     const match = eras.find((era) =>
       text.toLowerCase().includes(era.name.toLowerCase())
     );
-    return match ? match.abbr : null;
+    return match?.abbr ?? null;
   }
 
   return null;

@@ -1,5 +1,5 @@
 import { MinusIcon, PlusIcon } from "lucide-react";
-import { memo, useEffect, useRef } from "react";
+import { memo } from "react";
 import { Button, Group, NumberField } from "react-aria-components";
 
 interface BuildingCounterProps {
@@ -7,21 +7,12 @@ interface BuildingCounterProps {
   onChange: (value: number) => void;
   min?: number;
   max?: number;
+  disabled?: boolean;
 }
 
-function BuildingCounter({
-  value,
-  onChange,
-  min = 1,
-  max = 999,
-}: BuildingCounterProps) {
+function BuildingCounter({ value, onChange, min = 1, max = 999, disabled = false }: BuildingCounterProps) {
   return (
-    <NumberField
-      value={value}
-      onChange={onChange}
-      minValue={min}
-      maxValue={max}
-    >
+    <NumberField value={value} onChange={onChange} minValue={min} maxValue={max} isDisabled={disabled} aria-label="Building quantity">
       <Group className="relative inline-flex h-8 items-center overflow-hidden whitespace-nowrap rounded-sm border border-input text-sm shadow-sm">
         <Button
           slot="decrement"

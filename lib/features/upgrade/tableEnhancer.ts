@@ -1,4 +1,4 @@
-// lib/upgrade/tableEnhancer.ts
+// lib/upgrade/tableEnhancer.ts - Optimized Version
 import { skipBuildingLimit } from "@/lib/constants";
 import { getTitlePage } from "@/lib/utils";
 import { detectEraRow } from "./eraDetector";
@@ -7,10 +7,32 @@ import { multiplyRowTextContent } from "./rowMultiplier";
 import { addHoldListener } from "./hold";
 import { createSaveCell } from "./saveColumn";
 import {
-  loadSavedBuildings,
   saveBuilding,
   removeBuilding,
+  extractCosts,
+  getBuildings,
 } from "@/lib/overview/storage";
+
+// use set for better performance with multiple concurrent updates
+const activeLocalUpdates = new Set<string>();
+
+export function isLocalBuildingUpdate() {
+  return activeLocalUpdates.size > 0;
+}
+
+// helper to wrap local updates with proper tracking
+async function withLocalUpdate<T>(
+  id: string,
+  action: () => Promise<T>,
+): Promise<T> {
+  activeLocalUpdates.add(id);
+  try {
+    return await action();
+  } finally {
+    // remove update flag after microtask to ensure watchers see the change
+    queueMicrotask(() => activeLocalUpdates.delete(id));
+  }
+}
 
 interface TableInfo {
   element: HTMLTableElement;
@@ -22,14 +44,14 @@ export async function enhanceTables(tables: TableInfo[]) {
   const skipCalculator = skipBuildingLimit.includes(third ?? "");
   const pageUrl = window.location.pathname;
 
-  // Charge tout le storage d'abord pour éviter lecture multiple
-  const savedData = await loadSavedBuildings();
+  // single storage read, create lookup map for o(1) access
+  const savedData = await getBuildings();
+  const savedMap = new Map(savedData.map((b: any) => [b.id, b]));
 
   tables.forEach(({ element, type }) => {
     let currentEra = "";
     const rows = Array.from(element.querySelectorAll("tr"));
 
-    // Stocker le type de table comme attribut pour le content script
     element.setAttribute("data-table-type", type);
 
     let levelColumnIndex = -1;
@@ -38,21 +60,19 @@ export async function enhanceTables(tables: TableInfo[]) {
     if (header) {
       const headerCells = Array.from(header.children) as HTMLTableCellElement[];
       levelColumnIndex = headerCells.findIndex(
-        (cell) => cell.textContent?.trim().toLowerCase() === "level"
+        (cell) => cell.textContent?.trim().toLowerCase() === "level",
       );
 
       if (!skipCalculator) {
         const calcTh = document.createElement("td");
         calcTh.textContent = "Calculator";
-        calcTh.style.textAlign = "center";
-        calcTh.style.width = "100px";
+        calcTh.style.cssText = "text-align: center; width: 100px";
         header.appendChild(calcTh);
       }
 
       const saveTh = document.createElement("td");
       saveTh.textContent = "Save";
-      saveTh.style.textAlign = "center";
-      saveTh.style.width = "60px";
+      saveTh.style.cssText = "text-align: center; width: 60px";
       header.appendChild(saveTh);
     }
 
@@ -61,7 +81,7 @@ export async function enhanceTables(tables: TableInfo[]) {
         Array.from(row.cells).forEach((cell) => {
           if (
             ["coins", "food", "goods", "gems"].includes(
-              cell.textContent?.trim().toLocaleLowerCase() || ""
+              cell.textContent?.trim().toLowerCase() || "",
             )
           ) {
             cell.style.minWidth = "96px";
@@ -75,9 +95,9 @@ export async function enhanceTables(tables: TableInfo[]) {
         currentEra = era;
         const colspanCells = row.querySelectorAll("td[colspan]");
         if (colspanCells.length > 0) {
+          const additionalCols = skipCalculator ? 1 : 2;
           colspanCells.forEach((td) => {
             const colspan = parseInt(td.getAttribute("colspan") || "1", 10);
-            const additionalCols = skipCalculator ? 1 : 2;
             td.setAttribute("colspan", (colspan + additionalCols).toString());
           });
           return;
@@ -85,20 +105,15 @@ export async function enhanceTables(tables: TableInfo[]) {
       }
 
       const cells = Array.from(row.children).filter(
-        (cell) => cell.tagName.toLowerCase() === "td"
+        (cell) => cell.tagName.toLowerCase() === "td",
       ) as HTMLTableCellElement[];
 
-      // console.log(cells);
-
-      // Récupérer la valeur de level depuis la bonne colonne
+      // extract level
       const levelText =
         levelColumnIndex >= 0 && cells[levelColumnIndex]
           ? cells[levelColumnIndex].textContent?.trim() || String(index)
           : String(index);
-
-      // Extraire le dernier nombre
-      const match = levelText.match(/(\d+)\s*$/);
-      const level = match ? match[1] : levelText;
+      const level = levelText.match(/(\d+)\s*$/)?.[1] || levelText;
 
       const rowId = `${pageUrl}|${type}|${currentEra}|${level}`;
       const maxQty = getMaxQty(
@@ -106,10 +121,10 @@ export async function enhanceTables(tables: TableInfo[]) {
         main ?? "",
         sub ?? "",
         third ?? "",
-        type
+        type,
       );
 
-      // Stocke le texte original
+      // store original text once
       if (!row.hasAttribute("data-original-stored")) {
         row.setAttribute("data-original-stored", "true");
         row.setAttribute("data-wiki-source", "true");
@@ -118,11 +133,11 @@ export async function enhanceTables(tables: TableInfo[]) {
             if (node.nodeType === Node.TEXT_NODE) {
               (node as any).dataOriginal = node.textContent ?? "";
             }
-          })
+          }),
         );
       }
 
-      // ===== Colonne Calculator =====
+      // ===== calculator column =====
       let count = 1;
       let isSaved = false;
       let countSpan: HTMLSpanElement | null = null;
@@ -139,9 +154,8 @@ export async function enhanceTables(tables: TableInfo[]) {
 
           countSpan = document.createElement("span");
           countSpan.textContent = "1";
-          countSpan.style.width = "28px";
-          countSpan.style.display = "inline-block";
-          countSpan.style.textAlign = "center";
+          countSpan.style.cssText =
+            "width: 28px; display: inline-block; text-align: center";
 
           controlCell.append(minusBtn, countSpan, plusBtn);
 
@@ -150,21 +164,24 @@ export async function enhanceTables(tables: TableInfo[]) {
             multiplyRowTextContent(row, count);
           };
 
+          // simplified step function with single update path
           const step = async (delta: number) => {
             const newCount = Math.min(maxQty, Math.max(1, count + delta));
-            if (newCount !== count) {
-              count = newCount;
-              updateRow();
-              if (isSaved) {
-                // Marquer comme mise à jour locale pour éviter la resynchronisation
-                row.setAttribute("data-local-update", "true");
-                await saveBuilding(row, rowId, {
+            if (newCount === count) return;
+
+            count = newCount;
+            updateRow();
+
+            if (isSaved) {
+              await withLocalUpdate(rowId, async () => {
+                await saveBuilding({
+                  id: rowId,
+                  costs: extractCosts(row),
                   maxQty,
                   quantity: count,
+                  hidden: false,
                 });
-                // Retirer le flag après un court délai
-                setTimeout(() => row.removeAttribute("data-local-update"), 100);
-              }
+              });
             }
           };
 
@@ -179,11 +196,11 @@ export async function enhanceTables(tables: TableInfo[]) {
         row.appendChild(controlCell);
       }
 
-      // ===== Colonne Save =====
+      // ===== save column =====
       const { td: saveTd, checkbox } = createSaveCell(rowId);
 
-      // Vérifie si la ligne est déjà sauvegardée
-      const existing = savedData.buildings.find((b) => b.id === rowId);
+      // use map lookup instead of find
+      const existing = savedMap.get(rowId);
       if (existing) {
         isSaved = true;
         checkbox.checked = true;
@@ -194,46 +211,39 @@ export async function enhanceTables(tables: TableInfo[]) {
 
       checkbox.addEventListener("change", async () => {
         isSaved = checkbox.checked;
+
         if (isSaved) {
-          // IMPORTANT: Lire la valeur actuelle du span, pas la variable locale
+          // store current expanded state first use existing data
           const currentSpanValue = countSpan
             ? parseInt(countSpan.textContent || "1")
             : 1;
+          const existingBuilding = savedMap.get(rowId);
 
-          // Forcer la relecture du storage ET resynchroniser la variable locale
-          const currentData = await loadSavedBuildings();
-          const existingBuilding = currentData.buildings.find(
-            (b) => b.id === rowId
-          );
+          count = existingBuilding?.quantity ?? currentSpanValue;
+          if (countSpan) countSpan.textContent = count.toString();
+          multiplyRowTextContent(row, count);
 
-          if (existingBuilding) {
-            // Utiliser la quantité du storage et tout resynchroniser
-            count = existingBuilding.quantity;
-            if (countSpan) countSpan.textContent = count.toString();
-            multiplyRowTextContent(row, count);
-          } else {
-            // Le building n'existe plus dans le storage : utiliser la valeur du span (qui devrait être 1)
-            count = currentSpanValue;
-            multiplyRowTextContent(row, count);
-          }
-
-          // Marquer comme mise à jour locale pour éviter la resynchronisation
-          row.setAttribute("data-local-update", "true");
-          await saveBuilding(row, rowId, {
-            maxQty,
-            quantity: count,
+          await withLocalUpdate(rowId, async () => {
+            const building = {
+              id: rowId,
+              costs: extractCosts(row),
+              maxQty,
+              quantity: count,
+              hidden: false,
+            };
+            await saveBuilding(building);
+            // update local cache
+            savedMap.set(rowId, building as any);
           });
-          // Retirer le flag après un court délai
-          setTimeout(() => row.removeAttribute("data-local-update"), 100);
         } else {
-          // Marquer comme mise à jour locale pour éviter la resynchronisation
-          row.setAttribute("data-local-update", "true");
-          await removeBuilding(rowId);
+          await withLocalUpdate(rowId, async () => {
+            await removeBuilding(rowId);
+            savedMap.delete(rowId);
+          });
+
           count = 1;
           if (countSpan) countSpan.textContent = "1";
           multiplyRowTextContent(row, count);
-          // Retirer le flag après un court délai
-          setTimeout(() => row.removeAttribute("data-local-update"), 100);
         }
       });
 

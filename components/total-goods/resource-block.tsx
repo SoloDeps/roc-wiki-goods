@@ -13,9 +13,12 @@ interface ResourceBlockProps {
     icon: string;
     name: string;
     amount: number;
+    difference?: number;
   }>;
   type: "main" | "era" | "other";
   className?: string;
+  compareMode?: boolean;
+  getDifferenceColor?: (difference: number) => string;
 }
 
 const getEraColor = (eraName: string): string => {
@@ -28,51 +31,72 @@ const getCityColor = (cityName: string): string => {
   const cityKey = Object.keys(alliedCityResources).find(
     (key) =>
       alliedCityResources[key as keyof typeof alliedCityResources].name ===
-      cityName
+      cityName,
   );
   if (!cityKey) return "";
   return alliedCityColors[cityKey as keyof typeof alliedCityColors] || "";
 };
 
-const getBlockStyles = (type: ResourceBlockProps["type"], title: string) => {
-  switch (type) {
-    case "main":
-      return {
-        bgRgb: "90, 152, 189",
-        defaultGridClass: "grid-cols-3",
-      };
-    case "era":
-      return {
-        bgRgb: getEraColor(title),
-        defaultGridClass: "grid-cols-3",
-      };
-    case "other":
-      return {
-        bgRgb: getCityColor(title),
-        defaultGridClass: "grid-cols-2 sm:grid-cols-3",
-      };
-    default:
-      return {
-        bgRgb: "128, 128, 128",
-        defaultGridClass: "grid-cols-3",
-      };
+const getBlockStyles = (
+  type: ResourceBlockProps["type"],
+  title: string,
+  compareMode: boolean,
+  resources: ResourceBlockProps["resources"],
+  getDifferenceColor?: (diff: number) => string,
+) => {
+  let bgRgb = "";
+
+  if (compareMode && getDifferenceColor && resources.length > 0) {
+    const totalDiff = resources.reduce(
+      (sum, r) => sum + (r.difference ?? r.amount),
+      0,
+    );
+    bgRgb = getDifferenceColor(totalDiff);
+  } else {
+    switch (type) {
+      case "main":
+        bgRgb = "90, 152, 189";
+        break;
+      case "era":
+        bgRgb = getEraColor(title);
+        break;
+      case "other":
+        bgRgb = getCityColor(title);
+        break;
+      default:
+        bgRgb = "128, 128, 128";
+    }
   }
+
+  const defaultGridClass =
+    type === "other" ? "grid-cols-2 sm:grid-cols-3" : "grid-cols-3";
+
+  return { bgRgb, defaultGridClass };
 };
 
 export const ResourceBlock = memo(
-  ({ title, resources, type, className }: ResourceBlockProps) => {
+  ({
+    title,
+    resources,
+    type,
+    className,
+    compareMode = false,
+    getDifferenceColor,
+  }: ResourceBlockProps) => {
     const { bgRgb, defaultGridClass } = useMemo(
-      () => getBlockStyles(type, title),
-      [type, title]
+      () =>
+        getBlockStyles(type, title, compareMode, resources, getDifferenceColor),
+      [type, title, compareMode, resources, getDifferenceColor],
     );
+
     const gridClass = className || defaultGridClass;
 
-    const hasResources =
-      resources.length > 0 && resources.some((r) => r.amount > 0);
-
-    if (!hasResources) {
-      return null;
-    }
+    const hasResources = useMemo(() => {
+      if (compareMode) {
+        return resources.length > 0;
+      }
+      return resources.length > 0 && resources.some((r) => r.amount > 0);
+    }, [resources, compareMode]);
 
     const paddedResources = useMemo(() => {
       if (type !== "era") return resources;
@@ -81,6 +105,11 @@ export const ResourceBlock = memo(
       while (padded.length < 3) padded.push({ icon: "", name: "", amount: 0 });
       return padded;
     }, [resources, type]);
+
+    // ✅ Tous les hooks sont appelés AVANT le return conditionnel
+    if (!hasResources) {
+      return null;
+    }
 
     return (
       <section className="rounded-sm overflow-hidden border">
@@ -98,10 +127,14 @@ export const ResourceBlock = memo(
         </header>
         <div className={`grid ${gridClass} bg-background-300`}>
           {paddedResources.map((r, i) => (
-            <ResourceItem key={r.icon ? r.icon : i} {...r} />
+            <ResourceItem
+              key={`${title}-${r.name || r.icon || i}`}
+              {...r}
+              compareMode={compareMode}
+            />
           ))}
         </div>
       </section>
     );
-  }
+  },
 );

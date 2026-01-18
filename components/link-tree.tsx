@@ -25,7 +25,7 @@ import { WIKI_URL } from "@/lib/constants";
 const indent = 20;
 
 export default function LinkTree({ selectedTable }: { selectedTable: string }) {
-  // Store the initial expanded items to reset when search is cleared
+  // store the initial expanded items to reset when search is cleared
   const initialExpandedItems = [""];
   const [state, setState] = useState<Partial<TreeState<Item>>>({});
   const [searchValue, setSearchValue] = useState("");
@@ -35,7 +35,7 @@ export default function LinkTree({ selectedTable }: { selectedTable: string }) {
     dataLoader: {
       getChildren: (itemId) => {
         const children = links[itemId].children ?? [];
-        // Sort children: "Technologies" first, "Capital" second, then alphabetically
+        // sort children: technologies first, capital second, then alphabetically
         return children.sort((a, b) => {
           const itemA = links[a];
           const itemB = links[b];
@@ -92,23 +92,23 @@ export default function LinkTree({ selectedTable }: { selectedTable: string }) {
       searchProps.onChange(syntheticEvent);
     }
 
-    // Reset tree state to initial expanded items
+    // restore initial expanded state
     setState((prevState) => ({
       ...prevState,
       expandedItems: initialExpandedItems,
     }));
 
-    // Clear custom filtered items
+    // clear custom filtered items
     setFilteredItems([]);
 
     if (inputRef.current) {
       inputRef.current.focus();
-      // Also clear the internal search input
+      // also clear the internal search input
       inputRef.current.value = "";
     }
   };
 
-  // Keep track of filtered items separately from the tree's internal search state
+  // keep track of filtered items separately from the tree's internal search state
   const [filteredItems, setFilteredItems] = useState<string[]>([]);
 
   // This function determines if an item should be visible based on our custom filtering
@@ -117,17 +117,17 @@ export default function LinkTree({ selectedTable }: { selectedTable: string }) {
     return filteredItems.includes(itemId);
   };
 
-  // Update filtered items when search value changes
+  // update filtered items when search value changes
   useEffect(() => {
     if (!searchValue || searchValue.length === 0) {
       setFilteredItems([]);
       return;
     }
 
-    // Get all items
+    // get all items
     const allItems = tree.getItems();
 
-    // First, find direct matches
+    // first, find direct matches
     const directMatches = allItems
       .filter((item) => {
         const name = item.getItemName().toLowerCase();
@@ -135,7 +135,7 @@ export default function LinkTree({ selectedTable }: { selectedTable: string }) {
       })
       .map((item) => item.getId());
 
-    // Then, find all parent IDs of matching items
+    // then, find all parent ids of matching items
     const parentIds = new Set<string>();
     for (const matchId of directMatches) {
       let item = tree.getItems().find((i) => i.getId() === matchId);
@@ -173,23 +173,23 @@ export default function LinkTree({ selectedTable }: { selectedTable: string }) {
       }
     }
 
-    // Combine direct matches, parents, and children
+    // combine direct matches, parents, and children
     setFilteredItems([
       ...directMatches,
       ...Array.from(parentIds),
       ...Array.from(childrenIds),
     ]);
 
-    // Keep all folders expanded during search to ensure all matches are visible
-    // Store current expanded state first
+    // keep all folders expanded during search to ensure all matches are visible
+    // store current expanded state first
     const currentExpandedItems = tree.getState().expandedItems || [];
 
-    // Get all folder IDs that need to be expanded to show matches
+    // get folder ids that need to be expanded to show matches
     const folderIdsToExpand = allItems
       .filter((item) => item.isFolder())
       .map((item) => item.getId());
 
-    // Update expanded items in the tree state
+    // update expanded items in the tree state
     setState((prevState) => ({
       ...prevState,
       expandedItems: [
@@ -204,10 +204,10 @@ export default function LinkTree({ selectedTable }: { selectedTable: string }) {
         <Input
           className="peer ps-9"
           onBlur={(e) => {
-            // Prevent default blur behavior
+            // prevent default blur behavior
             e.preventDefault();
 
-            // Re-apply the search to ensure it stays active
+            // re-apply the search to ensure it stays active
             if (searchValue && searchValue.length > 0) {
               const searchProps = tree.getSearchInputElementProps();
               if (searchProps.onChange) {
@@ -222,17 +222,17 @@ export default function LinkTree({ selectedTable }: { selectedTable: string }) {
             const value = e.target.value;
             setSearchValue(value);
 
-            // Apply the search to the tree's internal state as well
+            // apply the search to the tree's internal state as well
             const searchProps = tree.getSearchInputElementProps();
             if (searchProps.onChange) {
               searchProps.onChange(e);
             }
 
             if (value.length > 0) {
-              // If input has at least one character, expand all items
+              // if input has at least one character, expand all items
               tree.expandAll();
             } else {
-              // If input is cleared, reset to initial expanded state
+              // if input is cleared, reset to initial expanded state
               setState((prevState) => ({
                 ...prevState,
                 expandedItems: initialExpandedItems,
@@ -241,7 +241,7 @@ export default function LinkTree({ selectedTable }: { selectedTable: string }) {
             }
           }}
           placeholder="Filter links..."
-          // Prevent the internal search from being cleared on blur
+          // prevent the internal search from being cleared on blur
           ref={inputRef}
           type="search"
           value={searchValue}

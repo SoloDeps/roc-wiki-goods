@@ -5,84 +5,61 @@ import { isValidData } from "@/lib/utils";
 
 type BuildingSelections = string[][];
 
-const BUILDING_SELECTIONS_KEY = "local:buildingSelections";
+const KEY = "local:buildingSelections";
+const DEFAULT = buildingsAbbr.map(() => ["", "", ""]);
 
-function getDefaultSelections(): BuildingSelections {
-  return buildingsAbbr.map(() => ["", "", ""]);
-}
-
-function parseSelections(raw: string): BuildingSelections | null {
+function parse(raw: string): BuildingSelections | null {
   if (!isValidData(raw)) return null;
-
   try {
-    const parsed = JSON.parse(raw) as unknown;
-    if (!Array.isArray(parsed)) return null;
-    return parsed as BuildingSelections;
-  } catch (error) {
-    console.error("Error parsing building selections:", error);
+    const parsed = JSON.parse(raw);
+    return Array.isArray(parsed) ? parsed : null;
+  } catch {
     return null;
   }
 }
 
-// Chargement synchrone initial au chargement du module
-let cachedSelections: BuildingSelections | null = null;
-let cachePromise: Promise<void> | null = null;
+// cache management
+let cache: BuildingSelections = DEFAULT;
+let initPromise: Promise<void> | null = null;
 
-function initCache() {
-  if (!cachePromise) {
-    cachePromise = storage.getItem<string>(BUILDING_SELECTIONS_KEY).then((stored) => {
-      if (stored) {
-        const parsed = parseSelections(stored);
-        if (parsed) {
-          cachedSelections = parsed;
-        }
-      }
-    });
-  }
-  return cachePromise;
-}
+async function initCache() {
+  if (initPromise) return initPromise;
 
-// Initialiser immédiatement
-initCache();
-
-export function useBuildingSelections() {
-  const [selections, setSelections] = useState<BuildingSelections>(() => {
-    // Retourner le cache s'il existe, sinon les valeurs par défaut
-    return cachedSelections ?? getDefaultSelections();
+  initPromise = storage.getItem<string>(KEY).then((stored) => {
+    if (stored) {
+      const parsed = parse(stored);
+      if (parsed) cache = parsed;
+    }
   });
 
+  return initPromise;
+}
+
+initCache(); // initialize
+
+export function useBuildingSelections() {
+  const [selections, setSelections] = useState(cache);
+
   useEffect(() => {
-    let unwatch: (() => void) | null = null;
-    let isMounted = true;
+    let mounted = true;
 
-    const init = async () => {
-      // S'assurer que le cache est chargé
-      await initCache();
-      
-      // Mettre à jour avec les données du cache si disponibles
-      if (isMounted && cachedSelections) {
-        setSelections(cachedSelections);
+    // sync cache
+    initCache().then(() => {
+      if (mounted) setSelections(cache);
+    });
+
+    // watch storage
+    const unwatch = storage.watch<string | null>(KEY, (data) => {
+      if (!data || !mounted) return;
+      const parsed = parse(data);
+      if (parsed) {
+        cache = parsed;
+        setSelections(parsed);
       }
-
-      // Écouter les changements
-      unwatch = storage.watch<string | null>(
-        BUILDING_SELECTIONS_KEY,
-        (data: string | null) => {
-          if (!data || !isMounted) return;
-          
-          const parsed = parseSelections(data);
-          if (parsed) {
-            cachedSelections = parsed;
-            setSelections(parsed);
-          }
-        }
-      );
-    };
-
-    init();
+    });
 
     return () => {
-      isMounted = false;
+      mounted = false;
       unwatch?.();
     };
   }, []);

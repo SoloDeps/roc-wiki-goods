@@ -3,99 +3,73 @@ import { storage } from "#imports";
 import { Era, eras } from "@/lib/constants";
 import { isValidData } from "@/lib/utils";
 
-const ERA_SELECTION_KEY = "local:eraSelection";
+const KEY = "local:eraSelection";
 
-function getDefaultEra(): Era | null {
-  return null; // Pas de valeur par défaut, on laisse l'utilisateur choisir
-}
-
-function parseEraSelection(raw: string): Era | null {
+function parse(raw: string): Era | null {
   if (!isValidData(raw)) return null;
-
   try {
-    const parsed = JSON.parse(raw) as unknown;
-    if (typeof parsed !== "string") return null;
-
-    return eras.find((e) => e.abbr === parsed) ?? null;
-  } catch (error) {
-    console.error("Error parsing era selection:", error);
-    return null;
+    const abbr = JSON.parse(raw);
+    return typeof abbr === "string"
+      ? (eras.find((e) => e.abbr === abbr) ?? null)
+      : null;
+  } catch {
+    return null; // handle invalid json
   }
 }
 
-// Cache au niveau module pour chargement synchrone initial
-let cachedEra: Era | null = null;
-let cachePromise: Promise<void> | null = null;
+// helper to wrap local updates with proper tracking
+let cache: Era | null = null;
+let initPromise: Promise<void> | null = null;
 
-function initCache() {
-  if (!cachePromise) {
-    cachePromise = storage.getItem<string>(ERA_SELECTION_KEY).then((stored) => {
-      if (stored) {
-        const parsed = parseEraSelection(stored);
-        if (parsed) {
-          cachedEra = parsed;
-        }
-      }
-    });
-  }
-  return cachePromise;
-}
+async function initCache() {
+  if (initPromise) return initPromise;
 
-// Initialiser immédiatement
-initCache();
-
-export function useEraSelector() {
-  const [eraSelected, setEraSelected] = useState<Era | null>(() => {
-    // Retourner le cache s'il existe, sinon null
-    return cachedEra ?? getDefaultEra();
+  initPromise = storage.getItem<string>(KEY).then((stored) => {
+    if (stored) {
+      const parsed = parse(stored);
+      if (parsed) cache = parsed;
+    }
   });
 
+  return initPromise;
+}
+
+initCache(); // Auto-init
+
+export function useEraSelector() {
+  const [eraSelected, setEraSelected] = useState(cache);
+
   useEffect(() => {
-    let unwatch: (() => void) | null = null;
-    let isMounted = true;
+    let mounted = true;
 
-    const init = async () => {
-      // S'assurer que le cache est chargé
-      await initCache();
+    initCache().then(() => {
+      if (mounted) setEraSelected(cache);
+    });
 
-      // Mettre à jour avec les données du cache si disponibles
-      if (isMounted && cachedEra) {
-        setEraSelected(cachedEra);
+    const unwatch = storage.watch<string | null>(KEY, (data) => {
+      if (!data || !mounted) return;
+      const parsed = parse(data);
+      if (parsed) {
+        cache = parsed;
+        setEraSelected(parsed);
       }
-
-      // Écouter les changements
-      unwatch = storage.watch<string | null>(
-        ERA_SELECTION_KEY,
-        (data: string | null) => {
-          if (!data || !isMounted) return;
-
-          const parsed = parseEraSelection(data);
-          if (parsed) {
-            cachedEra = parsed;
-            setEraSelected(parsed);
-          }
-        }
-      );
-    };
-
-    init();
+    });
 
     return () => {
-      isMounted = false;
+      // cleanup
+      mounted = false;
       unwatch?.();
     };
   }, []);
 
   const handleChange = async (abbr: string) => {
-    const selectedEra = eras.find((e) => e.abbr === abbr);
-    if (!selectedEra) return;
+    const era = eras.find((e) => e.abbr === abbr);
+    if (!era) return;
 
-    // Optimisation : mettre à jour immédiatement l'UI et le cache
-    cachedEra = selectedEra;
-    setEraSelected(selectedEra);
-
-    // Sauvegarder en arrière-plan
-    await storage.setItem(ERA_SELECTION_KEY, JSON.stringify(selectedEra.abbr));
+    // simplified clamping
+    cache = era;
+    setEraSelected(era);
+    await storage.setItem(KEY, JSON.stringify(era.abbr));
   };
 
   return { eraSelected, handleChange };

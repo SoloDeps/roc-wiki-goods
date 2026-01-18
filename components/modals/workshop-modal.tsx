@@ -1,6 +1,5 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Store } from "lucide-react";
-
 import {
   Dialog,
   DialogHeader,
@@ -20,7 +19,6 @@ import {
   DrawerTrigger,
 } from "@/components/ui/drawer";
 import { Button } from "@/components/ui/button";
-
 import { useMediaQuery } from "@/hooks/use-media-query";
 import { BuildingSelectorGroup } from "@/components/popup/building-selector-group";
 
@@ -37,21 +35,19 @@ export function WorkshopModal({
       <Dialog open={open} onOpenChange={setOpen}>
         <DialogTrigger asChild>
           <Button size="sm" variant={variant} className="cursor-pointer">
-            <Store /> Manage Workshops
+            <Store /> Workshops
           </Button>
         </DialogTrigger>
 
-        <DialogContent className="flex flex-col gap-0 p-0 sm:max-h-[min(640px,80vh)] sm:max-w-[600px] bg-background-100 shadow-lg">
-          <DialogHeader className="px-6 py-4 text-left gap-1 border border-x-0 border-alpha-400 border-t-transparent">
+        <DialogContent className="flex flex-col gap-0 p-0 sm:max-h-[min(640px,80vh)] w-full sm:max-w-[660px] bg-background-100 shadow-lg">
+          <DialogHeader className="px-4 py-4 text-left gap-1 ">
             <DialogTitle className="text-base">Manage Workshops</DialogTitle>
             <DialogDescription className="text-left text-sm">
               Update your workshop selections here. All changes are saved
               automatically.
             </DialogDescription>
           </DialogHeader>
-          <div className="overflow-y-auto">
-            <BuildingSelectorGroup />
-          </div>
+          <BuildingSelectorGroup />
         </DialogContent>
       </Dialog>
     );
@@ -61,12 +57,12 @@ export function WorkshopModal({
     <Drawer open={open} onOpenChange={setOpen}>
       <DrawerTrigger asChild>
         <Button size="sm" variant={variant} className="cursor-pointer">
-          <Store /> Manage Workshops
+          <Store /> Workshops
         </Button>
       </DrawerTrigger>
       <DrawerContent className="bg-background-100">
-        <DrawerHeader className="border-b border-alpha-300">
-          <div className="sm:w-[600px] w-full sm:mx-auto px-4">
+        <DrawerHeader className="">
+          <div className="w-full sm:mx-auto">
             <DrawerTitle className="text-left text-base">
               Manage Workshops
             </DrawerTitle>
@@ -76,7 +72,7 @@ export function WorkshopModal({
             </DrawerDescription>
           </div>
         </DrawerHeader>
-        <div className="sm:w-[600px] w-full sm:mx-auto">
+        <div className="w-full sm:mx-auto">
           <BuildingSelectorGroup />
           <DrawerFooter className="pt-2">
             <DrawerClose asChild>

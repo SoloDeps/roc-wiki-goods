@@ -1,15 +1,15 @@
 import { useState, useCallback, useDeferredValue, useRef } from "react";
 import {
-  loadSavedBuildings,
   removeBuilding,
-  loadSavedTechnos,
+  removeAllTechnos,
+  getBuildings,
 } from "@/lib/overview/storage";
-import { clearEraTechnos } from "@/lib/features/techno";
 import { type BuildingFilters as BuildingFiltersType } from "@/hooks/useBuildingFilters";
 
 import { SiteHeader } from "@/components/site-header";
 import { WorkshopModal } from "@/components/modals/workshop-modal";
 import { PresetListModal } from "@/components/modals/preset-list-modal";
+import { CompareButton } from "@/components/buttons/compare-button";
 import {
   BuildingList,
   type BuildingListRef,
@@ -19,9 +19,12 @@ import { TotalGoodsDisplay } from "@/components/total-goods/total-goods-display"
 import { ButtonFilter } from "@/components/buttons/button-filter";
 import { ButtonGroupBuilding } from "@/components/buttons/button-group-building";
 import { ButtonGroupTotal } from "@/components/buttons/button-group-total";
+import { BuildingEntity } from "@/lib/storage/dexie";
+import { AddBuildingSheet } from "./add-building-sheet";
 
 export default function OptionLayout() {
   const [filters, setFilters] = useState<BuildingFiltersType>({});
+  const [compareMode, setCompareMode] = useState(false);
   const deferredFilters = useDeferredValue(filters);
   const buildingListRef = useRef<BuildingListRef>(null);
 
@@ -33,49 +36,23 @@ export default function OptionLayout() {
     onFiltersChange: handleFiltersChange,
   });
 
-  // Calculer le nombre de filtres actifs
   const activeFiltersCount =
     (filters.tableType ? 1 : 0) + (filters.location ? 1 : 0);
 
-  const handleToggleFilters = () => {
-    // Inverser l'état d'affichage des filtres
-    filterComponents.button.props.onClick();
-  };
+  const handleToggleFilters = () => filterComponents.button.props.onClick();
 
-  const handleExpandAll = () => {
-    // Développer tous les accordéons
-    if (buildingListRef.current) {
-      // Utiliser la méthode expandAll sans paramètres pour développer toutes les catégories visibles
-      buildingListRef.current.expandAll();
-    }
-  };
+  const handleExpandAll = () => buildingListRef.current?.expandAll();
 
-  const handleCollapseAll = async () => {
-    // Réduire tous les accordéons
-    if (buildingListRef.current && buildingListRef.current.collapseAll) {
-      buildingListRef.current.collapseAll();
-    }
-  };
+  const handleCollapseAll = () => buildingListRef.current?.collapseAll?.();
 
   const handleDeleteAll = async () => {
     try {
-      // Supprimer tous les bâtiments
-      const data = await loadSavedBuildings();
-      for (const building of data.buildings) {
-        await removeBuilding(building.id);
-      }
-
-      // Supprimer toutes les technologies
-      const technosData = await loadSavedTechnos();
-      const eras = Object.keys(technosData.technos);
-      for (const era of eras) {
-        await clearEraTechnos(era);
-      }
+      const data = await getBuildings();
+      await Promise.all(data.map((b: BuildingEntity) => removeBuilding(b.id)));
+      await removeAllTechnos();
     } catch (error) {
-      console.error("Error deleting all buildings and technologies:", error);
-      alert(
-        "An error occurred while deleting buildings and technologies.\nPlease try again."
-      );
+      console.error("Error deleting all:", error);
+      alert("An error occurred. Please try again.");
     }
   };
 
@@ -86,31 +63,38 @@ export default function OptionLayout() {
 
       <div className="flex min-h-0 flex-1 container-wrapper gap-4">
         <aside className="sticky top-0 hidden origin-left xl:block mb-2 material-medium 2xl:w-6/11 lg:w-5/11 overflow-hidden">
-          {/* total list header */}
           <header className="flex shrink-0 flex-col w-full transition-colors border-b">
             <div className="flex shrink-0 w-full justify-between items-center gap-3 pl-4 pr-3 sm:pl-3 sm:pr-2 h-12 sm:mx-0">
               <h2 className="text-[15px] font-semibold">Resource Totals</h2>
               <div className="flex gap-2">
+                <CompareButton
+                  enabled={compareMode}
+                  onToggle={setCompareMode}
+                />
                 <WorkshopModal />
                 <PresetListModal />
               </div>
             </div>
           </header>
-
-          <TotalGoodsDisplay />
+          <TotalGoodsDisplay compareMode={compareMode} />
         </aside>
 
         <div className="relative flex min-w-0 flex-1 flex-col 2xl:w-5/11 lg:w-6/11">
           <main className="material-medium relative mb-2 mt-0 flex-1 grow overflow-hidden">
             <div className="@container/page-layout relative flex size-full min-h-0 flex-col">
-              {/* building list header */}
               <header className="flex shrink-0 flex-col w-full transition-colors border-b">
                 <div className="flex shrink-0 w-full justify-between items-center gap-3 px-3 h-12 sm:mx-0">
-                  <h2 className="hidden xl:block text-[15px] font-semibold">
-                    Building List
-                  </h2>
+                  {/* <h2 className="hidden xl:block text-[15px] font-semibold">
+                    List
+                  </h2> */}
+                  <div className="max-xl:hidden">
+                    <AddBuildingSheet />
+                  </div>
                   <div className="block xl:hidden">
-                    <ButtonGroupTotal />
+                    <ButtonGroupTotal
+                      compareMode={compareMode}
+                      onToggleCompare={setCompareMode}
+                    />
                   </div>
 
                   <div className="flex items-center gap-2">
@@ -127,7 +111,6 @@ export default function OptionLayout() {
                 </div>
               </header>
 
-              {/* Collapsible filters */}
               {filterComponents.panel}
 
               <div className="size-full overflow-y-auto no-scrollbar flex flex-col">
