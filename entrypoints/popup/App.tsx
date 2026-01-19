@@ -34,17 +34,17 @@ function App() {
       {isGameSite ? (
         <ExportGameData />
       ) : (
-        <>
+        <div className="min-w-[620px]">
           <BuildingSelectorGroup />
 
-          <div className="px-4 pb-4">
+          <div className="px-4 pb-4 border-t">
             <EraSelector />
             <div className="flex gap-1.5 pt-2 text-[13px] italic">
               <span className="font-semibold">Info:</span>Display event quest
               data automatically based on your current era.
             </div>
           </div>
-        </>
+        </div>
       )}
     </>
   );

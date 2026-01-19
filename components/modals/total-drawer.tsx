@@ -33,8 +33,8 @@ export function TotalDrawer({
         </Button>
       </DrawerTrigger>
       <DrawerContent className="bg-background-100 size-full">
-        <DrawerHeader className="border border-x-0 border-alpha-400 border-t-transparent py-1.5">
-          <div className="w-full md:mx-auto md:max-w-md md:px-4">
+        <DrawerHeader className="border border-x-0 border-alpha-400 border-t-transparent py-1.5 px-0">
+          <div className="w-full max-w-[870px] mx-auto px-4">
             <div className="flex justify-between items-center">
               <DrawerTitle className="text-left text-base pb-1">
                 Resources Total

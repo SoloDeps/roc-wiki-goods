@@ -22,7 +22,7 @@ export const AddBuildingSheet = ({ variant = "outline" }: { variant?: "default" 
     <Sheet>
       <SheetTrigger asChild>
         <Button size="sm" variant={variant} className="cursor-pointer">
-          <PlusIcon /> Add More
+          <PlusIcon /> Add Item
         </Button>
       </SheetTrigger>
       <SheetContent>

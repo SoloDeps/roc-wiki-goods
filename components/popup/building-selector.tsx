@@ -117,7 +117,7 @@ export function BuildingSelector({
                   <img
                     src={getGoodsImg(name)}
                     alt=""
-                    className="size-[1.4rem] brightness-110"
+                    className="size-[1.4rem] brightness-110 select-none"
                   />
                   {name}
                 </div>
@@ -143,7 +143,7 @@ export function BuildingSelector({
                   <img
                     src={getGoodsImg(name)}
                     alt=""
-                    className="size-[1.4rem] brightness-110"
+                    className="size-[1.4rem] brightness-110 select-none"
                   />
                   {name}
                 </div>
@@ -154,7 +154,7 @@ export function BuildingSelector({
 
         {/* TERTIARY (read-only) */}
         <Select value={tertiary} disabled={!secondary}>
-          <SelectTrigger className="md:min-w-44 w-full h-8 text-xs">
+          <SelectTrigger className="md:min-w-44 w-full h-8 text-xs pointer-events-none hover:cursor-not-allowed shadow-none" tabIndex={-1}>
             <SelectValue placeholder="Select Tertiary" />
           </SelectTrigger>
 
@@ -165,7 +165,7 @@ export function BuildingSelector({
                   <img
                     src={getGoodsImg(tertiary)}
                     alt=""
-                    className="size-[1.4rem] brightness-110"
+                    className="size-[1.4rem] brightness-110 select-none"
                   />
                   {tertiary}
                 </div>
