@@ -3,19 +3,11 @@ import { fetchWithAuth } from "@/lib/roc/tokenCapture";
 import { gameDb } from "@/lib/storage/dexie";
 
 // #region TYPES
-export interface ResourceDefinition {
-  id: string;
-  resourceType: string;
-  age: string;
-  cities: string[];
-  order: string;
-  group: string;
-}
-
 export interface UserResource {
   id: string;
   amount: number;
   type: string;
+  prs?: number;
   lastUpdated: string;
 }
 
@@ -26,50 +18,72 @@ export const RocTypes = {
   RESOURCE_DEFINITION: "type.googleapis.com/ResourceDefinitionDTO",
   SELECTION_KIT_DEFINITION: "type.googleapis.com/SelectionKitDefinitionDTO",
 } as const;
+
+const SELECT_KIT_PR_NAME = "selection_kit_allianceincident_research";
 // #endregion
 
 // #region FILTRAGE JSON
-export function filterJsonData(data: any, type: string): any[] {
+export function filterJsonData(data: unknown, type: string): any[] {
   const result: any[] = [];
   traverseJson(data, type, result);
   return result;
 }
 
-function traverseJson(data: any, type: string, result: any[]): void {
+function traverseJson(data: unknown, type: string, result: any[]): void {
   if (Array.isArray(data)) {
     data.forEach((item) => traverseJson(item, type, result));
   } else if (typeof data === "object" && data !== null) {
-    if (data["@type"] === type) {
-      result.push(data);
+    const obj = data as Record<string, unknown>;
+    if (obj["@type"] === type) {
+      result.push(obj);
     }
-    Object.values(data).forEach((value) => traverseJson(value, type, result));
+    Object.values(obj).forEach((value) => traverseJson(value, type, result));
   }
 }
 // #endregion
 
 // #region EXTRACTION
-export function extractUserResources(startupData: any): UserResource[] {
+export function extractUserResources(startupData: unknown): UserResource[] {
   const resources: UserResource[] = [];
 
-  function findResources(obj: any) {
+  function findResources(obj: unknown): void {
     if (Array.isArray(obj)) {
       obj.forEach((item) => findResources(item));
     } else if (typeof obj === "object" && obj !== null) {
+      const data = obj as Record<string, any>;
+
+      // Extraction des goods
       if (
-        (obj.definition?.["@type"] === RocTypes.RESOURCE_DEFINITION &&
-          obj.amount) ||
-        (obj.definition?.["@type"] === RocTypes.SELECTION_KIT_DEFINITION &&
-          obj.amount)
+        data.definition?.["@type"] === RocTypes.RESOURCE_DEFINITION &&
+        data.amount !== undefined &&
+        data.definition.resourceType
       ) {
         resources.push({
-          id: obj.definition.id,
-          amount: parseInt(obj.amount) || 0,
-          type: obj.definition.resourceType,
+          id: data.definition.id,
+          amount: parseInt(String(data.amount), 10) || 0,
+          type: data.definition.resourceType,
           lastUpdated: new Date().toISOString(),
         });
       }
 
-      Object.values(obj).forEach((value) => findResources(value));
+      // Extraction des selection kit PRS
+      if (
+        data.definition?.["@type"] === RocTypes.SELECTION_KIT_DEFINITION &&
+        data.amount !== undefined
+      ) {
+        const definitionId = String(data.definition.id).toLowerCase();
+        if (definitionId.includes(SELECT_KIT_PR_NAME)) {
+          resources.push({
+            id: data.definition.id,
+            amount: parseInt(String(data.amount), 10) || 0,
+            type: "selection_kit",
+            prs: data.definition.rewards?.[0]?.amount,
+            lastUpdated: new Date().toISOString(),
+          });
+        }
+      }
+
+      Object.values(data).forEach((value) => findResources(value));
     }
   }
 
@@ -136,41 +150,52 @@ export async function getResourcesByType(
 }
 // #endregion
 
+// #region FILTERING AND COMPLETION
 /**
  * Filter resources to keep only those in goodsList
  * Add missing goods with amount = 0
+ * Keep selection_kit resources as they are not in goodsList
  */
 export function filterAndCompleteResources(
   resources: UserResource[],
 ): UserResource[] {
   const resourceMap = new Map<string, UserResource>();
+  const selectionKits: UserResource[] = [];
+
+  // Un seul passage sur les ressources
   resources.forEach((resource) => {
-    resourceMap.set(resource.id, resource);
-  });
-
-  const filteredResources: UserResource[] = [];
-
-  goodsList.forEach((good) => {
-    const existingResource = resourceMap.get(good.gameName);
-    if (existingResource) {
-      filteredResources.push({
-        ...existingResource,
-        id: good.wikiName ? good.wikiName : good.gameName,
-        type: good.type,
-      });
+    if (resource.type === "selection_kit") {
+      selectionKits.push(resource);
     } else {
-      filteredResources.push({
-        id: good.wikiName ? good.wikiName : good.gameName,
-        amount: 0,
-        type: good.type,
-        lastUpdated: new Date().toISOString(),
-      });
+      resourceMap.set(resource.id, resource);
     }
   });
 
+  // Traiter goodsList et ajouter les selection_kits
+  const filteredResources = goodsList.map((good) => {
+    const existingResource = resourceMap.get(good.gameName);
+    if (existingResource) {
+      return {
+        ...existingResource,
+        id: good.wikiName || good.gameName,
+        type: good.type,
+      };
+    }
+    return {
+      id: good.wikiName || good.gameName,
+      amount: 0,
+      type: good.type,
+      lastUpdated: new Date().toISOString(),
+    };
+  });
+
+  // Concaténer directement lors du return
+  filteredResources.push(...selectionKits);
   return filteredResources;
 }
+// #endregion
 
+// #region SYNC
 /**
  * Fetch game data and save filtered resources
  */
@@ -191,3 +216,4 @@ export async function syncGameResources(): Promise<UserResource[]> {
 
   return filteredResources;
 }
+// #endregion

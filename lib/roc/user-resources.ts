@@ -3,9 +3,25 @@ import { getGoodNameFromPriorityEra } from "@/lib/utils";
 
 export async function getUserResources(): Promise<Record<string, number>> {
   const resources = await getAllResources();
+
+  // Calculer le total des PRS depuis les selection_kits
+  let totalSelectionKitPrs = 0;
+  resources.forEach((resource) => {
+    if (resource.type === "selection_kit") {
+      const prsValue = (resource.amount || 0) * (resource.prs || 0);
+      totalSelectionKitPrs += prsValue;
+    }
+  });
+
   return resources.reduce(
     (acc, resource) => {
-      acc[resource.id] = resource.amount;
+      // Ajouter les PRS des selection_kits aux research_points
+      if (resource.id === "research_points") {
+        acc[resource.id] = resource.amount + totalSelectionKitPrs;
+      } else if (resource.type !== "selection_kit") {
+        // Ignorer les selection_kits individuels (déjà comptabilisés dans research_points)
+        acc[resource.id] = resource.amount;
+      }
       return acc;
     },
     {} as Record<string, number>,
