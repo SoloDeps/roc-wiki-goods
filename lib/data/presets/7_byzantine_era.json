@@ -1,0 +1,1925 @@
+{
+  "buildings": [
+    {
+      "id": "/wiki/Allied_Cultures/Maya_Empire/Chronicler|construction|BE|2",
+      "quantity": 2,
+      "maxQty": 2,
+      "costs": {
+        "cocoa": 60000,
+        "goods": [
+          {
+            "type": "Goblet",
+            "amount": 750
+          },
+          {
+            "type": "Mosaic",
+            "amount": 750
+          },
+          {
+            "type": "Cape",
+            "amount": 750
+          }
+        ]
+      }
+    },
+    {
+      "id": "/wiki/Allied_Cultures/Maya_Empire/Jade_Quarry|construction|BE|1",
+      "quantity": 3,
+      "maxQty": 5,
+      "costs": {
+        "cocoa": 10000,
+        "goods": [
+          {
+            "type": "Goblet",
+            "amount": 625
+          },
+          {
+            "type": "Mosaic",
+            "amount": 625
+          },
+          {
+            "type": "Cape",
+            "amount": 625
+          }
+        ]
+      }
+    },
+    {
+      "id": "/wiki/Allied_Cultures/Maya_Empire/Jade_Quarry|upgrade|BE|2",
+      "quantity": 3,
+      "maxQty": 3,
+      "costs": {
+        "cocoa": 92000,
+        "goods": [
+          {
+            "type": "Primary_BE",
+            "amount": 430
+          },
+          {
+            "type": "Secondary_BE",
+            "amount": 215
+          },
+          {
+            "type": "Ancestor_Mask",
+            "amount": 310
+          },
+          {
+            "type": "Calendar_Stone",
+            "amount": 190
+          }
+        ]
+      }
+    },
+    {
+      "id": "/wiki/Allied_Cultures/Maya_Empire/Jade_Quarry|upgrade|BE|3",
+      "quantity": 3,
+      "maxQty": 3,
+      "costs": {
+        "cocoa": 120000,
+        "goods": [
+          {
+            "type": "Secondary_BE",
+            "amount": 475
+          },
+          {
+            "type": "Tertiary_BE",
+            "amount": 240
+          },
+          {
+            "type": "Ancestor_Mask",
+            "amount": 1920
+          },
+          {
+            "type": "Calendar_Stone",
+            "amount": 1180
+          }
+        ]
+      }
+    },
+    {
+      "id": "/wiki/Allied_Cultures/Maya_Empire/Mask_Sculptor|construction|BE|2",
+      "quantity": 2,
+      "maxQty": 2,
+      "costs": {
+        "cocoa": 50000,
+        "goods": [
+          {
+            "type": "Goblet",
+            "amount": 750
+          },
+          {
+            "type": "Mosaic",
+            "amount": 750
+          },
+          {
+            "type": "Cape",
+            "amount": 750
+          }
+        ]
+      }
+    },
+    {
+      "id": "/wiki/Allied_Cultures/Maya_Empire/Obsidian_Quarry|construction|BE|1",
+      "quantity": 3,
+      "maxQty": 5,
+      "costs": {
+        "cocoa": 10000,
+        "goods": [
+          {
+            "type": "Goblet",
+            "amount": 625
+          },
+          {
+            "type": "Mosaic",
+            "amount": 625
+          },
+          {
+            "type": "Cape",
+            "amount": 625
+          }
+        ]
+      }
+    },
+    {
+      "id": "/wiki/Allied_Cultures/Maya_Empire/Obsidian_Quarry|upgrade|BE|2",
+      "quantity": 3,
+      "maxQty": 3,
+      "costs": {
+        "cocoa": 92000,
+        "goods": [
+          {
+            "type": "Primary_BE",
+            "amount": 430
+          },
+          {
+            "type": "Secondary_BE",
+            "amount": 215
+          },
+          {
+            "type": "Ancestor_Mask",
+            "amount": 310
+          },
+          {
+            "type": "Calendar_Stone",
+            "amount": 190
+          }
+        ]
+      }
+    },
+    {
+      "id": "/wiki/Allied_Cultures/Maya_Empire/Obsidian_Quarry|upgrade|BE|3",
+      "quantity": 3,
+      "maxQty": 3,
+      "costs": {
+        "cocoa": 120000,
+        "goods": [
+          {
+            "type": "Secondary_BE",
+            "amount": 475
+          },
+          {
+            "type": "Tertiary_BE",
+            "amount": 240
+          },
+          {
+            "type": "Ancestor_Mask",
+            "amount": 1920
+          },
+          {
+            "type": "Calendar_Stone",
+            "amount": 1180
+          }
+        ]
+      }
+    },
+    {
+      "id": "/wiki/Allied_Cultures/Maya_Empire/Priest_Home|construction|BE|1",
+      "quantity": 6,
+      "maxQty": 13,
+      "costs": {
+        "cocoa": 5000,
+        "goods": [
+          {
+            "type": "Goblet",
+            "amount": 500
+          },
+          {
+            "type": "Mosaic",
+            "amount": 500
+          },
+          {
+            "type": "Cape",
+            "amount": 500
+          }
+        ]
+      }
+    },
+    {
+      "id": "/wiki/Allied_Cultures/Maya_Empire/Priest_Home|upgrade|BE|2",
+      "quantity": 6,
+      "maxQty": 6,
+      "costs": {
+        "cocoa": 44000,
+        "goods": [
+          {
+            "type": "Primary_BE",
+            "amount": 345
+          },
+          {
+            "type": "Secondary_BE",
+            "amount": 170
+          },
+          {
+            "type": "Ancestor_Mask",
+            "amount": 250
+          },
+          {
+            "type": "Calendar_Stone",
+            "amount": 150
+          }
+        ]
+      }
+    },
+    {
+      "id": "/wiki/Allied_Cultures/Maya_Empire/Priest_Home|upgrade|BE|3",
+      "quantity": 6,
+      "maxQty": 6,
+      "costs": {
+        "cocoa": 58000,
+        "goods": [
+          {
+            "type": "Secondary_BE",
+            "amount": 385
+          },
+          {
+            "type": "Tertiary_BE",
+            "amount": 190
+          },
+          {
+            "type": "Ancestor_Mask",
+            "amount": 1540
+          },
+          {
+            "type": "Calendar_Stone",
+            "amount": 940
+          }
+        ]
+      }
+    },
+    {
+      "id": "/wiki/Allied_Cultures/Maya_Empire/Ritual_Sites|construction|BE|2",
+      "quantity": 3,
+      "maxQty": 7,
+      "costs": {
+        "cocoa": 15000,
+        "goods": [
+          {
+            "type": "Cape",
+            "amount": 225
+          },
+          {
+            "type": "Mosaic",
+            "amount": 225
+          },
+          {
+            "type": "Goblet",
+            "amount": 225
+          }
+        ]
+      }
+    },
+    {
+      "id": "/wiki/Allied_Cultures/Maya_Empire/Ritual_Sites|construction|BE|3",
+      "quantity": 4,
+      "maxQty": 7,
+      "costs": {
+        "cocoa": 30000,
+        "goods": [
+          {
+            "type": "Cape",
+            "amount": 350
+          },
+          {
+            "type": "Mosaic",
+            "amount": 350
+          },
+          {
+            "type": "Goblet",
+            "amount": 350
+          }
+        ]
+      }
+    },
+    {
+      "id": "/wiki/Allied_Cultures/Maya_Empire/Worker_Home|construction|BE|1",
+      "quantity": 15,
+      "maxQty": 23,
+      "costs": {
+        "cocoa": 2500,
+        "goods": [
+          {
+            "type": "Goblet",
+            "amount": 250
+          },
+          {
+            "type": "Mosaic",
+            "amount": 250
+          },
+          {
+            "type": "Cape",
+            "amount": 250
+          }
+        ]
+      }
+    },
+    {
+      "id": "/wiki/Allied_Cultures/Maya_Empire/Worker_Home|upgrade|BE|2",
+      "quantity": 15,
+      "maxQty": 15,
+      "costs": {
+        "cocoa": 12000,
+        "goods": [
+          {
+            "type": "Primary_BE",
+            "amount": 175
+          },
+          {
+            "type": "Secondary_BE",
+            "amount": 87
+          },
+          {
+            "type": "Ancestor_Mask",
+            "amount": 62
+          },
+          {
+            "type": "Calendar_Stone",
+            "amount": 38
+          }
+        ]
+      }
+    },
+    {
+      "id": "/wiki/Allied_Cultures/Maya_Empire/Worker_Home|upgrade|BE|3",
+      "quantity": 15,
+      "maxQty": 15,
+      "costs": {
+        "cocoa": 16000,
+        "goods": [
+          {
+            "type": "Secondary_BE",
+            "amount": 190
+          },
+          {
+            "type": "Tertiary_BE",
+            "amount": 95
+          },
+          {
+            "type": "Ancestor_Mask",
+            "amount": 385
+          },
+          {
+            "type": "Calendar_Stone",
+            "amount": 235
+          }
+        ]
+      }
+    },
+    {
+      "id": "/wiki/Home_Cultures/Barracks/Cavalry_Barracks|upgrade|BE|7",
+      "quantity": 1,
+      "maxQty": 1,
+      "costs": {
+        "coins": 2550000,
+        "food": 1770000,
+        "goods": [
+          {
+            "type": "Mosaic",
+            "amount": 2075
+          },
+          {
+            "type": "Goblet",
+            "amount": 2075
+          },
+          {
+            "type": "Cape",
+            "amount": 2075
+          }
+        ]
+      }
+    },
+    {
+      "id": "/wiki/Home_Cultures/Barracks/Heavy_Infantry_Barracks|upgrade|BE|7",
+      "quantity": 1,
+      "maxQty": 1,
+      "costs": {
+        "coins": 2980000,
+        "food": 2180000,
+        "goods": [
+          {
+            "type": "Mosaic",
+            "amount": 2385
+          },
+          {
+            "type": "Goblet",
+            "amount": 2385
+          },
+          {
+            "type": "Cape",
+            "amount": 2385
+          }
+        ]
+      }
+    },
+    {
+      "id": "/wiki/Home_Cultures/Barracks/Infantry_Barracks|upgrade|BE|7",
+      "quantity": 2,
+      "maxQty": 2,
+      "costs": {
+        "coins": 1870000,
+        "food": 1210000,
+        "goods": [
+          {
+            "type": "Mosaic",
+            "amount": 1730
+          },
+          {
+            "type": "Goblet",
+            "amount": 1730
+          },
+          {
+            "type": "Cape",
+            "amount": 1730
+          }
+        ]
+      }
+    },
+    {
+      "id": "/wiki/Home_Cultures/Barracks/Ranged_Barracks|upgrade|BE|7",
+      "quantity": 1,
+      "maxQty": 1,
+      "costs": {
+        "coins": 2350000,
+        "food": 1520000,
+        "goods": [
+          {
+            "type": "Mosaic",
+            "amount": 1905
+          },
+          {
+            "type": "Goblet",
+            "amount": 1905
+          },
+          {
+            "type": "Cape",
+            "amount": 1905
+          }
+        ]
+      }
+    },
+    {
+      "id": "/wiki/Home_Cultures/Barracks/Siege_Barracks|upgrade|BE|7",
+      "quantity": 1,
+      "maxQty": 1,
+      "costs": {
+        "coins": 3700000,
+        "food": 2760000,
+        "goods": [
+          {
+            "type": "Mosaic",
+            "amount": 2980
+          },
+          {
+            "type": "Goblet",
+            "amount": 2980
+          },
+          {
+            "type": "Cape",
+            "amount": 2980
+          }
+        ]
+      }
+    },
+    {
+      "id": "/wiki/Home_Cultures/Culture_Sites/Compact_Culture_Site|construction|BE|7",
+      "quantity": 1,
+      "maxQty": 9,
+      "costs": {
+        "coins": 620000,
+        "food": 390000
+      }
+    },
+    {
+      "id": "/wiki/Home_Cultures/Culture_Sites/Compact_Culture_Site|upgrade|BE|7",
+      "quantity": 8,
+      "maxQty": 9,
+      "costs": {
+        "coins": 220000,
+        "food": 141000
+      }
+    },
+    {
+      "id": "/wiki/Home_Cultures/Culture_Sites/Large_Culture_Site|upgrade|BE|7",
+      "quantity": 1,
+      "maxQty": 1,
+      "costs": {
+        "coins": 1550000,
+        "food": 1010000
+      }
+    },
+    {
+      "id": "/wiki/Home_Cultures/Culture_Sites/Little_Culture_Site|construction|BE|7",
+      "quantity": 1,
+      "maxQty": 7,
+      "costs": {
+        "coins": 360000,
+        "food": 230000
+      }
+    },
+    {
+      "id": "/wiki/Home_Cultures/Culture_Sites/Little_Culture_Site|upgrade|BE|7",
+      "quantity": 6,
+      "maxQty": 7,
+      "costs": {
+        "coins": 125000,
+        "food": 84000
+      }
+    },
+    {
+      "id": "/wiki/Home_Cultures/Culture_Sites/Moderate_Culture_Site|upgrade|BE|7",
+      "quantity": 4,
+      "maxQty": 4,
+      "costs": {
+        "coins": 450000,
+        "food": 303000
+      }
+    },
+    {
+      "id": "/wiki/Home_Cultures/Farms/Domestic_Farm|construction|BE|19",
+      "quantity": 1,
+      "maxQty": 8,
+      "costs": {
+        "coins": 4000000,
+        "food": 1800000,
+        "goods": [
+          {
+            "type": "Mosaic",
+            "amount": 4405
+          },
+          {
+            "type": "Goblet",
+            "amount": 4405
+          },
+          {
+            "type": "Cape",
+            "amount": 4405
+          }
+        ]
+      }
+    },
+    {
+      "id": "/wiki/Home_Cultures/Farms/Domestic_Farm|upgrade|BE|19",
+      "quantity": 7,
+      "maxQty": 8,
+      "costs": {
+        "coins": 560000,
+        "food": 260000,
+        "goods": [
+          {
+            "type": "Mosaic",
+            "amount": 520
+          },
+          {
+            "type": "Goblet",
+            "amount": 520
+          },
+          {
+            "type": "Cape",
+            "amount": 520
+          }
+        ]
+      }
+    },
+    {
+      "id": "/wiki/Home_Cultures/Farms/Domestic_Farm|upgrade|BE|20",
+      "quantity": 8,
+      "maxQty": 8,
+      "costs": {
+        "coins": 660000,
+        "food": 290000,
+        "goods": [
+          {
+            "type": "Primary_BE",
+            "amount": 585
+          },
+          {
+            "type": "Secondary_BE",
+            "amount": 585
+          },
+          {
+            "type": "Ancestor_Mask",
+            "amount": 560
+          },
+          {
+            "type": "Calendar_Stone",
+            "amount": 340
+          }
+        ]
+      }
+    },
+    {
+      "id": "/wiki/Home_Cultures/Farms/Domestic_Farm|upgrade|BE|21",
+      "quantity": 8,
+      "maxQty": 8,
+      "costs": {
+        "coins": 720000,
+        "food": 320000,
+        "goods": [
+          {
+            "type": "Primary_BE",
+            "amount": 485
+          },
+          {
+            "type": "Tertiary_BE",
+            "amount": 485
+          },
+          {
+            "type": "Ancestor_Mask",
+            "amount": 2175
+          },
+          {
+            "type": "Calendar_Stone",
+            "amount": 1335
+          }
+        ]
+      }
+    },
+    {
+      "id": "/wiki/Home_Cultures/Farms/Rural_Farm|upgrade|BE|19",
+      "quantity": 9,
+      "maxQty": 9,
+      "costs": {
+        "coins": 390000,
+        "food": 180000,
+        "goods": [
+          {
+            "type": "Mosaic",
+            "amount": 370
+          },
+          {
+            "type": "Goblet",
+            "amount": 370
+          },
+          {
+            "type": "Cape",
+            "amount": 370
+          }
+        ]
+      }
+    },
+    {
+      "id": "/wiki/Home_Cultures/Farms/Rural_Farm|upgrade|BE|20",
+      "quantity": 9,
+      "maxQty": 9,
+      "costs": {
+        "coins": 460000,
+        "food": 200000,
+        "goods": [
+          {
+            "type": "Primary_BE",
+            "amount": 410
+          },
+          {
+            "type": "Secondary_BE",
+            "amount": 410
+          },
+          {
+            "type": "Ancestor_Mask",
+            "amount": 370
+          },
+          {
+            "type": "Calendar_Stone",
+            "amount": 230
+          }
+        ]
+      }
+    },
+    {
+      "id": "/wiki/Home_Cultures/Farms/Rural_Farm|upgrade|BE|21",
+      "quantity": 9,
+      "maxQty": 9,
+      "costs": {
+        "coins": 510000,
+        "food": 220000,
+        "goods": [
+          {
+            "type": "Primary_BE",
+            "amount": 345
+          },
+          {
+            "type": "Tertiary_BE",
+            "amount": 345
+          },
+          {
+            "type": "Ancestor_Mask",
+            "amount": 1450
+          },
+          {
+            "type": "Calendar_Stone",
+            "amount": 890
+          }
+        ]
+      }
+    },
+    {
+      "id": "/wiki/Home_Cultures/Homes/Average_Home|construction|BE|19",
+      "quantity": 1,
+      "maxQty": 8,
+      "costs": {
+        "coins": 1100000,
+        "food": 2500000,
+        "goods": [
+          {
+            "type": "Mosaic",
+            "amount": 2595
+          },
+          {
+            "type": "Goblet",
+            "amount": 2595
+          },
+          {
+            "type": "Cape",
+            "amount": 2595
+          }
+        ]
+      }
+    },
+    {
+      "id": "/wiki/Home_Cultures/Homes/Average_Home|upgrade|BE|19",
+      "quantity": 7,
+      "maxQty": 8,
+      "costs": {
+        "coins": 150000,
+        "food": 360000,
+        "goods": [
+          {
+            "type": "Mosaic",
+            "amount": 310
+          },
+          {
+            "type": "Goblet",
+            "amount": 310
+          },
+          {
+            "type": "Cape",
+            "amount": 310
+          }
+        ]
+      }
+    },
+    {
+      "id": "/wiki/Home_Cultures/Homes/Average_Home|upgrade|BE|20",
+      "quantity": 8,
+      "maxQty": 8,
+      "costs": {
+        "coins": 170000,
+        "food": 400000,
+        "goods": [
+          {
+            "type": "Primary_BE",
+            "amount": 345
+          },
+          {
+            "type": "Secondary_BE",
+            "amount": 345
+          },
+          {
+            "type": "Ancestor_Mask",
+            "amount": 310
+          },
+          {
+            "type": "Calendar_Stone",
+            "amount": 190
+          }
+        ]
+      }
+    },
+    {
+      "id": "/wiki/Home_Cultures/Homes/Average_Home|upgrade|BE|21",
+      "quantity": 8,
+      "maxQty": 8,
+      "costs": {
+        "coins": 190000,
+        "food": 440000,
+        "goods": [
+          {
+            "type": "Primary_BE",
+            "amount": 285
+          },
+          {
+            "type": "Tertiary_BE",
+            "amount": 285
+          },
+          {
+            "type": "Ancestor_Mask",
+            "amount": 1210
+          },
+          {
+            "type": "Calendar_Stone",
+            "amount": 740
+          }
+        ]
+      }
+    },
+    {
+      "id": "/wiki/Home_Cultures/Homes/Small_Home|construction|BE|19",
+      "quantity": 2,
+      "maxQty": 24,
+      "costs": {
+        "coins": 400000,
+        "food": 960000,
+        "goods": [
+          {
+            "type": "Mosaic",
+            "amount": 1035
+          },
+          {
+            "type": "Goblet",
+            "amount": 1035
+          },
+          {
+            "type": "Cape",
+            "amount": 1035
+          }
+        ]
+      }
+    },
+    {
+      "id": "/wiki/Home_Cultures/Homes/Small_Home|upgrade|BE|19",
+      "quantity": 22,
+      "maxQty": 24,
+      "costs": {
+        "coins": 56000,
+        "food": 140000,
+        "goods": [
+          {
+            "type": "Mosaic",
+            "amount": 125
+          },
+          {
+            "type": "Goblet",
+            "amount": 125
+          },
+          {
+            "type": "Cape",
+            "amount": 125
+          }
+        ]
+      }
+    },
+    {
+      "id": "/wiki/Home_Cultures/Homes/Small_Home|upgrade|BE|20",
+      "quantity": 24,
+      "maxQty": 24,
+      "costs": {
+        "coins": 66000,
+        "food": 150000,
+        "goods": [
+          {
+            "type": "Primary_BE",
+            "amount": 140
+          },
+          {
+            "type": "Secondary_BE",
+            "amount": 140
+          },
+          {
+            "type": "Ancestor_Mask",
+            "amount": 125
+          },
+          {
+            "type": "Calendar_Stone",
+            "amount": 76
+          }
+        ]
+      }
+    },
+    {
+      "id": "/wiki/Home_Cultures/Homes/Small_Home|upgrade|BE|21",
+      "quantity": 24,
+      "maxQty": 24,
+      "costs": {
+        "coins": 72000,
+        "food": 170000,
+        "goods": [
+          {
+            "type": "Primary_BE",
+            "amount": 115
+          },
+          {
+            "type": "Tertiary_BE",
+            "amount": 115
+          },
+          {
+            "type": "Ancestor_Mask",
+            "amount": 485
+          },
+          {
+            "type": "Calendar_Stone",
+            "amount": 295
+          }
+        ]
+      }
+    },
+    {
+      "id": "/wiki/Home_Cultures/Workshops/Carpenter|construction|BE|1",
+      "quantity": 1,
+      "maxQty": 4,
+      "costs": {
+        "coins": 6700000,
+        "food": 3900000,
+        "goods": [
+          {
+            "type": "Mosaic",
+            "amount": 1000
+          },
+          {
+            "type": "Goblet",
+            "amount": 1000
+          },
+          {
+            "type": "Cape",
+            "amount": 1000
+          }
+        ]
+      }
+    },
+    {
+      "id": "/wiki/Home_Cultures/Workshops/Scribe|construction|BE|1",
+      "quantity": 3,
+      "maxQty": 4,
+      "costs": {
+        "coins": 6700000,
+        "food": 3900000,
+        "goods": [
+          {
+            "type": "Mosaic",
+            "amount": 1000
+          },
+          {
+            "type": "Goblet",
+            "amount": 1000
+          },
+          {
+            "type": "Cape",
+            "amount": 1000
+          }
+        ]
+      }
+    },
+    {
+      "id": "/wiki/Home_Cultures/Workshops/Spice_Merchant|construction|BE|1",
+      "quantity": 1,
+      "maxQty": 4,
+      "costs": {
+        "coins": 6700000,
+        "food": 3900000,
+        "goods": [
+          {
+            "type": "Mosaic",
+            "amount": 1000
+          },
+          {
+            "type": "Goblet",
+            "amount": 1000
+          },
+          {
+            "type": "Cape",
+            "amount": 1000
+          }
+        ]
+      }
+    }
+  ],
+  "technos": [
+    {
+      "id": "techno_byzantine_era_0",
+      "costs": {
+        "research_points": 26,
+        "coins": 451000,
+        "food": 410000,
+        "goods": [
+          {
+            "type": "Primary_CG",
+            "amount": 940
+          },
+          {
+            "type": "Primary_ER",
+            "amount": 1250
+          },
+          {
+            "type": "Primary_RE",
+            "amount": 2260
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_byzantine_era_1",
+      "costs": {
+        "research_points": 21,
+        "coins": 364000,
+        "food": 330000,
+        "goods": [
+          {
+            "type": "Secondary_ME",
+            "amount": 910
+          },
+          {
+            "type": "Secondary_CG",
+            "amount": 1260
+          },
+          {
+            "type": "Secondary_RE",
+            "amount": 1820
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_byzantine_era_10",
+      "costs": {
+        "research_points": 25,
+        "coins": 432000,
+        "food": 392000,
+        "goods": [
+          {
+            "type": "Primary_ER",
+            "amount": 720
+          },
+          {
+            "type": "Primary_RE",
+            "amount": 2160
+          },
+          {
+            "type": "Tertiary_BE",
+            "amount": 240
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_byzantine_era_11",
+      "costs": {
+        "research_points": 23,
+        "coins": 394000,
+        "food": 358000,
+        "goods": [
+          {
+            "type": "Secondary_RE",
+            "amount": 820
+          },
+          {
+            "type": "Secondary_BE",
+            "amount": 330
+          },
+          {
+            "type": "Tertiary_BE",
+            "amount": 600
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_byzantine_era_12",
+      "costs": {
+        "research_points": 25,
+        "coins": 424000,
+        "food": 385000,
+        "goods": [
+          {
+            "type": "Primary_RE",
+            "amount": 880
+          },
+          {
+            "type": "Secondary_BE",
+            "amount": 680
+          },
+          {
+            "type": "Tertiary_BE",
+            "amount": 360
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_byzantine_era_13",
+      "costs": {
+        "research_points": 33,
+        "coins": 561000,
+        "food": 509000,
+        "goods": [
+          {
+            "type": "Tertiary_CG",
+            "amount": 1170
+          },
+          {
+            "type": "Secondary_ER",
+            "amount": 1560
+          },
+          {
+            "type": "Tertiary_BE",
+            "amount": 900
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_byzantine_era_14",
+      "costs": {
+        "research_points": 39,
+        "coins": 667000,
+        "food": 605000,
+        "goods": [
+          {
+            "type": "Primary_ER",
+            "amount": 1110
+          },
+          {
+            "type": "Secondary_RE",
+            "amount": 3330
+          },
+          {
+            "type": "Tertiary_BE",
+            "amount": 930
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_byzantine_era_15",
+      "costs": {
+        "research_points": 23,
+        "coins": 394000,
+        "food": 358000,
+        "goods": [
+          {
+            "type": "Secondary_ER",
+            "amount": 660
+          },
+          {
+            "type": "Primary_BE",
+            "amount": 550
+          },
+          {
+            "type": "Tertiary_BE",
+            "amount": 800
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_byzantine_era_16",
+      "costs": {
+        "research_points": 30,
+        "coins": 515000,
+        "food": 468000,
+        "goods": [
+          {
+            "type": "Primary_BE",
+            "amount": 1200
+          },
+          {
+            "type": "Secondary_BE",
+            "amount": 860
+          },
+          {
+            "type": "Calendar_Stone",
+            "amount": 750
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_byzantine_era_17",
+      "costs": {
+        "research_points": 34,
+        "coins": 576000,
+        "food": 523000,
+        "goods": [
+          {
+            "type": "Primary_RE",
+            "amount": 1200
+          },
+          {
+            "type": "Primary_BE",
+            "amount": 480
+          },
+          {
+            "type": "Secondary_BE",
+            "amount": 1150
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_byzantine_era_18",
+      "costs": {
+        "research_points": 28,
+        "coins": 485000,
+        "food": 440000,
+        "goods": [
+          {
+            "type": "Primary_ER",
+            "amount": 810
+          },
+          {
+            "type": "Primary_RE",
+            "amount": 2420
+          },
+          {
+            "type": "Tertiary_BE",
+            "amount": 670
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_byzantine_era_19",
+      "costs": {
+        "research_points": 53,
+        "coins": 909000,
+        "food": 825000,
+        "goods": [
+          {
+            "type": "Secondary_BE",
+            "amount": 1510
+          },
+          {
+            "type": "Tertiary_BE",
+            "amount": 2000
+          },
+          {
+            "type": "Ancestor_Mask",
+            "amount": 750
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_byzantine_era_2",
+      "costs": {
+        "research_points": 18,
+        "coins": 303000,
+        "food": 275000,
+        "goods": [
+          {
+            "type": "Tertiary_CG",
+            "amount": 630
+          },
+          {
+            "type": "Primary_ER",
+            "amount": 840
+          },
+          {
+            "type": "Primary_RE",
+            "amount": 1510
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_byzantine_era_20",
+      "costs": {
+        "research_points": 33,
+        "coins": 568000,
+        "food": 516000,
+        "goods": [
+          {
+            "type": "Primary_ER",
+            "amount": 950
+          },
+          {
+            "type": "Secondary_BE",
+            "amount": 1300
+          },
+          {
+            "type": "Tertiary_BE",
+            "amount": 790
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_byzantine_era_21",
+      "costs": {
+        "research_points": 39,
+        "coins": 670000,
+        "food": 608000,
+        "goods": [
+          {
+            "type": "Secondary_CG",
+            "amount": 1400
+          },
+          {
+            "type": "Secondary_RE",
+            "amount": 1400
+          },
+          {
+            "type": "Primary_BE",
+            "amount": 1500
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_byzantine_era_22",
+      "costs": {
+        "research_points": 35,
+        "coins": 595000,
+        "food": 540000,
+        "goods": [
+          {
+            "type": "Tertiary_RE",
+            "amount": 1240
+          },
+          {
+            "type": "Secondary_BE",
+            "amount": 500
+          },
+          {
+            "type": "Tertiary_BE",
+            "amount": 1400
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_byzantine_era_23",
+      "costs": {
+        "research_points": 37,
+        "coins": 636000,
+        "food": 578000,
+        "goods": [
+          {
+            "type": "Secondary_ER",
+            "amount": 1060
+          },
+          {
+            "type": "Primary_RE",
+            "amount": 3180
+          },
+          {
+            "type": "Primary_BE",
+            "amount": 880
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_byzantine_era_24",
+      "costs": {
+        "research_points": 55,
+        "coins": 945000,
+        "food": 858000,
+        "goods": [
+          {
+            "type": "Primary_ER",
+            "amount": 1570
+          },
+          {
+            "type": "Primary_BE",
+            "amount": 3150
+          },
+          {
+            "type": "Secondary_BE",
+            "amount": 1310
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_byzantine_era_25",
+      "costs": {
+        "research_points": 41,
+        "coins": 708000,
+        "food": 643000,
+        "goods": [
+          {
+            "type": "Tertiary_ER",
+            "amount": 1970
+          },
+          {
+            "type": "Primary_BE",
+            "amount": 590
+          },
+          {
+            "type": "Tertiary_BE",
+            "amount": 2360
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_byzantine_era_26",
+      "costs": {
+        "research_points": 49,
+        "coins": 833000,
+        "food": 756000,
+        "goods": [
+          {
+            "type": "Primary_RE",
+            "amount": 1740
+          },
+          {
+            "type": "Secondary_BE",
+            "amount": 2770
+          },
+          {
+            "type": "Tertiary_BE",
+            "amount": 700
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_byzantine_era_27",
+      "costs": {
+        "research_points": 39,
+        "coins": 667000,
+        "food": 605000,
+        "goods": [
+          {
+            "type": "Secondary_ER",
+            "amount": 1110
+          },
+          {
+            "type": "Primary_RE",
+            "amount": 3330
+          },
+          {
+            "type": "Tertiary_BE",
+            "amount": 930
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_byzantine_era_28",
+      "costs": {
+        "research_points": 61,
+        "coins": 1000000,
+        "food": 949000,
+        "goods": [
+          {
+            "type": "Tertiary_ER",
+            "amount": 1740
+          },
+          {
+            "type": "Secondary_BE",
+            "amount": 1450
+          },
+          {
+            "type": "Tertiary_BE",
+            "amount": 3480
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_byzantine_era_29",
+      "costs": {
+        "research_points": 55,
+        "coins": 947000,
+        "food": 859000,
+        "goods": [
+          {
+            "type": "Secondary_RE",
+            "amount": 5510
+          },
+          {
+            "type": "Primary_BE",
+            "amount": 1580
+          },
+          {
+            "type": "Calendar_Stone",
+            "amount": 1250
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_byzantine_era_3",
+      "costs": {
+        "research_points": 33,
+        "coins": 561000,
+        "food": 509000,
+        "goods": [
+          {
+            "type": "Primary_ME",
+            "amount": 1400
+          },
+          {
+            "type": "Tertiary_ER",
+            "amount": 3730
+          },
+          {
+            "type": "Primary_RE",
+            "amount": 1170
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_byzantine_era_30",
+      "costs": {
+        "research_points": 51,
+        "coins": 864000,
+        "food": 784000,
+        "goods": [
+          {
+            "type": "Primary_CG",
+            "amount": 1800
+          },
+          {
+            "type": "Secondary_RE",
+            "amount": 1800
+          },
+          {
+            "type": "Primary_BE",
+            "amount": 2880
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_byzantine_era_31",
+      "costs": {
+        "research_points": 60,
+        "coins": 1000000,
+        "food": 928000,
+        "goods": [
+          {
+            "type": "Tertiary_RE",
+            "amount": 2130
+          },
+          {
+            "type": "Secondary_BE",
+            "amount": 850
+          },
+          {
+            "type": "Tertiary_BE",
+            "amount": 3400
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_byzantine_era_32",
+      "costs": {
+        "research_points": 54,
+        "coins": 924000,
+        "food": 839000,
+        "goods": [
+          {
+            "type": "Secondary_ER",
+            "amount": 1540
+          },
+          {
+            "type": "Secondary_RE",
+            "amount": 4610
+          },
+          {
+            "type": "Tertiary_BE",
+            "amount": 1280
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_byzantine_era_33",
+      "costs": {
+        "research_points": 55,
+        "coins": 939000,
+        "food": 853000,
+        "goods": [
+          {
+            "type": "Tertiary_ER",
+            "amount": 1560
+          },
+          {
+            "type": "Primary_BE",
+            "amount": 3130
+          },
+          {
+            "type": "Secondary_BE",
+            "amount": 1300
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_byzantine_era_34",
+      "costs": {
+        "research_points": 71,
+        "coins": 1200000,
+        "food": 1100000,
+        "goods": [
+          {
+            "type": "Primary_ER",
+            "amount": 2020
+          },
+          {
+            "type": "Tertiary_RE",
+            "amount": 6050
+          },
+          {
+            "type": "Primary_BE",
+            "amount": 1680
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_byzantine_era_35",
+      "costs": {
+        "research_points": 61,
+        "coins": 1000000,
+        "food": 938000,
+        "goods": [
+          {
+            "type": "Primary_RE",
+            "amount": 2150
+          },
+          {
+            "type": "Secondary_BE",
+            "amount": 860
+          },
+          {
+            "type": "Tertiary_BE",
+            "amount": 3440
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_byzantine_era_36",
+      "costs": {
+        "research_points": 67,
+        "coins": 1100000,
+        "food": 1000000,
+        "goods": [
+          {
+            "type": "Primary_RE",
+            "amount": 6620
+          },
+          {
+            "type": "Tertiary_BE",
+            "amount": 1890
+          },
+          {
+            "type": "Ancestor_Mask",
+            "amount": 1500
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_byzantine_era_37",
+      "costs": {
+        "research_points": 59,
+        "coins": 1000000,
+        "food": 921000,
+        "goods": [
+          {
+            "type": "Secondary_RE",
+            "amount": 2110
+          },
+          {
+            "type": "Tertiary_RE",
+            "amount": 5070
+          },
+          {
+            "type": "Primary_BE",
+            "amount": 850
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_byzantine_era_38",
+      "costs": {
+        "research_points": 60,
+        "coins": 1000000,
+        "food": 925000,
+        "goods": [
+          {
+            "type": "Secondary_ER",
+            "amount": 1700
+          },
+          {
+            "type": "Primary_BE",
+            "amount": 1410
+          },
+          {
+            "type": "Secondary_BE",
+            "amount": 3390
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_byzantine_era_39",
+      "costs": {
+        "research_points": 65,
+        "coins": 1100000,
+        "food": 1000000,
+        "goods": [
+          {
+            "type": "Tertiary_RE",
+            "amount": 2320
+          },
+          {
+            "type": "Primary_BE",
+            "amount": 3710
+          },
+          {
+            "type": "Secondary_BE",
+            "amount": 930
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_byzantine_era_4",
+      "costs": {
+        "research_points": 17,
+        "coins": 288000,
+        "food": 261000,
+        "goods": [
+          {
+            "type": "Tertiary_ME",
+            "amount": 720
+          },
+          {
+            "type": "Secondary_ER",
+            "amount": 800
+          },
+          {
+            "type": "Tertiary_RE",
+            "amount": 1440
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_byzantine_era_40",
+      "costs": {
+        "research_points": 60,
+        "coins": 1000000,
+        "food": 935000,
+        "goods": [
+          {
+            "type": "Tertiary_ER",
+            "amount": 1720
+          },
+          {
+            "type": "Tertiary_RE",
+            "amount": 5140
+          },
+          {
+            "type": "Secondary_BE",
+            "amount": 1430
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_byzantine_era_41",
+      "costs": {
+        "research_points": 72,
+        "coins": 1200000,
+        "food": 1100000,
+        "goods": [
+          {
+            "type": "Primary_BE",
+            "amount": 2060
+          },
+          {
+            "type": "Secondary_BE",
+            "amount": 4790
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_byzantine_era_5",
+      "costs": {
+        "research_points": 20,
+        "coins": 333000,
+        "food": 303000,
+        "goods": [
+          {
+            "type": "Secondary_ER",
+            "amount": 2220
+          },
+          {
+            "type": "Secondary_RE",
+            "amount": 420
+          },
+          {
+            "type": "Tertiary_RE",
+            "amount": 700
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_byzantine_era_6",
+      "costs": {
+        "research_points": 36,
+        "coins": 606000,
+        "food": 550000,
+        "goods": [
+          {
+            "type": "Tertiary_CG",
+            "amount": 1260
+          },
+          {
+            "type": "Secondary_RE",
+            "amount": 3030
+          },
+          {
+            "type": "Primary_BE",
+            "amount": 150
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_byzantine_era_7",
+      "costs": {
+        "research_points": 40,
+        "coins": 682000,
+        "food": 619000,
+        "goods": [
+          {
+            "type": "Secondary_RE",
+            "amount": 850
+          },
+          {
+            "type": "Tertiary_RE",
+            "amount": 3400
+          },
+          {
+            "type": "Primary_BE",
+            "amount": 300
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_byzantine_era_8",
+      "costs": {
+        "research_points": 31,
+        "coins": 530000,
+        "food": 481000,
+        "goods": [
+          {
+            "type": "Secondary_RE",
+            "amount": 3090
+          },
+          {
+            "type": "Primary_BE",
+            "amount": 310
+          },
+          {
+            "type": "Ancestor_Mask",
+            "amount": 250
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_byzantine_era_9",
+      "costs": {
+        "research_points": 40,
+        "coins": 682000,
+        "food": 619000,
+        "goods": [
+          {
+            "type": "Secondary_ER",
+            "amount": 1140
+          },
+          {
+            "type": "Tertiary_RE",
+            "amount": 3400
+          },
+          {
+            "type": "Secondary_BE",
+            "amount": 380
+          }
+        ]
+      }
+    }
+  ]
+}

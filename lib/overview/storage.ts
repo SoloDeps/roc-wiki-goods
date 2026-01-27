@@ -28,6 +28,8 @@ export const toggleBuildingHidden = (id: string) =>
   sendDexieMessage("DEXIE_TOGGLE_BUILDING_HIDDEN", { id });
 export const removeBuilding = (id: string) =>
   sendDexieMessage("DEXIE_REMOVE_BUILDING", { id });
+export const removeAllBuildings = () =>
+  sendDexieMessage("DEXIE_REMOVE_ALL_BUILDINGS");
 
 // technologies operations
 export const getTechnos = () => sendDexieMessage("DEXIE_GET_TECHNOS");
@@ -302,4 +304,56 @@ export function watchBuildingSelections(callback: (data: string[][]) => void) {
     selectionsListeners.delete(callback);
     unwatch();
   };
+}
+
+
+
+// PRESET
+
+let watchersSuspended = false;
+
+// Modifier la fonction qui écoute les changements du background
+if (typeof chrome !== "undefined" && chrome.runtime?.onMessage) {
+  chrome.runtime.onMessage.addListener((message) => {
+    if (message.type !== "DEXIE_CHANGED") return;
+
+    // ✅ Ignorer les broadcasts si les watchers sont suspendus
+    if (watchersSuspended) {
+      console.log("[Storage] Watchers suspended, ignoring broadcast");
+      return;
+    }
+
+    const { type: changeType, data } = message.payload;
+
+    if (changeType === "BUILDINGS") {
+      buildingsCache = data || [];
+      buildingsListeners.forEach((cb) => cb(buildingsCache));
+    } else if (changeType === "TECHNOS") {
+      technosCache = data || [];
+      technosListeners.forEach((cb) => cb(technosCache));
+    }
+  });
+}
+
+// ✅ Nouvelles fonctions pour suspendre/reprendre les watchers
+export function suspendWatchers() {
+  watchersSuspended = true;
+}
+
+export function resumeWatchers() {
+  watchersSuspended = false;
+}
+
+// ✅ Nouvelle fonction pour forcer un refresh manuel
+export async function forceRefreshWatchers() {
+  const [buildings, technos] = await Promise.all([
+    getBuildings(),
+    getTechnos(),
+  ]);
+
+  buildingsCache = buildings;
+  technosCache = technos;
+
+  buildingsListeners.forEach((cb) => cb(buildingsCache));
+  technosListeners.forEach((cb) => cb(technosCache));
 }

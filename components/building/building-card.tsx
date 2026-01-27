@@ -107,7 +107,7 @@ export const BuildingCard = memo(function BuildingCard({
 
   return (
     <div
-      className={`@container/bcard group flex gap-4 rounded-sm bg-background-300 border h-32 pl-2 relative ${
+      className={`@container/bcard group flex items-center justify-center rounded-sm bg-background-300 border min-h-32 pl-1 relative ${
         hidden ? "" : ""
       }`}
       onMouseEnter={() => setIsHovered(true)}
@@ -131,7 +131,7 @@ export const BuildingCard = memo(function BuildingCard({
         />
       )}
 
-      <div className="hidden md:flex size-28 shrink-0 items-center justify-center overflow-hidden relative">
+      <div className="hidden md:flex size-28 shrink-0 overflow-hidden relative">
         <img
           src={image}
           alt={name}
@@ -140,80 +140,86 @@ export const BuildingCard = memo(function BuildingCard({
         />
       </div>
 
-      <div className="flex py-3 gap-6 size-full relative">
+      <div className="flex p-3 size-full relative">
         <div className="flex-1">
-          <div className="flex items-center gap-2 mb-3">
-            <h3
-              className={`text-sm lg:text-[15px] font-medium truncate capitalize ${hidden ? "opacity-60 pointer-events-none select-none" : ""}`}
-            >
-              {name}
-            </h3>
-            <div className={hidden ? "opacity-60 pointer-events-none select-none" : ""}>{typeBadge}</div>
-
-            <div
-              className={`transition-opacity duration-200 ${
-                hidden
-                  ? "opacity-100"
-                  : isHovered
-                    ? "opacity-100"
-                    : "opacity-0 pointer-events-none"
-              }`}
-            >
-              <Button
-                size="sm"
-                variant={hidden ? "outline" : "ghost"}
-                className="rounded-sm h-6"
-                onClick={handleToggleHidden}
-                title={
-                  hidden
-                    ? "Include in total calculation"
-                    : "Exclude from total calculation"
+          <div className="flex mb-3 justify-between">
+            <div className="flex items-center gap-2">
+              <h3
+                className={`text-sm lg:text-[15px] font-medium truncate capitalize ${hidden ? "opacity-60 pointer-events-none select-none" : ""}`}
+              >
+                {name}
+              </h3>
+              <div
+                className={
+                  hidden ? "opacity-60 pointer-events-none select-none" : ""
                 }
               >
-                {hidden ? (
-                  <Eye className="size-4" />
-                ) : (
-                  <EyeOff className="size-4" />
-                )}
-                {hidden ? "Show" : "Hide"}
-              </Button>
+                {typeBadge}
+              </div>
+
+              <div
+                className={`transition-opacity duration-200 ${
+                  hidden
+                    ? "opacity-100"
+                    : isHovered
+                      ? "opacity-100"
+                      : "opacity-0 pointer-events-none"
+                }`}
+              >
+                <Button
+                  size="sm"
+                  variant={hidden ? "outline" : "ghost"}
+                  className="rounded-sm h-6"
+                  onClick={handleToggleHidden}
+                  title={
+                    hidden
+                      ? "Include in total calculation"
+                      : "Exclude from total calculation"
+                  }
+                >
+                  {hidden ? (
+                    <Eye className="size-4" />
+                  ) : (
+                    <EyeOff className="size-4" />
+                  )}
+                  <span className="hidden md:inline-block">{hidden ? "Show" : "Hide"}</span>
+                </Button>
+              </div>
             </div>
+
+            <Button
+              size="icon-sm"
+              variant="destructive"
+              className="rounded-sm size-6"
+              onClick={!hidden ? handleRemove : undefined}
+            >
+              <X className="size-4 stroke-3" />
+            </Button>
           </div>
 
-          <div
-            className={`grid grid-cols-3 gap-1.5 text-sm w-80 ${hidden ? "opacity-60 pointer-events-none select-none" : ""}`}
-          >
-            {mainResources.map((r) => (
-              <ResourceBadge
-                key={r.type}
-                icon={`${WIKI_URL}${r.icon}`}
-                value={questsFormatNumber(r.value)}
-                alt={r.type}
-              />
-            ))}
-            {goodsBadges}
+          <div className="flex gap-2 justify-between items-end">
+            <div
+              className={`grid grid-cols-2 sm:grid-cols-3 gap-1.5 text-sm w-60 sm:w-80 ${hidden ? "opacity-60 pointer-events-none select-none" : ""}`}
+            >
+              {mainResources.map((r) => (
+                <ResourceBadge
+                  key={r.type}
+                  icon={`${WIKI_URL}${r.icon}`}
+                  value={questsFormatNumber(r.value)}
+                  alt={r.type}
+                />
+              ))}
+              {goodsBadges}
+            </div>
+
+            <BuildingCounter
+              value={localQty}
+              onChange={setLocalQty}
+              min={1}
+              max={maxQty}
+              disabled={hidden}
+            />
           </div>
-        </div>
-
-        <div
-          className={`flex flex-col items-end justify-between shrink-0 pr-3 ${hidden ? "opacity-60 pointer-events-none select-none" : ""}`}
-        >
-          <Button
-            size="icon-sm"
-            variant="destructive"
-            className="rounded-sm size-6"
-            onClick={!hidden ? handleRemove : undefined}
-          >
-            <X className="size-4 stroke-3" />
-          </Button>
-
-          <BuildingCounter
-            value={localQty}
-            onChange={setLocalQty}
-            min={1}
-            max={maxQty}
-            disabled={hidden}
-          />
         </div>
       </div>
     </div>

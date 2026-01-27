@@ -1,0 +1,590 @@
+{
+  "buildings": [
+    {
+      "id": "/wiki/Home_Cultures/Barracks/Cavalry_Barracks|construction|BA|2",
+      "quantity": 1,
+      "maxQty": 1,
+      "costs": {
+        "coins": 36000,
+        "food": 23000,
+        "goods": []
+      }
+    },
+    {
+      "id": "/wiki/Home_Cultures/Barracks/Infantry_Barracks|upgrade|BA|2",
+      "quantity": 2,
+      "maxQty": 2,
+      "costs": {
+        "coins": 21200,
+        "food": 12900,
+        "goods": []
+      }
+    },
+    {
+      "id": "/wiki/Home_Cultures/Barracks/Ranged_Barracks|upgrade|BA|2",
+      "quantity": 1,
+      "maxQty": 1,
+      "costs": {
+        "coins": 27000,
+        "food": 16400,
+        "goods": []
+      }
+    },
+    {
+      "id": "/wiki/Home_Cultures/Culture_Sites/Compact_Culture_Site|construction|BA|2",
+      "quantity": 1,
+      "maxQty": 5,
+      "costs": {
+        "coins": 3100,
+        "food": 1800
+      }
+    },
+    {
+      "id": "/wiki/Home_Cultures/Culture_Sites/Compact_Culture_Site|upgrade|BA|2",
+      "quantity": 4,
+      "maxQty": 5,
+      "costs": {
+        "coins": 2600,
+        "food": 1500
+      }
+    },
+    {
+      "id": "/wiki/Home_Cultures/Culture_Sites/Little_Culture_Site|construction|BA|2",
+      "quantity": 3,
+      "maxQty": 3,
+      "costs": {
+        "coins": 1800,
+        "food": 1100
+      }
+    },
+    {
+      "id": "/wiki/Home_Cultures/Culture_Sites/Moderate_Culture_Site|upgrade|BA|2",
+      "quantity": 2,
+      "maxQty": 2,
+      "costs": {
+        "coins": 5300,
+        "food": 3300
+      }
+    },
+    {
+      "id": "/wiki/Home_Cultures/Farms/Domestic_Farm|construction|BA|4",
+      "quantity": 1,
+      "maxQty": 3,
+      "costs": {
+        "coins": 20000,
+        "food": 8500,
+        "goods": []
+      }
+    },
+    {
+      "id": "/wiki/Home_Cultures/Farms/Domestic_Farm|upgrade|BA|4",
+      "quantity": 2,
+      "maxQty": 3,
+      "costs": {
+        "coins": 11000,
+        "food": 4700,
+        "goods": []
+      }
+    },
+    {
+      "id": "/wiki/Home_Cultures/Farms/Domestic_Farm|upgrade|BA|5",
+      "quantity": 3,
+      "maxQty": 3,
+      "costs": {
+        "coins": 18000,
+        "food": 7800,
+        "goods": [
+          {
+            "type": "Primary_BA",
+            "amount": 13
+          }
+        ]
+      }
+    },
+    {
+      "id": "/wiki/Home_Cultures/Farms/Domestic_Farm|upgrade|BA|6",
+      "quantity": 3,
+      "maxQty": 3,
+      "costs": {
+        "coins": 26000,
+        "food": 11000,
+        "goods": [
+          {
+            "type": "Primary_BA",
+            "amount": 13
+          }
+        ]
+      }
+    },
+    {
+      "id": "/wiki/Home_Cultures/Farms/Rural_Farm|construction|BA|4",
+      "quantity": 1,
+      "maxQty": 4,
+      "costs": {
+        "coins": 13000,
+        "food": 5500,
+        "goods": []
+      }
+    },
+    {
+      "id": "/wiki/Home_Cultures/Farms/Rural_Farm|upgrade|BA|4",
+      "quantity": 3,
+      "maxQty": 4,
+      "costs": {
+        "coins": 7600,
+        "food": 3200,
+        "goods": []
+      }
+    },
+    {
+      "id": "/wiki/Home_Cultures/Farms/Rural_Farm|upgrade|BA|5",
+      "quantity": 4,
+      "maxQty": 4,
+      "costs": {
+        "coins": 13000,
+        "food": 5400,
+        "goods": [
+          {
+            "type": "Primary_BA",
+            "amount": 9
+          }
+        ]
+      }
+    },
+    {
+      "id": "/wiki/Home_Cultures/Farms/Rural_Farm|upgrade|BA|6",
+      "quantity": 4,
+      "maxQty": 4,
+      "costs": {
+        "coins": 18000,
+        "food": 7800,
+        "goods": [
+          {
+            "type": "Primary_BA",
+            "amount": 9
+          }
+        ]
+      }
+    },
+    {
+      "id": "/wiki/Home_Cultures/Homes/Average_Home|construction|BA|4",
+      "quantity": 2,
+      "maxQty": 2,
+      "costs": {
+        "coins": 5300,
+        "food": 12000,
+        "goods": []
+      }
+    },
+    {
+      "id": "/wiki/Home_Cultures/Homes/Average_Home|upgrade|BA|5",
+      "quantity": 2,
+      "maxQty": 2,
+      "costs": {
+        "coins": 4800,
+        "food": 11000,
+        "goods": [
+          {
+            "type": "Primary_BA",
+            "amount": 8
+          }
+        ]
+      }
+    },
+    {
+      "id": "/wiki/Home_Cultures/Homes/Average_Home|upgrade|BA|6",
+      "quantity": 2,
+      "maxQty": 2,
+      "costs": {
+        "coins": 7000,
+        "food": 16000,
+        "goods": [
+          {
+            "type": "Primary_BA",
+            "amount": 8
+          }
+        ]
+      }
+    },
+    {
+      "id": "/wiki/Home_Cultures/Homes/Small_Home|construction|BA|4",
+      "quantity": 5,
+      "maxQty": 12,
+      "costs": {
+        "coins": 1800,
+        "food": 4000,
+        "goods": []
+      }
+    },
+    {
+      "id": "/wiki/Home_Cultures/Homes/Small_Home|upgrade|BA|4",
+      "quantity": 7,
+      "maxQty": 12,
+      "costs": {
+        "coins": 1100,
+        "food": 2500,
+        "goods": []
+      }
+    },
+    {
+      "id": "/wiki/Home_Cultures/Homes/Small_Home|upgrade|BA|5",
+      "quantity": 12,
+      "maxQty": 12,
+      "costs": {
+        "coins": 1800,
+        "food": 4200,
+        "goods": [
+          {
+            "type": "Primary_BA",
+            "amount": 3
+          }
+        ]
+      }
+    },
+    {
+      "id": "/wiki/Home_Cultures/Homes/Small_Home|upgrade|BA|6",
+      "quantity": 12,
+      "maxQty": 12,
+      "costs": {
+        "coins": 2600,
+        "food": 6100,
+        "goods": [
+          {
+            "type": "Primary_BA",
+            "amount": 3
+          }
+        ]
+      }
+    },
+    {
+      "id": "/wiki/Home_Cultures/Workshops/Artisan|construction|BA|1",
+      "quantity": 1,
+      "maxQty": 1,
+      "costs": {
+        "coins": 32000,
+        "food": 18000,
+        "goods": []
+      }
+    },
+    {
+      "id": "/wiki/Home_Cultures/Workshops/Stone_Mason|construction|BA|1",
+      "quantity": 1,
+      "maxQty": 1,
+      "costs": {
+        "coins": 32000,
+        "food": 18000,
+        "goods": []
+      }
+    },
+    {
+      "id": "/wiki/Home_Cultures/Workshops/Tailor|construction|BA|1",
+      "quantity": 1,
+      "maxQty": 1,
+      "costs": {
+        "coins": 32000,
+        "food": 18000,
+        "goods": []
+      }
+    }
+  ],
+  "technos": [
+    {
+      "id": "techno_bronze_age_0",
+      "costs": {
+        "research_points": 2,
+        "coins": 24150,
+        "food": 14400
+      }
+    },
+    {
+      "id": "techno_bronze_age_1",
+      "costs": {
+        "research_points": 1,
+        "coins": 7500,
+        "food": 5000
+      }
+    },
+    {
+      "id": "techno_bronze_age_10",
+      "costs": {
+        "research_points": 6,
+        "coins": 64900,
+        "food": 38650,
+        "goods": [
+          {
+            "type": "Primary_BA",
+            "amount": 10
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_bronze_age_11",
+      "costs": {
+        "research_points": 8,
+        "coins": 77200,
+        "food": 46000,
+        "goods": [
+          {
+            "type": "Primary_BA",
+            "amount": 15
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_bronze_age_12",
+      "costs": {
+        "research_points": 11,
+        "coins": 102500,
+        "food": 61050,
+        "goods": [
+          {
+            "type": "Primary_BA",
+            "amount": 20
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_bronze_age_13",
+      "costs": {
+        "research_points": 11,
+        "coins": 77200,
+        "food": 46000,
+        "goods": [
+          {
+            "type": "Primary_BA",
+            "amount": 20
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_bronze_age_14",
+      "costs": {
+        "research_points": 9,
+        "coins": 42700,
+        "food": 25450,
+        "goods": [
+          {
+            "type": "Primary_BA",
+            "amount": 25
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_bronze_age_15",
+      "costs": {
+        "research_points": 11,
+        "coins": 88800,
+        "food": 52900,
+        "goods": [
+          {
+            "type": "Primary_BA",
+            "amount": 30
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_bronze_age_16",
+      "costs": {
+        "research_points": 11,
+        "coins": 116000,
+        "food": 69000,
+        "goods": [
+          {
+            "type": "Primary_BA",
+            "amount": 35
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_bronze_age_17",
+      "costs": {
+        "research_points": 11,
+        "coins": 90500,
+        "food": 53950,
+        "goods": [
+          {
+            "type": "Primary_BA",
+            "amount": 40
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_bronze_age_18",
+      "costs": {
+        "research_points": 10,
+        "coins": 96500,
+        "food": 57500,
+        "goods": [
+          {
+            "type": "Primary_BA",
+            "amount": 45
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_bronze_age_19",
+      "costs": {
+        "research_points": 10,
+        "coins": 82000,
+        "food": 48850,
+        "goods": [
+          {
+            "type": "Primary_BA",
+            "amount": 50
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_bronze_age_2",
+      "costs": {
+        "research_points": 4,
+        "coins": 28950,
+        "food": 17250
+      }
+    },
+    {
+      "id": "techno_bronze_age_20",
+      "costs": {
+        "research_points": 13,
+        "coins": 145000,
+        "food": 86500,
+        "goods": [
+          {
+            "type": "Primary_BA",
+            "amount": 55
+          },
+          {
+            "type": "Secondary_BA",
+            "amount": 10
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_bronze_age_21",
+      "costs": {
+        "research_points": 13,
+        "coins": 135000,
+        "food": 80500,
+        "goods": [
+          {
+            "type": "Primary_BA",
+            "amount": 55
+          },
+          {
+            "type": "Secondary_BA",
+            "amount": 15
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_bronze_age_22",
+      "costs": {
+        "research_points": 10,
+        "coins": 154500,
+        "food": 92000,
+        "goods": [
+          {
+            "type": "Primary_BA",
+            "amount": 70
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_bronze_age_23",
+      "costs": {
+        "research_points": 17,
+        "coins": 245000,
+        "food": 146000,
+        "goods": [
+          {
+            "type": "Primary_BA",
+            "amount": 80
+          },
+          {
+            "type": "Secondary_BA",
+            "amount": 10
+          },
+          {
+            "type": "Tertiary_BA",
+            "amount": 5
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_bronze_age_3",
+      "costs": {
+        "research_points": 5,
+        "coins": 38600,
+        "food": 23000
+      }
+    },
+    {
+      "id": "techno_bronze_age_4",
+      "costs": {
+        "research_points": 6,
+        "coins": 67550,
+        "food": 40250
+      }
+    },
+    {
+      "id": "techno_bronze_age_5",
+      "costs": {
+        "research_points": 6,
+        "coins": 59800,
+        "food": 35600
+      }
+    },
+    {
+      "id": "techno_bronze_age_6",
+      "costs": {
+        "research_points": 3,
+        "coins": 44400,
+        "food": 26450
+      }
+    },
+    {
+      "id": "techno_bronze_age_7",
+      "costs": {
+        "research_points": 5,
+        "coins": 51250,
+        "food": 30550
+      }
+    },
+    {
+      "id": "techno_bronze_age_8",
+      "costs": {
+        "research_points": 4,
+        "coins": 38600,
+        "food": 23000
+      }
+    },
+    {
+      "id": "techno_bronze_age_9",
+      "costs": {
+        "research_points": 6,
+        "coins": 59800,
+        "food": 35600,
+        "goods": [
+          {
+            "type": "Primary_BA",
+            "amount": 5
+          }
+        ]
+      }
+    }
+  ]
+}

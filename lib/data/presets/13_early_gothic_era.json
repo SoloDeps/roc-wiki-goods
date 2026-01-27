@@ -1,0 +1,1695 @@
+{
+  "buildings": [
+    {
+      "id": "/wiki/Home_Cultures/Barracks/Cavalry_Barracks|upgrade|LG|14",
+      "quantity": 1,
+      "maxQty": 1,
+      "costs": {
+        "coins": 14700000,
+        "food": 8500000,
+        "goods": [
+          {
+            "type": "Lead_Glass",
+            "amount": 8670
+          },
+          {
+            "type": "Fine_Jewelry",
+            "amount": 8670
+          },
+          {
+            "type": "Ointment",
+            "amount": 8670
+          }
+        ]
+      }
+    },
+    {
+      "id": "/wiki/Home_Cultures/Barracks/Heavy_Infantry_Barracks|upgrade|LG|14",
+      "quantity": 1,
+      "maxQty": 1,
+      "costs": {
+        "coins": 17800000,
+        "food": 11900000,
+        "goods": [
+          {
+            "type": "Lead_Glass",
+            "amount": 9870
+          },
+          {
+            "type": "Fine_Jewelry",
+            "amount": 9870
+          },
+          {
+            "type": "Ointment",
+            "amount": 9870
+          }
+        ]
+      }
+    },
+    {
+      "id": "/wiki/Home_Cultures/Barracks/Infantry_Barracks|upgrade|LG|14",
+      "quantity": 2,
+      "maxQty": 2,
+      "costs": {
+        "coins": 10700000,
+        "food": 5900000,
+        "goods": [
+          {
+            "type": "Lead_Glass",
+            "amount": 5560
+          },
+          {
+            "type": "Fine_Jewelry",
+            "amount": 5560
+          },
+          {
+            "type": "Ointment",
+            "amount": 5560
+          }
+        ]
+      }
+    },
+    {
+      "id": "/wiki/Home_Cultures/Barracks/Ranged_Barracks|upgrade|LG|14",
+      "quantity": 1,
+      "maxQty": 1,
+      "costs": {
+        "coins": 13700000,
+        "food": 6800000,
+        "goods": [
+          {
+            "type": "Lead_Glass",
+            "amount": 7115
+          },
+          {
+            "type": "Fine_Jewelry",
+            "amount": 7115
+          },
+          {
+            "type": "Ointment",
+            "amount": 7115
+          }
+        ]
+      }
+    },
+    {
+      "id": "/wiki/Home_Cultures/Barracks/Siege_Barracks|upgrade|LG|14",
+      "quantity": 1,
+      "maxQty": 1,
+      "costs": {
+        "coins": 21400000,
+        "food": 13500000,
+        "goods": [
+          {
+            "type": "Lead_Glass",
+            "amount": 12340
+          },
+          {
+            "type": "Fine_Jewelry",
+            "amount": 12340
+          },
+          {
+            "type": "Ointment",
+            "amount": 12340
+          }
+        ]
+      }
+    },
+    {
+      "id": "/wiki/Home_Cultures/Culture_Sites/Compact_Culture_Site|upgrade|EG|13",
+      "quantity": 9,
+      "maxQty": 9,
+      "costs": {
+        "coins": 1100000,
+        "food": 600000
+      }
+    },
+    {
+      "id": "/wiki/Home_Cultures/Culture_Sites/Large_Culture_Site|upgrade|EG|13",
+      "quantity": 1,
+      "maxQty": 1,
+      "costs": {
+        "coins": 8000000,
+        "food": 4300000
+      }
+    },
+    {
+      "id": "/wiki/Home_Cultures/Culture_Sites/Little_Culture_Site|construction|EG|13",
+      "quantity": 1,
+      "maxQty": 9,
+      "costs": {
+        "coins": 3400000,
+        "food": 1900000
+      }
+    },
+    {
+      "id": "/wiki/Home_Cultures/Culture_Sites/Little_Culture_Site|upgrade|EG|13",
+      "quantity": 9,
+      "maxQty": 9,
+      "costs": {
+        "coins": 650000,
+        "food": 350000
+      }
+    },
+    {
+      "id": "/wiki/Home_Cultures/Culture_Sites/Moderate_Culture_Site|construction|EG|13",
+      "quantity": 1,
+      "maxQty": 6,
+      "costs": {
+        "coins": 11800000,
+        "food": 7000000
+      }
+    },
+    {
+      "id": "/wiki/Home_Cultures/Culture_Sites/Moderate_Culture_Site|upgrade|EG|13",
+      "quantity": 5,
+      "maxQty": 6,
+      "costs": {
+        "coins": 2300000,
+        "food": 1300000
+      }
+    },
+    {
+      "id": "/wiki/Home_Cultures/Farms/Domestic_Farm|construction|EG|37",
+      "quantity": 1,
+      "maxQty": 11,
+      "costs": {
+        "coins": 35000000,
+        "food": 15000000,
+        "goods": [
+          {
+            "type": "Secretary_Desk",
+            "amount": 8000
+          },
+          {
+            "type": "Grimoire",
+            "amount": 8000
+          },
+          {
+            "type": "Cinnamon",
+            "amount": 8000
+          }
+        ]
+      }
+    },
+    {
+      "id": "/wiki/Home_Cultures/Farms/Domestic_Farm|upgrade|EG|37",
+      "quantity": 10,
+      "maxQty": 11,
+      "costs": {
+        "coins": 2650000,
+        "food": 1020000,
+        "goods": [
+          {
+            "type": "Secretary_Desk",
+            "amount": 2000
+          },
+          {
+            "type": "Grimoire",
+            "amount": 2000
+          },
+          {
+            "type": "Cinnamon",
+            "amount": 2000
+          }
+        ]
+      }
+    },
+    {
+      "id": "/wiki/Home_Cultures/Farms/Domestic_Farm|upgrade|EG|38",
+      "quantity": 11,
+      "maxQty": 11,
+      "costs": {
+        "coins": 2800000,
+        "food": 1080000,
+        "goods": [
+          {
+            "type": "Primary_EG",
+            "amount": 1500
+          },
+          {
+            "type": "Tertiary_EG",
+            "amount": 1500
+          },
+          {
+            "type": "Wheat",
+            "amount": 10000
+          },
+          {
+            "type": "Pomegranate",
+            "amount": 10000
+          }
+        ]
+      }
+    },
+    {
+      "id": "/wiki/Home_Cultures/Farms/Domestic_Farm|upgrade|EG|39",
+      "quantity": 11,
+      "maxQty": 11,
+      "costs": {
+        "coins": 2950000,
+        "food": 1150000,
+        "goods": [
+          {
+            "type": "Secondary_EG",
+            "amount": 2000
+          },
+          {
+            "type": "Tertiary_EG",
+            "amount": 2000
+          },
+          {
+            "type": "Confection",
+            "amount": 7500
+          },
+          {
+            "type": "Syrup",
+            "amount": 7500
+          }
+        ]
+      }
+    },
+    {
+      "id": "/wiki/Home_Cultures/Farms/Rural_Farm|construction|EG|37",
+      "quantity": 1,
+      "maxQty": 13,
+      "costs": {
+        "coins": 25000000,
+        "food": 10000000,
+        "goods": [
+          {
+            "type": "Secretary_Desk",
+            "amount": 6000
+          },
+          {
+            "type": "Grimoire",
+            "amount": 6000
+          },
+          {
+            "type": "Cinnamon",
+            "amount": 6000
+          }
+        ]
+      }
+    },
+    {
+      "id": "/wiki/Home_Cultures/Farms/Rural_Farm|upgrade|EG|37",
+      "quantity": 12,
+      "maxQty": 13,
+      "costs": {
+        "coins": 1850000,
+        "food": 720000,
+        "goods": [
+          {
+            "type": "Secretary_Desk",
+            "amount": 1200
+          },
+          {
+            "type": "Grimoire",
+            "amount": 1200
+          },
+          {
+            "type": "Cinnamon",
+            "amount": 1200
+          }
+        ]
+      }
+    },
+    {
+      "id": "/wiki/Home_Cultures/Farms/Rural_Farm|upgrade|EG|38",
+      "quantity": 13,
+      "maxQty": 13,
+      "costs": {
+        "coins": 2000000,
+        "food": 780000,
+        "goods": [
+          {
+            "type": "Primary_EG",
+            "amount": 1000
+          },
+          {
+            "type": "Tertiary_EG",
+            "amount": 1000
+          },
+          {
+            "type": "Wheat",
+            "amount": 8500
+          },
+          {
+            "type": "Pomegranate",
+            "amount": 8500
+          }
+        ]
+      }
+    },
+    {
+      "id": "/wiki/Home_Cultures/Farms/Rural_Farm|upgrade|EG|39",
+      "quantity": 13,
+      "maxQty": 13,
+      "costs": {
+        "coins": 2150000,
+        "food": 850000,
+        "goods": [
+          {
+            "type": "Secondary_EG",
+            "amount": 1800
+          },
+          {
+            "type": "Tertiary_EG",
+            "amount": 1800
+          },
+          {
+            "type": "Confection",
+            "amount": 6000
+          },
+          {
+            "type": "Syrup",
+            "amount": 6000
+          }
+        ]
+      }
+    },
+    {
+      "id": "/wiki/Home_Cultures/Harbor_Houses/Seafarer_House|construction|EG|1",
+      "quantity": 14,
+      "maxQty": 14,
+      "costs": {
+        "coins": 250000,
+        "food": 100000,
+        "goods": [
+          {
+            "type": "Secretary_Desk",
+            "amount": 1000
+          },
+          {
+            "type": "Grimoire",
+            "amount": 1000
+          },
+          {
+            "type": "Cinnamon",
+            "amount": 1000
+          }
+        ]
+      }
+    },
+    {
+      "id": "/wiki/Home_Cultures/Harbor_Houses/Seafarer_House|upgrade|EG|2",
+      "quantity": 14,
+      "maxQty": 14,
+      "costs": {
+        "food": 75000,
+        "goods": [
+          {
+            "type": "Primary_EG",
+            "amount": 1000
+          },
+          {
+            "type": "Secondary_EG",
+            "amount": 750
+          },
+          {
+            "type": "Wheat",
+            "amount": 5000
+          },
+          {
+            "type": "Pomegranate",
+            "amount": 5000
+          }
+        ]
+      }
+    },
+    {
+      "id": "/wiki/Home_Cultures/Homes/Average_Home|construction|EG|37",
+      "quantity": 1,
+      "maxQty": 14,
+      "costs": {
+        "coins": 9800000,
+        "food": 21000000,
+        "goods": [
+          {
+            "type": "Secretary_Desk",
+            "amount": 5000
+          },
+          {
+            "type": "Grimoire",
+            "amount": 5000
+          },
+          {
+            "type": "Cinnamon",
+            "amount": 5000
+          }
+        ]
+      }
+    },
+    {
+      "id": "/wiki/Home_Cultures/Homes/Average_Home|upgrade|EG|37",
+      "quantity": 13,
+      "maxQty": 14,
+      "costs": {
+        "coins": 710000,
+        "food": 1350000,
+        "goods": [
+          {
+            "type": "Secretary_Desk",
+            "amount": 1400
+          },
+          {
+            "type": "Grimoire",
+            "amount": 1400
+          },
+          {
+            "type": "Cinnamon",
+            "amount": 1400
+          }
+        ]
+      }
+    },
+    {
+      "id": "/wiki/Home_Cultures/Homes/Average_Home|upgrade|EG|38",
+      "quantity": 14,
+      "maxQty": 14,
+      "costs": {
+        "coins": 750000,
+        "food": 1400000,
+        "goods": [
+          {
+            "type": "Primary_EG",
+            "amount": 1000
+          },
+          {
+            "type": "Tertiary_EG",
+            "amount": 1000
+          },
+          {
+            "type": "Wheat",
+            "amount": 6500
+          },
+          {
+            "type": "Pomegranate",
+            "amount": 6500
+          }
+        ]
+      }
+    },
+    {
+      "id": "/wiki/Home_Cultures/Homes/Average_Home|upgrade|EG|39",
+      "quantity": 14,
+      "maxQty": 14,
+      "costs": {
+        "coins": 790000,
+        "food": 1450000,
+        "goods": [
+          {
+            "type": "Secondary_EG",
+            "amount": 1400
+          },
+          {
+            "type": "Tertiary_EG",
+            "amount": 1400
+          },
+          {
+            "type": "Confection",
+            "amount": 4500
+          },
+          {
+            "type": "Syrup",
+            "amount": 4500
+          }
+        ]
+      }
+    },
+    {
+      "id": "/wiki/Home_Cultures/Homes/Small_Home|construction|EG|37",
+      "quantity": 1,
+      "maxQty": 30,
+      "costs": {
+        "coins": 3500000,
+        "food": 8200000,
+        "goods": [
+          {
+            "type": "Secretary_Desk",
+            "amount": 2500
+          },
+          {
+            "type": "Grimoire",
+            "amount": 2500
+          },
+          {
+            "type": "Cinnamon",
+            "amount": 2500
+          }
+        ]
+      }
+    },
+    {
+      "id": "/wiki/Home_Cultures/Homes/Small_Home|upgrade|EG|37",
+      "quantity": 29,
+      "maxQty": 30,
+      "costs": {
+        "coins": 275000,
+        "food": 550000,
+        "goods": [
+          {
+            "type": "Secretary_Desk",
+            "amount": 700
+          },
+          {
+            "type": "Grimoire",
+            "amount": 700
+          },
+          {
+            "type": "Cinnamon",
+            "amount": 700
+          }
+        ]
+      }
+    },
+    {
+      "id": "/wiki/Home_Cultures/Homes/Small_Home|upgrade|EG|38",
+      "quantity": 30,
+      "maxQty": 30,
+      "costs": {
+        "coins": 290000,
+        "food": 580000,
+        "goods": [
+          {
+            "type": "Primary_EG",
+            "amount": 500
+          },
+          {
+            "type": "Tertiary_EG",
+            "amount": 500
+          },
+          {
+            "type": "Wheat",
+            "amount": 3500
+          },
+          {
+            "type": "Pomegranate",
+            "amount": 3500
+          }
+        ]
+      }
+    },
+    {
+      "id": "/wiki/Home_Cultures/Homes/Small_Home|upgrade|EG|39",
+      "quantity": 30,
+      "maxQty": 30,
+      "costs": {
+        "coins": 305000,
+        "food": 610000,
+        "goods": [
+          {
+            "type": "Secondary_EG",
+            "amount": 800
+          },
+          {
+            "type": "Tertiary_EG",
+            "amount": 800
+          },
+          {
+            "type": "Confection",
+            "amount": 1500
+          },
+          {
+            "type": "Syrup",
+            "amount": 1500
+          }
+        ]
+      }
+    },
+    {
+      "id": "/wiki/Home_Cultures/Ships/Shipyard|construction|EG|1",
+      "quantity": 9,
+      "maxQty": 9,
+      "costs": {
+        "coins": 1500000,
+        "food": 750000,
+        "goods": [
+          {
+            "type": "Secretary_Desk",
+            "amount": 2500
+          },
+          {
+            "type": "Grimoire",
+            "amount": 2500
+          },
+          {
+            "type": "Cinnamon",
+            "amount": 2500
+          }
+        ]
+      }
+    },
+    {
+      "id": "/wiki/Home_Cultures/Warehouses/Common_Warehouse|construction|EG|1",
+      "quantity": 8,
+      "maxQty": 8,
+      "costs": {
+        "coins": 750000,
+        "food": 250000,
+        "goods": [
+          {
+            "type": "Secretary_Desk",
+            "amount": 1500
+          },
+          {
+            "type": "Grimoire",
+            "amount": 1500
+          },
+          {
+            "type": "Cinnamon",
+            "amount": 1500
+          }
+        ]
+      }
+    },
+    {
+      "id": "/wiki/Home_Cultures/Workshops/Alchemist|construction|EG|1",
+      "quantity": 1,
+      "maxQty": 3,
+      "costs": {
+        "coins": 50000000,
+        "food": 30000000,
+        "goods": [
+          {
+            "type": "Secretary_Desk",
+            "amount": 5500
+          },
+          {
+            "type": "Grimoire",
+            "amount": 5500
+          },
+          {
+            "type": "Cinnamon",
+            "amount": 5500
+          }
+        ]
+      }
+    },
+    {
+      "id": "/wiki/Home_Cultures/Workshops/Glassblower|construction|EG|1",
+      "quantity": 1,
+      "maxQty": 3,
+      "costs": {
+        "coins": 50000000,
+        "food": 30000000,
+        "goods": [
+          {
+            "type": "Secretary_Desk",
+            "amount": 5500
+          },
+          {
+            "type": "Grimoire",
+            "amount": 5500
+          },
+          {
+            "type": "Cinnamon",
+            "amount": 5500
+          }
+        ]
+      }
+    },
+    {
+      "id": "/wiki/Home_Cultures/Workshops/Jeweler|construction|EG|1",
+      "quantity": 3,
+      "maxQty": 3,
+      "costs": {
+        "coins": 50000000,
+        "food": 30000000,
+        "goods": [
+          {
+            "type": "Secretary_Desk",
+            "amount": 5500
+          },
+          {
+            "type": "Grimoire",
+            "amount": 5500
+          },
+          {
+            "type": "Cinnamon",
+            "amount": 5500
+          }
+        ]
+      }
+    }
+  ],
+  "technos": [
+    {
+      "id": "techno_early_gothic_era_0",
+      "costs": {
+        "research_points": 100,
+        "coins": 2900000,
+        "food": 3500000,
+        "goods": [
+          {
+            "type": "Tertiary_HM",
+            "amount": 13500
+          },
+          {
+            "type": "Primary_HM",
+            "amount": 5700
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_early_gothic_era_1",
+      "costs": {
+        "research_points": 110,
+        "coins": 5900000,
+        "food": 3200000,
+        "goods": [
+          {
+            "type": "Primary_HM",
+            "amount": 13000
+          },
+          {
+            "type": "Secondary_HM",
+            "amount": 5350
+          },
+          {
+            "type": "Primary_KS",
+            "amount": 4300
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_early_gothic_era_10",
+      "costs": {
+        "research_points": 115,
+        "coins": 5500000,
+        "food": 3400000,
+        "goods": [
+          {
+            "type": "Primary_HM",
+            "amount": 12100
+          },
+          {
+            "type": "Tertiary_KS",
+            "amount": 6800
+          },
+          {
+            "type": "Secondary_EG",
+            "amount": 2000
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_early_gothic_era_11",
+      "costs": {
+        "research_points": 110,
+        "coins": 7300000,
+        "food": 3200000,
+        "goods": [
+          {
+            "type": "Tertiary_EG",
+            "amount": 7000
+          },
+          {
+            "type": "Secondary_HM",
+            "amount": 4500
+          },
+          {
+            "type": "Primary_KS",
+            "amount": 3500
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_early_gothic_era_12",
+      "costs": {
+        "research_points": 150,
+        "coins": 8800000,
+        "food": 7200000,
+        "goods": [
+          {
+            "type": "Secondary_EG",
+            "amount": 8000
+          },
+          {
+            "type": "Primary_KS",
+            "amount": 6600
+          },
+          {
+            "type": "Primary_EG",
+            "amount": 2000
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_early_gothic_era_13",
+      "costs": {
+        "research_points": 120,
+        "coins": 7200000,
+        "food": 7500000,
+        "goods": [
+          {
+            "type": "Tertiary_KS",
+            "amount": 27000
+          },
+          {
+            "type": "Pomegranate",
+            "amount": 5000
+          },
+          {
+            "type": "Wheat",
+            "amount": 5000
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_early_gothic_era_14",
+      "costs": {
+        "research_points": 125,
+        "coins": 3100000,
+        "food": 7200000,
+        "goods": [
+          {
+            "type": "Primary_EG",
+            "amount": 11000
+          },
+          {
+            "type": "Wheat",
+            "amount": 7500
+          },
+          {
+            "type": "Pomegranate",
+            "amount": 7500
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_early_gothic_era_15",
+      "costs": {
+        "research_points": 90,
+        "coins": 2500000,
+        "food": 2600000,
+        "goods": [
+          {
+            "type": "Tertiary_EG",
+            "amount": 6500
+          },
+          {
+            "type": "Primary_HM",
+            "amount": 4050
+          },
+          {
+            "type": "Primary_EG",
+            "amount": 1650
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_early_gothic_era_16",
+      "costs": {
+        "research_points": 92,
+        "coins": 7600000,
+        "food": 4200000,
+        "goods": [
+          {
+            "type": "Primary_EG",
+            "amount": 7200
+          },
+          {
+            "type": "Tertiary_HM",
+            "amount": 4500
+          },
+          {
+            "type": "Secondary_KS",
+            "amount": 3600
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_early_gothic_era_17",
+      "costs": {
+        "research_points": 110,
+        "coins": 9400000,
+        "food": 4700000,
+        "goods": [
+          {
+            "type": "Secondary_HM",
+            "amount": 13500
+          },
+          {
+            "type": "Secondary_KS",
+            "amount": 7650
+          },
+          {
+            "type": "Pomegranate",
+            "amount": 10000
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_early_gothic_era_18",
+      "costs": {
+        "research_points": 105,
+        "coins": 3700000,
+        "food": 6500000,
+        "goods": [
+          {
+            "type": "Secondary_EG",
+            "amount": 7250
+          },
+          {
+            "type": "Secondary_HM",
+            "amount": 4550
+          },
+          {
+            "type": "Tertiary_KS",
+            "amount": 3650
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_early_gothic_era_19",
+      "costs": {
+        "research_points": 110,
+        "coins": 7600000,
+        "food": 2700000,
+        "goods": [
+          {
+            "type": "Tertiary_HM",
+            "amount": 9250
+          },
+          {
+            "type": "Primary_EG",
+            "amount": 2550
+          },
+          {
+            "type": "Tertiary_EG",
+            "amount": 1550
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_early_gothic_era_2",
+      "costs": {
+        "research_points": 28,
+        "coins": 5900000,
+        "food": 4000000,
+        "goods": [
+          {
+            "type": "Secondary_HM",
+            "amount": 10000
+          },
+          {
+            "type": "Tertiary_HM",
+            "amount": 4250
+          },
+          {
+            "type": "Primary_IE",
+            "amount": 4250
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_early_gothic_era_20",
+      "costs": {
+        "research_points": 185,
+        "coins": 8400000,
+        "food": 4100000,
+        "goods": [
+          {
+            "type": "Tertiary_EG",
+            "amount": 7150
+          },
+          {
+            "type": "Primary_KS",
+            "amount": 6000
+          },
+          {
+            "type": "Secondary_EG",
+            "amount": 1800
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_early_gothic_era_21",
+      "costs": {
+        "research_points": 120,
+        "coins": 5200000,
+        "food": 2500000,
+        "goods": [
+          {
+            "type": "Secondary_EG",
+            "amount": 7500
+          },
+          {
+            "type": "Primary_HM",
+            "amount": 4700
+          },
+          {
+            "type": "Tertiary_KS",
+            "amount": 3750
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_early_gothic_era_22",
+      "costs": {
+        "research_points": 115,
+        "coins": 7500000,
+        "food": 4300000,
+        "goods": [
+          {
+            "type": "Primary_EG",
+            "amount": 8000
+          },
+          {
+            "type": "Primary_IE",
+            "amount": 8500
+          },
+          {
+            "type": "Wheat",
+            "amount": 15000
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_early_gothic_era_23",
+      "costs": {
+        "research_points": 180,
+        "coins": 3300000,
+        "food": 6600000,
+        "goods": [
+          {
+            "type": "Secondary_IE",
+            "amount": 23750
+          },
+          {
+            "type": "Tertiary_HM",
+            "amount": 6200
+          },
+          {
+            "type": "Pomegranate",
+            "amount": 15000
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_early_gothic_era_24",
+      "costs": {
+        "research_points": 140,
+        "coins": 8100000,
+        "food": 6400000,
+        "goods": [
+          {
+            "type": "Secondary_EG",
+            "amount": 7750
+          },
+          {
+            "type": "Secondary_HM",
+            "amount": 4850
+          },
+          {
+            "type": "Primary_KS",
+            "amount": 4000
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_early_gothic_era_25",
+      "costs": {
+        "research_points": 140,
+        "coins": 5400000,
+        "food": 5600000,
+        "goods": [
+          {
+            "type": "Secondary_KS",
+            "amount": 13750
+          },
+          {
+            "type": "Tertiary_IE",
+            "amount": 7150
+          },
+          {
+            "type": "Tertiary_EG",
+            "amount": 1750
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_early_gothic_era_26",
+      "costs": {
+        "research_points": 180,
+        "coins": 9000000,
+        "food": 5300000,
+        "goods": [
+          {
+            "type": "Tertiary_EG",
+            "amount": 6700
+          },
+          {
+            "type": "Primary_HM",
+            "amount": 4200
+          },
+          {
+            "type": "Tertiary_KS",
+            "amount": 3350
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_early_gothic_era_27",
+      "costs": {
+        "research_points": 140,
+        "coins": 7900000,
+        "food": 2200000,
+        "goods": [
+          {
+            "type": "Secondary_EG",
+            "amount": 6850
+          },
+          {
+            "type": "Secondary_KS",
+            "amount": 5700
+          },
+          {
+            "type": "Primary_EG",
+            "amount": 1700
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_early_gothic_era_28",
+      "costs": {
+        "research_points": 120,
+        "coins": 3000000,
+        "food": 3700000,
+        "goods": [
+          {
+            "type": "Primary_EG",
+            "amount": 8700
+          },
+          {
+            "type": "Tertiary_EG",
+            "amount": 3600
+          },
+          {
+            "type": "Tertiary_IE",
+            "amount": 5450
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_early_gothic_era_29",
+      "costs": {
+        "research_points": 100,
+        "coins": 4600000,
+        "food": 5500000,
+        "goods": [
+          {
+            "type": "Primary_HM",
+            "amount": 13200
+          },
+          {
+            "type": "Secondary_KS",
+            "amount": 7550
+          },
+          {
+            "type": "Confection",
+            "amount": 6000
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_early_gothic_era_3",
+      "costs": {
+        "research_points": 140,
+        "coins": 9900000,
+        "food": 3900000,
+        "goods": [
+          {
+            "type": "Tertiary_HM",
+            "amount": 14500
+          },
+          {
+            "type": "Secondary_IE",
+            "amount": 10500
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_early_gothic_era_30",
+      "costs": {
+        "research_points": 145,
+        "coins": 8500000,
+        "food": 3300000,
+        "goods": [
+          {
+            "type": "Secondary_EG",
+            "amount": 9000
+          },
+          {
+            "type": "Tertiary_HM",
+            "amount": 5550
+          },
+          {
+            "type": "Primary_EG",
+            "amount": 2200
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_early_gothic_era_31",
+      "costs": {
+        "research_points": 125,
+        "coins": 3800000,
+        "food": 4900000,
+        "goods": [
+          {
+            "type": "Tertiary_EG",
+            "amount": 8850
+          },
+          {
+            "type": "Tertiary_KS",
+            "amount": 7350
+          },
+          {
+            "type": "Secondary_EG",
+            "amount": 2200
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_early_gothic_era_32",
+      "costs": {
+        "research_points": 110,
+        "coins": 2300000,
+        "food": 3800000,
+        "goods": [
+          {
+            "type": "Tertiary_IE",
+            "amount": 20100
+          },
+          {
+            "type": "Primary_HM",
+            "amount": 5200
+          },
+          {
+            "type": "Syrup",
+            "amount": 7500
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_early_gothic_era_33",
+      "costs": {
+        "research_points": 190,
+        "coins": 3800000,
+        "food": 4300000,
+        "goods": [
+          {
+            "type": "Primary_EG",
+            "amount": 7500
+          },
+          {
+            "type": "Primary_IE",
+            "amount": 7600
+          },
+          {
+            "type": "Tertiary_EG",
+            "amount": 1800
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_early_gothic_era_34",
+      "costs": {
+        "research_points": 105,
+        "coins": 7600000,
+        "food": 4700000,
+        "goods": [
+          {
+            "type": "Tertiary_EG",
+            "amount": 8750
+          },
+          {
+            "type": "Secondary_KS",
+            "amount": 7300
+          },
+          {
+            "type": "Primary_KS",
+            "amount": 4400
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_early_gothic_era_35",
+      "costs": {
+        "research_points": 110,
+        "coins": 6400000,
+        "food": 2100000,
+        "goods": [
+          {
+            "type": "Primary_HM",
+            "amount": 10450
+          },
+          {
+            "type": "Secondary_HM",
+            "amount": 4350
+          },
+          {
+            "type": "Primary_EG",
+            "amount": 1750
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_early_gothic_era_36",
+      "costs": {
+        "research_points": 105,
+        "coins": 8100000,
+        "food": 6000000,
+        "goods": [
+          {
+            "type": "Secondary_EG",
+            "amount": 9750
+          },
+          {
+            "type": "Tertiary_KS",
+            "amount": 8350
+          },
+          {
+            "type": "Syrup",
+            "amount": 9000
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_early_gothic_era_37",
+      "costs": {
+        "research_points": 135,
+        "coins": 3100000,
+        "food": 3900000,
+        "goods": [
+          {
+            "type": "Primary_EG",
+            "amount": 6700
+          },
+          {
+            "type": "Tertiary_HM",
+            "amount": 4200
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_early_gothic_era_38",
+      "costs": {
+        "research_points": 140,
+        "coins": 3800000,
+        "food": 3900000,
+        "goods": [
+          {
+            "type": "Tertiary_HM",
+            "amount": 14850
+          },
+          {
+            "type": "Tertiary_IE",
+            "amount": 10500
+          },
+          {
+            "type": "Confection",
+            "amount": 9000
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_early_gothic_era_39",
+      "costs": {
+        "research_points": 105,
+        "coins": 3100000,
+        "food": 6000000,
+        "goods": [
+          {
+            "type": "Secondary_EG",
+            "amount": 8000
+          },
+          {
+            "type": "Tertiary_EG",
+            "amount": 3300
+          },
+          {
+            "type": "Secondary_KS",
+            "amount": 4000
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_early_gothic_era_4",
+      "costs": {
+        "research_points": 69,
+        "coins": 3200000,
+        "food": 3100000,
+        "goods": [
+          {
+            "type": "Primary_IE",
+            "amount": 19000
+          },
+          {
+            "type": "Primary_EG",
+            "amount": 3300
+          },
+          {
+            "type": "Carpet",
+            "amount": 5000
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_early_gothic_era_40",
+      "costs": {
+        "research_points": 125,
+        "coins": 4500000,
+        "food": 2800000,
+        "goods": [
+          {
+            "type": "Tertiary_EG",
+            "amount": 7500
+          },
+          {
+            "type": "Tertiary_HM",
+            "amount": 4750
+          },
+          {
+            "type": "Secondary_HM",
+            "amount": 3000
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_early_gothic_era_41",
+      "costs": {
+        "research_points": 135,
+        "coins": 3900000,
+        "food": 5200000,
+        "goods": [
+          {
+            "type": "Primary_KS",
+            "amount": 16500
+          },
+          {
+            "type": "Tertiary_EG",
+            "amount": 3500
+          },
+          {
+            "type": "Tertiary_KS",
+            "amount": 4100
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_early_gothic_era_42",
+      "costs": {
+        "research_points": 115,
+        "coins": 9700000,
+        "food": 6400000,
+        "goods": [
+          {
+            "type": "Tertiary_EG",
+            "amount": 7600
+          },
+          {
+            "type": "Primary_EG",
+            "amount": 3100
+          },
+          {
+            "type": "Primary_HM",
+            "amount": 2750
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_early_gothic_era_43",
+      "costs": {
+        "research_points": 150,
+        "coins": 7000000,
+        "food": 6800000,
+        "goods": [
+          {
+            "type": "Secondary_KS",
+            "amount": 17000
+          },
+          {
+            "type": "Secondary_HM",
+            "amount": 5350
+          },
+          {
+            "type": "Tertiary_EG",
+            "amount": 2150
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_early_gothic_era_5",
+      "costs": {
+        "research_points": 150,
+        "coins": 3400000,
+        "food": 7000000,
+        "goods": [
+          {
+            "type": "Primary_KS",
+            "amount": 12000
+          },
+          {
+            "type": "Secondary_HM",
+            "amount": 3800
+          },
+          {
+            "type": "Primary_EG",
+            "amount": 1500
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_early_gothic_era_6",
+      "costs": {
+        "research_points": 85,
+        "coins": 6300000,
+        "food": 5000000,
+        "goods": [
+          {
+            "type": "Primary_EG",
+            "amount": 6050
+          },
+          {
+            "type": "Primary_HM",
+            "amount": 4000
+          },
+          {
+            "type": "Secondary_KS",
+            "amount": 3000
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_early_gothic_era_7",
+      "costs": {
+        "research_points": 130,
+        "coins": 7000000,
+        "food": 6600000,
+        "goods": [
+          {
+            "type": "Secondary_HM",
+            "amount": 11000
+          },
+          {
+            "type": "Primary_KS",
+            "amount": 6200
+          },
+          {
+            "type": "Secondary_EG",
+            "amount": 1850
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_early_gothic_era_8",
+      "costs": {
+        "research_points": 185,
+        "coins": 2400000,
+        "food": 2300000,
+        "goods": [
+          {
+            "type": "Secondary_EG",
+            "amount": 7600
+          },
+          {
+            "type": "Tertiary_EG",
+            "amount": 3200
+          },
+          {
+            "type": "Secondary_IE",
+            "amount": 4750
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_early_gothic_era_9",
+      "costs": {
+        "research_points": 150,
+        "coins": 3100000,
+        "food": 1800000,
+        "goods": [
+          {
+            "type": "Primary_EG",
+            "amount": 8200
+          },
+          {
+            "type": "Tertiary_HM",
+            "amount": 5200
+          },
+          {
+            "type": "Tertiary_KS",
+            "amount": 4100
+          }
+        ]
+      }
+    }
+  ]
+}

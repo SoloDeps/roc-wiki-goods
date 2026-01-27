@@ -8,7 +8,11 @@ export const getBuildings = () => db.buildings.toArray();
 export async function saveBuilding(
   building: Omit<BuildingEntity, "updatedAt">,
 ) {
-  await db.buildings.put({ ...building, hidden: false, updatedAt: now() } as BuildingEntity);
+  await db.buildings.put({
+    ...building,
+    hidden: false,
+    updatedAt: now(),
+  } as BuildingEntity);
 }
 
 export async function updateBuildingQuantity(id: string, newQuantity: number) {
@@ -38,7 +42,11 @@ export const removeBuilding = (id: string) => db.buildings.delete(id);
 export const getTechnos = () => db.technos.toArray();
 
 export async function saveTechno(techno: Omit<TechnoEntity, "updatedAt">) {
-  await db.technos.put({ ...techno, hidden: false, updatedAt: now() } as TechnoEntity);
+  await db.technos.put({
+    ...techno,
+    hidden: false,
+    updatedAt: now(),
+  } as TechnoEntity);
 }
 
 export async function toggleTechnoHidden(eraPath: string) {
@@ -63,25 +71,6 @@ export async function toggleTechnoHidden(eraPath: string) {
 export const removeTechno = (id: string) => db.technos.delete(id);
 export const removeAllTechnos = () => db.technos.clear();
 
-// batch operations
-export async function saveBuildingsBatch(
-  buildings: Omit<BuildingEntity, "updatedAt">[],
-) {
-  const timestamp = now();
-  await db.buildings.bulkPut(
-    buildings.map((b) => ({ ...b, hidden: false, updatedAt: timestamp }) as BuildingEntity),
-  );
-}
-
-export async function saveTechnosBatch(
-  technos: Omit<TechnoEntity, "updatedAt">[],
-) {
-  const timestamp = now();
-  await db.technos.bulkPut(
-    technos.map((t) => ({ ...t, hidden: false, updatedAt: timestamp }) as TechnoEntity),
-  );
-}
-
 // era-specific operations
 export async function getTechnosByEra(eraPrefix: string) {
   return db.technos.where("id").startsWith(`techno_${eraPrefix}`).toArray();
@@ -90,4 +79,57 @@ export async function getTechnosByEra(eraPrefix: string) {
 export async function removeTechnosByEra(eraPrefix: string) {
   const toDelete = await getTechnosByEra(eraPrefix);
   await db.technos.bulkDelete(toDelete.map((t) => t.id));
+}
+
+// batch operations
+export async function saveBatch<
+  T extends { updatedAt?: number; hidden?: boolean },
+>(table: keyof typeof db, items: Omit<T, "updatedAt" | "hidden">[]) {
+  const timestamp = now();
+  await (db[table] as any).bulkPut(
+    items.map((item) => ({ ...item, hidden: false, updatedAt: timestamp })),
+  );
+
+  return (db[table] as any).toArray();
+}
+
+// export preset db only
+export async function exportPresetsJSON() {
+  try {
+    // Récupérer les tables que tu veux
+    const buildings = await db.buildings.toArray();
+    const technos = await db.technos.toArray();
+
+    // Transformer les données si nécessaire (ex : retirer updatedAt, hidden)
+    const cleanBuildings = buildings.map(({ id, quantity, maxQty, costs }) => ({
+      id,
+      quantity,
+      maxQty,
+      costs,
+    }));
+
+    const cleanTechnos = technos.map(({ id, costs }) => ({
+      id,
+      costs,
+    }));
+
+    const json = {
+      buildings: cleanBuildings,
+      technos: cleanTechnos,
+    };
+
+    // Convertir en blob et télécharger
+    const blob = new Blob([JSON.stringify(json, null, 2)], {
+      type: "application/json",
+    });
+
+    const a = document.createElement("a");
+    a.href = URL.createObjectURL(blob);
+    a.download = "preset.json";
+    a.click();
+
+    URL.revokeObjectURL(a.href);
+  } catch (error) {
+    console.error("Export presets failed:", error);
+  }
 }

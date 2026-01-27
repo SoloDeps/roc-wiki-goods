@@ -297,7 +297,7 @@ function extractGoodsDetails(
     // regular goods with image
     const img = images[index];
     if (img?.alt) {
-      const goodName = img.alt.replace(".png", "").trim();
+      const goodName = img.alt.replace(".png", "").trim().replace(/\s+/g, "_");
       const value = parseNumber(cleanLine);
       if (value > 0 && goodName) {
         details.push({ type: goodName, amount: value });
@@ -321,6 +321,7 @@ function extractTechnoInfo(
     id: `techno_${normalizedEra}_${index}`,
     costs: extractTechnoCosts(row),
     updatedAt: Date.now(),
+    hidden: false,
   };
 }
 

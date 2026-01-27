@@ -1,5 +1,4 @@
 import { Button } from "@/components/ui/button";
-import einstein_img from "@/assets/einstein.png";
 import { ModeToggle } from "@/components/mode-toggle";
 import { HelpButton } from "@/components/popup/help-button";
 import { SquareArrowOutUpRight } from "lucide-react";
@@ -8,7 +7,7 @@ export function PopupHeader({ isGameSite }: { isGameSite: boolean }) {
   return (
     <div className="px-4 pt-3 bg-[#349ab5] dark:bg-background flex gap-3 min-w-[520px]">
       <img
-        src={einstein_img}
+        src="/characters/einstein.png"
         alt="icon"
         className="h-[90px] w-auto brightness-110"
       />
@@ -36,7 +35,7 @@ export function PopupHeader({ isGameSite }: { isGameSite: boolean }) {
           {isGameSite ? (
             <>
               <span className="font-semibold">Info:</span>The extension only
-              collects your resources data.
+              collects your resource data.
             </>
           ) : (
             <>

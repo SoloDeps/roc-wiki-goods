@@ -110,7 +110,7 @@ const BuildingListWithRef = forwardRef<BuildingListRef, BuildingListProps>(
     const selections = useBuildingSelections();
 
     // Track previous categories to detect new ones
-    const previousCategoryIdsRef = useRef<Set<string>>(new Set());
+    const previousCategoryCountsRef = useRef<Map<string, number>>(new Map());
 
     useEffect(() => {
       const unwatchBuildings = watchBuildings((data) => {
@@ -314,26 +314,55 @@ const BuildingListWithRef = forwardRef<BuildingListRef, BuildingListProps>(
     useEffect(() => {
       if (loading) return;
 
-      const currentCategoryIds = new Set(categories.map((c) => c.id));
-      const previousIds = previousCategoryIdsRef.current;
+      const currentCounts = new Map<string, number>();
+      const categoriesToExpand: string[] = [];
 
-      // Find truly new categories (not present before)
-      const newCategories = Array.from(currentCategoryIds).filter(
-        (id) => !previousIds.has(id),
-      );
+      // Calculer le nombre d'éléments par catégorie
+      categories.forEach((cat) => {
+        const totalCount = cat.buildings.length + (cat.technos?.length || 0);
+        currentCounts.set(cat.id, totalCount);
+      });
 
-      if (newCategories.length > 0) {
-        console.log("[Building List] New categories detected:", newCategories);
+      const previousCounts = previousCategoryCountsRef.current;
+
+      // Détecter les catégories à expand
+      categories.forEach((cat) => {
+        const currentCount = currentCounts.get(cat.id) || 0;
+        const previousCount = previousCounts.get(cat.id);
+
+        // Cas 1 : Nouvelle catégorie
+        if (previousCount === undefined && currentCount > 0) {
+          console.log(`[Building List] New category detected: ${cat.id}`);
+          categoriesToExpand.push(cat.id);
+        }
+        // Cas 2 : Catégorie existante avec nouveaux éléments
+        else if (previousCount !== undefined && currentCount > previousCount) {
+          console.log(
+            `[Building List] Category ${cat.id} has new items: ${previousCount} → ${currentCount}`,
+          );
+
+          // ✅ CORRECTION : Expand seulement si la catégorie est actuellement collapsed
+          if (!expandedItems.includes(cat.id)) {
+            console.log(
+              `[Building List] Expanding collapsed category: ${cat.id}`,
+            );
+            categoriesToExpand.push(cat.id);
+          }
+        }
+      });
+
+      // Mettre à jour les items expanded
+      if (categoriesToExpand.length > 0) {
         setExpandedItems((prev) => {
-          const updated = [...prev, ...newCategories];
-          console.log("[Building List] Expanding:", updated);
+          const updated = [...new Set([...prev, ...categoriesToExpand])];
+          console.log(`[Building List] Expanded items:`, updated);
           return updated;
         });
       }
 
-      // Update ref for next comparison
-      previousCategoryIdsRef.current = currentCategoryIds;
-    }, [categories, loading]);
+      // Mettre à jour le cache pour la prochaine comparaison
+      previousCategoryCountsRef.current = currentCounts;
+    }, [categories, loading, expandedItems]);
 
     useImperativeHandle(ref, () => ({
       expandAll: (ids) => setExpandedItems(ids || categories.map((c) => c.id)),

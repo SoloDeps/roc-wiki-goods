@@ -5,6 +5,46 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec2.0.0.html).
 
+## v1.5.0 - Jan 27, 2026
+
+### Added
+
+- Add comprehensive preset system with 14 historical eras from Stone Age to Late Gothic Era
+- Add era cover images for all historical periods (14 new cover images)
+- Add character assets moved to public directory for better organization
+- Add database export button component for enhanced data management
+- Add preset loader functionality with dynamic configuration system
+- Add new storage types and enhanced repository capabilities
+- Add comprehensive background script improvements for data processing
+
+### Changed
+
+- **Major refactor**: Restructure presets from single file to modular JSON configuration
+- **Major refactor**: Split presets feature into dedicated modules (`lib/features/presets/`)
+- Update building cards and lists with enhanced preset integration
+- Refactor techno cards with improved UI and functionality
+- Enhance export game data system with better error handling and UI
+- Update compare button with improved state management and UI
+- Modernize UI components (dialog, drawer, tooltip) with latest shadcn patterns
+- Improve popup header and site header with better responsive design
+- Enhance ROC API integration with expanded data fetching capabilities
+- Update constants and storage system for better performance
+- Optimize total goods display with preset-aware calculations
+- Restructure assets organization (move to public/ directory)
+- Enhance background script with comprehensive data processing
+
+### Fixed
+
+- Improve error handling across all data export and import operations
+- Fix preset loading and configuration management
+- Resolve UI inconsistencies in modals and dialogs
+- Enhance data validation and type safety throughout the application
+
+### Breaking Changes
+
+- Presets data structure completely restructured from single `presets.ts` file to modular JSON files per era
+- Asset locations changed from `assets/` to `public/` directory
+- Presets feature API updated with new loader system
 
 ## v1.4.1 - Jan 19, 2026
 

@@ -288,6 +288,7 @@ export const buildingNoLvl = [
   "ritual_sites",
   // viking
   "market",
+  "expedition_pier",
 ];
 
 /**

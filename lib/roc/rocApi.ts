@@ -22,6 +22,16 @@ export const RocTypes = {
 const SELECT_KIT_PR_NAME = "selection_kit_allianceincident_research";
 // #endregion
 
+// #region CONTEXT DETECTION
+/**
+ * Détecter si on est dans le background script ou non
+ */
+function isBackgroundContext(): boolean {
+  // Dans le background, il n'y a pas de window.location
+  return typeof window === "undefined" || !window.location;
+}
+// #endregion
+
 // #region FILTRAGE JSON
 export function filterJsonData(data: unknown, type: string): any[] {
   const result: any[] = [];
@@ -52,7 +62,6 @@ export function extractUserResources(startupData: unknown): UserResource[] {
     } else if (typeof obj === "object" && obj !== null) {
       const data = obj as Record<string, any>;
 
-      // Extraction des goods
       if (
         data.definition?.["@type"] === RocTypes.RESOURCE_DEFINITION &&
         data.amount !== undefined &&
@@ -66,7 +75,6 @@ export function extractUserResources(startupData: unknown): UserResource[] {
         });
       }
 
-      // Extraction des selection kit PRS
       if (
         data.definition?.["@type"] === RocTypes.SELECTION_KIT_DEFINITION &&
         data.amount !== undefined
@@ -95,15 +103,53 @@ export function extractUserResources(startupData: unknown): UserResource[] {
 
 // #region DEXIE DB OPERATIONS
 /**
- * Save all resources to gameDb using Dexie
+ * ✅ SOLUTION : Fonction interne pour sauvegarder directement dans Dexie
+ * (utilisée par le background)
+ */
+async function saveResourcesDirectly(resources: UserResource[]): Promise<void> {
+  await gameDb.userResources.clear();
+  await gameDb.userResources.bulkAdd(
+    resources.map((r) => ({ ...r, updatedAt: Date.now() })),
+  );
+  console.log(
+    `[RoC DB] ${resources.length} resources saved directly to gameDb`,
+  );
+}
+
+/**
+ * Save all resources - détecte automatiquement le contexte
  */
 export async function saveResources(resources: UserResource[]): Promise<void> {
   try {
-    await gameDb.userResources.clear();
-    await gameDb.userResources.bulkAdd(
-      resources.map((r) => ({ ...r, updatedAt: Date.now() })),
-    );
-    console.log(`[RoC DB] ${resources.length} resources saved to gameDb`);
+    // ✅ Si on est dans le background, sauvegarder directement
+    if (isBackgroundContext()) {
+      console.log("[RoC API] Background context detected, saving directly");
+      await saveResourcesDirectly(resources);
+      return;
+    }
+
+    // ✅ Sinon, envoyer au background pour broadcaster
+    console.log("[RoC API] Non-background context, sending to background");
+    await new Promise<void>((resolve, reject) => {
+      chrome.runtime.sendMessage(
+        {
+          type: "DEXIE_SAVE_USER_RESOURCES",
+          payload: { resources },
+        },
+        (response) => {
+          if (chrome.runtime.lastError) {
+            reject(new Error(chrome.runtime.lastError.message));
+          } else if (response?.success) {
+            console.log(
+              `[RoC DB] ${resources.length} resources saved via background`,
+            );
+            resolve();
+          } else {
+            reject(new Error(response?.error || "Failed to save resources"));
+          }
+        },
+      );
+    });
   } catch (error) {
     console.error("[RoC DB] Error saving resources:", error);
     throw error;
@@ -151,18 +197,12 @@ export async function getResourcesByType(
 // #endregion
 
 // #region FILTERING AND COMPLETION
-/**
- * Filter resources to keep only those in goodsList
- * Add missing goods with amount = 0
- * Keep selection_kit resources as they are not in goodsList
- */
 export function filterAndCompleteResources(
   resources: UserResource[],
 ): UserResource[] {
   const resourceMap = new Map<string, UserResource>();
   const selectionKits: UserResource[] = [];
 
-  // Un seul passage sur les ressources
   resources.forEach((resource) => {
     if (resource.type === "selection_kit") {
       selectionKits.push(resource);
@@ -171,7 +211,6 @@ export function filterAndCompleteResources(
     }
   });
 
-  // Traiter goodsList et ajouter les selection_kits
   const filteredResources = goodsList.map((good) => {
     const existingResource = resourceMap.get(good.gameName);
     if (existingResource) {
@@ -189,16 +228,12 @@ export function filterAndCompleteResources(
     };
   });
 
-  // Concaténer directement lors du return
   filteredResources.push(...selectionKits);
   return filteredResources;
 }
 // #endregion
 
 // #region SYNC
-/**
- * Fetch game data and save filtered resources
- */
 export async function syncGameResources(): Promise<UserResource[]> {
   console.log("[RoC API] 🔄 Synchronisation des ressources...");
 
@@ -212,8 +247,84 @@ export async function syncGameResources(): Promise<UserResource[]> {
     `[RoC API] 🎯 ${filteredResources.length} ressources après filtrage`,
   );
 
+  // ✅ saveResources() détecte automatiquement le contexte
   await saveResources(filteredResources);
 
+  // ✅ Si on est dans le background, broadcaster manuellement
+  if (isBackgroundContext()) {
+    console.log("[RoC API] Broadcasting from background context");
+    // Le background doit broadcaster lui-même
+    try {
+      const allData = await gameDb.userResources.toArray();
+      await broadcastUserResourcesChange(allData);
+    } catch (error) {
+      console.warn("[RoC API] Could not broadcast from background:", error);
+    }
+  }
+
+  console.log("[RoC API] ✅ Resources saved");
+
   return filteredResources;
+}
+
+/**
+ * ✅ NOUVEAU : Fonction pour broadcaster depuis le background
+ */
+async function broadcastUserResourcesChange(data: UserResource[]) {
+  const message = {
+    type: "DEXIE_CHANGED",
+    payload: { type: "USER_RESOURCES", data },
+  };
+
+  // Broadcaster vers tous les tabs
+  const tabs = await chrome.tabs.query({});
+  tabs.forEach((tab) => {
+    if (tab.id) {
+      chrome.tabs.sendMessage(tab.id, message).catch(() => {});
+    }
+  });
+
+  // Broadcaster vers le runtime
+  chrome.runtime.sendMessage(message).catch(() => {});
+
+  console.log("[RoC API] Broadcasted USER_RESOURCES to all contexts");
+}
+// #endregion
+
+// #region WATCH SYSTEM
+const userResourcesListeners = new Set<(data: UserResource[]) => void>();
+let userResourcesCache: UserResource[] = [];
+let cacheInitialized = false;
+
+async function initUserResourcesCache() {
+  if (cacheInitialized) return;
+  userResourcesCache = await getAllResources();
+  cacheInitialized = true;
+}
+
+// Listen to background broadcasts
+if (typeof chrome !== "undefined" && chrome.runtime?.onMessage) {
+  chrome.runtime.onMessage.addListener((message) => {
+    if (message.type !== "DEXIE_CHANGED") return;
+
+    const { type: changeType, data } = message.payload;
+
+    if (changeType === "USER_RESOURCES") {
+      console.log("[RoC API] User resources changed, updating cache");
+      userResourcesCache = data || [];
+      userResourcesListeners.forEach((cb) => cb(userResourcesCache));
+    }
+  });
+}
+
+/**
+ * Watch user resources for changes
+ */
+export function watchUserResources(callback: (data: UserResource[]) => void) {
+  userResourcesListeners.add(callback);
+
+  initUserResourcesCache().then(() => callback(userResourcesCache));
+
+  return () => userResourcesListeners.delete(callback);
 }
 // #endregion

@@ -1,0 +1,257 @@
+{
+  "buildings": [
+    {
+      "id": "/wiki/Home_Cultures/Barracks/Infantry_Barracks|construction|SA|1",
+      "quantity": 2,
+      "maxQty": 2,
+      "costs": {
+        "coins": 39,
+        "food": 23,
+        "goods": []
+      }
+    },
+    {
+      "id": "/wiki/Home_Cultures/Barracks/Ranged_Barracks|construction|SA|1",
+      "quantity": 1,
+      "maxQty": 1,
+      "costs": {
+        "coins": 1000,
+        "food": 500,
+        "goods": []
+      }
+    },
+    {
+      "id": "/wiki/Home_Cultures/Culture_Sites/Compact_Culture_Site|construction|SA|1",
+      "quantity": 4,
+      "maxQty": 4,
+      "costs": {
+        "coins": 300,
+        "food": 200
+      }
+    },
+    {
+      "id": "/wiki/Home_Cultures/Culture_Sites/Moderate_Culture_Site|construction|SA|1",
+      "quantity": 2,
+      "maxQty": 2,
+      "costs": {
+        "coins": 20,
+        "food": 10
+      }
+    },
+    {
+      "id": "/wiki/Home_Cultures/Farms/Domestic_Farm|construction|SA|1",
+      "quantity": 2,
+      "maxQty": 2,
+      "costs": {
+        "coins": 40,
+        "food": 10,
+        "goods": []
+      }
+    },
+    {
+      "id": "/wiki/Home_Cultures/Farms/Domestic_Farm|upgrade|SA|2",
+      "quantity": 2,
+      "maxQty": 2,
+      "costs": {
+        "coins": 1800,
+        "food": 800,
+        "goods": []
+      }
+    },
+    {
+      "id": "/wiki/Home_Cultures/Farms/Domestic_Farm|upgrade|SA|3",
+      "quantity": 2,
+      "maxQty": 2,
+      "costs": {
+        "coins": 3600,
+        "food": 1600,
+        "goods": []
+      }
+    },
+    {
+      "id": "/wiki/Home_Cultures/Farms/Rural_Farm|construction|SA|1",
+      "quantity": 3,
+      "maxQty": 3,
+      "costs": {
+        "coins": 5,
+        "goods": []
+      }
+    },
+    {
+      "id": "/wiki/Home_Cultures/Farms/Rural_Farm|upgrade|SA|2",
+      "quantity": 3,
+      "maxQty": 3,
+      "costs": {
+        "coins": 750,
+        "food": 320,
+        "goods": []
+      }
+    },
+    {
+      "id": "/wiki/Home_Cultures/Farms/Rural_Farm|upgrade|SA|3",
+      "quantity": 3,
+      "maxQty": 3,
+      "costs": {
+        "coins": 2500,
+        "food": 1100,
+        "goods": []
+      }
+    },
+    {
+      "id": "/wiki/Home_Cultures/Homes/Small_Home|construction|SA|1",
+      "quantity": 7,
+      "maxQty": 7,
+      "costs": {
+        "food": 1,
+        "goods": []
+      }
+    },
+    {
+      "id": "/wiki/Home_Cultures/Homes/Small_Home|upgrade|SA|2",
+      "quantity": 7,
+      "maxQty": 7,
+      "costs": {
+        "coins": 10,
+        "food": 30,
+        "goods": []
+      }
+    },
+    {
+      "id": "/wiki/Home_Cultures/Homes/Small_Home|upgrade|SA|3",
+      "quantity": 7,
+      "maxQty": 7,
+      "costs": {
+        "coins": 400,
+        "food": 800,
+        "goods": []
+      }
+    }
+  ],
+  "technos": [
+    {
+      "id": "techno_stone_age_0",
+      "costs": {
+        "research_points": 1
+      }
+    },
+    {
+      "id": "techno_stone_age_1",
+      "costs": {
+        "research_points": 1,
+        "coins": 1
+      }
+    },
+    {
+      "id": "techno_stone_age_10",
+      "costs": {
+        "research_points": 5,
+        "coins": 4950,
+        "food": 3575
+      }
+    },
+    {
+      "id": "techno_stone_age_11",
+      "costs": {
+        "research_points": 6,
+        "coins": 7560,
+        "food": 5460
+      }
+    },
+    {
+      "id": "techno_stone_age_12",
+      "costs": {
+        "research_points": 6,
+        "coins": 12600,
+        "food": 9100
+      }
+    },
+    {
+      "id": "techno_stone_age_13",
+      "costs": {
+        "research_points": 5,
+        "coins": 15300,
+        "food": 11050
+      }
+    },
+    {
+      "id": "techno_stone_age_14",
+      "costs": {
+        "research_points": 6,
+        "coins": 18000,
+        "food": 13000
+      }
+    },
+    {
+      "id": "techno_stone_age_15",
+      "costs": {
+        "research_points": 7,
+        "coins": 25200,
+        "food": 18200
+      }
+    },
+    {
+      "id": "techno_stone_age_2",
+      "costs": {
+        "research_points": 2,
+        "coins": 15,
+        "food": 10
+      }
+    },
+    {
+      "id": "techno_stone_age_3",
+      "costs": {
+        "research_points": 2,
+        "coins": 60,
+        "food": 40
+      }
+    },
+    {
+      "id": "techno_stone_age_4",
+      "costs": {
+        "research_points": 2,
+        "coins": 100,
+        "food": 60
+      }
+    },
+    {
+      "id": "techno_stone_age_5",
+      "costs": {
+        "research_points": 3,
+        "coins": 300,
+        "food": 100
+      }
+    },
+    {
+      "id": "techno_stone_age_6",
+      "costs": {
+        "research_points": 2,
+        "coins": 520,
+        "food": 375
+      }
+    },
+    {
+      "id": "techno_stone_age_7",
+      "costs": {
+        "research_points": 1,
+        "coins": 900,
+        "food": 650
+      }
+    },
+    {
+      "id": "techno_stone_age_8",
+      "costs": {
+        "research_points": 5,
+        "coins": 1800,
+        "food": 1300
+      }
+    },
+    {
+      "id": "techno_stone_age_9",
+      "costs": {
+        "research_points": 6,
+        "coins": 3150,
+        "food": 2275
+      }
+    }
+  ]
+}

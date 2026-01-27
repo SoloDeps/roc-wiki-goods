@@ -12,19 +12,20 @@ export const WIKI_URL = "https://riseofcultures.wiki.gg";
 export const WIKI_DISPLAY = "riseofcultures.wiki.gg";
 
 export const eras = [
-  { name: "Stone Age", abbr: "SA", id: "stone_age" },
-  { name: "Bronze Age", abbr: "BA", id: "bronze_age" },
-  { name: "Minoan Era", abbr: "ME", id: "minoan_era" },
-  { name: "Classical Greece", abbr: "CG", id: "classical_greece" },
-  { name: "Early Rome", abbr: "ER", id: "early_rome" },
-  { name: "Roman Empire", abbr: "RE", id: "roman_empire" },
-  { name: "Byzantine Era", abbr: "BE", id: "byzantine_era" },
-  { name: "Age of the Franks", abbr: "AF", id: "age_of_the_franks" },
-  { name: "Feudal Age", abbr: "FA", id: "feudal_age" },
-  { name: "Iberian Era", abbr: "IE", id: "iberian_era" },
-  { name: "Kingdom of Sicily", abbr: "KS", id: "kingdom_of_sicily" },
-  { name: "High Middle Ages", abbr: "HM", id: "high_middle_ages" },
-  { name: "Early Gothic Era", abbr: "EG", id: "early_gothic_era" },
+  { name: "Stone Age", abbr: "SA", id: "stone_age", image: "/eras/1_SA_cover.webp" },
+  { name: "Bronze Age", abbr: "BA", id: "bronze_age", image: "/eras/2_BA_cover.webp" },
+  { name: "Minoan Era", abbr: "ME", id: "minoan_era", image: "/eras/3_ME_cover.webp" },
+  { name: "Classical Greece", abbr: "CG", id: "classical_greece", image: "/eras/4_CG_cover.webp" },
+  { name: "Early Rome", abbr: "ER", id: "early_rome", image: "/eras/5_ER_cover.webp" },
+  { name: "Roman Empire", abbr: "RE", id: "roman_empire", image: "/eras/6_RE_cover.webp" },
+  { name: "Byzantine Era", abbr: "BE", id: "byzantine_era", image: "/eras/7_BE_cover.webp" },
+  { name: "Age of the Franks", abbr: "AF", id: "age_of_the_franks", image: "/eras/8_AoF_cover.webp" },
+  { name: "Feudal Age", abbr: "FA", id: "feudal_age", image: "/eras/9_FA_cover.webp" },
+  { name: "Iberian Era", abbr: "IE", id: "iberian_era", image: "/eras/10_IE_cover.webp" },
+  { name: "Kingdom of Sicily", abbr: "KS", id: "kingdom_of_sicily", image: "/eras/11_KoS_cover.webp" },
+  { name: "High Middle Ages", abbr: "HM", id: "high_middle_ages", image: "/eras/12_HMA_cover.webp" },
+  { name: "Early Gothic Era", abbr: "EG", id: "early_gothic_era", image: "/eras/13_EGE_cover.webp" },
+  { name: "Late Gothic Era", abbr: "LG", id: "late_gothic_era", image: "/eras/14_LGE_cover.webp" },
 ] as const;
 
 // Mapping des noms d'ères (format wiki) vers les IDs standardisés
@@ -54,6 +55,7 @@ export const eraColors: Record<EraAbbr, string> = {
   KS: "191, 96, 96",
   HM: "232, 149, 47",
   EG: "93, 194, 152",
+  LG: "90, 152, 189",
 };
 
 export const alliedCityColors: Record<alliedCity, string> = {
@@ -79,7 +81,7 @@ export const buildingsAbbr = [
   {
     title: "Early Gothic",
     buildings: ["Jeweler", "Alchemist", "Glassblower"],
-    abbreviations: ["EG"],
+    abbreviations: ["EG", "LG"],
   },
 ];
 
@@ -283,6 +285,20 @@ export const goodsUrlByEra: Record<
     glassblower: {
       name: "Lead Glass",
       url: "/images/thumb/e/e2/Lead_Glass.png/120px-Lead_Glass.png",
+    },
+  },
+  LG: {
+    jeweler: {
+      name: "Embellishments",
+      url: "/images/thumb/a/af/Embellishments.png/120px-Embellishments.png",
+    },
+    alchemist: {
+      name: "Elixirs",
+      url: "/images/thumb/5/5c/Elixirs.png/120px-Elixirs.png",
+    },
+    glassblower: {
+      name: "Stained Glass",
+      url: "/images/thumb/e/e2/Stained_Glass.png/120px-Stained_Glass.png",
     },
   },
 } as const;
@@ -616,6 +632,20 @@ export const limitCapitalBuildingsByEra: Record<
     seafarer_house: 14,
     common_warehouse: 8,
   },
+  LG: {
+    domestic_farm: 11,
+    rural_farm: 13,
+    small_home: 30,
+    average_home: 14,
+    little_culture_site: 9,
+    compact_culture_site: 9,
+    moderate_culture_site: 6,
+    infantry_barracks: 2,
+    workshops: 3,
+    shipyard: 9,
+    seafarer_house: 14,
+    common_warehouse: 8,
+  },
 };
 
 // prettier-ignore
@@ -636,6 +666,7 @@ export const limitLuxuriousBuildingsByEra: Record<
   KS: { luxurious_home: 11, luxurious_farm: 8, luxurious_culture_site: 8 },
   HM: { luxurious_home: 12, luxurious_farm: 8, luxurious_culture_site: 8 },
   EG: { luxurious_home: 12, luxurious_farm: 8, luxurious_culture_site: 8, luxurious_seafarer_house: 2, large_warehouse: 2 },
+  LG: { luxurious_home: 12, luxurious_farm: 8, luxurious_culture_site: 8, luxurious_seafarer_house: 2, large_warehouse: 2 },
 };
 
 // Merge CapitalBuildings and LuxuriousBuildings

@@ -281,7 +281,7 @@ export const TotalGoodsDisplay = ({
 
   if (loading) {
     return (
-      <div className="p-4 flex items-center justify-center">
+      <div className="bg-background-200 p-4 flex items-center justify-center">
         <Loader2Icon className="size-5 animate-spin" />
       </div>
     );

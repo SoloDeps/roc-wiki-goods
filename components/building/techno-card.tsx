@@ -97,7 +97,7 @@ export const TechnoCard = memo(function TechnoCard({
 
   return (
     <div
-      className="@container/bcard group relative flex gap-4 rounded-sm bg-background-300 border h-auto min-h-32 pl-2"
+      className="@container/bcard group relative flex gap-4 rounded-sm bg-background-300 border h-auto min-h-32"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
@@ -119,68 +119,79 @@ export const TechnoCard = memo(function TechnoCard({
         />
       )}
 
-      <div className="flex py-3 gap-2 lg:gap-4 size-full relative">
+      <div className="flex p-3 gap-2 lg:gap-4 size-full relative">
         <div className="flex-1">
-          <div className="flex items-center gap-2 mb-3">
-            <h3
-              className={`text-sm lg:text-[15px] font-medium truncate capitalize pl-1 ${hidden ? "opacity-50" : ""}`}
-            >
-              {era ? `${era.replace(/_/g, " ")} ` : "Era"}
-            </h3>
-            <div className={hidden ? "opacity-50" : ""}>
-              <Badge
-                variant="outline"
-                className="bg-blue-200 dark:bg-blue-300 text-blue-950 border-alpha-100 border rounded-sm"
+          <div className="flex justify-between items-center mb-3">
+            <div className="flex items-center gap-2">
+              <h3
+                className={`text-sm lg:text-[15px] font-medium truncate capitalize pl-1 ${hidden ? "opacity-50" : ""}`}
               >
-                {aggregatedTechnos.technoCount} techno
-                {aggregatedTechnos.technoCount > 1 ? "s" : ""}
-              </Badge>
-            </div>
+                {era ? `${era.replace(/_/g, " ")} ` : "Era"}
+              </h3>
+              <div className={hidden ? "opacity-50" : ""}>
+                <Badge
+                  variant="outline"
+                  className="bg-blue-200 dark:bg-blue-300 text-blue-950 border-alpha-100 border rounded-sm"
+                >
+                  {aggregatedTechnos.technoCount} techno
+                  {aggregatedTechnos.technoCount > 1 ? "s" : ""}
+                </Badge>
+              </div>
 
-            <div
-              className={`transition-opacity duration-200 ${
-                hidden
-                  ? "opacity-100"
-                  : isHovered
-                    ? "opacity-100"
-                    : "opacity-0 pointer-events-none"
-              }`}
-            >
-              <Button
-                size="sm"
-                variant={hidden ? "outline" : "ghost"}
-                className="rounded-sm h-6"
-                onClick={onToggleHidden}
-                title={
+              <div
+                className={`transition-opacity duration-200 ${
                   hidden
-                    ? "Include in total calculation"
-                    : "Exclude from total calculation"
-                }
+                    ? "opacity-100"
+                    : isHovered
+                      ? "opacity-100"
+                      : "opacity-0 pointer-events-none"
+                }`}
               >
-                {hidden ? (
-                  <Eye className="size-4" />
-                ) : (
-                  <EyeOff className="size-4" />
-                )}
-                {hidden ? "Show" : "Hide"}
-              </Button>
+                <Button
+                  size="sm"
+                  variant={hidden ? "outline" : "ghost"}
+                  className="rounded-sm h-6"
+                  onClick={onToggleHidden}
+                  title={
+                    hidden
+                      ? "Include in total calculation"
+                      : "Exclude from total calculation"
+                  }
+                >
+                  {hidden ? (
+                    <Eye className="size-4" />
+                  ) : (
+                    <EyeOff className="size-4" />
+                  )}
+                  {hidden ? "Show" : "Hide"}
+                </Button>
+              </div>
+
+              <div
+                className={`ml-auto transition-opacity duration-200 ${
+                  isHovered ? "opacity-100" : "opacity-0 pointer-events-none"
+                }`}
+              >
+                <Button
+                  size="sm"
+                  variant="ghost"
+                  className="rounded-sm h-6"
+                  onClick={() => window.open(wikiUrl, "_blank")}
+                  title="Go to the wiki page"
+                >
+                  Link <ExternalLink className="size-4" />
+                </Button>
+              </div>
             </div>
 
-            <div
-              className={`ml-auto transition-opacity duration-200 ${
-                isHovered ? "opacity-100" : "opacity-0 pointer-events-none"
-              }`}
+            <Button
+              size="icon-sm"
+              variant="destructive"
+              className="rounded-sm size-6"
+              onClick={!hidden ? handleRemove : undefined}
             >
-              <Button
-                size="sm"
-                variant="ghost"
-                className="rounded-sm h-6"
-                onClick={() => window.open(wikiUrl, "_blank")}
-                title="Go to the wiki page"
-              >
-                Link <ExternalLink className="size-4" />
-              </Button>
-            </div>
+              <X className="size-4 stroke-3" />
+            </Button>
           </div>
 
           <div
@@ -199,18 +210,11 @@ export const TechnoCard = memo(function TechnoCard({
           </div>
         </div>
 
-        <div
+        {/* <div
           className={`flex flex-col items-end justify-between shrink-0 pr-3 ${hidden ? "opacity-50" : ""}`}
         >
-          <Button
-            size="icon-sm"
-            variant="destructive"
-            className="rounded-sm size-6"
-            onClick={!hidden ? handleRemove : undefined}
-          >
-            <X className="size-4 stroke-3" />
-          </Button>
-        </div>
+          
+        </div> */}
       </div>
     </div>
   );

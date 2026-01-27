@@ -1,0 +1,1415 @@
+{
+  "buildings": [
+    {
+      "id": "/wiki/Allied_Cultures/China/Average_Home|construction|ER|1",
+      "quantity": 5,
+      "maxQty": 8,
+      "costs": {
+        "wu_zhu": 480,
+        "rice": 600,
+        "goods": [
+          {
+            "type": "Toga",
+            "amount": 210
+          },
+          {
+            "type": "Column",
+            "amount": 210
+          },
+          {
+            "type": "Silver_Ring",
+            "amount": 210
+          }
+        ]
+      }
+    },
+    {
+      "id": "/wiki/Allied_Cultures/China/Average_Home|upgrade|ER|2",
+      "quantity": 5,
+      "maxQty": 5,
+      "costs": {
+        "wu_zhu": 20000,
+        "rice": 14000,
+        "goods": [
+          {
+            "type": "Primary_ER",
+            "amount": 235
+          },
+          {
+            "type": "Secondary_ER",
+            "amount": 120
+          },
+          {
+            "type": "Silk",
+            "amount": 200
+          }
+        ]
+      }
+    },
+    {
+      "id": "/wiki/Allied_Cultures/China/Average_Home|upgrade|ER|3",
+      "quantity": 5,
+      "maxQty": 5,
+      "costs": {
+        "wu_zhu": 30000,
+        "rice": 20000,
+        "goods": [
+          {
+            "type": "Secondary_ER",
+            "amount": 275
+          },
+          {
+            "type": "Tertiary_ER",
+            "amount": 140
+          },
+          {
+            "type": "Silk",
+            "amount": 540
+          }
+        ]
+      }
+    },
+    {
+      "id": "/wiki/Allied_Cultures/China/Rice_Farm|construction|ER|1",
+      "quantity": 6,
+      "maxQty": 12,
+      "costs": {
+        "wu_zhu": 1000,
+        "rice": 800,
+        "goods": [
+          {
+            "type": "Toga",
+            "amount": 260
+          },
+          {
+            "type": "Column",
+            "amount": 260
+          },
+          {
+            "type": "Silver_Ring",
+            "amount": 260
+          }
+        ]
+      }
+    },
+    {
+      "id": "/wiki/Allied_Cultures/China/Rice_Farm|upgrade|ER|2",
+      "quantity": 6,
+      "maxQty": 6,
+      "costs": {
+        "wu_zhu": 42000,
+        "rice": 17000,
+        "goods": [
+          {
+            "type": "Primary_ER",
+            "amount": 295
+          },
+          {
+            "type": "Secondary_ER",
+            "amount": 150
+          },
+          {
+            "type": "Silk",
+            "amount": 250
+          }
+        ]
+      }
+    },
+    {
+      "id": "/wiki/Allied_Cultures/China/Rice_Farm|upgrade|ER|3",
+      "quantity": 6,
+      "maxQty": 6,
+      "costs": {
+        "wu_zhu": 63000,
+        "rice": 26000,
+        "goods": [
+          {
+            "type": "Secondary_ER",
+            "amount": 345
+          },
+          {
+            "type": "Tertiary_ER",
+            "amount": 170
+          },
+          {
+            "type": "Silk",
+            "amount": 675
+          }
+        ]
+      }
+    },
+    {
+      "id": "/wiki/Allied_Cultures/China/Small_Home|construction|ER|1",
+      "quantity": 15,
+      "maxQty": 25,
+      "costs": {
+        "wu_zhu": 80,
+        "rice": 100,
+        "goods": [
+          {
+            "type": "Toga",
+            "amount": 50
+          },
+          {
+            "type": "Column",
+            "amount": 50
+          },
+          {
+            "type": "Silver_Ring",
+            "amount": 50
+          }
+        ]
+      }
+    },
+    {
+      "id": "/wiki/Allied_Cultures/China/Small_Home|upgrade|ER|2",
+      "quantity": 15,
+      "maxQty": 15,
+      "costs": {
+        "wu_zhu": 5600,
+        "rice": 3400,
+        "goods": [
+          {
+            "type": "Primary_ER",
+            "amount": 59
+          },
+          {
+            "type": "Secondary_ER",
+            "amount": 30
+          },
+          {
+            "type": "Silk",
+            "amount": 50
+          }
+        ]
+      }
+    },
+    {
+      "id": "/wiki/Allied_Cultures/China/Small_Home|upgrade|ER|3",
+      "quantity": 15,
+      "maxQty": 15,
+      "costs": {
+        "wu_zhu": 8300,
+        "rice": 5100,
+        "goods": [
+          {
+            "type": "Secondary_ER",
+            "amount": 70
+          },
+          {
+            "type": "Tertiary_ER",
+            "amount": 35
+          },
+          {
+            "type": "Silk",
+            "amount": 135
+          }
+        ]
+      }
+    },
+    {
+      "id": "/wiki/Home_Cultures/Barracks/Cavalry_Barracks|upgrade|ER|5",
+      "quantity": 1,
+      "maxQty": 1,
+      "costs": {
+        "coins": 1080000,
+        "food": 680000,
+        "goods": [
+          {
+            "type": "Column",
+            "amount": 1030
+          },
+          {
+            "type": "Silver_Ring",
+            "amount": 1030
+          },
+          {
+            "type": "Toga",
+            "amount": 1030
+          }
+        ]
+      }
+    },
+    {
+      "id": "/wiki/Home_Cultures/Barracks/Heavy_Infantry_Barracks|upgrade|ER|5",
+      "quantity": 1,
+      "maxQty": 1,
+      "costs": {
+        "coins": 1240000,
+        "food": 850000,
+        "goods": [
+          {
+            "type": "Column",
+            "amount": 1180
+          },
+          {
+            "type": "Silver_Ring",
+            "amount": 1180
+          },
+          {
+            "type": "Toga",
+            "amount": 1180
+          }
+        ]
+      }
+    },
+    {
+      "id": "/wiki/Home_Cultures/Barracks/Infantry_Barracks|upgrade|ER|5",
+      "quantity": 2,
+      "maxQty": 2,
+      "costs": {
+        "coins": 790000,
+        "food": 470000,
+        "goods": [
+          {
+            "type": "Column",
+            "amount": 855
+          },
+          {
+            "type": "Silver_Ring",
+            "amount": 855
+          },
+          {
+            "type": "Toga",
+            "amount": 855
+          }
+        ]
+      }
+    },
+    {
+      "id": "/wiki/Home_Cultures/Barracks/Ranged_Barracks|upgrade|ER|5",
+      "quantity": 1,
+      "maxQty": 1,
+      "costs": {
+        "coins": 980000,
+        "food": 590000,
+        "goods": [
+          {
+            "type": "Column",
+            "amount": 940
+          },
+          {
+            "type": "Silver_Ring",
+            "amount": 940
+          },
+          {
+            "type": "Toga",
+            "amount": 940
+          }
+        ]
+      }
+    },
+    {
+      "id": "/wiki/Home_Cultures/Culture_Sites/Compact_Culture_Site|construction|ER|5",
+      "quantity": 1,
+      "maxQty": 8,
+      "costs": {
+        "coins": 170000,
+        "food": 100000
+      }
+    },
+    {
+      "id": "/wiki/Home_Cultures/Culture_Sites/Compact_Culture_Site|upgrade|ER|5",
+      "quantity": 7,
+      "maxQty": 8,
+      "costs": {
+        "coins": 91000,
+        "food": 55000
+      }
+    },
+    {
+      "id": "/wiki/Home_Cultures/Culture_Sites/Large_Culture_Site|upgrade|ER|5",
+      "quantity": 1,
+      "maxQty": 1,
+      "costs": {
+        "coins": 650000,
+        "food": 389000
+      }
+    },
+    {
+      "id": "/wiki/Home_Cultures/Culture_Sites/Little_Culture_Site|construction|ER|5",
+      "quantity": 1,
+      "maxQty": 5,
+      "costs": {
+        "coins": 98000,
+        "food": 61000
+      }
+    },
+    {
+      "id": "/wiki/Home_Cultures/Culture_Sites/Little_Culture_Site|upgrade|ER|5",
+      "quantity": 4,
+      "maxQty": 5,
+      "costs": {
+        "coins": 52000,
+        "food": 32300
+      }
+    },
+    {
+      "id": "/wiki/Home_Cultures/Culture_Sites/Moderate_Culture_Site|upgrade|ER|5",
+      "quantity": 3,
+      "maxQty": 3,
+      "costs": {
+        "coins": 191000,
+        "food": 118000
+      }
+    },
+    {
+      "id": "/wiki/Home_Cultures/Farms/Domestic_Farm|construction|ER|13",
+      "quantity": 1,
+      "maxQty": 6,
+      "costs": {
+        "coins": 1100000,
+        "food": 480000,
+        "goods": [
+          {
+            "type": "Column",
+            "amount": 1250
+          },
+          {
+            "type": "Silver_Ring",
+            "amount": 1250
+          },
+          {
+            "type": "Toga",
+            "amount": 1250
+          }
+        ]
+      }
+    },
+    {
+      "id": "/wiki/Home_Cultures/Farms/Domestic_Farm|upgrade|ER|13",
+      "quantity": 5,
+      "maxQty": 6,
+      "costs": {
+        "coins": 240000,
+        "food": 100000,
+        "goods": [
+          {
+            "type": "Column",
+            "amount": 315
+          },
+          {
+            "type": "Silver_Ring",
+            "amount": 315
+          },
+          {
+            "type": "Toga",
+            "amount": 315
+          }
+        ]
+      }
+    },
+    {
+      "id": "/wiki/Home_Cultures/Farms/Domestic_Farm|upgrade|ER|14",
+      "quantity": 6,
+      "maxQty": 6,
+      "costs": {
+        "coins": 290000,
+        "food": 120000,
+        "goods": [
+          {
+            "type": "Primary_ER",
+            "amount": 355
+          },
+          {
+            "type": "Secondary_ER",
+            "amount": 355
+          },
+          {
+            "type": "Silk",
+            "amount": 200
+          }
+        ]
+      }
+    },
+    {
+      "id": "/wiki/Home_Cultures/Farms/Domestic_Farm|upgrade|ER|15",
+      "quantity": 6,
+      "maxQty": 6,
+      "costs": {
+        "coins": 330000,
+        "food": 140000,
+        "goods": [
+          {
+            "type": "Primary_ER",
+            "amount": 515
+          },
+          {
+            "type": "Tertiary_ER",
+            "amount": 260
+          },
+          {
+            "type": "Silk",
+            "amount": 700
+          }
+        ]
+      }
+    },
+    {
+      "id": "/wiki/Home_Cultures/Farms/Rural_Farm|construction|ER|13",
+      "quantity": 1,
+      "maxQty": 8,
+      "costs": {
+        "coins": 770000,
+        "food": 330000,
+        "goods": [
+          {
+            "type": "Column",
+            "amount": 880
+          },
+          {
+            "type": "Silver_Ring",
+            "amount": 880
+          },
+          {
+            "type": "Toga",
+            "amount": 880
+          }
+        ]
+      }
+    },
+    {
+      "id": "/wiki/Home_Cultures/Farms/Rural_Farm|upgrade|ER|13",
+      "quantity": 7,
+      "maxQty": 8,
+      "costs": {
+        "coins": 170000,
+        "food": 72000,
+        "goods": [
+          {
+            "type": "Column",
+            "amount": 225
+          },
+          {
+            "type": "Silver_Ring",
+            "amount": 225
+          },
+          {
+            "type": "Toga",
+            "amount": 225
+          }
+        ]
+      }
+    },
+    {
+      "id": "/wiki/Home_Cultures/Farms/Rural_Farm|upgrade|ER|14",
+      "quantity": 8,
+      "maxQty": 8,
+      "costs": {
+        "coins": 200000,
+        "food": 86000,
+        "goods": [
+          {
+            "type": "Primary_ER",
+            "amount": 250
+          },
+          {
+            "type": "Secondary_ER",
+            "amount": 250
+          },
+          {
+            "type": "Silk",
+            "amount": 150
+          }
+        ]
+      }
+    },
+    {
+      "id": "/wiki/Home_Cultures/Farms/Rural_Farm|upgrade|ER|15",
+      "quantity": 8,
+      "maxQty": 8,
+      "costs": {
+        "coins": 230000,
+        "food": 100000,
+        "goods": [
+          {
+            "type": "Primary_ER",
+            "amount": 365
+          },
+          {
+            "type": "Tertiary_ER",
+            "amount": 180
+          },
+          {
+            "type": "Silk",
+            "amount": 465
+          }
+        ]
+      }
+    },
+    {
+      "id": "/wiki/Home_Cultures/Homes/Average_Home|construction|ER|13",
+      "quantity": 1,
+      "maxQty": 6,
+      "costs": {
+        "coins": 300000,
+        "food": 660000,
+        "goods": [
+          {
+            "type": "Column",
+            "amount": 735
+          },
+          {
+            "type": "Silver_Ring",
+            "amount": 735
+          },
+          {
+            "type": "Toga",
+            "amount": 735
+          }
+        ]
+      }
+    },
+    {
+      "id": "/wiki/Home_Cultures/Homes/Average_Home|upgrade|ER|13",
+      "quantity": 5,
+      "maxQty": 6,
+      "costs": {
+        "coins": 64000,
+        "food": 140000,
+        "goods": [
+          {
+            "type": "Column",
+            "amount": 185
+          },
+          {
+            "type": "Silver_Ring",
+            "amount": 185
+          },
+          {
+            "type": "Toga",
+            "amount": 185
+          }
+        ]
+      }
+    },
+    {
+      "id": "/wiki/Home_Cultures/Homes/Average_Home|upgrade|ER|14",
+      "quantity": 6,
+      "maxQty": 6,
+      "costs": {
+        "coins": 76000,
+        "food": 170000,
+        "goods": [
+          {
+            "type": "Primary_ER",
+            "amount": 210
+          },
+          {
+            "type": "Secondary_ER",
+            "amount": 210
+          },
+          {
+            "type": "Silk",
+            "amount": 110
+          }
+        ]
+      }
+    },
+    {
+      "id": "/wiki/Home_Cultures/Homes/Average_Home|upgrade|ER|15",
+      "quantity": 6,
+      "maxQty": 6,
+      "costs": {
+        "coins": 89000,
+        "food": 200000,
+        "goods": [
+          {
+            "type": "Primary_ER",
+            "amount": 305
+          },
+          {
+            "type": "Tertiary_ER",
+            "amount": 150
+          },
+          {
+            "type": "Silk",
+            "amount": 390
+          }
+        ]
+      }
+    },
+    {
+      "id": "/wiki/Home_Cultures/Homes/Small_Home|construction|ER|13",
+      "quantity": 2,
+      "maxQty": 20,
+      "costs": {
+        "coins": 110000,
+        "food": 260000,
+        "goods": [
+          {
+            "type": "Column",
+            "amount": 295
+          },
+          {
+            "type": "Silver_Ring",
+            "amount": 295
+          },
+          {
+            "type": "Toga",
+            "amount": 295
+          }
+        ]
+      }
+    },
+    {
+      "id": "/wiki/Home_Cultures/Homes/Small_Home|upgrade|ER|13",
+      "quantity": 18,
+      "maxQty": 20,
+      "costs": {
+        "coins": 24000,
+        "food": 56000,
+        "goods": [
+          {
+            "type": "Column",
+            "amount": 75
+          },
+          {
+            "type": "Silver_Ring",
+            "amount": 75
+          },
+          {
+            "type": "Toga",
+            "amount": 75
+          }
+        ]
+      }
+    },
+    {
+      "id": "/wiki/Home_Cultures/Homes/Small_Home|upgrade|ER|14",
+      "quantity": 20,
+      "maxQty": 20,
+      "costs": {
+        "coins": 29000,
+        "food": 67000,
+        "goods": [
+          {
+            "type": "Primary_ER",
+            "amount": 82
+          },
+          {
+            "type": "Secondary_ER",
+            "amount": 82
+          },
+          {
+            "type": "Silk",
+            "amount": 50
+          }
+        ]
+      }
+    },
+    {
+      "id": "/wiki/Home_Cultures/Homes/Small_Home|upgrade|ER|15",
+      "quantity": 20,
+      "maxQty": 20,
+      "costs": {
+        "coins": 33000,
+        "food": 78000,
+        "goods": [
+          {
+            "type": "Primary_ER",
+            "amount": 90
+          },
+          {
+            "type": "Tertiary_ER",
+            "amount": 90
+          },
+          {
+            "type": "Silk",
+            "amount": 155
+          }
+        ]
+      }
+    },
+    {
+      "id": "/wiki/Home_Cultures/Workshops/Artisan|construction|ER|4",
+      "quantity": 1,
+      "maxQty": 4,
+      "costs": {
+        "coins": 1800000,
+        "food": 1100000,
+        "goods": [
+          {
+            "type": "Column",
+            "amount": 880
+          },
+          {
+            "type": "Silver_Ring",
+            "amount": 880
+          },
+          {
+            "type": "Toga",
+            "amount": 880
+          }
+        ]
+      }
+    },
+    {
+      "id": "/wiki/Home_Cultures/Workshops/Artisan|upgrade|ER|4",
+      "quantity": 3,
+      "maxQty": 4,
+      "costs": {
+        "coins": 980000,
+        "food": 560000,
+        "goods": [
+          {
+            "type": "Column",
+            "amount": 515
+          },
+          {
+            "type": "Silver_Ring",
+            "amount": 515
+          },
+          {
+            "type": "Toga",
+            "amount": 515
+          }
+        ]
+      }
+    },
+    {
+      "id": "/wiki/Home_Cultures/Workshops/Stone_Mason|upgrade|ER|4",
+      "quantity": 1,
+      "maxQty": 4,
+      "costs": {
+        "coins": 980000,
+        "food": 560000,
+        "goods": [
+          {
+            "type": "Column",
+            "amount": 515
+          },
+          {
+            "type": "Silver_Ring",
+            "amount": 515
+          },
+          {
+            "type": "Toga",
+            "amount": 515
+          }
+        ]
+      }
+    },
+    {
+      "id": "/wiki/Home_Cultures/Workshops/Tailor|upgrade|ER|4",
+      "quantity": 1,
+      "maxQty": 4,
+      "costs": {
+        "coins": 980000,
+        "food": 560000,
+        "goods": [
+          {
+            "type": "Column",
+            "amount": 515
+          },
+          {
+            "type": "Silver_Ring",
+            "amount": 515
+          },
+          {
+            "type": "Toga",
+            "amount": 515
+          }
+        ]
+      }
+    }
+  ],
+  "technos": [
+    {
+      "id": "techno_early_rome_0",
+      "costs": {
+        "research_points": 26,
+        "coins": 352000,
+        "food": 249000,
+        "goods": [
+          {
+            "type": "Primary_BA",
+            "amount": 1405
+          },
+          {
+            "type": "Primary_ME",
+            "amount": 1875
+          },
+          {
+            "type": "Primary_CG",
+            "amount": 3375
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_early_rome_1",
+      "costs": {
+        "research_points": 22,
+        "coins": 298000,
+        "food": 211000,
+        "goods": [
+          {
+            "type": "Primary_ME",
+            "amount": 955
+          },
+          {
+            "type": "Secondary_ME",
+            "amount": 1590
+          },
+          {
+            "type": "Tertiary_CG",
+            "amount": 2860
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_early_rome_10",
+      "costs": {
+        "research_points": 26,
+        "coins": 352000,
+        "food": 249000,
+        "goods": [
+          {
+            "type": "Tertiary_CG",
+            "amount": 845
+          },
+          {
+            "type": "Primary_ER",
+            "amount": 2250
+          },
+          {
+            "type": "Tertiary_ER",
+            "amount": 940
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_early_rome_11",
+      "costs": {
+        "research_points": 45,
+        "coins": 602000,
+        "food": 426000,
+        "goods": [
+          {
+            "type": "Secondary_CG",
+            "amount": 1445
+          },
+          {
+            "type": "Tertiary_CG",
+            "amount": 2405
+          },
+          {
+            "type": "Primary_ER",
+            "amount": 3850
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_early_rome_12",
+      "costs": {
+        "research_points": 46,
+        "coins": 610000,
+        "food": 432000,
+        "goods": [
+          {
+            "type": "Secondary_ER",
+            "amount": 1955
+          },
+          {
+            "type": "Tertiary_ER",
+            "amount": 4555
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_early_rome_13",
+      "costs": {
+        "research_points": 41,
+        "coins": 546000,
+        "food": 386000,
+        "goods": [
+          {
+            "type": "Primary_CG",
+            "amount": 2620
+          },
+          {
+            "type": "Primary_ER",
+            "amount": 4075
+          },
+          {
+            "type": "Silk",
+            "amount": 500
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_early_rome_14",
+      "costs": {
+        "research_points": 45,
+        "coins": 599000,
+        "food": 424000,
+        "goods": [
+          {
+            "type": "Secondary_CG",
+            "amount": 1440
+          },
+          {
+            "type": "Primary_ER",
+            "amount": 3835
+          },
+          {
+            "type": "Secondary_ER",
+            "amount": 1600
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_early_rome_15",
+      "costs": {
+        "research_points": 30,
+        "coins": 405000,
+        "food": 287000,
+        "goods": [
+          {
+            "type": "Primary_BA",
+            "amount": 2700
+          },
+          {
+            "type": "Secondary_ER",
+            "amount": 2590
+          },
+          {
+            "type": "Tertiary_ER",
+            "amount": 650
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_early_rome_16",
+      "costs": {
+        "research_points": 34,
+        "coins": 447000,
+        "food": 316000,
+        "goods": [
+          {
+            "type": "Primary_ER",
+            "amount": 1430
+          },
+          {
+            "type": "Secondary_ER",
+            "amount": 3340
+          },
+          {
+            "type": "Silk",
+            "amount": 1000
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_early_rome_17",
+      "costs": {
+        "research_points": 42,
+        "coins": 562000,
+        "food": 398000,
+        "goods": [
+          {
+            "type": "Primary_ER",
+            "amount": 900
+          },
+          {
+            "type": "Secondary_ER",
+            "amount": 1500
+          },
+          {
+            "type": "Tertiary_ER",
+            "amount": 3600
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_early_rome_18",
+      "costs": {
+        "research_points": 30,
+        "coins": 396000,
+        "food": 281000,
+        "goods": [
+          {
+            "type": "Secondary_ME",
+            "amount": 2540
+          },
+          {
+            "type": "Secondary_ER",
+            "amount": 2960
+          },
+          {
+            "type": "Silk",
+            "amount": 2500
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_early_rome_19",
+      "costs": {
+        "research_points": 48,
+        "coins": 636000,
+        "food": 450000,
+        "goods": [
+          {
+            "type": "Tertiary_ME",
+            "amount": 3390
+          },
+          {
+            "type": "Primary_ER",
+            "amount": 4070
+          },
+          {
+            "type": "Tertiary_ER",
+            "amount": 1015
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_early_rome_2",
+      "costs": {
+        "research_points": 37,
+        "coins": 498000,
+        "food": 352000,
+        "goods": [
+          {
+            "type": "Tertiary_ME",
+            "amount": 3185
+          },
+          {
+            "type": "Secondary_CG",
+            "amount": 5575
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_early_rome_20",
+      "costs": {
+        "research_points": 35,
+        "coins": 470000,
+        "food": 332000,
+        "goods": [
+          {
+            "type": "Primary_CG",
+            "amount": 1125
+          },
+          {
+            "type": "Secondary_ER",
+            "amount": 1255
+          },
+          {
+            "type": "Tertiary_ER",
+            "amount": 3005
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_early_rome_21",
+      "costs": {
+        "research_points": 48,
+        "coins": 636000,
+        "food": 450000,
+        "goods": [
+          {
+            "type": "Secondary_ER",
+            "amount": 4745
+          },
+          {
+            "type": "Tertiary_ER",
+            "amount": 2035
+          },
+          {
+            "type": "Silk",
+            "amount": 4000
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_early_rome_22",
+      "costs": {
+        "research_points": 37,
+        "coins": 486000,
+        "food": 344000,
+        "goods": [
+          {
+            "type": "Tertiary_CG",
+            "amount": 1170
+          },
+          {
+            "type": "Secondary_ER",
+            "amount": 1300
+          },
+          {
+            "type": "Tertiary_ER",
+            "amount": 3115
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_early_rome_23",
+      "costs": {
+        "research_points": 47,
+        "coins": 633000,
+        "food": 448000,
+        "goods": [
+          {
+            "type": "Secondary_ME",
+            "amount": 3375
+          },
+          {
+            "type": "Primary_ER",
+            "amount": 4050
+          },
+          {
+            "type": "Secondary_ER",
+            "amount": 1015
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_early_rome_24",
+      "costs": {
+        "research_points": 58,
+        "coins": 773000,
+        "food": 547000,
+        "goods": [
+          {
+            "type": "Primary_CG",
+            "amount": 3715
+          },
+          {
+            "type": "Tertiary_ER",
+            "amount": 5775
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_early_rome_25",
+      "costs": {
+        "research_points": 42,
+        "coins": 562000,
+        "food": 398000,
+        "goods": [
+          {
+            "type": "Primary_ER",
+            "amount": 4200
+          },
+          {
+            "type": "Tertiary_ER",
+            "amount": 1800
+          },
+          {
+            "type": "Silk",
+            "amount": 6000
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_early_rome_26",
+      "costs": {
+        "research_points": 44,
+        "coins": 591000,
+        "food": 418000,
+        "goods": [
+          {
+            "type": "Secondary_CG",
+            "amount": 2365
+          },
+          {
+            "type": "Tertiary_CG",
+            "amount": 1420
+          },
+          {
+            "type": "Tertiary_ER",
+            "amount": 3780
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_early_rome_27",
+      "costs": {
+        "research_points": 40,
+        "coins": 534000,
+        "food": 378000,
+        "goods": [
+          {
+            "type": "Primary_ER",
+            "amount": 1710
+          },
+          {
+            "type": "Secondary_ER",
+            "amount": 3990
+          },
+          {
+            "type": "Silk",
+            "amount": 8000
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_early_rome_3",
+      "costs": {
+        "research_points": 42,
+        "coins": 562000,
+        "food": 398000,
+        "goods": [
+          {
+            "type": "Primary_CG",
+            "amount": 2250
+          },
+          {
+            "type": "Secondary_CG",
+            "amount": 1350
+          },
+          {
+            "type": "Tertiary_CG",
+            "amount": 5400
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_early_rome_4",
+      "costs": {
+        "research_points": 41,
+        "coins": 548000,
+        "food": 388000,
+        "goods": [
+          {
+            "type": "Primary_ME",
+            "amount": 7020
+          },
+          {
+            "type": "Secondary_CG",
+            "amount": 2195
+          },
+          {
+            "type": "Tertiary_CG",
+            "amount": 1315
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_early_rome_5",
+      "costs": {
+        "research_points": 30,
+        "coins": 402000,
+        "food": 285000,
+        "goods": [
+          {
+            "type": "Secondary_BA",
+            "amount": 3215
+          },
+          {
+            "type": "Secondary_CG",
+            "amount": 4505
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_early_rome_6",
+      "costs": {
+        "research_points": 25,
+        "coins": 337000,
+        "food": 239000,
+        "goods": [
+          {
+            "type": "Tertiary_BA",
+            "amount": 2250
+          },
+          {
+            "type": "Primary_CG",
+            "amount": 810
+          },
+          {
+            "type": "Tertiary_CG",
+            "amount": 3240
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_early_rome_7",
+      "costs": {
+        "research_points": 31,
+        "coins": 408000,
+        "food": 289000,
+        "goods": [
+          {
+            "type": "Tertiary_ME",
+            "amount": 1305
+          },
+          {
+            "type": "Primary_CG",
+            "amount": 3915
+          },
+          {
+            "type": "Secondary_CG",
+            "amount": 1630
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_early_rome_8",
+      "costs": {
+        "research_points": 24,
+        "coins": 321000,
+        "food": 227000,
+        "goods": [
+          {
+            "type": "Primary_CG",
+            "amount": 1285
+          },
+          {
+            "type": "Primary_ER",
+            "amount": 2050
+          },
+          {
+            "type": "Tertiary_ER",
+            "amount": 515
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_early_rome_9",
+      "costs": {
+        "research_points": 38,
+        "coins": 501000,
+        "food": 354000,
+        "goods": [
+          {
+            "type": "Primary_ER",
+            "amount": 1600
+          },
+          {
+            "type": "Secondary_ER",
+            "amount": 3740
+          }
+        ]
+      }
+    }
+  ]
+}

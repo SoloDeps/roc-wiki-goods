@@ -1,7 +1,7 @@
 import { storage } from "#imports";
 import { getApiConfig } from "@/lib/roc/tokenCapture";
 import { syncGameResources } from "@/lib/roc/rocApi";
-import { db, TechnoEntity } from "@/lib/storage/dexie";
+import { db, gameDb, TechnoEntity } from "@/lib/storage/dexie";
 
 const BADGE_CONFIG = {
   LOADING: { text: "...", color: "#FF8800" },
@@ -23,7 +23,6 @@ const sendMessage = (tabId: number, type: string, data: any = {}) => {
 };
 
 export default defineBackground(() => {
-  // auto-sync on page load
   chrome.tabs.onUpdated.addListener(async (tabId, changeInfo, tab) => {
     if (
       changeInfo.status !== "complete" ||
@@ -38,23 +37,57 @@ export default defineBackground(() => {
     console.log("[RoC Background] 🔄 Auto-sync enabled");
     setBadge(tabId, "LOADING");
 
+    await storage.setItem("local:autoSaveStatus", {
+      status: "loading",
+      timestamp: Date.now(),
+      message: "Synchronization in progress...",
+      type: "auto",
+    });
+
     await new Promise((resolve) => setTimeout(resolve, 3000));
 
     const config = await getApiConfig();
     if (!config?.authToken) {
       console.log("[RoC Background] ❌ No token available");
+
+      await storage.setItem("local:autoSaveStatus", {
+        status: "error",
+        timestamp: Date.now(),
+        message: "Authentication token not available",
+        type: "auto",
+      });
+
+      setBadge(tabId, "ERROR");
       return;
     }
 
     try {
       await syncGameResources();
       await new Promise((resolve) => setTimeout(resolve, 1000));
+
+      await storage.setItem("local:autoSaveStatus", {
+        status: "success",
+        timestamp: Date.now(),
+        message: "Auto-save completed successfully",
+        type: "auto",
+      });
+
       sendMessage(tabId, "DATA_SAVED", { success: true });
       setBadge(tabId, "SUCCESS");
       console.log("[RoC Background] ✅ Auto-sync successful");
     } catch (error: any) {
       console.error("[RoC Background] ❌ Sync error:", error);
-      sendMessage(tabId, "DATA_ERROR", { error: error.message });
+
+      await storage.setItem("local:autoSaveStatus", {
+        status: "error",
+        timestamp: Date.now(),
+        message: "Data export failed. Please try again.",
+        type: "auto",
+      });
+
+      sendMessage(tabId, "DATA_ERROR", {
+        error: "Data export failed. Please try again.",
+      });
       setBadge(tabId, "ERROR");
     }
   });
@@ -82,22 +115,30 @@ export default defineBackground(() => {
         sendResponse({ success: false, error: error.message });
       });
 
-    return true; // keep async channel
+    return true;
   });
 
-  // broadcast changes
+  // ✅ CORRECTION : Broadcaster vers TOUS les contextes (tabs + runtime)
   async function broadcastChange(type: string, data: any) {
+    const message = {
+      type: "DEXIE_CHANGED",
+      payload: { type, data },
+    };
+
+    // 1. Broadcaster vers tous les tabs (content scripts)
     const tabs = await chrome.tabs.query({});
     tabs.forEach((tab) => {
       if (tab.id) {
-        chrome.tabs
-          .sendMessage(tab.id, {
-            type: "DEXIE_CHANGED",
-            payload: { type, data },
-          })
-          .catch(() => {});
+        chrome.tabs.sendMessage(tab.id, message).catch(() => {});
       }
     });
+
+    // 2. ✅ CRITIQUE : Broadcaster vers le runtime (popups, options pages, sidepanels)
+    chrome.runtime.sendMessage(message).catch(() => {
+      // C'est normal que ça échoue si aucune page n'écoute
+    });
+
+    console.log(`[Background] Broadcasted ${type} to all contexts`);
   }
 
   async function handleDexieMessage(message: any) {
@@ -201,7 +242,6 @@ export default defineBackground(() => {
         case "DEXIE_SAVE_ERA_TECHNOS": {
           const { eraPath, technos } = payload;
 
-          // remove all existing technos for this era
           const existing = await db.technos.toArray();
           const toDelete = existing.filter((t) =>
             t.id.startsWith(`techno_${eraPath}_`),
@@ -209,7 +249,6 @@ export default defineBackground(() => {
           if (toDelete.length)
             await db.technos.bulkDelete(toDelete.map((t) => t.id));
 
-          // add new technos
           if (technos.length) {
             await db.technos.bulkAdd(
               technos.map((t: TechnoEntity) => ({
@@ -233,6 +272,55 @@ export default defineBackground(() => {
             await db.technos.bulkDelete(toDelete.map((t) => t.id));
 
           await broadcastChange("TECHNOS", await db.technos.toArray());
+          return { success: true };
+        }
+
+        case "DEXIE_LOAD_PRESET": {
+          const { buildings, technos } = payload;
+
+          console.log(
+            `[Background] Loading preset: ${buildings.length} buildings, ${technos.length} technos`,
+          );
+
+          // Transaction atomique : tout se passe en une seule opération
+          await db.transaction("rw", [db.buildings, db.technos], async () => {
+            // Vider les tables
+            await db.buildings.clear();
+            await db.technos.clear();
+
+            // Ajouter les nouvelles données
+            if (buildings.length > 0) {
+              await db.buildings.bulkPut(
+                buildings.map((b: any) => ({
+                  ...b,
+                  hidden: false,
+                  updatedAt: Date.now(),
+                })),
+              );
+            }
+
+            if (technos.length > 0) {
+              await db.technos.bulkPut(
+                technos.map((t: any) => ({
+                  ...t,
+                  hidden: false,
+                  updatedAt: Date.now(),
+                })),
+              );
+            }
+          });
+
+          // Broadcaster UNE SEULE FOIS après que tout soit terminé
+          const [newBuildings, newTechnos] = await Promise.all([
+            db.buildings.toArray(),
+            db.technos.toArray(),
+          ]);
+
+          await broadcastChange("BUILDINGS", newBuildings);
+          await broadcastChange("TECHNOS", newTechnos);
+
+          console.log(`[Background] ✅ Preset loaded and broadcasted`);
+
           return { success: true };
         }
 
@@ -297,6 +385,27 @@ export default defineBackground(() => {
           );
 
           await broadcastChange("TECHNOS", await db.technos.toArray());
+          return { success: true };
+        }
+
+        case "DEXIE_SAVE_USER_RESOURCES": {
+          const { resources } = payload;
+          await gameDb.userResources.clear();
+          await gameDb.userResources.bulkAdd(
+            resources.map((r: any) => ({ ...r, updatedAt: Date.now() })),
+          );
+
+          // Broadcast user resources changes
+          await broadcastChange(
+            "USER_RESOURCES",
+            await gameDb.userResources.toArray(),
+          );
+          return { success: true };
+        }
+
+        case "DEXIE_REMOVE_ALL_BUILDINGS": {
+          await db.buildings.clear();
+          await broadcastChange("BUILDINGS", []);
           return { success: true };
         }
 

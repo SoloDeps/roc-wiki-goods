@@ -5,7 +5,7 @@ export function TailwindIndicator({
 }: {
   forceMount?: boolean
 }) {
-  if (process.env.NODE_ENV === "production" || (!SHOW && !forceMount)) {
+  if (import.meta.env.PROD || (!SHOW && !forceMount)) {
     return null
   }
 

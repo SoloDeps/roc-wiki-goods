@@ -1,0 +1,1449 @@
+{
+  "buildings": [
+    {
+      "id": "/wiki/Allied_Cultures/Egypt/Average_Home|construction|ME|1",
+      "quantity": 4,
+      "maxQty": 6,
+      "costs": {
+        "deben": 600
+      }
+    },
+    {
+      "id": "/wiki/Allied_Cultures/Egypt/Average_Home|upgrade|ME|2",
+      "quantity": 4,
+      "maxQty": 4,
+      "costs": {
+        "deben": 5600,
+        "goods": [
+          {
+            "type": "Primary_ME",
+            "amount": 33
+          },
+          {
+            "type": "Secondary_ME",
+            "amount": 17
+          }
+        ]
+      }
+    },
+    {
+      "id": "/wiki/Allied_Cultures/Egypt/Average_Home|upgrade|ME|3",
+      "quantity": 4,
+      "maxQty": 4,
+      "costs": {
+        "deben": 16000,
+        "goods": [
+          {
+            "type": "Secondary_ME",
+            "amount": 61
+          },
+          {
+            "type": "Tertiary_ME",
+            "amount": 30
+          },
+          {
+            "type": "Papyrus_Scroll",
+            "amount": 45
+          },
+          {
+            "type": "Ankh",
+            "amount": 45
+          }
+        ]
+      }
+    },
+    {
+      "id": "/wiki/Allied_Cultures/Egypt/Gold_Mine|construction|ME|1",
+      "quantity": 2,
+      "maxQty": 4,
+      "costs": {
+        "deben": 1200
+      }
+    },
+    {
+      "id": "/wiki/Allied_Cultures/Egypt/Gold_Mine|upgrade|ME|2",
+      "quantity": 2,
+      "maxQty": 2,
+      "costs": {
+        "deben": 9300,
+        "goods": [
+          {
+            "type": "Primary_ME",
+            "amount": 42
+          },
+          {
+            "type": "Secondary_ME",
+            "amount": 21
+          }
+        ]
+      }
+    },
+    {
+      "id": "/wiki/Allied_Cultures/Egypt/Gold_Mine|upgrade|ME|3",
+      "quantity": 2,
+      "maxQty": 2,
+      "costs": {
+        "deben": 26000,
+        "goods": [
+          {
+            "type": "Secondary_ME",
+            "amount": 77
+          },
+          {
+            "type": "Tertiary_ME",
+            "amount": 38
+          },
+          {
+            "type": "Papyrus_Scroll",
+            "amount": 58
+          },
+          {
+            "type": "Ankh",
+            "amount": 58
+          }
+        ]
+      }
+    },
+    {
+      "id": "/wiki/Allied_Cultures/Egypt/Goldsmith|construction|ME|1",
+      "quantity": 2,
+      "maxQty": 3,
+      "costs": {
+        "deben": 2500
+      }
+    },
+    {
+      "id": "/wiki/Allied_Cultures/Egypt/Papyrus_Field|construction|ME|1",
+      "quantity": 2,
+      "maxQty": 4,
+      "costs": {
+        "deben": 1000
+      }
+    },
+    {
+      "id": "/wiki/Allied_Cultures/Egypt/Papyrus_Field|upgrade|ME|2",
+      "quantity": 2,
+      "maxQty": 2,
+      "costs": {
+        "deben": 7400,
+        "goods": [
+          {
+            "type": "Primary_ME",
+            "amount": 45
+          },
+          {
+            "type": "Secondary_ME",
+            "amount": 22
+          }
+        ]
+      }
+    },
+    {
+      "id": "/wiki/Allied_Cultures/Egypt/Papyrus_Field|upgrade|ME|3",
+      "quantity": 2,
+      "maxQty": 2,
+      "costs": {
+        "deben": 21000,
+        "goods": [
+          {
+            "type": "Secondary_ME",
+            "amount": 80
+          },
+          {
+            "type": "Tertiary_ME",
+            "amount": 40
+          },
+          {
+            "type": "Papyrus_Scroll",
+            "amount": 60
+          },
+          {
+            "type": "Ankh",
+            "amount": 60
+          }
+        ]
+      }
+    },
+    {
+      "id": "/wiki/Allied_Cultures/Egypt/Papyrus_Press|construction|ME|1",
+      "quantity": 2,
+      "maxQty": 3,
+      "costs": {
+        "deben": 2000
+      }
+    },
+    {
+      "id": "/wiki/Allied_Cultures/Egypt/Small_Home|construction|ME|1",
+      "quantity": 8,
+      "maxQty": 12,
+      "costs": {
+        "deben": 100
+      }
+    },
+    {
+      "id": "/wiki/Allied_Cultures/Egypt/Small_Home|upgrade|ME|2",
+      "quantity": 8,
+      "maxQty": 8,
+      "costs": {
+        "deben": 1900,
+        "goods": [
+          {
+            "type": "Primary_ME",
+            "amount": 17
+          },
+          {
+            "type": "Secondary_ME",
+            "amount": 8
+          }
+        ]
+      }
+    },
+    {
+      "id": "/wiki/Allied_Cultures/Egypt/Small_Home|upgrade|ME|3",
+      "quantity": 8,
+      "maxQty": 8,
+      "costs": {
+        "deben": 5300,
+        "goods": [
+          {
+            "type": "Secondary_ME",
+            "amount": 30
+          },
+          {
+            "type": "Tertiary_ME",
+            "amount": 15
+          },
+          {
+            "type": "Papyrus_Scroll",
+            "amount": 22
+          },
+          {
+            "type": "Ankh",
+            "amount": 22
+          }
+        ]
+      }
+    },
+    {
+      "id": "/wiki/Home_Cultures/Barracks/Cavalry_Barracks|construction|ME|3",
+      "quantity": 1,
+      "maxQty": 1,
+      "costs": {
+        "coins": 220000,
+        "food": 140000,
+        "goods": [
+          {
+            "type": "Alabaster_Idol",
+            "amount": 105
+          },
+          {
+            "type": "Bronze_Bracelet",
+            "amount": 105
+          },
+          {
+            "type": "Wool",
+            "amount": 105
+          }
+        ]
+      }
+    },
+    {
+      "id": "/wiki/Home_Cultures/Barracks/Infantry_Barracks|upgrade|ME|3",
+      "quantity": 2,
+      "maxQty": 2,
+      "costs": {
+        "coins": 111000,
+        "food": 66000,
+        "goods": [
+          {
+            "type": "Alabaster_Idol",
+            "amount": 40
+          },
+          {
+            "type": "Bronze_Bracelet",
+            "amount": 40
+          },
+          {
+            "type": "Wool",
+            "amount": 40
+          }
+        ]
+      }
+    },
+    {
+      "id": "/wiki/Home_Cultures/Barracks/Ranged_Barracks|construction|ME|3",
+      "quantity": 1,
+      "maxQty": 1,
+      "costs": {
+        "coins": 200000,
+        "food": 120000,
+        "goods": [
+          {
+            "type": "Alabaster_Idol",
+            "amount": 92
+          },
+          {
+            "type": "Bronze_Bracelet",
+            "amount": 92
+          },
+          {
+            "type": "Wool",
+            "amount": 92
+          }
+        ]
+      }
+    },
+    {
+      "id": "/wiki/Home_Cultures/Culture_Sites/Compact_Culture_Site|construction|ME|3",
+      "quantity": 1,
+      "maxQty": 6,
+      "costs": {
+        "coins": 19000,
+        "food": 11000
+      }
+    },
+    {
+      "id": "/wiki/Home_Cultures/Culture_Sites/Compact_Culture_Site|upgrade|ME|3",
+      "quantity": 5,
+      "maxQty": 6,
+      "costs": {
+        "coins": 12900,
+        "food": 7700
+      }
+    },
+    {
+      "id": "/wiki/Home_Cultures/Culture_Sites/Little_Culture_Site|construction|ME|3",
+      "quantity": 1,
+      "maxQty": 4,
+      "costs": {
+        "coins": 11000,
+        "food": 6700
+      }
+    },
+    {
+      "id": "/wiki/Home_Cultures/Culture_Sites/Little_Culture_Site|upgrade|ME|3",
+      "quantity": 3,
+      "maxQty": 4,
+      "costs": {
+        "coins": 7300,
+        "food": 4700
+      }
+    },
+    {
+      "id": "/wiki/Home_Cultures/Culture_Sites/Moderate_Culture_Site|construction|ME|3",
+      "quantity": 1,
+      "maxQty": 3,
+      "costs": {
+        "coins": 38000,
+        "food": 24000
+      }
+    },
+    {
+      "id": "/wiki/Home_Cultures/Culture_Sites/Moderate_Culture_Site|upgrade|ME|3",
+      "quantity": 2,
+      "maxQty": 3,
+      "costs": {
+        "coins": 26200,
+        "food": 16500
+      }
+    },
+    {
+      "id": "/wiki/Home_Cultures/Farms/Domestic_Farm|construction|ME|7",
+      "quantity": 1,
+      "maxQty": 4,
+      "costs": {
+        "coins": 120000,
+        "food": 51000,
+        "goods": [
+          {
+            "type": "Alabaster_Idol",
+            "amount": 72
+          },
+          {
+            "type": "Bronze_Bracelet",
+            "amount": 72
+          },
+          {
+            "type": "Wool",
+            "amount": 72
+          }
+        ]
+      }
+    },
+    {
+      "id": "/wiki/Home_Cultures/Farms/Domestic_Farm|upgrade|ME|7",
+      "quantity": 3,
+      "maxQty": 4,
+      "costs": {
+        "coins": 39000,
+        "food": 17000,
+        "goods": [
+          {
+            "type": "Alabaster_Idol",
+            "amount": 21
+          },
+          {
+            "type": "Bronze_Bracelet",
+            "amount": 21
+          },
+          {
+            "type": "Wool",
+            "amount": 21
+          }
+        ]
+      }
+    },
+    {
+      "id": "/wiki/Home_Cultures/Farms/Domestic_Farm|upgrade|ME|8",
+      "quantity": 4,
+      "maxQty": 4,
+      "costs": {
+        "coins": 56000,
+        "food": 24000,
+        "goods": [
+          {
+            "type": "Primary_ME",
+            "amount": 47
+          },
+          {
+            "type": "Secondary_ME",
+            "amount": 47
+          },
+          {
+            "type": "Papyrus_Scroll",
+            "amount": 27
+          },
+          {
+            "type": "Ankh",
+            "amount": 27
+          }
+        ]
+      }
+    },
+    {
+      "id": "/wiki/Home_Cultures/Farms/Domestic_Farm|upgrade|ME|9",
+      "quantity": 4,
+      "maxQty": 4,
+      "costs": {
+        "coins": 80000,
+        "food": 35000,
+        "goods": [
+          {
+            "type": "Primary_ME",
+            "amount": 85
+          },
+          {
+            "type": "Tertiary_ME",
+            "amount": 85
+          },
+          {
+            "type": "Papyrus_Scroll",
+            "amount": 68
+          },
+          {
+            "type": "Ankh",
+            "amount": 68
+          }
+        ]
+      }
+    },
+    {
+      "id": "/wiki/Home_Cultures/Farms/Rural_Farm|construction|ME|7",
+      "quantity": 1,
+      "maxQty": 5,
+      "costs": {
+        "coins": 83000,
+        "food": 36000,
+        "goods": [
+          {
+            "type": "Alabaster_Idol",
+            "amount": 52
+          },
+          {
+            "type": "Bronze_Bracelet",
+            "amount": 52
+          },
+          {
+            "type": "Wool",
+            "amount": 52
+          }
+        ]
+      }
+    },
+    {
+      "id": "/wiki/Home_Cultures/Farms/Rural_Farm|upgrade|ME|7",
+      "quantity": 4,
+      "maxQty": 5,
+      "costs": {
+        "coins": 27000,
+        "food": 12000,
+        "goods": [
+          {
+            "type": "Alabaster_Idol",
+            "amount": 15
+          },
+          {
+            "type": "Bronze_Bracelet",
+            "amount": 15
+          },
+          {
+            "type": "Wool",
+            "amount": 15
+          }
+        ]
+      }
+    },
+    {
+      "id": "/wiki/Home_Cultures/Farms/Rural_Farm|upgrade|ME|8",
+      "quantity": 5,
+      "maxQty": 5,
+      "costs": {
+        "coins": 39000,
+        "food": 17000,
+        "goods": [
+          {
+            "type": "Primary_ME",
+            "amount": 33
+          },
+          {
+            "type": "Secondary_ME",
+            "amount": 33
+          },
+          {
+            "type": "Papyrus_Scroll",
+            "amount": 18
+          },
+          {
+            "type": "Ankh",
+            "amount": 18
+          }
+        ]
+      }
+    },
+    {
+      "id": "/wiki/Home_Cultures/Farms/Rural_Farm|upgrade|ME|9",
+      "quantity": 5,
+      "maxQty": 5,
+      "costs": {
+        "coins": 56000,
+        "food": 24000,
+        "goods": [
+          {
+            "type": "Primary_ME",
+            "amount": 60
+          },
+          {
+            "type": "Tertiary_ME",
+            "amount": 60
+          },
+          {
+            "type": "Papyrus_Scroll",
+            "amount": 45
+          },
+          {
+            "type": "Ankh",
+            "amount": 45
+          }
+        ]
+      }
+    },
+    {
+      "id": "/wiki/Home_Cultures/Homes/Average_Home|construction|ME|7",
+      "quantity": 2,
+      "maxQty": 4,
+      "costs": {
+        "coins": 31000,
+        "food": 72000,
+        "goods": [
+          {
+            "type": "Alabaster_Idol",
+            "amount": 45
+          },
+          {
+            "type": "Bronze_Bracelet",
+            "amount": 45
+          },
+          {
+            "type": "Wool",
+            "amount": 45
+          }
+        ]
+      }
+    },
+    {
+      "id": "/wiki/Home_Cultures/Homes/Average_Home|upgrade|ME|7",
+      "quantity": 2,
+      "maxQty": 4,
+      "costs": {
+        "coins": 10000,
+        "food": 23000,
+        "goods": [
+          {
+            "type": "Alabaster_Idol",
+            "amount": 12
+          },
+          {
+            "type": "Bronze_Bracelet",
+            "amount": 12
+          },
+          {
+            "type": "Wool",
+            "amount": 12
+          }
+        ]
+      }
+    },
+    {
+      "id": "/wiki/Home_Cultures/Homes/Average_Home|upgrade|ME|8",
+      "quantity": 4,
+      "maxQty": 4,
+      "costs": {
+        "coins": 15000,
+        "food": 33000,
+        "goods": [
+          {
+            "type": "Primary_ME",
+            "amount": 28
+          },
+          {
+            "type": "Secondary_ME",
+            "amount": 28
+          },
+          {
+            "type": "Papyrus_Scroll",
+            "amount": 15
+          },
+          {
+            "type": "Ankh",
+            "amount": 15
+          }
+        ]
+      }
+    },
+    {
+      "id": "/wiki/Home_Cultures/Homes/Average_Home|upgrade|ME|9",
+      "quantity": 4,
+      "maxQty": 4,
+      "costs": {
+        "coins": 21000,
+        "food": 48000,
+        "goods": [
+          {
+            "type": "Primary_ME",
+            "amount": 50
+          },
+          {
+            "type": "Tertiary_ME",
+            "amount": 50
+          },
+          {
+            "type": "Papyrus_Scroll",
+            "amount": 38
+          },
+          {
+            "type": "Ankh",
+            "amount": 38
+          }
+        ]
+      }
+    },
+    {
+      "id": "/wiki/Home_Cultures/Homes/Small_Home|construction|ME|7",
+      "quantity": 2,
+      "maxQty": 14,
+      "costs": {
+        "coins": 12000,
+        "food": 27000,
+        "goods": [
+          {
+            "type": "Alabaster_Idol",
+            "amount": 17
+          },
+          {
+            "type": "Bronze_Bracelet",
+            "amount": 17
+          },
+          {
+            "type": "Wool",
+            "amount": 17
+          }
+        ]
+      }
+    },
+    {
+      "id": "/wiki/Home_Cultures/Homes/Small_Home|upgrade|ME|7",
+      "quantity": 12,
+      "maxQty": 14,
+      "costs": {
+        "coins": 3900,
+        "food": 9000,
+        "goods": [
+          {
+            "type": "Alabaster_Idol",
+            "amount": 5
+          },
+          {
+            "type": "Bronze_Bracelet",
+            "amount": 5
+          },
+          {
+            "type": "Wool",
+            "amount": 5
+          }
+        ]
+      }
+    },
+    {
+      "id": "/wiki/Home_Cultures/Homes/Small_Home|upgrade|ME|8",
+      "quantity": 14,
+      "maxQty": 14,
+      "costs": {
+        "coins": 5600,
+        "food": 13000,
+        "goods": [
+          {
+            "type": "Primary_ME",
+            "amount": 11
+          },
+          {
+            "type": "Secondary_ME",
+            "amount": 11
+          }
+        ]
+      }
+    },
+    {
+      "id": "/wiki/Home_Cultures/Homes/Small_Home|upgrade|ME|9",
+      "quantity": 14,
+      "maxQty": 14,
+      "costs": {
+        "coins": 8000,
+        "food": 19000,
+        "goods": [
+          {
+            "type": "Primary_ME",
+            "amount": 20
+          },
+          {
+            "type": "Tertiary_ME",
+            "amount": 20
+          },
+          {
+            "type": "Papyrus_Scroll",
+            "amount": 15
+          },
+          {
+            "type": "Ankh",
+            "amount": 15
+          }
+        ]
+      }
+    },
+    {
+      "id": "/wiki/Home_Cultures/Workshops/Artisan|construction|ME|2",
+      "quantity": 1,
+      "maxQty": 2,
+      "costs": {
+        "coins": 200000,
+        "food": 110000,
+        "goods": [
+          {
+            "type": "Alabaster_Idol",
+            "amount": 52
+          },
+          {
+            "type": "Bronze_Bracelet",
+            "amount": 52
+          },
+          {
+            "type": "Wool",
+            "amount": 52
+          }
+        ]
+      }
+    },
+    {
+      "id": "/wiki/Home_Cultures/Workshops/Artisan|upgrade|ME|2",
+      "quantity": 1,
+      "maxQty": 2,
+      "costs": {
+        "coins": 139000,
+        "food": 79000,
+        "goods": [
+          {
+            "type": "Alabaster_Idol",
+            "amount": 24
+          },
+          {
+            "type": "Bronze_Bracelet",
+            "amount": 24
+          },
+          {
+            "type": "Wool",
+            "amount": 24
+          }
+        ]
+      }
+    },
+    {
+      "id": "/wiki/Home_Cultures/Workshops/Stone_Mason|upgrade|ME|2",
+      "quantity": 1,
+      "maxQty": 2,
+      "costs": {
+        "coins": 139000,
+        "food": 79000,
+        "goods": [
+          {
+            "type": "Alabaster_Idol",
+            "amount": 24
+          },
+          {
+            "type": "Bronze_Bracelet",
+            "amount": 24
+          },
+          {
+            "type": "Wool",
+            "amount": 24
+          }
+        ]
+      }
+    },
+    {
+      "id": "/wiki/Home_Cultures/Workshops/Tailor|upgrade|ME|2",
+      "quantity": 1,
+      "maxQty": 2,
+      "costs": {
+        "coins": 139000,
+        "food": 79000,
+        "goods": [
+          {
+            "type": "Alabaster_Idol",
+            "amount": 24
+          },
+          {
+            "type": "Bronze_Bracelet",
+            "amount": 24
+          },
+          {
+            "type": "Wool",
+            "amount": 24
+          }
+        ]
+      }
+    }
+  ],
+  "technos": [
+    {
+      "id": "techno_minoan_era_0",
+      "costs": {
+        "research_points": 6,
+        "coins": 69100,
+        "food": 51000,
+        "goods": [
+          {
+            "type": "Primary_BA",
+            "amount": 210
+          },
+          {
+            "type": "Secondary_BA",
+            "amount": 90
+          },
+          {
+            "type": "Tertiary_BA",
+            "amount": 55
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_minoan_era_1",
+      "costs": {
+        "research_points": 7,
+        "coins": 84000,
+        "food": 62100,
+        "goods": [
+          {
+            "type": "Secondary_BA",
+            "amount": 300
+          },
+          {
+            "type": "Tertiary_BA",
+            "amount": 130
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_minoan_era_10",
+      "costs": {
+        "research_points": 5,
+        "goods": [
+          {
+            "type": "Deben",
+            "amount": 250
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_minoan_era_11",
+      "costs": {
+        "research_points": 6,
+        "coins": 66000,
+        "food": 48800,
+        "goods": [
+          {
+            "type": "Primary_ME",
+            "amount": 210
+          },
+          {
+            "type": "Secondary_ME",
+            "amount": 90
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_minoan_era_12",
+      "costs": {
+        "research_points": 5,
+        "coins": 110000,
+        "food": 81300,
+        "goods": [
+          {
+            "type": "Secondary_ME",
+            "amount": 265
+          },
+          {
+            "type": "Tertiary_ME",
+            "amount": 115
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_minoan_era_13",
+      "costs": {
+        "research_points": 4,
+        "coins": 88000,
+        "food": 81300,
+        "goods": [
+          {
+            "type": "Primary_ME",
+            "amount": 290
+          },
+          {
+            "type": "Tertiary_ME",
+            "amount": 125
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_minoan_era_14",
+      "costs": {
+        "research_points": 8,
+        "coins": 110000,
+        "food": 65000,
+        "goods": [
+          {
+            "type": "Secondary_BA",
+            "amount": 210
+          },
+          {
+            "type": "Secondary_ME",
+            "amount": 325
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_minoan_era_15",
+      "costs": {
+        "research_points": 14,
+        "coins": 134000,
+        "food": 98800,
+        "goods": [
+          {
+            "type": "Secondary_ME",
+            "amount": 160
+          },
+          {
+            "type": "Tertiary_ME",
+            "amount": 370
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_minoan_era_16",
+      "costs": {
+        "research_points": 15,
+        "coins": 147000,
+        "food": 108000,
+        "goods": [
+          {
+            "type": "Primary_BA",
+            "amount": 110
+          },
+          {
+            "type": "Tertiary_BA",
+            "amount": 185
+          },
+          {
+            "type": "Primary_ME",
+            "amount": 300
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_minoan_era_17",
+      "costs": {
+        "research_points": 17,
+        "coins": 176000,
+        "food": 130000,
+        "goods": [
+          {
+            "type": "Primary_ME",
+            "amount": 420
+          },
+          {
+            "type": "Tertiary_ME",
+            "amount": 180
+          },
+          {
+            "type": "Papyrus Scroll",
+            "amount": 50
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_minoan_era_18",
+      "costs": {
+        "research_points": 11,
+        "coins": 110000,
+        "food": 81300,
+        "goods": [
+          {
+            "type": "Primary_ME",
+            "amount": 265
+          },
+          {
+            "type": "Tertiary_ME",
+            "amount": 115
+          },
+          {
+            "type": "Ankh",
+            "amount": 100
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_minoan_era_19",
+      "costs": {
+        "research_points": 12,
+        "coins": 132000,
+        "food": 97500,
+        "goods": [
+          {
+            "type": "Primary_ME",
+            "amount": 315
+          },
+          {
+            "type": "Secondary_ME",
+            "amount": 135
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_minoan_era_2",
+      "costs": {
+        "research_points": 6,
+        "coins": 63400,
+        "food": 46800,
+        "goods": [
+          {
+            "type": "Primary_BA",
+            "amount": 225
+          },
+          {
+            "type": "Tertiary_BA",
+            "amount": 95
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_minoan_era_20",
+      "costs": {
+        "research_points": 20,
+        "coins": 207000,
+        "food": 153000,
+        "goods": [
+          {
+            "type": "Secondary_ME",
+            "amount": 210
+          },
+          {
+            "type": "Tertiary_ME",
+            "amount": 495
+          },
+          {
+            "type": "Papyrus Scroll",
+            "amount": 250
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_minoan_era_21",
+      "costs": {
+        "research_points": 16,
+        "coins": 176000,
+        "food": 130000,
+        "goods": [
+          {
+            "type": "Secondary_BA",
+            "amount": 225
+          },
+          {
+            "type": "Tertiary_BA",
+            "amount": 135
+          },
+          {
+            "type": "Tertiary_ME",
+            "amount": 360
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_minoan_era_22",
+      "costs": {
+        "research_points": 14,
+        "coins": 186000,
+        "food": 137000,
+        "goods": [
+          {
+            "type": "Primary_ME",
+            "amount": 190
+          },
+          {
+            "type": "Secondary_ME",
+            "amount": 445
+          },
+          {
+            "type": "Papyrus Scroll",
+            "amount": 500
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_minoan_era_23",
+      "costs": {
+        "research_points": 15,
+        "coins": 167000,
+        "food": 124000,
+        "goods": [
+          {
+            "type": "Tertiary_BA",
+            "amount": 255
+          },
+          {
+            "type": "Tertiary_ME",
+            "amount": 400
+          },
+          {
+            "type": "Ankh",
+            "amount": 500
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_minoan_era_24",
+      "costs": {
+        "research_points": 16,
+        "coins": 185000,
+        "food": 137000,
+        "goods": [
+          {
+            "type": "Primary_BA",
+            "amount": 150
+          },
+          {
+            "type": "Primary_ME",
+            "amount": 170
+          },
+          {
+            "type": "Tertiary_ME",
+            "amount": 405
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_minoan_era_25",
+      "costs": {
+        "research_points": 27,
+        "coins": 308000,
+        "food": 228000,
+        "goods": [
+          {
+            "type": "Primary_ME",
+            "amount": 660
+          },
+          {
+            "type": "Secondary_ME",
+            "amount": 285
+          },
+          {
+            "type": "Ankh",
+            "amount": 1000
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_minoan_era_26",
+      "costs": {
+        "research_points": 23,
+        "coins": 264000,
+        "food": 195000,
+        "goods": [
+          {
+            "type": "Secondary_BA",
+            "amount": 200
+          },
+          {
+            "type": "Tertiary_BA",
+            "amount": 340
+          },
+          {
+            "type": "Secondary_ME",
+            "amount": 540
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_minoan_era_27",
+      "costs": {
+        "research_points": 25,
+        "coins": 282000,
+        "food": 208000,
+        "goods": [
+          {
+            "type": "Tertiary_BA",
+            "amount": 430
+          },
+          {
+            "type": "Tertiary_ME",
+            "amount": 670
+          },
+          {
+            "type": "Papyrus Scroll",
+            "amount": 700
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_minoan_era_28",
+      "costs": {
+        "research_points": 16,
+        "coins": 264000,
+        "food": 195000,
+        "goods": [
+          {
+            "type": "Secondary_BA",
+            "amount": 405
+          },
+          {
+            "type": "Secondary_ME",
+            "amount": 630
+          },
+          {
+            "type": "Ankh",
+            "amount": 1500
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_minoan_era_29",
+      "costs": {
+        "research_points": 21,
+        "coins": 220000,
+        "food": 163000,
+        "goods": [
+          {
+            "type": "Primary_ME",
+            "amount": 600
+          },
+          {
+            "type": "Secondary_ME",
+            "amount": 255
+          },
+          {
+            "type": "Papyrus Scroll",
+            "amount": 1250
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_minoan_era_3",
+      "costs": {
+        "research_points": 9,
+        "coins": 101000,
+        "food": 74800,
+        "goods": [
+          {
+            "type": "Secondary_BA",
+            "amount": 70
+          },
+          {
+            "type": "Primary_ME",
+            "amount": 105
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_minoan_era_30",
+      "costs": {
+        "research_points": 18,
+        "coins": 277000,
+        "food": 205000,
+        "goods": [
+          {
+            "type": "Secondary_ME",
+            "amount": 475
+          },
+          {
+            "type": "Tertiary_ME",
+            "amount": 205
+          },
+          {
+            "type": "Papyrus Scroll",
+            "amount": 1750
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_minoan_era_4",
+      "costs": {
+        "research_points": 6,
+        "coins": 66900,
+        "food": 49400,
+        "goods": [
+          {
+            "type": "Primary_BA",
+            "amount": 205
+          },
+          {
+            "type": "Tertiary_BA",
+            "amount": 50
+          },
+          {
+            "type": "Secondary_ME",
+            "amount": 55
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_minoan_era_5",
+      "costs": {
+        "research_points": 7,
+        "coins": 84500,
+        "food": 62400,
+        "goods": [
+          {
+            "type": "Primary_BA",
+            "amount": 300
+          },
+          {
+            "type": "Tertiary_ME",
+            "amount": 85
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_minoan_era_6",
+      "costs": {
+        "research_points": 10,
+        "coins": 110000,
+        "food": 81300,
+        "goods": [
+          {
+            "type": "Secondary_BA",
+            "amount": 200
+          },
+          {
+            "type": "Primary_ME",
+            "amount": 315
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_minoan_era_7",
+      "costs": {
+        "research_points": 10,
+        "coins": 110000,
+        "food": 81600,
+        "goods": [
+          {
+            "type": "Primary_ME",
+            "amount": 225
+          },
+          {
+            "type": "Secondary_ME",
+            "amount": 95
+          },
+          {
+            "type": "Tertiary_ME",
+            "amount": 55
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_minoan_era_8",
+      "costs": {
+        "research_points": 9,
+        "coins": 102000,
+        "food": 75400,
+        "goods": [
+          {
+            "type": "Secondary_BA",
+            "amount": 130
+          },
+          {
+            "type": "Tertiary_BA",
+            "amount": 80
+          },
+          {
+            "type": "Primary_ME",
+            "amount": 210
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_minoan_era_9",
+      "costs": {
+        "research_points": 15
+      }
+    }
+  ]
+}
