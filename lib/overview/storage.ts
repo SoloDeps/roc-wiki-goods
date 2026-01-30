@@ -1,6 +1,6 @@
 import { BuildingEntity, TechnoEntity } from "@/lib/storage/dexie";
 import { buildingsAbbr, eras } from "@/lib/constants";
-import { parseNumber } from "@/lib/utils";
+import { normalizeGoodName, parseNumber } from "@/lib/utils";
 import { storage } from "#imports";
 
 // background communication
@@ -51,10 +51,8 @@ export const hideAllBuildings = () =>
   sendDexieMessage("DEXIE_HIDE_ALL_BUILDINGS");
 export const showAllBuildings = () =>
   sendDexieMessage("DEXIE_SHOW_ALL_BUILDINGS");
-export const hideAllTechnos = () =>
-  sendDexieMessage("DEXIE_HIDE_ALL_TECHNOS");
-export const showAllTechnos = () =>
-  sendDexieMessage("DEXIE_SHOW_ALL_TECHNOS");
+export const hideAllTechnos = () => sendDexieMessage("DEXIE_HIDE_ALL_TECHNOS");
+export const showAllTechnos = () => sendDexieMessage("DEXIE_SHOW_ALL_TECHNOS");
 
 // watch system
 const buildingsListeners = new Set<(data: BuildingEntity[]) => void>();
@@ -116,6 +114,7 @@ const RESOURCE_TYPES = {
   deben: "deben",
   dirham: "dirham",
   asper: "asper",
+  aspers: "aspers",
   food: "food",
   cocoa: "cocoa",
   rice: "rice",
@@ -128,6 +127,7 @@ export interface SavedBuilding {
   costs: Record<string, number | Array<{ type: string; amount: number }>>;
   maxQty: number;
   quantity: number;
+  hidden: boolean;
 }
 
 export function flattenAndSortTechnos(technos: TechnoEntity[]): TechnoEntity[] {
@@ -241,8 +241,10 @@ function extractGoodsDetails(
       const valueMatch = text.match(/([\d,]+)/);
 
       if (goodType && valueMatch) {
+        const normalizedType = normalizeGoodName(goodType);
+
         details.push({
-          type: goodType.replace(/[^\w-]/g, "_"),
+          type: normalizedType,
           amount: parseNumber(valueMatch[1]),
         });
       }
@@ -305,8 +307,6 @@ export function watchBuildingSelections(callback: (data: string[][]) => void) {
     unwatch();
   };
 }
-
-
 
 // PRESET
 

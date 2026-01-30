@@ -341,33 +341,27 @@ export function getGoodImageUrlFromType(
   type: string,
   userSelections: string[][],
 ): string {
-  // 1️⃣ Cas PRIORITY_ERA → image du building sélectionné
   const match = type.match(/^(Primary|Secondary|Tertiary)_([A-Z]{2})$/i);
 
   if (match) {
     const [, priorityRaw, eraRaw] = match;
-
     const priority = priorityRaw.toLowerCase() as
       | "primary"
       | "secondary"
       | "tertiary";
-
     const era = eraRaw as EraAbbr;
 
     const building = getBuildingFromLocal(priority, era, userSelections);
 
     if (building) {
-      const normalized = slugify(building);
-      const meta = goodsUrlByEra[era]?.[normalized];
-      if (meta?.url) return meta.url;
+      const normalized = normalizeGoodName(building);
+      return `/goods/${normalized}.webp`;
     }
 
-    return itemsUrl.default;
+    return "/goods/default.webp";
   }
 
-  // 2️⃣ GOOD BRUT → image wiki directe
-  const fileName = type.replace(/\s+/g, "_");
-  return `/images/thumb/${fileName}.png/32px-${fileName}.png`;
+  return `/goods/${normalizeGoodName(type)}.webp`;
 }
 
 export function getGoodNameFromPriorityEra(
@@ -383,4 +377,23 @@ export function getGoodNameFromPriorityEra(
     goodsUrlByEra[era.toUpperCase() as EraAbbr]?.[normalizedBuilding];
 
   return goodMeta?.name ? slugify(goodMeta.name) : null;
+}
+
+export function normalizeGoodName(name: string): string {
+  return name
+    .toLowerCase()
+    .trim()
+    .replace(/\s+/g, "_")
+    .replace(/[^\w]+/g, "_")
+    .replace(/_+/g, "_")
+    .replace(/^_|_$/g, "");
+}
+
+
+export function getItemIconLocal(type: string): string {
+  const normalized = normalizeGoodName(type);
+  if (normalized) {
+    return `/goods/${normalized}.webp`;
+  }
+  return `/goods/default.webp`;
 }

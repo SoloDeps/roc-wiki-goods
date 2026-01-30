@@ -1,4 +1,1685 @@
 {
-  "buildings": [],
-  "technos": []
+  "buildings": [
+    {
+      "id": "/wiki/Allied_Cultures/Ottoman_Empire/Ottoman_Empire_Ship|upgrade|LG|3",
+      "quantity": 1,
+      "maxQty": 1,
+      "costs": {
+        "aspers": 50000,
+        "goods": [
+          {
+            "type": "apricot",
+            "amount": 10000
+          },
+          {
+            "type": "mohair",
+            "amount": 10000
+          },
+          {
+            "type": "primary_eg",
+            "amount": 2000
+          },
+          {
+            "type": "secondary_eg",
+            "amount": 1500
+          },
+          {
+            "type": "tertiary_eg",
+            "amount": 1200
+          }
+        ]
+      }
+    },
+    {
+      "id": "/wiki/Allied_Cultures/Ottoman_Empire/Ottoman_Empire_Ship|upgrade|LG|4",
+      "quantity": 1,
+      "maxQty": 1,
+      "costs": {
+        "aspers": 120000,
+        "goods": [
+          {
+            "type": "tea",
+            "amount": 6000
+          },
+          {
+            "type": "brocade",
+            "amount": 6000
+          },
+          {
+            "type": "primary_lg",
+            "amount": 1600
+          },
+          {
+            "type": "secondary_lg",
+            "amount": 1000
+          },
+          {
+            "type": "tertiary_lg",
+            "amount": 1000
+          }
+        ]
+      }
+    },
+    {
+      "id": "/wiki/Home_Cultures/Barracks/Cavalry_Barracks|upgrade|LG|14",
+      "quantity": 1,
+      "maxQty": 1,
+      "costs": {
+        "coins": 14700000,
+        "food": 8500000,
+        "goods": [
+          {
+            "type": "lead_glass",
+            "amount": 8670
+          },
+          {
+            "type": "fine_jewelry",
+            "amount": 8670
+          },
+          {
+            "type": "ointment",
+            "amount": 8670
+          }
+        ]
+      }
+    },
+    {
+      "id": "/wiki/Home_Cultures/Barracks/Heavy_Infantry_Barracks|upgrade|LG|14",
+      "quantity": 1,
+      "maxQty": 1,
+      "costs": {
+        "coins": 17800000,
+        "food": 11900000,
+        "goods": [
+          {
+            "type": "lead_glass",
+            "amount": 9870
+          },
+          {
+            "type": "fine_jewelry",
+            "amount": 9870
+          },
+          {
+            "type": "ointment",
+            "amount": 9870
+          }
+        ]
+      }
+    },
+    {
+      "id": "/wiki/Home_Cultures/Barracks/Infantry_Barracks|upgrade|LG|14",
+      "quantity": 2,
+      "maxQty": 2,
+      "costs": {
+        "coins": 10700000,
+        "food": 5900000,
+        "goods": [
+          {
+            "type": "lead_glass",
+            "amount": 5560
+          },
+          {
+            "type": "fine_jewelry",
+            "amount": 5560
+          },
+          {
+            "type": "ointment",
+            "amount": 5560
+          }
+        ]
+      }
+    },
+    {
+      "id": "/wiki/Home_Cultures/Barracks/Ranged_Barracks|upgrade|LG|14",
+      "quantity": 1,
+      "maxQty": 1,
+      "costs": {
+        "coins": 13700000,
+        "food": 6800000,
+        "goods": [
+          {
+            "type": "lead_glass",
+            "amount": 7115
+          },
+          {
+            "type": "fine_jewelry",
+            "amount": 7115
+          },
+          {
+            "type": "ointment",
+            "amount": 7115
+          }
+        ]
+      }
+    },
+    {
+      "id": "/wiki/Home_Cultures/Barracks/Siege_Barracks|upgrade|LG|14",
+      "quantity": 1,
+      "maxQty": 1,
+      "costs": {
+        "coins": 21400000,
+        "food": 13500000,
+        "goods": [
+          {
+            "type": "lead_glass",
+            "amount": 12340
+          },
+          {
+            "type": "fine_jewelry",
+            "amount": 12340
+          },
+          {
+            "type": "ointment",
+            "amount": 12340
+          }
+        ]
+      }
+    },
+    {
+      "id": "/wiki/Home_Cultures/Culture_Sites/Compact_Culture_Site|upgrade|LG|14",
+      "quantity": 9,
+      "maxQty": 9,
+      "costs": {
+        "coins": 1380000,
+        "food": 760000
+      }
+    },
+    {
+      "id": "/wiki/Home_Cultures/Culture_Sites/Large_Culture_Site|upgrade|LG|14",
+      "quantity": 1,
+      "maxQty": 1,
+      "costs": {
+        "coins": 10400000,
+        "food": 5500000
+      }
+    },
+    {
+      "id": "/wiki/Home_Cultures/Culture_Sites/Little_Culture_Site|construction|LG|14",
+      "quantity": 1,
+      "maxQty": 9,
+      "costs": {
+        "coins": 4200000,
+        "food": 2400000
+      }
+    },
+    {
+      "id": "/wiki/Home_Cultures/Culture_Sites/Little_Culture_Site|upgrade|LG|14",
+      "quantity": 9,
+      "maxQty": 9,
+      "costs": {
+        "coins": 850000,
+        "food": 438000
+      }
+    },
+    {
+      "id": "/wiki/Home_Cultures/Culture_Sites/Moderate_Culture_Site|upgrade|LG|14",
+      "quantity": 6,
+      "maxQty": 6,
+      "costs": {
+        "coins": 2920000,
+        "food": 1660000
+      }
+    },
+    {
+      "id": "/wiki/Home_Cultures/Farms/Domestic_Farm|upgrade|LG|40",
+      "quantity": 11,
+      "maxQty": 11,
+      "costs": {
+        "coins": 3100000,
+        "food": 1220000,
+        "goods": [
+          {
+            "type": "lead_glass",
+            "amount": 3000
+          },
+          {
+            "type": "fine_jewelry",
+            "amount": 3000
+          },
+          {
+            "type": "ointment",
+            "amount": 2800
+          },
+          {
+            "type": "pomegranate",
+            "amount": 12000
+          }
+        ]
+      }
+    },
+    {
+      "id": "/wiki/Home_Cultures/Farms/Domestic_Farm|upgrade|LG|41",
+      "quantity": 11,
+      "maxQty": 11,
+      "costs": {
+        "coins": 3400000,
+        "food": 1360000,
+        "goods": [
+          {
+            "type": "stained_glass",
+            "amount": 2000
+          },
+          {
+            "type": "embellishments",
+            "amount": 2000
+          },
+          {
+            "type": "elixirs",
+            "amount": 2000
+          }
+        ]
+      }
+    },
+    {
+      "id": "/wiki/Home_Cultures/Farms/Domestic_Farm|upgrade|LG|42",
+      "quantity": 11,
+      "maxQty": 11,
+      "costs": {
+        "coins": 3550000,
+        "food": 1430000,
+        "goods": [
+          {
+            "type": "stained_glass",
+            "amount": 2800
+          },
+          {
+            "type": "embellishments",
+            "amount": 2800
+          },
+          {
+            "type": "elixirs",
+            "amount": 2800
+          }
+        ]
+      }
+    },
+    {
+      "id": "/wiki/Home_Cultures/Farms/Rural_Farm|upgrade|LG|40",
+      "quantity": 13,
+      "maxQty": 13,
+      "costs": {
+        "coins": 2300000,
+        "food": 920000,
+        "goods": [
+          {
+            "type": "lead_glass",
+            "amount": 2500
+          },
+          {
+            "type": "fine_jewelry",
+            "amount": 2500
+          },
+          {
+            "type": "ointment",
+            "amount": 2500
+          },
+          {
+            "type": "wheat",
+            "amount": 10000
+          }
+        ]
+      }
+    },
+    {
+      "id": "/wiki/Home_Cultures/Farms/Rural_Farm|upgrade|LG|41",
+      "quantity": 13,
+      "maxQty": 13,
+      "costs": {
+        "coins": 2600000,
+        "food": 1060000,
+        "goods": [
+          {
+            "type": "stained_glass",
+            "amount": 1800
+          },
+          {
+            "type": "embellishments",
+            "amount": 1800
+          },
+          {
+            "type": "elixirs",
+            "amount": 1800
+          }
+        ]
+      }
+    },
+    {
+      "id": "/wiki/Home_Cultures/Farms/Rural_Farm|upgrade|LG|42",
+      "quantity": 13,
+      "maxQty": 13,
+      "costs": {
+        "coins": 2750000,
+        "food": 1130000,
+        "goods": [
+          {
+            "type": "stained_glass",
+            "amount": 2500
+          },
+          {
+            "type": "embellishments",
+            "amount": 2500
+          },
+          {
+            "type": "elixirs",
+            "amount": 2500
+          }
+        ]
+      }
+    },
+    {
+      "id": "/wiki/Home_Cultures/Harbor_Houses/Seafarer_House|construction|LG|3",
+      "quantity": 4,
+      "maxQty": 14,
+      "costs": {
+        "coins": 250000,
+        "food": 100000,
+        "goods": [
+          {
+            "type": "primary_eg",
+            "amount": 3000
+          },
+          {
+            "type": "secondary_eg",
+            "amount": 3000
+          },
+          {
+            "type": "tertiary_eg",
+            "amount": 1500
+          },
+          {
+            "type": "confection",
+            "amount": 2000
+          },
+          {
+            "type": "syrup",
+            "amount": 2000
+          }
+        ]
+      }
+    },
+    {
+      "id": "/wiki/Home_Cultures/Harbor_Houses/Seafarer_House|upgrade|LG|3",
+      "quantity": 14,
+      "maxQty": 14,
+      "costs": {
+        "food": 100000,
+        "goods": [
+          {
+            "type": "primary_eg",
+            "amount": 1200
+          },
+          {
+            "type": "tertiary_eg",
+            "amount": 1000
+          },
+          {
+            "type": "confection",
+            "amount": 2000
+          },
+          {
+            "type": "syrup",
+            "amount": 2000
+          }
+        ]
+      }
+    },
+    {
+      "id": "/wiki/Home_Cultures/Harbor_Houses/Seafarer_House|upgrade|LG|4",
+      "quantity": 14,
+      "maxQty": 14,
+      "costs": {
+        "food": 150000,
+        "goods": [
+          {
+            "type": "primary_lg",
+            "amount": 1000
+          },
+          {
+            "type": "secondary_lg",
+            "amount": 750
+          },
+          {
+            "type": "tertiary_lg",
+            "amount": 750
+          },
+          {
+            "type": "apricot",
+            "amount": 2000
+          },
+          {
+            "type": "mohair",
+            "amount": 2000
+          }
+        ]
+      }
+    },
+    {
+      "id": "/wiki/Home_Cultures/Homes/Average_Home|upgrade|LG|40",
+      "quantity": 14,
+      "maxQty": 14,
+      "costs": {
+        "coins": 830000,
+        "food": 1500000,
+        "goods": [
+          {
+            "type": "lead_glass",
+            "amount": 1800
+          },
+          {
+            "type": "fine_jewelry",
+            "amount": 1800
+          },
+          {
+            "type": "ointment",
+            "amount": 1800
+          },
+          {
+            "type": "syrup",
+            "amount": 6000
+          }
+        ]
+      }
+    },
+    {
+      "id": "/wiki/Home_Cultures/Homes/Average_Home|upgrade|LG|41",
+      "quantity": 14,
+      "maxQty": 14,
+      "costs": {
+        "coins": 910000,
+        "food": 1600000,
+        "goods": [
+          {
+            "type": "stained_glass",
+            "amount": 1600
+          },
+          {
+            "type": "embellishments",
+            "amount": 1600
+          },
+          {
+            "type": "elixirs",
+            "amount": 1600
+          }
+        ]
+      }
+    },
+    {
+      "id": "/wiki/Home_Cultures/Homes/Average_Home|upgrade|LG|42",
+      "quantity": 14,
+      "maxQty": 14,
+      "costs": {
+        "coins": 950000,
+        "food": 1650000,
+        "goods": [
+          {
+            "type": "stained_glass",
+            "amount": 2000
+          },
+          {
+            "type": "embellishments",
+            "amount": 2000
+          },
+          {
+            "type": "elixirs",
+            "amount": 2000
+          }
+        ]
+      }
+    },
+    {
+      "id": "/wiki/Home_Cultures/Homes/Small_Home|upgrade|LG|40",
+      "quantity": 30,
+      "maxQty": 30,
+      "costs": {
+        "coins": 320000,
+        "food": 640000,
+        "goods": [
+          {
+            "type": "primary_eg",
+            "amount": 1500
+          },
+          {
+            "type": "secondary_eg",
+            "amount": 1500
+          },
+          {
+            "type": "tertiary_eg",
+            "amount": 1500
+          },
+          {
+            "type": "confection",
+            "amount": 3000
+          }
+        ]
+      }
+    },
+    {
+      "id": "/wiki/Home_Cultures/Homes/Small_Home|upgrade|LG|41",
+      "quantity": 30,
+      "maxQty": 30,
+      "costs": {
+        "coins": 350000,
+        "food": 700000,
+        "goods": [
+          {
+            "type": "stained_glass",
+            "amount": 700
+          },
+          {
+            "type": "embellishments",
+            "amount": 700
+          },
+          {
+            "type": "elixirs",
+            "amount": 700
+          }
+        ]
+      }
+    },
+    {
+      "id": "/wiki/Home_Cultures/Homes/Small_Home|upgrade|LG|42",
+      "quantity": 30,
+      "maxQty": 30,
+      "costs": {
+        "coins": 365000,
+        "food": 730000,
+        "goods": [
+          {
+            "type": "stained_glass",
+            "amount": 1600
+          },
+          {
+            "type": "embellishments",
+            "amount": 1600
+          },
+          {
+            "type": "elixirs",
+            "amount": 1600
+          }
+        ]
+      }
+    },
+    {
+      "id": "/wiki/Home_Cultures/Ships/Shipyard|construction|LG|2",
+      "quantity": 4,
+      "maxQty": 9,
+      "costs": {
+        "coins": 1500000,
+        "food": 750000,
+        "goods": [
+          {
+            "type": "primary_eg",
+            "amount": 3000
+          },
+          {
+            "type": "secondary_eg",
+            "amount": 3000
+          },
+          {
+            "type": "tertiary_eg",
+            "amount": 3000
+          },
+          {
+            "type": "apricot",
+            "amount": 5000
+          },
+          {
+            "type": "mohair",
+            "amount": 5000
+          }
+        ]
+      }
+    },
+    {
+      "id": "/wiki/Home_Cultures/Ships/Shipyard|upgrade|LG|2",
+      "quantity": 9,
+      "maxQty": 9,
+      "costs": {
+        "aspers": 80000,
+        "goods": [
+          {
+            "type": "primary_eg",
+            "amount": 1500
+          },
+          {
+            "type": "secondary_eg",
+            "amount": 1500
+          },
+          {
+            "type": "tertiary_eg",
+            "amount": 1500
+          },
+          {
+            "type": "confection",
+            "amount": 3000
+          },
+          {
+            "type": "syrup",
+            "amount": 3000
+          }
+        ]
+      }
+    },
+    {
+      "id": "/wiki/Home_Cultures/Warehouses/Common_Warehouse|construction|LG|2",
+      "quantity": 4,
+      "maxQty": 8,
+      "costs": {
+        "coins": 750000,
+        "food": 250000,
+        "goods": [
+          {
+            "type": "lead_glass",
+            "amount": 1500
+          },
+          {
+            "type": "fine_jewelry",
+            "amount": 1500
+          },
+          {
+            "type": "ointment",
+            "amount": 1500
+          }
+        ]
+      }
+    },
+    {
+      "id": "/wiki/Home_Cultures/Warehouses/Common_Warehouse|upgrade|LG|2",
+      "quantity": 8,
+      "maxQty": 8,
+      "costs": {
+        "aspers": 30000,
+        "goods": [
+          {
+            "type": "lead_glass",
+            "amount": 1000
+          },
+          {
+            "type": "fine_jewelry",
+            "amount": 750
+          },
+          {
+            "type": "ointment",
+            "amount": 750
+          }
+        ]
+      }
+    },
+    {
+      "id": "/wiki/Home_Cultures/Warehouses/Common_Warehouse|upgrade|LG|3",
+      "quantity": 8,
+      "maxQty": 8,
+      "costs": {
+        "aspers": 60000,
+        "goods": [
+          {
+            "type": "stained_glass",
+            "amount": 1500
+          },
+          {
+            "type": "embellishments",
+            "amount": 1000
+          },
+          {
+            "type": "elixirs",
+            "amount": 1000
+          }
+        ]
+      }
+    }
+  ],
+  "technos": [
+    {
+      "id": "techno_late_gothic_era_0",
+      "costs": {
+        "research_points": 120,
+        "coins": 3200000,
+        "food": 4200000,
+        "goods": [
+          {
+            "type": "tertiary_eg",
+            "amount": 15500
+          },
+          {
+            "type": "primary_eg",
+            "amount": 6750
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_late_gothic_era_1",
+      "costs": {
+        "research_points": 130,
+        "coins": 6600000,
+        "food": 3900000,
+        "goods": [
+          {
+            "type": "primary_eg",
+            "amount": 15000
+          },
+          {
+            "type": "secondary_eg",
+            "amount": 6350
+          },
+          {
+            "type": "primary_hm",
+            "amount": 3800
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_late_gothic_era_10",
+      "costs": {
+        "research_points": 135,
+        "coins": 6200000,
+        "food": 4100000,
+        "goods": [
+          {
+            "type": "primary_eg",
+            "amount": 14500
+          },
+          {
+            "type": "tertiary_hm",
+            "amount": 7950
+          },
+          {
+            "type": "secondary_lg",
+            "amount": 2400
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_late_gothic_era_11",
+      "costs": {
+        "research_points": 130,
+        "coins": 8100000,
+        "food": 3900000,
+        "goods": [
+          {
+            "type": "tertiary_lg",
+            "amount": 8350
+          },
+          {
+            "type": "secondary_eg",
+            "amount": 5200
+          },
+          {
+            "type": "primary_hm",
+            "amount": 4150
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_late_gothic_era_12",
+      "costs": {
+        "research_points": 180,
+        "coins": 9900000,
+        "food": 8600000,
+        "goods": [
+          {
+            "type": "secondary_lg",
+            "amount": 9350
+          },
+          {
+            "type": "primary_hm",
+            "amount": 7800
+          },
+          {
+            "type": "primary_lg",
+            "amount": 2350
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_late_gothic_era_13",
+      "costs": {
+        "research_points": 145,
+        "coins": 8000000,
+        "food": 9000000,
+        "goods": [
+          {
+            "type": "tertiary_hm",
+            "amount": 32000
+          },
+          {
+            "type": "wheat",
+            "amount": 5000
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_late_gothic_era_14",
+      "costs": {
+        "research_points": 150,
+        "coins": 3400000,
+        "food": 8600000,
+        "goods": [
+          {
+            "type": "primary_lg",
+            "amount": 12500
+          },
+          {
+            "type": "apricot",
+            "amount": 7500
+          },
+          {
+            "type": "pomegranate",
+            "amount": 12000
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_late_gothic_era_15",
+      "costs": {
+        "research_points": 105,
+        "coins": 2700000,
+        "food": 3100000,
+        "goods": [
+          {
+            "type": "tertiary_lg",
+            "amount": 7700
+          },
+          {
+            "type": "primary_eg",
+            "amount": 4800
+          },
+          {
+            "type": "primary_lg",
+            "amount": 1900
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_late_gothic_era_16",
+      "costs": {
+        "research_points": 110,
+        "coins": 8500000,
+        "food": 5000000,
+        "goods": [
+          {
+            "type": "primary_lg",
+            "amount": 8400
+          },
+          {
+            "type": "tertiary_eg",
+            "amount": 5250
+          },
+          {
+            "type": "secondary_hm",
+            "amount": 4200
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_late_gothic_era_17",
+      "costs": {
+        "research_points": 130,
+        "coins": 10000000,
+        "food": 5600000,
+        "goods": [
+          {
+            "type": "primary_eg",
+            "amount": 16000
+          },
+          {
+            "type": "secondary_hm",
+            "amount": 9050
+          },
+          {
+            "type": "syrup",
+            "amount": 9000
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_late_gothic_era_18",
+      "costs": {
+        "research_points": 125,
+        "coins": 4100000,
+        "food": 7800000,
+        "goods": [
+          {
+            "type": "secondary_lg",
+            "amount": 8600
+          },
+          {
+            "type": "secondary_eg",
+            "amount": 5350
+          },
+          {
+            "type": "tertiary_hm",
+            "amount": 4300
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_late_gothic_era_19",
+      "costs": {
+        "research_points": 130,
+        "coins": 8500000,
+        "food": 3300000,
+        "goods": [
+          {
+            "type": "tertiary_eg",
+            "amount": 11000
+          },
+          {
+            "type": "primary_lg",
+            "amount": 3050
+          },
+          {
+            "type": "tertiary_lg",
+            "amount": 1800
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_late_gothic_era_2",
+      "costs": {
+        "research_points": 32,
+        "coins": 6600000,
+        "food": 4800000,
+        "goods": [
+          {
+            "type": "secondary_eg",
+            "amount": 12000
+          },
+          {
+            "type": "tertiary_eg",
+            "amount": 5050
+          },
+          {
+            "type": "primary_ks",
+            "amount": 5050
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_late_gothic_era_20",
+      "costs": {
+        "research_points": 220,
+        "coins": 9400000,
+        "food": 4900000,
+        "goods": [
+          {
+            "type": "tertiary_lg",
+            "amount": 8400
+          },
+          {
+            "type": "primary_hm",
+            "amount": 7000
+          },
+          {
+            "type": "secondary_lg",
+            "amount": 2100
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_late_gothic_era_21",
+      "costs": {
+        "research_points": 140,
+        "coins": 5800000,
+        "food": 3000000,
+        "goods": [
+          {
+            "type": "secondary_lg",
+            "amount": 8850
+          },
+          {
+            "type": "primary_eg",
+            "amount": 5550
+          },
+          {
+            "type": "tertiary_hm",
+            "amount": 4450
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_late_gothic_era_22",
+      "costs": {
+        "research_points": 135,
+        "coins": 8400000,
+        "food": 5200000,
+        "goods": [
+          {
+            "type": "primary_lg",
+            "amount": 9200
+          },
+          {
+            "type": "primary_ks",
+            "amount": 9850
+          },
+          {
+            "type": "tea",
+            "amount": 5000
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_late_gothic_era_23",
+      "costs": {
+        "research_points": 210,
+        "coins": 3700000,
+        "food": 7900000,
+        "goods": [
+          {
+            "type": "secondary_ks",
+            "amount": 28000
+          },
+          {
+            "type": "tertiary_eg",
+            "amount": 7200
+          },
+          {
+            "type": "brocade",
+            "amount": 5000
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_late_gothic_era_24",
+      "costs": {
+        "research_points": 165,
+        "coins": 9100000,
+        "food": 7600000,
+        "goods": [
+          {
+            "type": "secondary_lg",
+            "amount": 9150
+          },
+          {
+            "type": "secondary_eg",
+            "amount": 5750
+          },
+          {
+            "type": "primary_hm",
+            "amount": 4600
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_late_gothic_era_25",
+      "costs": {
+        "research_points": 170,
+        "coins": 6000000,
+        "food": 6700000,
+        "goods": [
+          {
+            "type": "secondary_hm",
+            "amount": 16000
+          },
+          {
+            "type": "tertiary_ks",
+            "amount": 8450
+          },
+          {
+            "type": "tertiary_lg",
+            "amount": 2050
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_late_gothic_era_26",
+      "costs": {
+        "research_points": 215,
+        "coins": 10000000,
+        "food": 6400000,
+        "goods": [
+          {
+            "type": "tertiary_lg",
+            "amount": 7900
+          },
+          {
+            "type": "primary_eg",
+            "amount": 4950
+          },
+          {
+            "type": "tertiary_hm",
+            "amount": 3950
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_late_gothic_era_27",
+      "costs": {
+        "research_points": 165,
+        "coins": 8800000,
+        "food": 2600000,
+        "goods": [
+          {
+            "type": "secondary_lg",
+            "amount": 8050
+          },
+          {
+            "type": "secondary_hm",
+            "amount": 6750
+          },
+          {
+            "type": "primary_lg",
+            "amount": 2000
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_late_gothic_era_28",
+      "costs": {
+        "research_points": 145,
+        "coins": 3300000,
+        "food": 4500000,
+        "goods": [
+          {
+            "type": "primary_lg",
+            "amount": 10500
+          },
+          {
+            "type": "tertiary_lg",
+            "amount": 4250
+          },
+          {
+            "type": "tertiary_ks",
+            "amount": 6400
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_late_gothic_era_29",
+      "costs": {
+        "research_points": 120,
+        "coins": 5200000,
+        "food": 6600000,
+        "goods": [
+          {
+            "type": "primary_eg",
+            "amount": 15500
+          },
+          {
+            "type": "secondary_hm",
+            "amount": 8950
+          },
+          {
+            "type": "tea",
+            "amount": 5000
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_late_gothic_era_3",
+      "costs": {
+        "research_points": 165,
+        "coins": 11000000,
+        "food": 4700000,
+        "goods": [
+          {
+            "type": "tertiary_eg",
+            "amount": 17000
+          },
+          {
+            "type": "secondary_ks",
+            "amount": 12500
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_late_gothic_era_30",
+      "costs": {
+        "research_points": 170,
+        "coins": 9500000,
+        "food": 4000000,
+        "goods": [
+          {
+            "type": "secondary_lg",
+            "amount": 10500
+          },
+          {
+            "type": "tertiary_eg",
+            "amount": 6550
+          },
+          {
+            "type": "primary_lg",
+            "amount": 2600
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_late_gothic_era_31",
+      "costs": {
+        "research_points": 150,
+        "coins": 4200000,
+        "food": 5900000,
+        "goods": [
+          {
+            "type": "tertiary_lg",
+            "amount": 10500
+          },
+          {
+            "type": "tertiary_hm",
+            "amount": 8700
+          },
+          {
+            "type": "secondary_lg",
+            "amount": 2600
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_late_gothic_era_32",
+      "costs": {
+        "research_points": 130,
+        "coins": 2600000,
+        "food": 4600000,
+        "goods": [
+          {
+            "type": "tertiary_ks",
+            "amount": 24000
+          },
+          {
+            "type": "primary_eg",
+            "amount": 6100
+          },
+          {
+            "type": "brocade",
+            "amount": 7500
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_late_gothic_era_33",
+      "costs": {
+        "research_points": 225,
+        "coins": 4300000,
+        "food": 5100000,
+        "goods": [
+          {
+            "type": "primary_lg",
+            "amount": 8650
+          },
+          {
+            "type": "primary_ks",
+            "amount": 9000
+          },
+          {
+            "type": "tertiary_lg",
+            "amount": 2150
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_late_gothic_era_34",
+      "costs": {
+        "research_points": 125,
+        "coins": 8500000,
+        "food": 5600000,
+        "goods": [
+          {
+            "type": "tertiary_lg",
+            "amount": 10500
+          },
+          {
+            "type": "secondary_hm",
+            "amount": 8650
+          },
+          {
+            "type": "primary_hm",
+            "amount": 5200
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_late_gothic_era_35",
+      "costs": {
+        "research_points": 130,
+        "coins": 7200000,
+        "food": 2500000,
+        "goods": [
+          {
+            "type": "primary_eg",
+            "amount": 12500
+          },
+          {
+            "type": "secondary_eg",
+            "amount": 5150
+          },
+          {
+            "type": "primary_lg",
+            "amount": 2050
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_late_gothic_era_36",
+      "costs": {
+        "research_points": 125,
+        "coins": 9100000,
+        "food": 7200000,
+        "goods": [
+          {
+            "type": "secondary_lg",
+            "amount": 11500
+          },
+          {
+            "type": "tertiary_hm",
+            "amount": 9850
+          },
+          {
+            "type": "tea",
+            "amount": 9000
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_late_gothic_era_37",
+      "costs": {
+        "research_points": 155,
+        "coins": 3500000,
+        "food": 4700000,
+        "goods": [
+          {
+            "type": "primary_lg",
+            "amount": 7900
+          },
+          {
+            "type": "tertiary_eg",
+            "amount": 4900
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_late_gothic_era_38",
+      "costs": {
+        "research_points": 165,
+        "coins": 4200000,
+        "food": 4700000,
+        "goods": [
+          {
+            "type": "tertiary_eg",
+            "amount": 17500
+          },
+          {
+            "type": "tertiary_ks",
+            "amount": 12500
+          },
+          {
+            "type": "brocade",
+            "amount": 9000
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_late_gothic_era_39",
+      "costs": {
+        "research_points": 125,
+        "coins": 3500000,
+        "food": 7200000,
+        "goods": [
+          {
+            "type": "secondary_lg",
+            "amount": 9400
+          },
+          {
+            "type": "tertiary_lg",
+            "amount": 3900
+          },
+          {
+            "type": "secondary_hm",
+            "amount": 4700
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_late_gothic_era_4",
+      "costs": {
+        "research_points": 81,
+        "coins": 3600000,
+        "food": 3800000,
+        "goods": [
+          {
+            "type": "primary_ks",
+            "amount": 22500
+          },
+          {
+            "type": "primary_hm",
+            "amount": 3900
+          },
+          {
+            "type": "confection",
+            "amount": 5000
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_late_gothic_era_40",
+      "costs": {
+        "research_points": 150,
+        "coins": 5000000,
+        "food": 3400000,
+        "goods": [
+          {
+            "type": "tertiary_lg",
+            "amount": 8950
+          },
+          {
+            "type": "tertiary_eg",
+            "amount": 5600
+          },
+          {
+            "type": "secondary_eg",
+            "amount": 3350
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_late_gothic_era_41",
+      "costs": {
+        "research_points": 160,
+        "coins": 4300000,
+        "food": 6200000,
+        "goods": [
+          {
+            "type": "primary_hm",
+            "amount": 19500
+          },
+          {
+            "type": "tertiary_lg",
+            "amount": 4050
+          },
+          {
+            "type": "tertiary_hm",
+            "amount": 4850
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_late_gothic_era_42",
+      "costs": {
+        "research_points": 135,
+        "coins": 11000000,
+        "food": 7700000,
+        "goods": [
+          {
+            "type": "tertiary_lg",
+            "amount": 8750
+          },
+          {
+            "type": "primary_lg",
+            "amount": 3650
+          },
+          {
+            "type": "primary_eg",
+            "amount": 3300
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_late_gothic_era_43",
+      "costs": {
+        "research_points": 175,
+        "coins": 7800000,
+        "food": 8100000,
+        "goods": [
+          {
+            "type": "secondary_hm",
+            "amount": 20000
+          },
+          {
+            "type": "secondary_eg",
+            "amount": 6300
+          },
+          {
+            "type": "tertiary_lg",
+            "amount": 2500
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_late_gothic_era_5",
+      "costs": {
+        "research_points": 180,
+        "coins": 3800000,
+        "food": 8400000,
+        "goods": [
+          {
+            "type": "primary_hm",
+            "amount": 14500
+          },
+          {
+            "type": "primary_eg",
+            "amount": 4500
+          },
+          {
+            "type": "secondary_eg",
+            "amount": 1800
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_late_gothic_era_6",
+      "costs": {
+        "research_points": 100,
+        "coins": 7000000,
+        "food": 6000000,
+        "goods": [
+          {
+            "type": "primary_eg",
+            "amount": 7150
+          },
+          {
+            "type": "tertiary_eg",
+            "amount": 4450
+          },
+          {
+            "type": "secondary_hm",
+            "amount": 3550
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_late_gothic_era_7",
+      "costs": {
+        "research_points": 155,
+        "coins": 7800000,
+        "food": 7900000,
+        "goods": [
+          {
+            "type": "secondary_eg",
+            "amount": 13000
+          },
+          {
+            "type": "primary_hm",
+            "amount": 7300
+          },
+          {
+            "type": "secondary_lg",
+            "amount": 2200
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_late_gothic_era_8",
+      "costs": {
+        "research_points": 220,
+        "coins": 2700000,
+        "food": 2700000,
+        "goods": [
+          {
+            "type": "secondary_lg",
+            "amount": 8950
+          },
+          {
+            "type": "tertiary_lg",
+            "amount": 3750
+          },
+          {
+            "type": "secondary_ks",
+            "amount": 5600
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_late_gothic_era_9",
+      "costs": {
+        "research_points": 180,
+        "coins": 3400000,
+        "food": 2200000,
+        "goods": [
+          {
+            "type": "primary_lg",
+            "amount": 9700
+          },
+          {
+            "type": "tertiary_eg",
+            "amount": 6050
+          },
+          {
+            "type": "tertiary_hm",
+            "amount": 4850
+          }
+        ]
+      }
+    }
+  ]
 }

@@ -8,19 +8,17 @@ import { useBuildingSelections } from "@/hooks/useBuildingSelections";
 import {
   eras,
   goodsUrlByEra,
-  itemsUrl,
   goodsNameMapping,
   goodsByCivilization,
   alliedCityResources,
   type EraAbbr,
-  WIKI_URL,
 } from "@/lib/constants";
 import {
   getBuildingFromLocal,
-  getGoodImageUrlFromType,
   slugify,
+  normalizeGoodName,
+  getItemIconLocal,
 } from "@/lib/utils";
-import { getItemIcon } from "@/lib/helper";
 import { ResourceBlock } from "./resource-block";
 import { Loader2Icon } from "lucide-react";
 import { EmptyOutline } from "@/components/empty-card";
@@ -85,13 +83,19 @@ export const TotalGoodsDisplay = ({
     const goodsToUse = totals.goods;
 
     Object.entries(goodsToUse).forEach(([type, amount]) => {
-      if (/^(Primary|Secondary|Tertiary)_[A-Z]{2}$/i.test(type)) {
+      // ✅ Accepter les deux formats : Primary_CG ou primary_cg
+      if (/^(primary|secondary|tertiary)_[a-z]{2}$/i.test(type)) {
         const displayAmount =
           compareMode && totals.differences
             ? (totals.differences.goods[type] ?? amount)
             : amount;
 
-        priority.set(type, (priority.get(type) ?? 0) + displayAmount);
+        // ✅ Normaliser en minuscules pour la clé
+        const normalizedKey = type.toLowerCase();
+        priority.set(
+          normalizedKey,
+          (priority.get(normalizedKey) ?? 0) + displayAmount,
+        );
         return;
       }
 
@@ -104,7 +108,12 @@ export const TotalGoodsDisplay = ({
           : amount;
 
       if (key) {
-        priority.set(key, (priority.get(key) ?? 0) + displayAmount);
+        // ✅ Normaliser en minuscules
+        const normalizedKey = key.toLowerCase();
+        priority.set(
+          normalizedKey,
+          (priority.get(normalizedKey) ?? 0) + displayAmount,
+        );
       } else {
         other.set(type, (other.get(type) ?? 0) + displayAmount);
       }
@@ -112,12 +121,17 @@ export const TotalGoodsDisplay = ({
 
     eras.forEach((era) => {
       const abbr = era.abbr as EraAbbr;
-      ["Primary", "Secondary", "Tertiary"].forEach((priorityType) => {
-        const key = `${priorityType}_${abbr}`;
+      ["primary", "secondary", "tertiary"].forEach((priorityType) => {
+        // ✅ Utiliser minuscules pour cohérence
+        const key = `${priorityType}_${abbr.toLowerCase()}`;
 
         if (!priority.has(key)) {
-          if (compareMode && totals.differences?.goods?.[key] !== undefined) {
-            priority.set(key, totals.differences.goods[key]);
+          // ✅ FIX: Vérifier que diffKey est bien un number avant de l'utiliser
+          const diffValue = compareMode
+            ? totals.differences?.goods?.[key]
+            : undefined;
+          if (compareMode && typeof diffValue === "number") {
+            priority.set(key, diffValue);
           } else {
             priority.set(key, 0);
           }
@@ -129,44 +143,79 @@ export const TotalGoodsDisplay = ({
   }, [totals.goods, totals.differences, goodMappings, compareMode]);
 
   const eraBlocks = useMemo(() => {
-    const getPriorityMeta = (
-      priority: "primary" | "secondary" | "tertiary",
-      era: EraAbbr,
-    ) => {
-      const building = getBuildingFromLocal(priority, era, selections);
-      const normalized = slugify(building ?? "");
-      const meta = normalized ? goodsUrlByEra[era]?.[normalized] : undefined;
-
-      return {
-        icon: `${WIKI_URL}${meta?.url ?? itemsUrl.default}`,
-        name:
-          meta?.name ?? priority.charAt(0).toUpperCase() + priority.slice(1),
-      };
-    };
-
     return eras.map((era) => {
       const abbr = era.abbr as EraAbbr;
+      // ✅ Utiliser minuscules pour correspondre aux clés normalisées
       const amounts = {
-        primary: normalizedGoods.priority.get(`Primary_${abbr}`) ?? 0,
-        secondary: normalizedGoods.priority.get(`Secondary_${abbr}`) ?? 0,
-        tertiary: normalizedGoods.priority.get(`Tertiary_${abbr}`) ?? 0,
+        primary:
+          normalizedGoods.priority.get(`primary_${abbr.toLowerCase()}`) ?? 0,
+        secondary:
+          normalizedGoods.priority.get(`secondary_${abbr.toLowerCase()}`) ?? 0,
+        tertiary:
+          normalizedGoods.priority.get(`tertiary_${abbr.toLowerCase()}`) ?? 0,
       };
+
+      // Récupérer les noms des goods depuis goodsUrlByEra
+      const building_primary = getBuildingFromLocal(
+        "primary",
+        abbr,
+        selections,
+      );
+      const building_secondary = getBuildingFromLocal(
+        "secondary",
+        abbr,
+        selections,
+      );
+      const building_tertiary = getBuildingFromLocal(
+        "tertiary",
+        abbr,
+        selections,
+      );
+
+      const normalized_primary = building_primary
+        ? slugify(building_primary)
+        : "";
+      const normalized_secondary = building_secondary
+        ? slugify(building_secondary)
+        : "";
+      const normalized_tertiary = building_tertiary
+        ? slugify(building_tertiary)
+        : "";
+
+      const primary_meta = normalized_primary
+        ? goodsUrlByEra[abbr]?.[normalized_primary]
+        : undefined;
+      const secondary_meta = normalized_secondary
+        ? goodsUrlByEra[abbr]?.[normalized_secondary]
+        : undefined;
+      const tertiary_meta = normalized_tertiary
+        ? goodsUrlByEra[abbr]?.[normalized_tertiary]
+        : undefined;
 
       return {
         title: era.name,
         resources: [
           {
-            ...getPriorityMeta("primary", abbr),
+            icon: primary_meta?.name
+              ? `/goods/${normalizeGoodName(primary_meta.name)}.webp`
+              : "/goods/default.webp",
+            name: primary_meta?.name ?? "Primary",
             amount: amounts.primary,
             difference: amounts.primary,
           },
           {
-            ...getPriorityMeta("secondary", abbr),
+            icon: secondary_meta?.name
+              ? `/goods/${normalizeGoodName(secondary_meta.name)}.webp`
+              : "/goods/default.webp",
+            name: secondary_meta?.name ?? "Secondary",
             amount: amounts.secondary,
             difference: amounts.secondary,
           },
           {
-            ...getPriorityMeta("tertiary", abbr),
+            icon: tertiary_meta?.name
+              ? `/goods/${normalizeGoodName(tertiary_meta.name)}.webp`
+              : "/goods/default.webp",
+            name: tertiary_meta?.name ?? "Tertiary",
             amount: amounts.tertiary,
             difference: amounts.tertiary,
           },
@@ -184,19 +233,32 @@ export const TotalGoodsDisplay = ({
 
     Object.keys(goodsByCivilization).forEach((civ) => (grouped[civ] = []));
 
+    // ✅ Traiter tous les goods (y compris les monnaies alliées maintenant dans goods)
     normalizedGoods.other.forEach((amount, type) => {
       const displayName = type.replace(/_/g, " ");
+      const normalized = normalizeGoodName(displayName);
       let foundCiv: string | null = null;
 
+      // Check dans goodsByCivilization
       for (const [civKey, civData] of Object.entries(goodsByCivilization)) {
-        if (civData.goods.includes(displayName)) {
+        if (civData.goods.includes(normalized)) {
           foundCiv = civKey;
           break;
         }
       }
 
+      // ✅ Check aussi dans alliedCityResources (pour les monnaies: deben, rice, etc.)
+      if (!foundCiv) {
+        for (const [cityKey, cityData] of Object.entries(alliedCityResources)) {
+          if (cityData.resources.includes(type)) {
+            foundCiv = cityData.name;
+            break;
+          }
+        }
+      }
+
       const item = {
-        icon: `${WIKI_URL}${getGoodImageUrlFromType(type, selections)}`,
+        icon: `/goods/${normalized}.webp`,
         name: displayName,
         amount,
         difference: amount,
@@ -210,40 +272,10 @@ export const TotalGoodsDisplay = ({
       }
     });
 
-    Object.entries(totals.main).forEach(([type, originalAmount]) => {
-      if (originalAmount === 0 && !compareMode) return;
-
-      for (const [cityKey, cityData] of Object.entries(alliedCityResources)) {
-        if (cityData.resources.includes(type)) {
-          const cityName = cityData.name;
-          if (!grouped[cityName]) grouped[cityName] = [];
-
-          const displayAmount =
-            compareMode && totals.differences
-              ? (totals.differences.main[type] ?? originalAmount)
-              : originalAmount;
-
-          grouped[cityName].push({
-            icon: `${WIKI_URL}${getItemIcon(type)}`,
-            name: type.replace(/_/g, " "),
-            amount: displayAmount,
-            difference: displayAmount,
-          });
-          break;
-        }
-      }
-    });
-
     return Object.fromEntries(
       Object.entries(grouped).filter(([_, resources]) => resources.length > 0),
     );
-  }, [
-    normalizedGoods.other,
-    selections,
-    totals.main,
-    totals.differences,
-    compareMode,
-  ]);
+  }, [normalizedGoods.other, selections, totals.differences, compareMode]);
 
   const mainResources = useMemo(() => {
     return Object.entries(totals.main)
@@ -263,7 +295,7 @@ export const TotalGoodsDisplay = ({
         return {
           type,
           amount: displayAmount,
-          icon: `${WIKI_URL}${getItemIcon(type)}`,
+          icon: getItemIconLocal(type),
           name: type.replace(/_/g, " "),
           difference: displayAmount,
         };

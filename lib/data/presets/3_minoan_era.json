@@ -16,11 +16,11 @@
         "deben": 5600,
         "goods": [
           {
-            "type": "Primary_ME",
+            "type": "primary_me",
             "amount": 33
           },
           {
-            "type": "Secondary_ME",
+            "type": "secondary_me",
             "amount": 17
           }
         ]
@@ -34,19 +34,19 @@
         "deben": 16000,
         "goods": [
           {
-            "type": "Secondary_ME",
+            "type": "secondary_me",
             "amount": 61
           },
           {
-            "type": "Tertiary_ME",
+            "type": "tertiary_me",
             "amount": 30
           },
           {
-            "type": "Papyrus_Scroll",
+            "type": "papyrus_scroll",
             "amount": 45
           },
           {
-            "type": "Ankh",
+            "type": "ankh",
             "amount": 45
           }
         ]
@@ -68,11 +68,11 @@
         "deben": 9300,
         "goods": [
           {
-            "type": "Primary_ME",
+            "type": "primary_me",
             "amount": 42
           },
           {
-            "type": "Secondary_ME",
+            "type": "secondary_me",
             "amount": 21
           }
         ]
@@ -86,19 +86,19 @@
         "deben": 26000,
         "goods": [
           {
-            "type": "Secondary_ME",
+            "type": "secondary_me",
             "amount": 77
           },
           {
-            "type": "Tertiary_ME",
+            "type": "tertiary_me",
             "amount": 38
           },
           {
-            "type": "Papyrus_Scroll",
+            "type": "papyrus_scroll",
             "amount": 58
           },
           {
-            "type": "Ankh",
+            "type": "ankh",
             "amount": 58
           }
         ]
@@ -128,11 +128,11 @@
         "deben": 7400,
         "goods": [
           {
-            "type": "Primary_ME",
+            "type": "primary_me",
             "amount": 45
           },
           {
-            "type": "Secondary_ME",
+            "type": "secondary_me",
             "amount": 22
           }
         ]
@@ -146,19 +146,19 @@
         "deben": 21000,
         "goods": [
           {
-            "type": "Secondary_ME",
+            "type": "secondary_me",
             "amount": 80
           },
           {
-            "type": "Tertiary_ME",
+            "type": "tertiary_me",
             "amount": 40
           },
           {
-            "type": "Papyrus_Scroll",
+            "type": "papyrus_scroll",
             "amount": 60
           },
           {
-            "type": "Ankh",
+            "type": "ankh",
             "amount": 60
           }
         ]
@@ -188,11 +188,11 @@
         "deben": 1900,
         "goods": [
           {
-            "type": "Primary_ME",
+            "type": "primary_me",
             "amount": 17
           },
           {
-            "type": "Secondary_ME",
+            "type": "secondary_me",
             "amount": 8
           }
         ]
@@ -206,19 +206,19 @@
         "deben": 5300,
         "goods": [
           {
-            "type": "Secondary_ME",
+            "type": "secondary_me",
             "amount": 30
           },
           {
-            "type": "Tertiary_ME",
+            "type": "tertiary_me",
             "amount": 15
           },
           {
-            "type": "Papyrus_Scroll",
+            "type": "papyrus_scroll",
             "amount": 22
           },
           {
-            "type": "Ankh",
+            "type": "ankh",
             "amount": 22
           }
         ]
@@ -233,15 +233,15 @@
         "food": 140000,
         "goods": [
           {
-            "type": "Alabaster_Idol",
+            "type": "alabaster_idol",
             "amount": 105
           },
           {
-            "type": "Bronze_Bracelet",
+            "type": "bronze_bracelet",
             "amount": 105
           },
           {
-            "type": "Wool",
+            "type": "wool",
             "amount": 105
           }
         ]
@@ -256,15 +256,15 @@
         "food": 66000,
         "goods": [
           {
-            "type": "Alabaster_Idol",
+            "type": "alabaster_idol",
             "amount": 40
           },
           {
-            "type": "Bronze_Bracelet",
+            "type": "bronze_bracelet",
             "amount": 40
           },
           {
-            "type": "Wool",
+            "type": "wool",
             "amount": 40
           }
         ]
@@ -279,15 +279,15 @@
         "food": 120000,
         "goods": [
           {
-            "type": "Alabaster_Idol",
+            "type": "alabaster_idol",
             "amount": 92
           },
           {
-            "type": "Bronze_Bracelet",
+            "type": "bronze_bracelet",
             "amount": 92
           },
           {
-            "type": "Wool",
+            "type": "wool",
             "amount": 92
           }
         ]
@@ -356,15 +356,15 @@
         "food": 51000,
         "goods": [
           {
-            "type": "Alabaster_Idol",
+            "type": "alabaster_idol",
             "amount": 72
           },
           {
-            "type": "Bronze_Bracelet",
+            "type": "bronze_bracelet",
             "amount": 72
           },
           {
-            "type": "Wool",
+            "type": "wool",
             "amount": 72
           }
         ]
@@ -379,15 +379,15 @@
         "food": 17000,
         "goods": [
           {
-            "type": "Alabaster_Idol",
+            "type": "alabaster_idol",
             "amount": 21
           },
           {
-            "type": "Bronze_Bracelet",
+            "type": "bronze_bracelet",
             "amount": 21
           },
           {
-            "type": "Wool",
+            "type": "wool",
             "amount": 21
           }
         ]
@@ -402,19 +402,19 @@
         "food": 24000,
         "goods": [
           {
-            "type": "Primary_ME",
+            "type": "primary_me",
             "amount": 47
           },
           {
-            "type": "Secondary_ME",
+            "type": "secondary_me",
             "amount": 47
           },
           {
-            "type": "Papyrus_Scroll",
+            "type": "papyrus_scroll",
             "amount": 27
           },
           {
-            "type": "Ankh",
+            "type": "ankh",
             "amount": 27
           }
         ]
@@ -429,19 +429,19 @@
         "food": 35000,
         "goods": [
           {
-            "type": "Primary_ME",
+            "type": "primary_me",
             "amount": 85
           },
           {
-            "type": "Tertiary_ME",
+            "type": "tertiary_me",
             "amount": 85
           },
           {
-            "type": "Papyrus_Scroll",
+            "type": "papyrus_scroll",
             "amount": 68
           },
           {
-            "type": "Ankh",
+            "type": "ankh",
             "amount": 68
           }
         ]
@@ -456,15 +456,15 @@
         "food": 36000,
         "goods": [
           {
-            "type": "Alabaster_Idol",
+            "type": "alabaster_idol",
             "amount": 52
           },
           {
-            "type": "Bronze_Bracelet",
+            "type": "bronze_bracelet",
             "amount": 52
           },
           {
-            "type": "Wool",
+            "type": "wool",
             "amount": 52
           }
         ]
@@ -479,15 +479,15 @@
         "food": 12000,
         "goods": [
           {
-            "type": "Alabaster_Idol",
+            "type": "alabaster_idol",
             "amount": 15
           },
           {
-            "type": "Bronze_Bracelet",
+            "type": "bronze_bracelet",
             "amount": 15
           },
           {
-            "type": "Wool",
+            "type": "wool",
             "amount": 15
           }
         ]
@@ -502,19 +502,19 @@
         "food": 17000,
         "goods": [
           {
-            "type": "Primary_ME",
+            "type": "primary_me",
             "amount": 33
           },
           {
-            "type": "Secondary_ME",
+            "type": "secondary_me",
             "amount": 33
           },
           {
-            "type": "Papyrus_Scroll",
+            "type": "papyrus_scroll",
             "amount": 18
           },
           {
-            "type": "Ankh",
+            "type": "ankh",
             "amount": 18
           }
         ]
@@ -529,19 +529,19 @@
         "food": 24000,
         "goods": [
           {
-            "type": "Primary_ME",
+            "type": "primary_me",
             "amount": 60
           },
           {
-            "type": "Tertiary_ME",
+            "type": "tertiary_me",
             "amount": 60
           },
           {
-            "type": "Papyrus_Scroll",
+            "type": "papyrus_scroll",
             "amount": 45
           },
           {
-            "type": "Ankh",
+            "type": "ankh",
             "amount": 45
           }
         ]
@@ -556,15 +556,15 @@
         "food": 72000,
         "goods": [
           {
-            "type": "Alabaster_Idol",
+            "type": "alabaster_idol",
             "amount": 45
           },
           {
-            "type": "Bronze_Bracelet",
+            "type": "bronze_bracelet",
             "amount": 45
           },
           {
-            "type": "Wool",
+            "type": "wool",
             "amount": 45
           }
         ]
@@ -579,15 +579,15 @@
         "food": 23000,
         "goods": [
           {
-            "type": "Alabaster_Idol",
+            "type": "alabaster_idol",
             "amount": 12
           },
           {
-            "type": "Bronze_Bracelet",
+            "type": "bronze_bracelet",
             "amount": 12
           },
           {
-            "type": "Wool",
+            "type": "wool",
             "amount": 12
           }
         ]
@@ -602,19 +602,19 @@
         "food": 33000,
         "goods": [
           {
-            "type": "Primary_ME",
+            "type": "primary_me",
             "amount": 28
           },
           {
-            "type": "Secondary_ME",
+            "type": "secondary_me",
             "amount": 28
           },
           {
-            "type": "Papyrus_Scroll",
+            "type": "papyrus_scroll",
             "amount": 15
           },
           {
-            "type": "Ankh",
+            "type": "ankh",
             "amount": 15
           }
         ]
@@ -629,19 +629,19 @@
         "food": 48000,
         "goods": [
           {
-            "type": "Primary_ME",
+            "type": "primary_me",
             "amount": 50
           },
           {
-            "type": "Tertiary_ME",
+            "type": "tertiary_me",
             "amount": 50
           },
           {
-            "type": "Papyrus_Scroll",
+            "type": "papyrus_scroll",
             "amount": 38
           },
           {
-            "type": "Ankh",
+            "type": "ankh",
             "amount": 38
           }
         ]
@@ -656,15 +656,15 @@
         "food": 27000,
         "goods": [
           {
-            "type": "Alabaster_Idol",
+            "type": "alabaster_idol",
             "amount": 17
           },
           {
-            "type": "Bronze_Bracelet",
+            "type": "bronze_bracelet",
             "amount": 17
           },
           {
-            "type": "Wool",
+            "type": "wool",
             "amount": 17
           }
         ]
@@ -679,15 +679,15 @@
         "food": 9000,
         "goods": [
           {
-            "type": "Alabaster_Idol",
+            "type": "alabaster_idol",
             "amount": 5
           },
           {
-            "type": "Bronze_Bracelet",
+            "type": "bronze_bracelet",
             "amount": 5
           },
           {
-            "type": "Wool",
+            "type": "wool",
             "amount": 5
           }
         ]
@@ -702,11 +702,11 @@
         "food": 13000,
         "goods": [
           {
-            "type": "Primary_ME",
+            "type": "primary_me",
             "amount": 11
           },
           {
-            "type": "Secondary_ME",
+            "type": "secondary_me",
             "amount": 11
           }
         ]
@@ -721,19 +721,19 @@
         "food": 19000,
         "goods": [
           {
-            "type": "Primary_ME",
+            "type": "primary_me",
             "amount": 20
           },
           {
-            "type": "Tertiary_ME",
+            "type": "tertiary_me",
             "amount": 20
           },
           {
-            "type": "Papyrus_Scroll",
+            "type": "papyrus_scroll",
             "amount": 15
           },
           {
-            "type": "Ankh",
+            "type": "ankh",
             "amount": 15
           }
         ]
@@ -748,15 +748,15 @@
         "food": 110000,
         "goods": [
           {
-            "type": "Alabaster_Idol",
+            "type": "alabaster_idol",
             "amount": 52
           },
           {
-            "type": "Bronze_Bracelet",
+            "type": "bronze_bracelet",
             "amount": 52
           },
           {
-            "type": "Wool",
+            "type": "wool",
             "amount": 52
           }
         ]
@@ -771,15 +771,15 @@
         "food": 79000,
         "goods": [
           {
-            "type": "Alabaster_Idol",
+            "type": "alabaster_idol",
             "amount": 24
           },
           {
-            "type": "Bronze_Bracelet",
+            "type": "bronze_bracelet",
             "amount": 24
           },
           {
-            "type": "Wool",
+            "type": "wool",
             "amount": 24
           }
         ]
@@ -794,15 +794,15 @@
         "food": 79000,
         "goods": [
           {
-            "type": "Alabaster_Idol",
+            "type": "alabaster_idol",
             "amount": 24
           },
           {
-            "type": "Bronze_Bracelet",
+            "type": "bronze_bracelet",
             "amount": 24
           },
           {
-            "type": "Wool",
+            "type": "wool",
             "amount": 24
           }
         ]
@@ -817,15 +817,15 @@
         "food": 79000,
         "goods": [
           {
-            "type": "Alabaster_Idol",
+            "type": "alabaster_idol",
             "amount": 24
           },
           {
-            "type": "Bronze_Bracelet",
+            "type": "bronze_bracelet",
             "amount": 24
           },
           {
-            "type": "Wool",
+            "type": "wool",
             "amount": 24
           }
         ]
@@ -841,15 +841,15 @@
         "food": 51000,
         "goods": [
           {
-            "type": "Primary_BA",
+            "type": "primary_ba",
             "amount": 210
           },
           {
-            "type": "Secondary_BA",
+            "type": "secondary_ba",
             "amount": 90
           },
           {
-            "type": "Tertiary_BA",
+            "type": "tertiary_ba",
             "amount": 55
           }
         ]
@@ -863,11 +863,11 @@
         "food": 62100,
         "goods": [
           {
-            "type": "Secondary_BA",
+            "type": "secondary_ba",
             "amount": 300
           },
           {
-            "type": "Tertiary_BA",
+            "type": "tertiary_ba",
             "amount": 130
           }
         ]
@@ -879,7 +879,7 @@
         "research_points": 5,
         "goods": [
           {
-            "type": "Deben",
+            "type": "deben",
             "amount": 250
           }
         ]
@@ -893,11 +893,11 @@
         "food": 48800,
         "goods": [
           {
-            "type": "Primary_ME",
+            "type": "primary_me",
             "amount": 210
           },
           {
-            "type": "Secondary_ME",
+            "type": "secondary_me",
             "amount": 90
           }
         ]
@@ -911,11 +911,11 @@
         "food": 81300,
         "goods": [
           {
-            "type": "Secondary_ME",
+            "type": "secondary_me",
             "amount": 265
           },
           {
-            "type": "Tertiary_ME",
+            "type": "tertiary_me",
             "amount": 115
           }
         ]
@@ -929,11 +929,11 @@
         "food": 81300,
         "goods": [
           {
-            "type": "Primary_ME",
+            "type": "primary_me",
             "amount": 290
           },
           {
-            "type": "Tertiary_ME",
+            "type": "tertiary_me",
             "amount": 125
           }
         ]
@@ -947,11 +947,11 @@
         "food": 65000,
         "goods": [
           {
-            "type": "Secondary_BA",
+            "type": "secondary_ba",
             "amount": 210
           },
           {
-            "type": "Secondary_ME",
+            "type": "secondary_me",
             "amount": 325
           }
         ]
@@ -965,11 +965,11 @@
         "food": 98800,
         "goods": [
           {
-            "type": "Secondary_ME",
+            "type": "secondary_me",
             "amount": 160
           },
           {
-            "type": "Tertiary_ME",
+            "type": "tertiary_me",
             "amount": 370
           }
         ]
@@ -983,15 +983,15 @@
         "food": 108000,
         "goods": [
           {
-            "type": "Primary_BA",
+            "type": "primary_ba",
             "amount": 110
           },
           {
-            "type": "Tertiary_BA",
+            "type": "tertiary_ba",
             "amount": 185
           },
           {
-            "type": "Primary_ME",
+            "type": "primary_me",
             "amount": 300
           }
         ]
@@ -1005,15 +1005,15 @@
         "food": 130000,
         "goods": [
           {
-            "type": "Primary_ME",
+            "type": "primary_me",
             "amount": 420
           },
           {
-            "type": "Tertiary_ME",
+            "type": "tertiary_me",
             "amount": 180
           },
           {
-            "type": "Papyrus Scroll",
+            "type": "papyrus_scroll",
             "amount": 50
           }
         ]
@@ -1027,15 +1027,15 @@
         "food": 81300,
         "goods": [
           {
-            "type": "Primary_ME",
+            "type": "primary_me",
             "amount": 265
           },
           {
-            "type": "Tertiary_ME",
+            "type": "tertiary_me",
             "amount": 115
           },
           {
-            "type": "Ankh",
+            "type": "ankh",
             "amount": 100
           }
         ]
@@ -1049,11 +1049,11 @@
         "food": 97500,
         "goods": [
           {
-            "type": "Primary_ME",
+            "type": "primary_me",
             "amount": 315
           },
           {
-            "type": "Secondary_ME",
+            "type": "secondary_me",
             "amount": 135
           }
         ]
@@ -1067,11 +1067,11 @@
         "food": 46800,
         "goods": [
           {
-            "type": "Primary_BA",
+            "type": "primary_ba",
             "amount": 225
           },
           {
-            "type": "Tertiary_BA",
+            "type": "tertiary_ba",
             "amount": 95
           }
         ]
@@ -1085,15 +1085,15 @@
         "food": 153000,
         "goods": [
           {
-            "type": "Secondary_ME",
+            "type": "secondary_me",
             "amount": 210
           },
           {
-            "type": "Tertiary_ME",
+            "type": "tertiary_me",
             "amount": 495
           },
           {
-            "type": "Papyrus Scroll",
+            "type": "papyrus_scroll",
             "amount": 250
           }
         ]
@@ -1107,15 +1107,15 @@
         "food": 130000,
         "goods": [
           {
-            "type": "Secondary_BA",
+            "type": "secondary_ba",
             "amount": 225
           },
           {
-            "type": "Tertiary_BA",
+            "type": "tertiary_ba",
             "amount": 135
           },
           {
-            "type": "Tertiary_ME",
+            "type": "tertiary_me",
             "amount": 360
           }
         ]
@@ -1129,15 +1129,15 @@
         "food": 137000,
         "goods": [
           {
-            "type": "Primary_ME",
+            "type": "primary_me",
             "amount": 190
           },
           {
-            "type": "Secondary_ME",
+            "type": "secondary_me",
             "amount": 445
           },
           {
-            "type": "Papyrus Scroll",
+            "type": "papyrus_scroll",
             "amount": 500
           }
         ]
@@ -1151,15 +1151,15 @@
         "food": 124000,
         "goods": [
           {
-            "type": "Tertiary_BA",
+            "type": "tertiary_ba",
             "amount": 255
           },
           {
-            "type": "Tertiary_ME",
+            "type": "tertiary_me",
             "amount": 400
           },
           {
-            "type": "Ankh",
+            "type": "ankh",
             "amount": 500
           }
         ]
@@ -1173,15 +1173,15 @@
         "food": 137000,
         "goods": [
           {
-            "type": "Primary_BA",
+            "type": "primary_ba",
             "amount": 150
           },
           {
-            "type": "Primary_ME",
+            "type": "primary_me",
             "amount": 170
           },
           {
-            "type": "Tertiary_ME",
+            "type": "tertiary_me",
             "amount": 405
           }
         ]
@@ -1195,15 +1195,15 @@
         "food": 228000,
         "goods": [
           {
-            "type": "Primary_ME",
+            "type": "primary_me",
             "amount": 660
           },
           {
-            "type": "Secondary_ME",
+            "type": "secondary_me",
             "amount": 285
           },
           {
-            "type": "Ankh",
+            "type": "ankh",
             "amount": 1000
           }
         ]
@@ -1217,15 +1217,15 @@
         "food": 195000,
         "goods": [
           {
-            "type": "Secondary_BA",
+            "type": "secondary_ba",
             "amount": 200
           },
           {
-            "type": "Tertiary_BA",
+            "type": "tertiary_ba",
             "amount": 340
           },
           {
-            "type": "Secondary_ME",
+            "type": "secondary_me",
             "amount": 540
           }
         ]
@@ -1239,15 +1239,15 @@
         "food": 208000,
         "goods": [
           {
-            "type": "Tertiary_BA",
+            "type": "tertiary_ba",
             "amount": 430
           },
           {
-            "type": "Tertiary_ME",
+            "type": "tertiary_me",
             "amount": 670
           },
           {
-            "type": "Papyrus Scroll",
+            "type": "papyrus_scroll",
             "amount": 700
           }
         ]
@@ -1261,15 +1261,15 @@
         "food": 195000,
         "goods": [
           {
-            "type": "Secondary_BA",
+            "type": "secondary_ba",
             "amount": 405
           },
           {
-            "type": "Secondary_ME",
+            "type": "secondary_me",
             "amount": 630
           },
           {
-            "type": "Ankh",
+            "type": "ankh",
             "amount": 1500
           }
         ]
@@ -1283,15 +1283,15 @@
         "food": 163000,
         "goods": [
           {
-            "type": "Primary_ME",
+            "type": "primary_me",
             "amount": 600
           },
           {
-            "type": "Secondary_ME",
+            "type": "secondary_me",
             "amount": 255
           },
           {
-            "type": "Papyrus Scroll",
+            "type": "papyrus_scroll",
             "amount": 1250
           }
         ]
@@ -1305,11 +1305,11 @@
         "food": 74800,
         "goods": [
           {
-            "type": "Secondary_BA",
+            "type": "secondary_ba",
             "amount": 70
           },
           {
-            "type": "Primary_ME",
+            "type": "primary_me",
             "amount": 105
           }
         ]
@@ -1323,15 +1323,15 @@
         "food": 205000,
         "goods": [
           {
-            "type": "Secondary_ME",
+            "type": "secondary_me",
             "amount": 475
           },
           {
-            "type": "Tertiary_ME",
+            "type": "tertiary_me",
             "amount": 205
           },
           {
-            "type": "Papyrus Scroll",
+            "type": "papyrus_scroll",
             "amount": 1750
           }
         ]
@@ -1345,15 +1345,15 @@
         "food": 49400,
         "goods": [
           {
-            "type": "Primary_BA",
+            "type": "primary_ba",
             "amount": 205
           },
           {
-            "type": "Tertiary_BA",
+            "type": "tertiary_ba",
             "amount": 50
           },
           {
-            "type": "Secondary_ME",
+            "type": "secondary_me",
             "amount": 55
           }
         ]
@@ -1367,11 +1367,11 @@
         "food": 62400,
         "goods": [
           {
-            "type": "Primary_BA",
+            "type": "primary_ba",
             "amount": 300
           },
           {
-            "type": "Tertiary_ME",
+            "type": "tertiary_me",
             "amount": 85
           }
         ]
@@ -1385,11 +1385,11 @@
         "food": 81300,
         "goods": [
           {
-            "type": "Secondary_BA",
+            "type": "secondary_ba",
             "amount": 200
           },
           {
-            "type": "Primary_ME",
+            "type": "primary_me",
             "amount": 315
           }
         ]
@@ -1403,15 +1403,15 @@
         "food": 81600,
         "goods": [
           {
-            "type": "Primary_ME",
+            "type": "primary_me",
             "amount": 225
           },
           {
-            "type": "Secondary_ME",
+            "type": "secondary_me",
             "amount": 95
           },
           {
-            "type": "Tertiary_ME",
+            "type": "tertiary_me",
             "amount": 55
           }
         ]
@@ -1425,15 +1425,15 @@
         "food": 75400,
         "goods": [
           {
-            "type": "Secondary_BA",
+            "type": "secondary_ba",
             "amount": 130
           },
           {
-            "type": "Tertiary_BA",
+            "type": "tertiary_ba",
             "amount": 80
           },
           {
-            "type": "Primary_ME",
+            "type": "primary_me",
             "amount": 210
           }
         ]

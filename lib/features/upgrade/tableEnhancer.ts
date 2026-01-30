@@ -11,6 +11,7 @@ import {
   removeBuilding,
   extractCosts,
   getBuildings,
+  SavedBuilding,
 } from "@/lib/overview/storage";
 
 // use set for better performance with multiple concurrent updates
@@ -46,7 +47,10 @@ export async function enhanceTables(tables: TableInfo[]) {
 
   // single storage read, create lookup map for o(1) access
   const savedData = await getBuildings();
-  const savedMap = new Map(savedData.map((b: any) => [b.id, b]));
+  // ✅ Typer correctement la Map avec SavedBuilding
+  const savedMap = new Map<string, SavedBuilding>(
+    savedData.map((b: any) => [b.id, b as SavedBuilding]),
+  );
 
   tables.forEach(({ element, type }) => {
     let currentEra = "";
@@ -224,7 +228,7 @@ export async function enhanceTables(tables: TableInfo[]) {
           multiplyRowTextContent(row, count);
 
           await withLocalUpdate(rowId, async () => {
-            const building = {
+            const building: SavedBuilding = {
               id: rowId,
               costs: extractCosts(row),
               maxQty,
@@ -233,7 +237,7 @@ export async function enhanceTables(tables: TableInfo[]) {
             };
             await saveBuilding(building);
             // update local cache
-            savedMap.set(rowId, building as any);
+            savedMap.set(rowId, building);
           });
         } else {
           await withLocalUpdate(rowId, async () => {

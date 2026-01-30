@@ -25,6 +25,17 @@ export interface ComparedTotals extends ResourceTotals {
   };
 }
 
+// Liste des ressources monétaires des allied cities à déplacer vers goods
+const ALLIED_CURRENCIES = new Set([
+  "deben",
+  "wu_zhu",
+  "rice",
+  "cocoa",
+  "pennies",
+  "dirham",
+  "aspers",
+]);
+
 function sumResources(costs: any, multiplier: number = 1): ResourceTotals {
   const totals: ResourceTotals = { main: {}, goods: {} };
 
@@ -37,12 +48,18 @@ function sumResources(costs: any, multiplier: number = 1): ResourceTotals {
     if (key === "goods" && Array.isArray(value)) {
       value.forEach((g) => {
         if (g && g.type && typeof g.amount === "number") {
+          // ✅ Les goods sont déjà normalisés à la source (storage.ts et techno.ts)
           totals.goods[g.type] =
             (totals.goods[g.type] || 0) + g.amount * multiplier;
         }
       });
     } else if (typeof value === "number") {
-      totals.main[key] = (totals.main[key] || 0) + value * multiplier;
+      // ✅ Déplacer les monnaies alliées vers goods pour regroupement par civilisation
+      if (ALLIED_CURRENCIES.has(key)) {
+        totals.goods[key] = (totals.goods[key] || 0) + value * multiplier;
+      } else {
+        totals.main[key] = (totals.main[key] || 0) + value * multiplier;
+      }
     }
   });
 
@@ -129,19 +146,21 @@ export async function getCalculatorTotals(
     });
 
     // Identifier les ères qui ont des besoins
-    const PRIORITIES = ["Primary", "Secondary", "Tertiary"] as const;
+    const PRIORITIES = ["primary", "secondary", "tertiary"] as const;
     const erasWithNeeds = new Set<string>();
 
     Object.keys(totals.goods).forEach((key) => {
-      const match = key.match(/^(Primary|Secondary|Tertiary)_([A-Z]{2})$/);
+      // ✅ Accepter les deux formats: primary_cg ou Primary_CG
+      const match = key.match(/^(primary|secondary|tertiary)_([a-z]{2})$/i);
       if (match) {
-        erasWithNeeds.add(match[2]);
+        erasWithNeeds.add(match[2].toLowerCase());
       }
     });
 
     // Ajouter SEULEMENT les Priority goods des ères qui ont des besoins
     erasWithNeeds.forEach((eraAbbr) => {
       PRIORITIES.forEach((priority) => {
+        // ✅ Clés en minuscules pour cohérence
         const key = `${priority}_${eraAbbr}`;
 
         if (!(key in differences.goods)) {
@@ -235,18 +254,20 @@ export function watchCalculatorTotals(
         }
       });
 
-      const PRIORITIES = ["Primary", "Secondary", "Tertiary"] as const;
+      const PRIORITIES = ["primary", "secondary", "tertiary"] as const;
       const erasWithNeeds = new Set<string>();
 
       Object.keys(totals.goods).forEach((key) => {
-        const match = key.match(/^(Primary|Secondary|Tertiary)_([A-Z]{2})$/);
+        // ✅ Accepter les deux formats: primary_cg ou Primary_CG
+        const match = key.match(/^(primary|secondary|tertiary)_([a-z]{2})$/i);
         if (match) {
-          erasWithNeeds.add(match[2]);
+          erasWithNeeds.add(match[2].toLowerCase());
         }
       });
 
       erasWithNeeds.forEach((eraAbbr) => {
         PRIORITIES.forEach((priority) => {
+          // ✅ Clés en minuscules pour cohérence
           const key = `${priority}_${eraAbbr}`;
 
           if (!(key in differences.goods)) {

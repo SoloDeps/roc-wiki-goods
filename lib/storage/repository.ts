@@ -1,3 +1,4 @@
+import { normalizeGoodName } from "@/lib/utils";
 import { db, BuildingEntity, TechnoEntity } from "./dexie";
 
 const now = () => Date.now();
@@ -93,24 +94,41 @@ export async function saveBatch<
   return (db[table] as any).toArray();
 }
 
+// ✅ Helper pour normaliser les costs (goods uniquement)
+function normalizeCosts(
+  costs: BuildingEntity["costs"] | TechnoEntity["costs"],
+) {
+  const normalized = { ...costs };
+
+  // Normaliser les goods
+  if (Array.isArray(normalized.goods)) {
+    normalized.goods = normalized.goods.map((g) => ({
+      type: normalizeGoodName(g.type),
+      amount: g.amount,
+    }));
+  }
+
+  return normalized;
+}
+
 // export preset db only
 export async function exportPresetsJSON() {
   try {
-    // Récupérer les tables que tu veux
+    // Récupérer les tables
     const buildings = await db.buildings.toArray();
     const technos = await db.technos.toArray();
 
-    // Transformer les données si nécessaire (ex : retirer updatedAt, hidden)
+    // ✅ Transformer ET normaliser les goods
     const cleanBuildings = buildings.map(({ id, quantity, maxQty, costs }) => ({
       id,
       quantity,
       maxQty,
-      costs,
+      costs: normalizeCosts(costs), // ✅ Normalisation des goods
     }));
 
     const cleanTechnos = technos.map(({ id, costs }) => ({
       id,
-      costs,
+      costs: normalizeCosts(costs), // ✅ Normalisation des goods
     }));
 
     const json = {
@@ -125,11 +143,20 @@ export async function exportPresetsJSON() {
 
     const a = document.createElement("a");
     a.href = URL.createObjectURL(blob);
-    a.download = "preset.json";
+
+    // ✅ Nom de fichier avec timestamp pour éviter les écrasements
+    const timestamp = new Date().toISOString().slice(0, 10);
+    a.download = `preset_${timestamp}.json`;
+
     a.click();
 
     URL.revokeObjectURL(a.href);
+
+    console.log(
+      `✅ Exported ${cleanBuildings.length} buildings and ${cleanTechnos.length} technos with normalized goods`,
+    );
   } catch (error) {
     console.error("Export presets failed:", error);
+    throw error;
   }
 }

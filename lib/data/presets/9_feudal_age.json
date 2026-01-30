@@ -8,15 +8,15 @@
         "pennies": 2000,
         "goods": [
           {
-            "type": "Ink",
+            "type": "ink",
             "amount": 590
           },
           {
-            "type": "Salt",
+            "type": "salt",
             "amount": 590
           },
           {
-            "type": "Cartwheel",
+            "type": "cartwheel",
             "amount": 590
           }
         ]
@@ -30,19 +30,19 @@
         "pennies": 15000,
         "goods": [
           {
-            "type": "Primary_FA",
+            "type": "primary_fa",
             "amount": 985
           },
           {
-            "type": "Secondary_FA",
+            "type": "secondary_fa",
             "amount": 490
           },
           {
-            "type": "Ceramic_Treasure",
+            "type": "ceramic_treasure",
             "amount": 225
           },
           {
-            "type": "Gold_Treasure",
+            "type": "gold_treasure",
             "amount": 275
           }
         ]
@@ -56,19 +56,19 @@
         "pennies": 48000,
         "goods": [
           {
-            "type": "Secondary_FA",
+            "type": "secondary_fa",
             "amount": 1065
           },
           {
-            "type": "Tertiary_FA",
+            "type": "tertiary_fa",
             "amount": 535
           },
           {
-            "type": "Ceramic_Treasure",
+            "type": "ceramic_treasure",
             "amount": 450
           },
           {
-            "type": "Gold_Treasure",
+            "type": "gold_treasure",
             "amount": 550
           }
         ]
@@ -82,15 +82,15 @@
         "pennies": 7500,
         "goods": [
           {
-            "type": "Ink",
+            "type": "ink",
             "amount": 1770
           },
           {
-            "type": "Salt",
+            "type": "salt",
             "amount": 1770
           },
           {
-            "type": "Cartwheel",
+            "type": "cartwheel",
             "amount": 1770
           }
         ]
@@ -104,15 +104,15 @@
         "pennies": 1500,
         "goods": [
           {
-            "type": "Ink",
+            "type": "ink",
             "amount": 1180
           },
           {
-            "type": "Salt",
+            "type": "salt",
             "amount": 1180
           },
           {
-            "type": "Cartwheel",
+            "type": "cartwheel",
             "amount": 1180
           }
         ]
@@ -126,19 +126,19 @@
         "pennies": 20000,
         "goods": [
           {
-            "type": "Primary_FA",
+            "type": "primary_fa",
             "amount": 1965
           },
           {
-            "type": "Secondary_FA",
+            "type": "secondary_fa",
             "amount": 985
           },
           {
-            "type": "Ceramic_Treasure",
+            "type": "ceramic_treasure",
             "amount": 525
           },
           {
-            "type": "Gold_Treasure",
+            "type": "gold_treasure",
             "amount": 225
           }
         ]
@@ -152,19 +152,19 @@
         "pennies": 76000,
         "goods": [
           {
-            "type": "Secondary_FA",
+            "type": "secondary_fa",
             "amount": 2135
           },
           {
-            "type": "Tertiary_FA",
+            "type": "tertiary_fa",
             "amount": 1065
           },
           {
-            "type": "Ceramic_Treasure",
+            "type": "ceramic_treasure",
             "amount": 1050
           },
           {
-            "type": "Gold_Treasure",
+            "type": "gold_treasure",
             "amount": 450
           }
         ]
@@ -178,15 +178,15 @@
         "pennies": 3500,
         "goods": [
           {
-            "type": "Ink",
+            "type": "ink",
             "amount": 470
           },
           {
-            "type": "Salt",
+            "type": "salt",
             "amount": 470
           },
           {
-            "type": "Cartwheel",
+            "type": "cartwheel",
             "amount": 470
           }
         ]
@@ -200,19 +200,19 @@
         "pennies": 15000,
         "goods": [
           {
-            "type": "Primary_FA",
+            "type": "primary_fa",
             "amount": 785
           },
           {
-            "type": "Secondary_FA",
+            "type": "secondary_fa",
             "amount": 395
           },
           {
-            "type": "Ceramic_Treasure",
+            "type": "ceramic_treasure",
             "amount": 270
           },
           {
-            "type": "Gold_Treasure",
+            "type": "gold_treasure",
             "amount": 330
           }
         ]
@@ -226,19 +226,19 @@
         "pennies": 42000,
         "goods": [
           {
-            "type": "Secondary_FA",
+            "type": "secondary_fa",
             "amount": 855
           },
           {
-            "type": "Tertiary_FA",
+            "type": "tertiary_fa",
             "amount": 425
           },
           {
-            "type": "Ceramic_Treasure",
+            "type": "ceramic_treasure",
             "amount": 540
           },
           {
-            "type": "Gold_Treasure",
+            "type": "gold_treasure",
             "amount": 660
           }
         ]
@@ -252,15 +252,15 @@
         "pennies": 4000,
         "goods": [
           {
-            "type": "Ink",
+            "type": "ink",
             "amount": 885
           },
           {
-            "type": "Salt",
+            "type": "salt",
             "amount": 885
           },
           {
-            "type": "Cartwheel",
+            "type": "cartwheel",
             "amount": 885
           }
         ]
@@ -274,15 +274,15 @@
         "pennies": 1000,
         "goods": [
           {
-            "type": "Ink",
+            "type": "ink",
             "amount": 235
           },
           {
-            "type": "Salt",
+            "type": "salt",
             "amount": 235
           },
           {
-            "type": "Cartwheel",
+            "type": "cartwheel",
             "amount": 235
           }
         ]
@@ -296,19 +296,19 @@
         "pennies": 5000,
         "goods": [
           {
-            "type": "Primary_FA",
+            "type": "primary_fa",
             "amount": 395
           },
           {
-            "type": "Secondary_FA",
+            "type": "secondary_fa",
             "amount": 195
           },
           {
-            "type": "Ceramic_Treasure",
+            "type": "ceramic_treasure",
             "amount": 280
           },
           {
-            "type": "Gold_Treasure",
+            "type": "gold_treasure",
             "amount": 120
           }
         ]
@@ -322,19 +322,19 @@
         "pennies": 12000,
         "goods": [
           {
-            "type": "Secondary_FA",
+            "type": "secondary_fa",
             "amount": 425
           },
           {
-            "type": "Tertiary_FA",
+            "type": "tertiary_fa",
             "amount": 215
           },
           {
-            "type": "Ceramic_Treasure",
+            "type": "ceramic_treasure",
             "amount": 560
           },
           {
-            "type": "Gold_Treasure",
+            "type": "gold_treasure",
             "amount": 240
           }
         ]
@@ -349,15 +349,15 @@
         "food": 3400000,
         "goods": [
           {
-            "type": "Cartwheel",
+            "type": "cartwheel",
             "amount": 3485
           },
           {
-            "type": "Ink",
+            "type": "ink",
             "amount": 3485
           },
           {
-            "type": "Salt",
+            "type": "salt",
             "amount": 3485
           }
         ]
@@ -372,15 +372,15 @@
         "food": 4400000,
         "goods": [
           {
-            "type": "Cartwheel",
+            "type": "cartwheel",
             "amount": 4005
           },
           {
-            "type": "Ink",
+            "type": "ink",
             "amount": 4005
           },
           {
-            "type": "Salt",
+            "type": "salt",
             "amount": 4005
           }
         ]
@@ -395,15 +395,15 @@
         "food": 2400000,
         "goods": [
           {
-            "type": "Cartwheel",
+            "type": "cartwheel",
             "amount": 2900
           },
           {
-            "type": "Ink",
+            "type": "ink",
             "amount": 2900
           },
           {
-            "type": "Salt",
+            "type": "salt",
             "amount": 2900
           }
         ]
@@ -418,15 +418,15 @@
         "food": 3050000,
         "goods": [
           {
-            "type": "Cartwheel",
+            "type": "cartwheel",
             "amount": 3195
           },
           {
-            "type": "Ink",
+            "type": "ink",
             "amount": 3195
           },
           {
-            "type": "Salt",
+            "type": "salt",
             "amount": 3195
           }
         ]
@@ -441,15 +441,15 @@
         "food": 5500000,
         "goods": [
           {
-            "type": "Cartwheel",
+            "type": "cartwheel",
             "amount": 5005
           },
           {
-            "type": "Ink",
+            "type": "ink",
             "amount": 5005
           },
           {
-            "type": "Salt",
+            "type": "salt",
             "amount": 5005
           }
         ]
@@ -500,15 +500,15 @@
         "food": 4500000,
         "goods": [
           {
-            "type": "Cartwheel",
+            "type": "cartwheel",
             "amount": 6725
           },
           {
-            "type": "Ink",
+            "type": "ink",
             "amount": 6725
           },
           {
-            "type": "Salt",
+            "type": "salt",
             "amount": 6725
           }
         ]
@@ -523,15 +523,15 @@
         "food": 500000,
         "goods": [
           {
-            "type": "Cartwheel",
+            "type": "cartwheel",
             "amount": 900
           },
           {
-            "type": "Ink",
+            "type": "ink",
             "amount": 900
           },
           {
-            "type": "Salt",
+            "type": "salt",
             "amount": 900
           }
         ]
@@ -546,19 +546,19 @@
         "food": 570000,
         "goods": [
           {
-            "type": "Primary_FA",
+            "type": "primary_fa",
             "amount": 975
           },
           {
-            "type": "Secondary_FA",
+            "type": "secondary_fa",
             "amount": 975
           },
           {
-            "type": "Ceramic_Treasure",
+            "type": "ceramic_treasure",
             "amount": 540
           },
           {
-            "type": "Gold_Treasure",
+            "type": "gold_treasure",
             "amount": 360
           }
         ]
@@ -573,19 +573,19 @@
         "food": 610000,
         "goods": [
           {
-            "type": "Primary_FA",
+            "type": "primary_fa",
             "amount": 1060
           },
           {
-            "type": "Tertiary_FA",
+            "type": "tertiary_fa",
             "amount": 1060
           },
           {
-            "type": "Ceramic_Treasure",
+            "type": "ceramic_treasure",
             "amount": 1080
           },
           {
-            "type": "Gold_Treasure",
+            "type": "gold_treasure",
             "amount": 720
           }
         ]
@@ -600,15 +600,15 @@
         "food": 350000,
         "goods": [
           {
-            "type": "Cartwheel",
+            "type": "cartwheel",
             "amount": 635
           },
           {
-            "type": "Ink",
+            "type": "ink",
             "amount": 635
           },
           {
-            "type": "Salt",
+            "type": "salt",
             "amount": 635
           }
         ]
@@ -623,19 +623,19 @@
         "food": 390000,
         "goods": [
           {
-            "type": "Primary_FA",
+            "type": "primary_fa",
             "amount": 690
           },
           {
-            "type": "Secondary_FA",
+            "type": "secondary_fa",
             "amount": 690
           },
           {
-            "type": "Ceramic_Treasure",
+            "type": "ceramic_treasure",
             "amount": 360
           },
           {
-            "type": "Gold_Treasure",
+            "type": "gold_treasure",
             "amount": 240
           }
         ]
@@ -650,19 +650,19 @@
         "food": 420000,
         "goods": [
           {
-            "type": "Primary_FA",
+            "type": "primary_fa",
             "amount": 750
           },
           {
-            "type": "Tertiary_FA",
+            "type": "tertiary_fa",
             "amount": 750
           },
           {
-            "type": "Ceramic_Treasure",
+            "type": "ceramic_treasure",
             "amount": 720
           },
           {
-            "type": "Gold_Treasure",
+            "type": "gold_treasure",
             "amount": 480
           }
         ]
@@ -677,15 +677,15 @@
         "food": 6200000,
         "goods": [
           {
-            "type": "Cartwheel",
+            "type": "cartwheel",
             "amount": 3975
           },
           {
-            "type": "Ink",
+            "type": "ink",
             "amount": 3975
           },
           {
-            "type": "Salt",
+            "type": "salt",
             "amount": 3975
           }
         ]
@@ -700,15 +700,15 @@
         "food": 690000,
         "goods": [
           {
-            "type": "Cartwheel",
+            "type": "cartwheel",
             "amount": 530
           },
           {
-            "type": "Ink",
+            "type": "ink",
             "amount": 530
           },
           {
-            "type": "Salt",
+            "type": "salt",
             "amount": 530
           }
         ]
@@ -723,19 +723,19 @@
         "food": 790000,
         "goods": [
           {
-            "type": "Primary_FA",
+            "type": "primary_fa",
             "amount": 575
           },
           {
-            "type": "Secondary_FA",
+            "type": "secondary_fa",
             "amount": 575
           },
           {
-            "type": "Ceramic_Treasure",
+            "type": "ceramic_treasure",
             "amount": 300
           },
           {
-            "type": "Gold_Treasure",
+            "type": "gold_treasure",
             "amount": 200
           }
         ]
@@ -750,19 +750,19 @@
         "food": 850000,
         "goods": [
           {
-            "type": "Primary_FA",
+            "type": "primary_fa",
             "amount": 625
           },
           {
-            "type": "Tertiary_FA",
+            "type": "tertiary_fa",
             "amount": 625
           },
           {
-            "type": "Ceramic_Treasure",
+            "type": "ceramic_treasure",
             "amount": 600
           },
           {
-            "type": "Gold_Treasure",
+            "type": "gold_treasure",
             "amount": 400
           }
         ]
@@ -777,15 +777,15 @@
         "food": 2400000,
         "goods": [
           {
-            "type": "Cartwheel",
+            "type": "cartwheel",
             "amount": 1600
           },
           {
-            "type": "Ink",
+            "type": "ink",
             "amount": 1600
           },
           {
-            "type": "Salt",
+            "type": "salt",
             "amount": 1600
           }
         ]
@@ -800,15 +800,15 @@
         "food": 270000,
         "goods": [
           {
-            "type": "Cartwheel",
+            "type": "cartwheel",
             "amount": 210
           },
           {
-            "type": "Ink",
+            "type": "ink",
             "amount": 210
           },
           {
-            "type": "Salt",
+            "type": "salt",
             "amount": 210
           }
         ]
@@ -823,19 +823,19 @@
         "food": 310000,
         "goods": [
           {
-            "type": "Primary_FA",
+            "type": "primary_fa",
             "amount": 230
           },
           {
-            "type": "Secondary_FA",
+            "type": "secondary_fa",
             "amount": 230
           },
           {
-            "type": "Ceramic_Treasure",
+            "type": "ceramic_treasure",
             "amount": 120
           },
           {
-            "type": "Gold_Treasure",
+            "type": "gold_treasure",
             "amount": 80
           }
         ]
@@ -850,19 +850,19 @@
         "food": 330000,
         "goods": [
           {
-            "type": "Primary_FA",
+            "type": "primary_fa",
             "amount": 250
           },
           {
-            "type": "Tertiary_FA",
+            "type": "tertiary_fa",
             "amount": 250
           },
           {
-            "type": "Ceramic_Treasure",
+            "type": "ceramic_treasure",
             "amount": 240
           },
           {
-            "type": "Gold_Treasure",
+            "type": "gold_treasure",
             "amount": 160
           }
         ]
@@ -877,15 +877,15 @@
         "food": 2870000,
         "goods": [
           {
-            "type": "Cartwheel",
+            "type": "cartwheel",
             "amount": 1740
           },
           {
-            "type": "Ink",
+            "type": "ink",
             "amount": 1740
           },
           {
-            "type": "Salt",
+            "type": "salt",
             "amount": 1740
           }
         ]
@@ -900,15 +900,15 @@
         "food": 2870000,
         "goods": [
           {
-            "type": "Cartwheel",
+            "type": "cartwheel",
             "amount": 1740
           },
           {
-            "type": "Ink",
+            "type": "ink",
             "amount": 1740
           },
           {
-            "type": "Salt",
+            "type": "salt",
             "amount": 1740
           }
         ]
@@ -923,15 +923,15 @@
         "food": 2870000,
         "goods": [
           {
-            "type": "Cartwheel",
+            "type": "cartwheel",
             "amount": 1740
           },
           {
-            "type": "Ink",
+            "type": "ink",
             "amount": 1740
           },
           {
-            "type": "Salt",
+            "type": "salt",
             "amount": 1740
           }
         ]
@@ -947,15 +947,15 @@
         "food": 1000000,
         "goods": [
           {
-            "type": "Primary_BE",
+            "type": "primary_be",
             "amount": 3680
           },
           {
-            "type": "Primary_AF",
+            "type": "primary_af",
             "amount": 6620
           },
           {
-            "type": "Tertiary_AF",
+            "type": "tertiary_af",
             "amount": 1660
           }
         ]
@@ -969,15 +969,15 @@
         "food": 2500000,
         "goods": [
           {
-            "type": "Primary_RE",
+            "type": "primary_re",
             "amount": 2590
           },
           {
-            "type": "Primary_AF",
+            "type": "primary_af",
             "amount": 2590
           },
           {
-            "type": "Secondary_AF",
+            "type": "secondary_af",
             "amount": 6210
           }
         ]
@@ -991,15 +991,15 @@
         "food": 1600000,
         "goods": [
           {
-            "type": "Tertiary_RE",
+            "type": "tertiary_re",
             "amount": 2840
           },
           {
-            "type": "Primary_FA",
+            "type": "primary_fa",
             "amount": 680
           },
           {
-            "type": "Secondary_FA",
+            "type": "secondary_fa",
             "amount": 2730
           }
         ]
@@ -1013,15 +1013,15 @@
         "food": 2200000,
         "goods": [
           {
-            "type": "Secondary_BE",
+            "type": "secondary_be",
             "amount": 5300
           },
           {
-            "type": "Primary_AF",
+            "type": "primary_af",
             "amount": 2380
           },
           {
-            "type": "Primary_FA",
+            "type": "primary_fa",
             "amount": 6360
           }
         ]
@@ -1035,15 +1035,15 @@
         "food": 2900000,
         "goods": [
           {
-            "type": "Secondary_BE",
+            "type": "secondary_be",
             "amount": 2450
           },
           {
-            "type": "Tertiary_AF",
+            "type": "tertiary_af",
             "amount": 7350
           },
           {
-            "type": "Tertiary_FA",
+            "type": "tertiary_fa",
             "amount": 2040
           }
         ]
@@ -1057,15 +1057,15 @@
         "food": 2600000,
         "goods": [
           {
-            "type": "Secondary_AF",
+            "type": "secondary_af",
             "amount": 1640
           },
           {
-            "type": "Secondary_FA",
+            "type": "secondary_fa",
             "amount": 1820
           },
           {
-            "type": "Tertiary_FA",
+            "type": "tertiary_fa",
             "amount": 4360
           }
         ]
@@ -1079,15 +1079,15 @@
         "food": 1900000,
         "goods": [
           {
-            "type": "Primary_BE",
+            "type": "primary_be",
             "amount": 3030
           },
           {
-            "type": "Tertiary_BE",
+            "type": "tertiary_be",
             "amount": 1820
           },
           {
-            "type": "Secondary_FA",
+            "type": "secondary_fa",
             "amount": 3630
           }
         ]
@@ -1101,15 +1101,15 @@
         "food": 1400000,
         "goods": [
           {
-            "type": "Secondary_ER",
+            "type": "secondary_er",
             "amount": 3530
           },
           {
-            "type": "Secondary_RE",
+            "type": "secondary_re",
             "amount": 4900
           },
           {
-            "type": "Primary_AF",
+            "type": "primary_af",
             "amount": 7050
           }
         ]
@@ -1123,15 +1123,15 @@
         "food": 851000,
         "goods": [
           {
-            "type": "Primary_AF",
+            "type": "primary_af",
             "amount": 2210
           },
           {
-            "type": "Tertiary_AF",
+            "type": "tertiary_af",
             "amount": 3690
           },
           {
-            "type": "Primary_FA",
+            "type": "primary_fa",
             "amount": 5900
           }
         ]
@@ -1145,15 +1145,15 @@
         "food": 1300000,
         "goods": [
           {
-            "type": "Primary_RE",
+            "type": "primary_re",
             "amount": 5660
           },
           {
-            "type": "Tertiary_BE",
+            "type": "tertiary_be",
             "amount": 2720
           },
           {
-            "type": "Tertiary_FA",
+            "type": "tertiary_fa",
             "amount": 5430
           }
         ]
@@ -1167,15 +1167,15 @@
         "food": 1200000,
         "goods": [
           {
-            "type": "Secondary_AF",
+            "type": "secondary_af",
             "amount": 8670
           },
           {
-            "type": "Secondary_FA",
+            "type": "secondary_fa",
             "amount": 2480
           },
           {
-            "type": "Ceramic_Treasure",
+            "type": "ceramic_treasure",
             "amount": 250
           }
         ]
@@ -1189,15 +1189,15 @@
         "food": 2500000,
         "goods": [
           {
-            "type": "Secondary_BE",
+            "type": "secondary_be",
             "amount": 2260
           },
           {
-            "type": "Primary_FA",
+            "type": "primary_fa",
             "amount": 1890
           },
           {
-            "type": "Secondary_FA",
+            "type": "secondary_fa",
             "amount": 4520
           }
         ]
@@ -1211,15 +1211,15 @@
         "food": 1800000,
         "goods": [
           {
-            "type": "Primary_BE",
+            "type": "primary_be",
             "amount": 2670
           },
           {
-            "type": "Secondary_BE",
+            "type": "secondary_be",
             "amount": 4450
           },
           {
-            "type": "Tertiary_AF",
+            "type": "tertiary_af",
             "amount": 8010
           }
         ]
@@ -1233,15 +1233,15 @@
         "food": 1000000,
         "goods": [
           {
-            "type": "Primary_ER",
+            "type": "primary_er",
             "amount": 3610
           },
           {
-            "type": "Tertiary_BE",
+            "type": "tertiary_be",
             "amount": 4010
           },
           {
-            "type": "Tertiary_FA",
+            "type": "tertiary_fa",
             "amount": 4810
           }
         ]
@@ -1255,15 +1255,15 @@
         "food": 3300000,
         "goods": [
           {
-            "type": "Tertiary_RE",
+            "type": "tertiary_re",
             "amount": 6620
           },
           {
-            "type": "Secondary_AF",
+            "type": "secondary_af",
             "amount": 2380
           },
           {
-            "type": "Primary_FA",
+            "type": "primary_fa",
             "amount": 6360
           }
         ]
@@ -1277,15 +1277,15 @@
         "food": 1500000,
         "goods": [
           {
-            "type": "Tertiary_BE",
+            "type": "tertiary_be",
             "amount": 2600
           },
           {
-            "type": "Primary_FA",
+            "type": "primary_fa",
             "amount": 2170
           },
           {
-            "type": "Tertiary_FA",
+            "type": "tertiary_fa",
             "amount": 5190
           }
         ]
@@ -1299,15 +1299,15 @@
         "food": 1300000,
         "goods": [
           {
-            "type": "Primary_FA",
+            "type": "primary_fa",
             "amount": 1870
           },
           {
-            "type": "Tertiary_FA",
+            "type": "tertiary_fa",
             "amount": 4360
           },
           {
-            "type": "Gold_Treasure",
+            "type": "gold_treasure",
             "amount": 200
           }
         ]
@@ -1321,15 +1321,15 @@
         "food": 1600000,
         "goods": [
           {
-            "type": "Primary_BE",
+            "type": "primary_be",
             "amount": 2340
           },
           {
-            "type": "Secondary_AF",
+            "type": "secondary_af",
             "amount": 2930
           },
           {
-            "type": "Primary_FA",
+            "type": "primary_fa",
             "amount": 4690
           }
         ]
@@ -1343,15 +1343,15 @@
         "food": 2000000,
         "goods": [
           {
-            "type": "Secondary_BE",
+            "type": "secondary_be",
             "amount": 3440
           },
           {
-            "type": "Tertiary_AF",
+            "type": "tertiary_af",
             "amount": 1550
           },
           {
-            "type": "Secondary_FA",
+            "type": "secondary_fa",
             "amount": 4120
           }
         ]
@@ -1365,15 +1365,15 @@
         "food": 2400000,
         "goods": [
           {
-            "type": "Secondary_ER",
+            "type": "secondary_er",
             "amount": 4180
           },
           {
-            "type": "Secondary_AF",
+            "type": "secondary_af",
             "amount": 8360
           },
           {
-            "type": "Tertiary_FA",
+            "type": "tertiary_fa",
             "amount": 2320
           }
         ]
@@ -1387,15 +1387,15 @@
         "food": 2900000,
         "goods": [
           {
-            "type": "Primary_BE",
+            "type": "primary_be",
             "amount": 10600
           },
           {
-            "type": "Secondary_FA",
+            "type": "secondary_fa",
             "amount": 2270
           },
           {
-            "type": "Ceramic_Treasure",
+            "type": "ceramic_treasure",
             "amount": 500
           }
         ]
@@ -1409,15 +1409,15 @@
         "food": 1100000,
         "goods": [
           {
-            "type": "Tertiary_RE",
+            "type": "tertiary_re",
             "amount": 4330
           },
           {
-            "type": "Primary_AF",
+            "type": "primary_af",
             "amount": 1560
           },
           {
-            "type": "Primary_FA",
+            "type": "primary_fa",
             "amount": 4160
           }
         ]
@@ -1431,15 +1431,15 @@
         "food": 2900000,
         "goods": [
           {
-            "type": "Primary_FA",
+            "type": "primary_fa",
             "amount": 2260
           },
           {
-            "type": "Tertiary_FA",
+            "type": "tertiary_fa",
             "amount": 5280
           },
           {
-            "type": "Gold_Treasure",
+            "type": "gold_treasure",
             "amount": 400
           }
         ]
@@ -1453,15 +1453,15 @@
         "food": 1200000,
         "goods": [
           {
-            "type": "Secondary_BE",
+            "type": "secondary_be",
             "amount": 9800
           },
           {
-            "type": "Primary_AF",
+            "type": "primary_af",
             "amount": 1840
           },
           {
-            "type": "Secondary_AF",
+            "type": "secondary_af",
             "amount": 3070
           }
         ]
@@ -1475,15 +1475,15 @@
         "food": 3300000,
         "goods": [
           {
-            "type": "Secondary_BE",
+            "type": "secondary_be",
             "amount": 3090
           },
           {
-            "type": "Tertiary_BE",
+            "type": "tertiary_be",
             "amount": 5150
           },
           {
-            "type": "Secondary_FA",
+            "type": "secondary_fa",
             "amount": 6170
           }
         ]
@@ -1497,15 +1497,15 @@
         "food": 2200000,
         "goods": [
           {
-            "type": "Tertiary_ER",
+            "type": "tertiary_er",
             "amount": 8280
           },
           {
-            "type": "Tertiary_FA",
+            "type": "tertiary_fa",
             "amount": 6440
           },
           {
-            "type": "Ceramic_Treasure",
+            "type": "ceramic_treasure",
             "amount": 1000
           }
         ]
@@ -1519,15 +1519,15 @@
         "food": 1500000,
         "goods": [
           {
-            "type": "Tertiary_BE",
+            "type": "tertiary_be",
             "amount": 12150
           },
           {
-            "type": "Secondary_FA",
+            "type": "secondary_fa",
             "amount": 2610
           },
           {
-            "type": "Gold_Treasure",
+            "type": "gold_treasure",
             "amount": 800
           }
         ]
@@ -1541,15 +1541,15 @@
         "food": 1400000,
         "goods": [
           {
-            "type": "Primary_BE",
+            "type": "primary_be",
             "amount": 3720
           },
           {
-            "type": "Secondary_AF",
+            "type": "secondary_af",
             "amount": 1680
           },
           {
-            "type": "Primary_FA",
+            "type": "primary_fa",
             "amount": 4470
           }
         ]
@@ -1563,15 +1563,15 @@
         "food": 2600000,
         "goods": [
           {
-            "type": "Tertiary_BE",
+            "type": "tertiary_be",
             "amount": 2330
           },
           {
-            "type": "Tertiary_AF",
+            "type": "tertiary_af",
             "amount": 2920
           },
           {
-            "type": "Primary_FA",
+            "type": "primary_fa",
             "amount": 4670
           }
         ]
@@ -1585,15 +1585,15 @@
         "food": 873000,
         "goods": [
           {
-            "type": "Secondary_BE",
+            "type": "secondary_be",
             "amount": 4360
           },
           {
-            "type": "Tertiary_AF",
+            "type": "tertiary_af",
             "amount": 1960
           },
           {
-            "type": "Secondary_FA",
+            "type": "secondary_fa",
             "amount": 5230
           }
         ]
@@ -1607,15 +1607,15 @@
         "food": 2200000,
         "goods": [
           {
-            "type": "Tertiary_AF",
+            "type": "tertiary_af",
             "amount": 7970
           },
           {
-            "type": "Tertiary_FA",
+            "type": "tertiary_fa",
             "amount": 2280
           },
           {
-            "type": "Ceramic_Treasure",
+            "type": "ceramic_treasure",
             "amount": 1500
           }
         ]
@@ -1629,15 +1629,15 @@
         "food": 910000,
         "goods": [
           {
-            "type": "Primary_AF",
+            "type": "primary_af",
             "amount": 3600
           },
           {
-            "type": "Tertiary_FA",
+            "type": "tertiary_fa",
             "amount": 5590
           },
           {
-            "type": "Gold_Treasure",
+            "type": "gold_treasure",
             "amount": 1200
           }
         ]
@@ -1651,15 +1651,15 @@
         "food": 3000000,
         "goods": [
           {
-            "type": "Secondary_FA",
+            "type": "secondary_fa",
             "amount": 8380
           },
           {
-            "type": "Ceramic_Treasure",
+            "type": "ceramic_treasure",
             "amount": 2000
           },
           {
-            "type": "Gold_Treasure",
+            "type": "gold_treasure",
             "amount": 1600
           }
         ]
@@ -1673,15 +1673,15 @@
         "food": 969000,
         "goods": [
           {
-            "type": "Primary_ER",
+            "type": "primary_er",
             "amount": 2820
           },
           {
-            "type": "Primary_AF",
+            "type": "primary_af",
             "amount": 5640
           },
           {
-            "type": "Tertiary_AF",
+            "type": "tertiary_af",
             "amount": 2350
           }
         ]
@@ -1695,15 +1695,15 @@
         "food": 1600000,
         "goods": [
           {
-            "type": "Primary_BE",
+            "type": "primary_be",
             "amount": 1520
           },
           {
-            "type": "Secondary_BE",
+            "type": "secondary_be",
             "amount": 910
           },
           {
-            "type": "Secondary_AF",
+            "type": "secondary_af",
             "amount": 2730
           }
         ]
@@ -1717,15 +1717,15 @@
         "food": 1300000,
         "goods": [
           {
-            "type": "Secondary_AF",
+            "type": "secondary_af",
             "amount": 1840
           },
           {
-            "type": "Primary_FA",
+            "type": "primary_fa",
             "amount": 4900
           },
           {
-            "type": "Tertiary_FA",
+            "type": "tertiary_fa",
             "amount": 2040
           }
         ]
@@ -1739,15 +1739,15 @@
         "food": 1800000,
         "goods": [
           {
-            "type": "Secondary_RE",
+            "type": "secondary_re",
             "amount": 9760
           },
           {
-            "type": "Primary_BE",
+            "type": "primary_be",
             "amount": 1950
           },
           {
-            "type": "Primary_FA",
+            "type": "primary_fa",
             "amount": 1630
           }
         ]
@@ -1761,15 +1761,15 @@
         "food": 777000,
         "goods": [
           {
-            "type": "Primary_RE",
+            "type": "primary_re",
             "amount": 2840
           },
           {
-            "type": "Tertiary_AF",
+            "type": "tertiary_af",
             "amount": 1020
           },
           {
-            "type": "Primary_FA",
+            "type": "primary_fa",
             "amount": 2730
           }
         ]
@@ -1783,15 +1783,15 @@
         "food": 2900000,
         "goods": [
           {
-            "type": "Tertiary_BE",
+            "type": "tertiary_be",
             "amount": 2440
           },
           {
-            "type": "Primary_AF",
+            "type": "primary_af",
             "amount": 7330
           },
           {
-            "type": "Secondary_FA",
+            "type": "secondary_fa",
             "amount": 2040
           }
         ]

@@ -9,15 +9,15 @@
         "rice": 600,
         "goods": [
           {
-            "type": "Toga",
+            "type": "toga",
             "amount": 210
           },
           {
-            "type": "Column",
+            "type": "column",
             "amount": 210
           },
           {
-            "type": "Silver_Ring",
+            "type": "silver_ring",
             "amount": 210
           }
         ]
@@ -32,15 +32,15 @@
         "rice": 14000,
         "goods": [
           {
-            "type": "Primary_ER",
+            "type": "primary_er",
             "amount": 235
           },
           {
-            "type": "Secondary_ER",
+            "type": "secondary_er",
             "amount": 120
           },
           {
-            "type": "Silk",
+            "type": "silk",
             "amount": 200
           }
         ]
@@ -55,15 +55,15 @@
         "rice": 20000,
         "goods": [
           {
-            "type": "Secondary_ER",
+            "type": "secondary_er",
             "amount": 275
           },
           {
-            "type": "Tertiary_ER",
+            "type": "tertiary_er",
             "amount": 140
           },
           {
-            "type": "Silk",
+            "type": "silk",
             "amount": 540
           }
         ]
@@ -78,15 +78,15 @@
         "rice": 30000,
         "goods": [
           {
-            "type": "Secondary_ER",
+            "type": "secondary_er",
             "amount": 180
           },
           {
-            "type": "Tertiary_ER",
+            "type": "tertiary_er",
             "amount": 535
           },
           {
-            "type": "Silk",
+            "type": "silk",
             "amount": 670
           }
         ]
@@ -101,19 +101,19 @@
         "rice": 49000,
         "goods": [
           {
-            "type": "Silk",
+            "type": "silk",
             "amount": 210
           },
           {
-            "type": "Primary_RE",
+            "type": "primary_re",
             "amount": 365
           },
           {
-            "type": "Secondary_RE",
+            "type": "secondary_re",
             "amount": 180
           },
           {
-            "type": "Porcelain",
+            "type": "porcelain",
             "amount": 485
           }
         ]
@@ -128,19 +128,19 @@
         "rice": 74000,
         "goods": [
           {
-            "type": "Silk",
+            "type": "silk",
             "amount": 215
           },
           {
-            "type": "Secondary_RE",
+            "type": "secondary_re",
             "amount": 245
           },
           {
-            "type": "Tertiary_RE",
+            "type": "tertiary_re",
             "amount": 370
           },
           {
-            "type": "Porcelain",
+            "type": "porcelain",
             "amount": 495
           }
         ]
@@ -155,15 +155,15 @@
         "rice": 800,
         "goods": [
           {
-            "type": "Toga",
+            "type": "toga",
             "amount": 260
           },
           {
-            "type": "Column",
+            "type": "column",
             "amount": 260
           },
           {
-            "type": "Silver_Ring",
+            "type": "silver_ring",
             "amount": 260
           }
         ]
@@ -178,15 +178,15 @@
         "rice": 17000,
         "goods": [
           {
-            "type": "Primary_ER",
+            "type": "primary_er",
             "amount": 295
           },
           {
-            "type": "Secondary_ER",
+            "type": "secondary_er",
             "amount": 150
           },
           {
-            "type": "Silk",
+            "type": "silk",
             "amount": 250
           }
         ]
@@ -201,15 +201,15 @@
         "rice": 26000,
         "goods": [
           {
-            "type": "Secondary_ER",
+            "type": "secondary_er",
             "amount": 345
           },
           {
-            "type": "Tertiary_ER",
+            "type": "tertiary_er",
             "amount": 170
           },
           {
-            "type": "Silk",
+            "type": "silk",
             "amount": 675
           }
         ]
@@ -224,15 +224,15 @@
         "rice": 38000,
         "goods": [
           {
-            "type": "Secondary_ER",
+            "type": "secondary_er",
             "amount": 225
           },
           {
-            "type": "Tertiary_ER",
+            "type": "tertiary_er",
             "amount": 670
           },
           {
-            "type": "Silk",
+            "type": "silk",
             "amount": 840
           }
         ]
@@ -247,19 +247,19 @@
         "rice": 62000,
         "goods": [
           {
-            "type": "Silk",
+            "type": "silk",
             "amount": 260
           },
           {
-            "type": "Primary_RE",
+            "type": "primary_re",
             "amount": 455
           },
           {
-            "type": "Secondary_RE",
+            "type": "secondary_re",
             "amount": 225
           },
           {
-            "type": "Porcelain",
+            "type": "porcelain",
             "amount": 610
           }
         ]
@@ -274,19 +274,19 @@
         "rice": 93000,
         "goods": [
           {
-            "type": "Silk",
+            "type": "silk",
             "amount": 265
           },
           {
-            "type": "Secondary_RE",
+            "type": "secondary_re",
             "amount": 310
           },
           {
-            "type": "Tertiary_RE",
+            "type": "tertiary_re",
             "amount": 460
           },
           {
-            "type": "Porcelain",
+            "type": "porcelain",
             "amount": 625
           }
         ]
@@ -301,15 +301,15 @@
         "rice": 100,
         "goods": [
           {
-            "type": "Toga",
+            "type": "toga",
             "amount": 50
           },
           {
-            "type": "Column",
+            "type": "column",
             "amount": 50
           },
           {
-            "type": "Silver_Ring",
+            "type": "silver_ring",
             "amount": 50
           }
         ]
@@ -324,15 +324,15 @@
         "rice": 3400,
         "goods": [
           {
-            "type": "Primary_ER",
+            "type": "primary_er",
             "amount": 59
           },
           {
-            "type": "Secondary_ER",
+            "type": "secondary_er",
             "amount": 30
           },
           {
-            "type": "Silk",
+            "type": "silk",
             "amount": 50
           }
         ]
@@ -347,15 +347,15 @@
         "rice": 5100,
         "goods": [
           {
-            "type": "Secondary_ER",
+            "type": "secondary_er",
             "amount": 70
           },
           {
-            "type": "Tertiary_ER",
+            "type": "tertiary_er",
             "amount": 35
           },
           {
-            "type": "Silk",
+            "type": "silk",
             "amount": 135
           }
         ]
@@ -370,15 +370,15 @@
         "rice": 7600,
         "goods": [
           {
-            "type": "Secondary_ER",
+            "type": "secondary_er",
             "amount": 45
           },
           {
-            "type": "Tertiary_ER",
+            "type": "tertiary_er",
             "amount": 135
           },
           {
-            "type": "Silk",
+            "type": "silk",
             "amount": 170
           }
         ]
@@ -393,19 +393,19 @@
         "rice": 12000,
         "goods": [
           {
-            "type": "Silk",
+            "type": "silk",
             "amount": 52
           },
           {
-            "type": "Primary_RE",
+            "type": "primary_re",
             "amount": 90
           },
           {
-            "type": "Secondary_RE",
+            "type": "secondary_re",
             "amount": 45
           },
           {
-            "type": "Porcelain",
+            "type": "porcelain",
             "amount": 125
           }
         ]
@@ -420,19 +420,19 @@
         "rice": 18000,
         "goods": [
           {
-            "type": "Silk",
+            "type": "silk",
             "amount": 54
           },
           {
-            "type": "Secondary_RE",
+            "type": "secondary_re",
             "amount": 62
           },
           {
-            "type": "Tertiary_RE",
+            "type": "tertiary_re",
             "amount": 93
           },
           {
-            "type": "Porcelain",
+            "type": "porcelain",
             "amount": 125
           }
         ]
@@ -447,15 +447,15 @@
         "food": 1170000,
         "goods": [
           {
-            "type": "Primary_ER",
+            "type": "primary_er",
             "amount": 2460
           },
           {
-            "type": "Tertiary_ER",
+            "type": "tertiary_er",
             "amount": 2460
           },
           {
-            "type": "Silk",
+            "type": "silk",
             "amount": 2840
           }
         ]
@@ -470,15 +470,15 @@
         "food": 1440000,
         "goods": [
           {
-            "type": "Primary_ER",
+            "type": "primary_er",
             "amount": 2830
           },
           {
-            "type": "Tertiary_ER",
+            "type": "tertiary_er",
             "amount": 2830
           },
           {
-            "type": "Silk",
+            "type": "silk",
             "amount": 3530
           }
         ]
@@ -493,15 +493,15 @@
         "food": 810000,
         "goods": [
           {
-            "type": "Primary_ER",
+            "type": "primary_er",
             "amount": 2050
           },
           {
-            "type": "Tertiary_ER",
+            "type": "tertiary_er",
             "amount": 2050
           },
           {
-            "type": "Silk",
+            "type": "silk",
             "amount": 2350
           }
         ]
@@ -516,15 +516,15 @@
         "food": 1000000,
         "goods": [
           {
-            "type": "Primary_ER",
+            "type": "primary_er",
             "amount": 2255
           },
           {
-            "type": "Tertiary_ER",
+            "type": "tertiary_er",
             "amount": 2255
           },
           {
-            "type": "Silk",
+            "type": "silk",
             "amount": 2605
           }
         ]
@@ -539,15 +539,15 @@
         "food": 4100000,
         "goods": [
           {
-            "type": "Primary_ER",
+            "type": "primary_er",
             "amount": 8025
           },
           {
-            "type": "Tertiary_ER",
+            "type": "tertiary_er",
             "amount": 8025
           },
           {
-            "type": "Silk",
+            "type": "silk",
             "amount": 5740
           }
         ]
@@ -616,15 +616,15 @@
         "food": 990000,
         "goods": [
           {
-            "type": "Secondary_ER",
+            "type": "secondary_er",
             "amount": 5290
           },
           {
-            "type": "Tertiary_ER",
+            "type": "tertiary_er",
             "amount": 2645
           },
           {
-            "type": "Silk",
+            "type": "silk",
             "amount": 2410
           }
         ]
@@ -639,15 +639,15 @@
         "food": 170000,
         "goods": [
           {
-            "type": "Secondary_ER",
+            "type": "secondary_er",
             "amount": 845
           },
           {
-            "type": "Tertiary_ER",
+            "type": "tertiary_er",
             "amount": 425
           },
           {
-            "type": "Silk",
+            "type": "silk",
             "amount": 910
           }
         ]
@@ -662,19 +662,19 @@
         "food": 190000,
         "goods": [
           {
-            "type": "Silk",
+            "type": "silk",
             "amount": 355
           },
           {
-            "type": "Primary_RE",
+            "type": "primary_re",
             "amount": 460
           },
           {
-            "type": "Secondary_RE",
+            "type": "secondary_re",
             "amount": 460
           },
           {
-            "type": "Porcelain",
+            "type": "porcelain",
             "amount": 825
           }
         ]
@@ -689,19 +689,19 @@
         "food": 210000,
         "goods": [
           {
-            "type": "Silk",
+            "type": "silk",
             "amount": 460
           },
           {
-            "type": "Primary_RE",
+            "type": "primary_re",
             "amount": 490
           },
           {
-            "type": "Tertiary_RE",
+            "type": "tertiary_re",
             "amount": 490
           },
           {
-            "type": "Porcelain",
+            "type": "porcelain",
             "amount": 1075
           }
         ]
@@ -716,15 +716,15 @@
         "food": 690000,
         "goods": [
           {
-            "type": "Secondary_ER",
+            "type": "secondary_er",
             "amount": 3720
           },
           {
-            "type": "Tertiary_ER",
+            "type": "tertiary_er",
             "amount": 1860
           },
           {
-            "type": "Silk",
+            "type": "silk",
             "amount": 1645
           }
         ]
@@ -739,15 +739,15 @@
         "food": 110000,
         "goods": [
           {
-            "type": "Secondary_ER",
+            "type": "secondary_er",
             "amount": 595
           },
           {
-            "type": "Tertiary_ER",
+            "type": "tertiary_er",
             "amount": 300
           },
           {
-            "type": "Silk",
+            "type": "silk",
             "amount": 605
           }
         ]
@@ -762,19 +762,19 @@
         "food": 130000,
         "goods": [
           {
-            "type": "Silk",
+            "type": "silk",
             "amount": 235
           },
           {
-            "type": "Primary_RE",
+            "type": "primary_re",
             "amount": 325
           },
           {
-            "type": "Secondary_RE",
+            "type": "secondary_re",
             "amount": 325
           },
           {
-            "type": "Porcelain",
+            "type": "porcelain",
             "amount": 555
           }
         ]
@@ -789,19 +789,19 @@
         "food": 150000,
         "goods": [
           {
-            "type": "Silk",
+            "type": "silk",
             "amount": 310
           },
           {
-            "type": "Primary_RE",
+            "type": "primary_re",
             "amount": 345
           },
           {
-            "type": "Tertiary_RE",
+            "type": "tertiary_re",
             "amount": 345
           },
           {
-            "type": "Porcelain",
+            "type": "porcelain",
             "amount": 720
           }
         ]
@@ -816,15 +816,15 @@
         "food": 1400000,
         "goods": [
           {
-            "type": "Secondary_ER",
+            "type": "secondary_er",
             "amount": 3110
           },
           {
-            "type": "Tertiary_ER",
+            "type": "tertiary_er",
             "amount": 1555
           },
           {
-            "type": "Silk",
+            "type": "silk",
             "amount": 1340
           }
         ]
@@ -839,15 +839,15 @@
         "food": 230000,
         "goods": [
           {
-            "type": "Secondary_ER",
+            "type": "secondary_er",
             "amount": 495
           },
           {
-            "type": "Tertiary_ER",
+            "type": "tertiary_er",
             "amount": 250
           },
           {
-            "type": "Silk",
+            "type": "silk",
             "amount": 505
           }
         ]
@@ -862,19 +862,19 @@
         "food": 260000,
         "goods": [
           {
-            "type": "Silk",
+            "type": "silk",
             "amount": 195
           },
           {
-            "type": "Primary_RE",
+            "type": "primary_re",
             "amount": 270
           },
           {
-            "type": "Secondary_RE",
+            "type": "secondary_re",
             "amount": 270
           },
           {
-            "type": "Porcelain",
+            "type": "porcelain",
             "amount": 460
           }
         ]
@@ -889,19 +889,19 @@
         "food": 290000,
         "goods": [
           {
-            "type": "Silk",
+            "type": "silk",
             "amount": 255
           },
           {
-            "type": "Primary_RE",
+            "type": "primary_re",
             "amount": 290
           },
           {
-            "type": "Tertiary_RE",
+            "type": "tertiary_re",
             "amount": 290
           },
           {
-            "type": "Porcelain",
+            "type": "porcelain",
             "amount": 600
           }
         ]
@@ -916,15 +916,15 @@
         "food": 540000,
         "goods": [
           {
-            "type": "Secondary_ER",
+            "type": "secondary_er",
             "amount": 935
           },
           {
-            "type": "Tertiary_ER",
+            "type": "tertiary_er",
             "amount": 935
           },
           {
-            "type": "Silk",
+            "type": "silk",
             "amount": 545
           }
         ]
@@ -939,15 +939,15 @@
         "food": 89000,
         "goods": [
           {
-            "type": "Secondary_ER",
+            "type": "secondary_er",
             "amount": 150
           },
           {
-            "type": "Tertiary_ER",
+            "type": "tertiary_er",
             "amount": 150
           },
           {
-            "type": "Silk",
+            "type": "silk",
             "amount": 200
           }
         ]
@@ -962,19 +962,19 @@
         "food": 100000,
         "goods": [
           {
-            "type": "Silk",
+            "type": "silk",
             "amount": 80
           },
           {
-            "type": "Primary_RE",
+            "type": "primary_re",
             "amount": 110
           },
           {
-            "type": "Secondary_RE",
+            "type": "secondary_re",
             "amount": 110
           },
           {
-            "type": "Porcelain",
+            "type": "porcelain",
             "amount": 185
           }
         ]
@@ -989,19 +989,19 @@
         "food": 110000,
         "goods": [
           {
-            "type": "Silk",
+            "type": "silk",
             "amount": 100
           },
           {
-            "type": "Primary_RE",
+            "type": "primary_re",
             "amount": 115
           },
           {
-            "type": "Tertiary_RE",
+            "type": "tertiary_re",
             "amount": 115
           },
           {
-            "type": "Porcelain",
+            "type": "porcelain",
             "amount": 240
           }
         ]
@@ -1016,15 +1016,15 @@
         "food": 950000,
         "goods": [
           {
-            "type": "Primary_ER",
+            "type": "primary_er",
             "amount": 1225
           },
           {
-            "type": "Secondary_ER",
+            "type": "secondary_er",
             "amount": 1225
           },
           {
-            "type": "Silk",
+            "type": "silk",
             "amount": 1220
           }
         ]
@@ -1039,15 +1039,15 @@
         "food": 950000,
         "goods": [
           {
-            "type": "Primary_ER",
+            "type": "primary_er",
             "amount": 1225
           },
           {
-            "type": "Secondary_ER",
+            "type": "secondary_er",
             "amount": 1225
           },
           {
-            "type": "Silk",
+            "type": "silk",
             "amount": 1220
           }
         ]
@@ -1062,15 +1062,15 @@
         "food": 950000,
         "goods": [
           {
-            "type": "Primary_ER",
+            "type": "primary_er",
             "amount": 1225
           },
           {
-            "type": "Secondary_ER",
+            "type": "secondary_er",
             "amount": 1225
           },
           {
-            "type": "Silk",
+            "type": "silk",
             "amount": 1220
           }
         ]
@@ -1086,11 +1086,11 @@
         "food": 355000,
         "goods": [
           {
-            "type": "Tertiary_ME",
+            "type": "tertiary_me",
             "amount": 2590
           },
           {
-            "type": "Primary_ER",
+            "type": "primary_er",
             "amount": 3620
           }
         ]
@@ -1104,15 +1104,15 @@
         "food": 444000,
         "goods": [
           {
-            "type": "Primary_BA",
+            "type": "primary_ba",
             "amount": 1940
           },
           {
-            "type": "Secondary_ER",
+            "type": "secondary_er",
             "amount": 3880
           },
           {
-            "type": "Tertiary_ER",
+            "type": "tertiary_er",
             "amount": 1615
           }
         ]
@@ -1126,15 +1126,15 @@
         "food": 693000,
         "goods": [
           {
-            "type": "Tertiary_BA",
+            "type": "tertiary_ba",
             "amount": 3025
           },
           {
-            "type": "Primary_RE",
+            "type": "primary_re",
             "amount": 1680
           },
           {
-            "type": "Tertiary_RE",
+            "type": "tertiary_re",
             "amount": 4035
           }
         ]
@@ -1148,15 +1148,15 @@
         "food": 675000,
         "goods": [
           {
-            "type": "Primary_ER",
+            "type": "primary_er",
             "amount": 1475
           },
           {
-            "type": "Secondary_ER",
+            "type": "secondary_er",
             "amount": 2460
           },
           {
-            "type": "Secondary_RE",
+            "type": "secondary_re",
             "amount": 3935
           }
         ]
@@ -1170,15 +1170,15 @@
         "food": 657000,
         "goods": [
           {
-            "type": "Primary_RE",
+            "type": "primary_re",
             "amount": 955
           },
           {
-            "type": "Secondary_RE",
+            "type": "secondary_re",
             "amount": 1595
           },
           {
-            "type": "Tertiary_RE",
+            "type": "tertiary_re",
             "amount": 3830
           }
         ]
@@ -1192,15 +1192,15 @@
         "food": 711000,
         "goods": [
           {
-            "type": "Primary_BA",
+            "type": "primary_ba",
             "amount": 3105
           },
           {
-            "type": "Primary_RE",
+            "type": "primary_re",
             "amount": 4140
           },
           {
-            "type": "Tertiary_RE",
+            "type": "tertiary_re",
             "amount": 1725
           }
         ]
@@ -1214,15 +1214,15 @@
         "food": 569000,
         "goods": [
           {
-            "type": "Secondary_ER",
+            "type": "secondary_er",
             "amount": 1240
           },
           {
-            "type": "Tertiary_ER",
+            "type": "tertiary_er",
             "amount": 2070
           },
           {
-            "type": "Tertiary_RE",
+            "type": "tertiary_re",
             "amount": 3310
           }
         ]
@@ -1236,15 +1236,15 @@
         "food": 338000,
         "goods": [
           {
-            "type": "Porcelain",
+            "type": "porcelain",
             "amount": 500
           },
           {
-            "type": "Primary_RE",
+            "type": "primary_re",
             "amount": 985
           },
           {
-            "type": "Secondary_RE",
+            "type": "secondary_re",
             "amount": 2295
           }
         ]
@@ -1258,15 +1258,15 @@
         "food": 640000,
         "goods": [
           {
-            "type": "Primary_ME",
+            "type": "primary_me",
             "amount": 2330
           },
           {
-            "type": "Primary_RE",
+            "type": "primary_re",
             "amount": 3725
           },
           {
-            "type": "Secondary_RE",
+            "type": "secondary_re",
             "amount": 1550
           }
         ]
@@ -1280,15 +1280,15 @@
         "food": 711000,
         "goods": [
           {
-            "type": "Primary_CG",
+            "type": "primary_cg",
             "amount": 4140
           },
           {
-            "type": "Porcelain",
+            "type": "porcelain",
             "amount": 1000
           },
           {
-            "type": "Tertiary_RE",
+            "type": "tertiary_re",
             "amount": 4830
           }
         ]
@@ -1302,15 +1302,15 @@
         "food": 675000,
         "goods": [
           {
-            "type": "Tertiary_ER",
+            "type": "tertiary_er",
             "amount": 1475
           },
           {
-            "type": "Secondary_RE",
+            "type": "secondary_re",
             "amount": 3935
           },
           {
-            "type": "Tertiary_RE",
+            "type": "tertiary_re",
             "amount": 1640
           }
         ]
@@ -1324,11 +1324,11 @@
         "food": 391000,
         "goods": [
           {
-            "type": "Tertiary_ER",
+            "type": "tertiary_er",
             "amount": 1710
           },
           {
-            "type": "Primary_RE",
+            "type": "primary_re",
             "amount": 2655
           }
         ]
@@ -1342,15 +1342,15 @@
         "food": 622000,
         "goods": [
           {
-            "type": "Secondary_ME",
+            "type": "secondary_me",
             "amount": 2265
           },
           {
-            "type": "Tertiary_CG",
+            "type": "tertiary_cg",
             "amount": 7245
           },
           {
-            "type": "Secondary_ER",
+            "type": "secondary_er",
             "amount": 2265
           }
         ]
@@ -1364,15 +1364,15 @@
         "food": 782000,
         "goods": [
           {
-            "type": "Secondary_ME",
+            "type": "secondary_me",
             "amount": 2845
           },
           {
-            "type": "Primary_RE",
+            "type": "primary_re",
             "amount": 1900
           },
           {
-            "type": "Secondary_RE",
+            "type": "secondary_re",
             "amount": 4555
           }
         ]
@@ -1386,15 +1386,15 @@
         "food": 391000,
         "goods": [
           {
-            "type": "Primary_ER",
+            "type": "primary_er",
             "amount": 855
           },
           {
-            "type": "Secondary_ER",
+            "type": "secondary_er",
             "amount": 1425
           },
           {
-            "type": "Secondary_RE",
+            "type": "secondary_re",
             "amount": 2275
           }
         ]
@@ -1408,15 +1408,15 @@
         "food": 800000,
         "goods": [
           {
-            "type": "Tertiary_CG",
+            "type": "tertiary_cg",
             "amount": 2330
           },
           {
-            "type": "Primary_RE",
+            "type": "primary_re",
             "amount": 4660
           },
           {
-            "type": "Secondary_RE",
+            "type": "secondary_re",
             "amount": 1940
           }
         ]
@@ -1430,15 +1430,15 @@
         "food": 373000,
         "goods": [
           {
-            "type": "Porcelain",
+            "type": "porcelain",
             "amount": 3000
           },
           {
-            "type": "Primary_RE",
+            "type": "primary_re",
             "amount": 1085
           },
           {
-            "type": "Secondary_RE",
+            "type": "secondary_re",
             "amount": 2535
           }
         ]
@@ -1452,11 +1452,11 @@
         "food": 817000,
         "goods": [
           {
-            "type": "Secondary_ER",
+            "type": "secondary_er",
             "amount": 3570
           },
           {
-            "type": "Tertiary_RE",
+            "type": "tertiary_re",
             "amount": 5555
           }
         ]
@@ -1470,15 +1470,15 @@
         "food": 906000,
         "goods": [
           {
-            "type": "Primary_ER",
+            "type": "primary_er",
             "amount": 3300
           },
           {
-            "type": "Primary_RE",
+            "type": "primary_re",
             "amount": 5280
           },
           {
-            "type": "Tertiary_RE",
+            "type": "tertiary_re",
             "amount": 1320
           }
         ]
@@ -1492,15 +1492,15 @@
         "food": 462000,
         "goods": [
           {
-            "type": "Primary_RE",
+            "type": "primary_re",
             "amount": 675
           },
           {
-            "type": "Secondary_RE",
+            "type": "secondary_re",
             "amount": 1120
           },
           {
-            "type": "Tertiary_RE",
+            "type": "tertiary_re",
             "amount": 2690
           }
         ]
@@ -1514,15 +1514,15 @@
         "food": 604000,
         "goods": [
           {
-            "type": "Tertiary_ER",
+            "type": "tertiary_er",
             "amount": 2640
           },
           {
-            "type": "Porcelain",
+            "type": "porcelain",
             "amount": 6000
           },
           {
-            "type": "Secondary_RE",
+            "type": "secondary_re",
             "amount": 4105
           }
         ]
@@ -1536,15 +1536,15 @@
         "food": 373000,
         "goods": [
           {
-            "type": "Tertiary_CG",
+            "type": "tertiary_cg",
             "amount": 1085
           },
           {
-            "type": "Primary_RE",
+            "type": "primary_re",
             "amount": 2175
           },
           {
-            "type": "Secondary_RE",
+            "type": "secondary_re",
             "amount": 905
           }
         ]
@@ -1558,15 +1558,15 @@
         "food": 1000000,
         "goods": [
           {
-            "type": "Porcelain",
+            "type": "porcelain",
             "amount": 9000
           },
           {
-            "type": "Primary_RE",
+            "type": "primary_re",
             "amount": 2950
           },
           {
-            "type": "Tertiary_RE",
+            "type": "tertiary_re",
             "amount": 6885
           }
         ]
@@ -1580,15 +1580,15 @@
         "food": 409000,
         "goods": [
           {
-            "type": "Secondary_BA",
+            "type": "secondary_ba",
             "amount": 1785
           },
           {
-            "type": "Primary_ER",
+            "type": "primary_er",
             "amount": 1490
           },
           {
-            "type": "Tertiary_ER",
+            "type": "tertiary_er",
             "amount": 3570
           }
         ]
@@ -1602,15 +1602,15 @@
         "food": 480000,
         "goods": [
           {
-            "type": "Secondary_CG",
+            "type": "secondary_cg",
             "amount": 1395
           },
           {
-            "type": "Secondary_RE",
+            "type": "secondary_re",
             "amount": 2795
           },
           {
-            "type": "Tertiary_RE",
+            "type": "tertiary_re",
             "amount": 1165
           }
         ]
@@ -1624,15 +1624,15 @@
         "food": 267000,
         "goods": [
           {
-            "type": "Primary_ME",
+            "type": "primary_me",
             "amount": 970
           },
           {
-            "type": "Secondary_ER",
+            "type": "secondary_er",
             "amount": 2330
           },
           {
-            "type": "Tertiary_ER",
+            "type": "tertiary_er",
             "amount": 970
           }
         ]
@@ -1646,15 +1646,15 @@
         "food": 462000,
         "goods": [
           {
-            "type": "Tertiary_BA",
+            "type": "tertiary_ba",
             "amount": 2020
           },
           {
-            "type": "Secondary_CG",
+            "type": "secondary_cg",
             "amount": 5380
           },
           {
-            "type": "Primary_ER",
+            "type": "primary_er",
             "amount": 1680
           }
         ]
@@ -1668,11 +1668,11 @@
         "food": 515000,
         "goods": [
           {
-            "type": "Secondary_CG",
+            "type": "secondary_cg",
             "amount": 3000
           },
           {
-            "type": "Primary_ER",
+            "type": "primary_er",
             "amount": 5255
           }
         ]
@@ -1686,15 +1686,15 @@
         "food": 444000,
         "goods": [
           {
-            "type": "Secondary_BA",
+            "type": "secondary_ba",
             "amount": 1940
           },
           {
-            "type": "Primary_CG",
+            "type": "primary_cg",
             "amount": 5175
           },
           {
-            "type": "Secondary_ER",
+            "type": "secondary_er",
             "amount": 1615
           }
         ]
@@ -1708,15 +1708,15 @@
         "food": 640000,
         "goods": [
           {
-            "type": "Tertiary_ME",
+            "type": "tertiary_me",
             "amount": 2330
           },
           {
-            "type": "Secondary_ER",
+            "type": "secondary_er",
             "amount": 2330
           },
           {
-            "type": "Tertiary_ER",
+            "type": "tertiary_er",
             "amount": 5590
           }
         ]
@@ -1730,11 +1730,11 @@
         "food": 551000,
         "goods": [
           {
-            "type": "Primary_ER",
+            "type": "primary_er",
             "amount": 2405
           },
           {
-            "type": "Primary_RE",
+            "type": "primary_re",
             "amount": 3745
           }
         ]

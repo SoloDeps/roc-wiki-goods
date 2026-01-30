@@ -2,8 +2,13 @@ import { memo, useMemo, useCallback, useState } from "react";
 import { X, ExternalLink, EyeOff, Eye } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { getGoodImageUrlFromType, questsFormatNumber } from "@/lib/utils";
-import { WIKI_URL, itemsUrl, eras } from "@/lib/constants";
+import {
+  questsFormatNumber,
+  normalizeGoodName,
+  getGoodNameFromPriorityEra,
+  getItemIconLocal,
+} from "@/lib/utils";
+import { eras } from "@/lib/constants";
 import { ResourceBadge } from "./resource-badge";
 
 interface AggregatedTechnoData {
@@ -43,7 +48,7 @@ export const TechnoCard = memo(function TechnoCard({
       ? eraData.name.replace(/ /g, "_")
       : era.replace(/_/g, " ");
 
-    return `${WIKI_URL}/wiki/Home_Cultures/${eraName}`;
+    return `https://riseofcultures.wiki.gg/wiki/Home_Cultures/${eraName}`;
   }, [era]);
 
   const mainResources = useMemo(() => {
@@ -53,7 +58,7 @@ export const TechnoCard = memo(function TechnoCard({
       resources.push({
         type: "research_points",
         value: aggregatedTechnos.totalResearch,
-        icon: itemsUrl.research_points ?? itemsUrl.default,
+        icon: getItemIconLocal("research_points"),
       });
     }
 
@@ -61,7 +66,7 @@ export const TechnoCard = memo(function TechnoCard({
       resources.push({
         type: "coins",
         value: aggregatedTechnos.totalCoins,
-        icon: itemsUrl.coins ?? itemsUrl.default,
+        icon: getItemIconLocal("coins"),
       });
     }
 
@@ -69,7 +74,7 @@ export const TechnoCard = memo(function TechnoCard({
       resources.push({
         type: "food",
         value: aggregatedTechnos.totalFood,
-        icon: itemsUrl.food ?? itemsUrl.default,
+        icon: getItemIconLocal("food"),
       });
     }
 
@@ -81,13 +86,26 @@ export const TechnoCard = memo(function TechnoCard({
       return null;
 
     return aggregatedTechnos.goods.map((g, i) => {
-      const iconPath = getGoodImageUrlFromType(g.type, userSelections);
-      if (!iconPath) return null;
+      // Utiliser la fonction utils pour obtenir le nom du good
+      const match = g.type.match(/^(Primary|Secondary|Tertiary)_([A-Z]{2})$/i);
+      let goodName = g.type;
+
+      if (match) {
+        const [, priority, era] = match;
+        const resolvedName = getGoodNameFromPriorityEra(
+          priority,
+          era,
+          userSelections,
+        );
+        if (resolvedName) {
+          goodName = resolvedName;
+        }
+      }
 
       return (
         <ResourceBadge
           key={`${g.type}-${i}`}
-          icon={`${WIKI_URL}${iconPath}`}
+          icon={`/goods/${normalizeGoodName(goodName)}.webp`}
           value={questsFormatNumber(g.amount)}
           alt={g.type}
         />
@@ -200,7 +218,7 @@ export const TechnoCard = memo(function TechnoCard({
             {mainResources.map((r) => (
               <ResourceBadge
                 key={r.type}
-                icon={`${WIKI_URL}${r.icon}`}
+                icon={r.icon}
                 value={questsFormatNumber(r.value)}
                 alt={r.type}
               />
@@ -209,12 +227,6 @@ export const TechnoCard = memo(function TechnoCard({
             {goodsBadges}
           </div>
         </div>
-
-        {/* <div
-          className={`flex flex-col items-end justify-between shrink-0 pr-3 ${hidden ? "opacity-50" : ""}`}
-        >
-          
-        </div> */}
       </div>
     </div>
   );

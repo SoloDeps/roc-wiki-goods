@@ -8,15 +8,15 @@
         "cocoa": 60000,
         "goods": [
           {
-            "type": "Goblet",
+            "type": "goblet",
             "amount": 750
           },
           {
-            "type": "Mosaic",
+            "type": "mosaic",
             "amount": 750
           },
           {
-            "type": "Cape",
+            "type": "cape",
             "amount": 750
           }
         ]
@@ -30,15 +30,15 @@
         "cocoa": 10000,
         "goods": [
           {
-            "type": "Goblet",
+            "type": "goblet",
             "amount": 625
           },
           {
-            "type": "Mosaic",
+            "type": "mosaic",
             "amount": 625
           },
           {
-            "type": "Cape",
+            "type": "cape",
             "amount": 625
           }
         ]
@@ -52,19 +52,19 @@
         "cocoa": 92000,
         "goods": [
           {
-            "type": "Primary_BE",
+            "type": "primary_be",
             "amount": 430
           },
           {
-            "type": "Secondary_BE",
+            "type": "secondary_be",
             "amount": 215
           },
           {
-            "type": "Ancestor_Mask",
+            "type": "ancestor_mask",
             "amount": 310
           },
           {
-            "type": "Calendar_Stone",
+            "type": "calendar_stone",
             "amount": 190
           }
         ]
@@ -78,19 +78,19 @@
         "cocoa": 120000,
         "goods": [
           {
-            "type": "Secondary_BE",
+            "type": "secondary_be",
             "amount": 475
           },
           {
-            "type": "Tertiary_BE",
+            "type": "tertiary_be",
             "amount": 240
           },
           {
-            "type": "Ancestor_Mask",
+            "type": "ancestor_mask",
             "amount": 1920
           },
           {
-            "type": "Calendar_Stone",
+            "type": "calendar_stone",
             "amount": 1180
           }
         ]
@@ -104,15 +104,15 @@
         "cocoa": 50000,
         "goods": [
           {
-            "type": "Goblet",
+            "type": "goblet",
             "amount": 750
           },
           {
-            "type": "Mosaic",
+            "type": "mosaic",
             "amount": 750
           },
           {
-            "type": "Cape",
+            "type": "cape",
             "amount": 750
           }
         ]
@@ -126,15 +126,15 @@
         "cocoa": 10000,
         "goods": [
           {
-            "type": "Goblet",
+            "type": "goblet",
             "amount": 625
           },
           {
-            "type": "Mosaic",
+            "type": "mosaic",
             "amount": 625
           },
           {
-            "type": "Cape",
+            "type": "cape",
             "amount": 625
           }
         ]
@@ -148,19 +148,19 @@
         "cocoa": 92000,
         "goods": [
           {
-            "type": "Primary_BE",
+            "type": "primary_be",
             "amount": 430
           },
           {
-            "type": "Secondary_BE",
+            "type": "secondary_be",
             "amount": 215
           },
           {
-            "type": "Ancestor_Mask",
+            "type": "ancestor_mask",
             "amount": 310
           },
           {
-            "type": "Calendar_Stone",
+            "type": "calendar_stone",
             "amount": 190
           }
         ]
@@ -174,19 +174,19 @@
         "cocoa": 120000,
         "goods": [
           {
-            "type": "Secondary_BE",
+            "type": "secondary_be",
             "amount": 475
           },
           {
-            "type": "Tertiary_BE",
+            "type": "tertiary_be",
             "amount": 240
           },
           {
-            "type": "Ancestor_Mask",
+            "type": "ancestor_mask",
             "amount": 1920
           },
           {
-            "type": "Calendar_Stone",
+            "type": "calendar_stone",
             "amount": 1180
           }
         ]
@@ -200,15 +200,15 @@
         "cocoa": 5000,
         "goods": [
           {
-            "type": "Goblet",
+            "type": "goblet",
             "amount": 500
           },
           {
-            "type": "Mosaic",
+            "type": "mosaic",
             "amount": 500
           },
           {
-            "type": "Cape",
+            "type": "cape",
             "amount": 500
           }
         ]
@@ -222,19 +222,19 @@
         "cocoa": 44000,
         "goods": [
           {
-            "type": "Primary_BE",
+            "type": "primary_be",
             "amount": 345
           },
           {
-            "type": "Secondary_BE",
+            "type": "secondary_be",
             "amount": 170
           },
           {
-            "type": "Ancestor_Mask",
+            "type": "ancestor_mask",
             "amount": 250
           },
           {
-            "type": "Calendar_Stone",
+            "type": "calendar_stone",
             "amount": 150
           }
         ]
@@ -248,19 +248,19 @@
         "cocoa": 58000,
         "goods": [
           {
-            "type": "Secondary_BE",
+            "type": "secondary_be",
             "amount": 385
           },
           {
-            "type": "Tertiary_BE",
+            "type": "tertiary_be",
             "amount": 190
           },
           {
-            "type": "Ancestor_Mask",
+            "type": "ancestor_mask",
             "amount": 1540
           },
           {
-            "type": "Calendar_Stone",
+            "type": "calendar_stone",
             "amount": 940
           }
         ]
@@ -274,15 +274,15 @@
         "cocoa": 15000,
         "goods": [
           {
-            "type": "Cape",
+            "type": "cape",
             "amount": 225
           },
           {
-            "type": "Mosaic",
+            "type": "mosaic",
             "amount": 225
           },
           {
-            "type": "Goblet",
+            "type": "goblet",
             "amount": 225
           }
         ]
@@ -296,15 +296,15 @@
         "cocoa": 30000,
         "goods": [
           {
-            "type": "Cape",
+            "type": "cape",
             "amount": 350
           },
           {
-            "type": "Mosaic",
+            "type": "mosaic",
             "amount": 350
           },
           {
-            "type": "Goblet",
+            "type": "goblet",
             "amount": 350
           }
         ]
@@ -318,15 +318,15 @@
         "cocoa": 2500,
         "goods": [
           {
-            "type": "Goblet",
+            "type": "goblet",
             "amount": 250
           },
           {
-            "type": "Mosaic",
+            "type": "mosaic",
             "amount": 250
           },
           {
-            "type": "Cape",
+            "type": "cape",
             "amount": 250
           }
         ]
@@ -340,19 +340,19 @@
         "cocoa": 12000,
         "goods": [
           {
-            "type": "Primary_BE",
+            "type": "primary_be",
             "amount": 175
           },
           {
-            "type": "Secondary_BE",
+            "type": "secondary_be",
             "amount": 87
           },
           {
-            "type": "Ancestor_Mask",
+            "type": "ancestor_mask",
             "amount": 62
           },
           {
-            "type": "Calendar_Stone",
+            "type": "calendar_stone",
             "amount": 38
           }
         ]
@@ -366,19 +366,19 @@
         "cocoa": 16000,
         "goods": [
           {
-            "type": "Secondary_BE",
+            "type": "secondary_be",
             "amount": 190
           },
           {
-            "type": "Tertiary_BE",
+            "type": "tertiary_be",
             "amount": 95
           },
           {
-            "type": "Ancestor_Mask",
+            "type": "ancestor_mask",
             "amount": 385
           },
           {
-            "type": "Calendar_Stone",
+            "type": "calendar_stone",
             "amount": 235
           }
         ]
@@ -393,15 +393,15 @@
         "food": 1770000,
         "goods": [
           {
-            "type": "Mosaic",
+            "type": "mosaic",
             "amount": 2075
           },
           {
-            "type": "Goblet",
+            "type": "goblet",
             "amount": 2075
           },
           {
-            "type": "Cape",
+            "type": "cape",
             "amount": 2075
           }
         ]
@@ -416,15 +416,15 @@
         "food": 2180000,
         "goods": [
           {
-            "type": "Mosaic",
+            "type": "mosaic",
             "amount": 2385
           },
           {
-            "type": "Goblet",
+            "type": "goblet",
             "amount": 2385
           },
           {
-            "type": "Cape",
+            "type": "cape",
             "amount": 2385
           }
         ]
@@ -439,15 +439,15 @@
         "food": 1210000,
         "goods": [
           {
-            "type": "Mosaic",
+            "type": "mosaic",
             "amount": 1730
           },
           {
-            "type": "Goblet",
+            "type": "goblet",
             "amount": 1730
           },
           {
-            "type": "Cape",
+            "type": "cape",
             "amount": 1730
           }
         ]
@@ -462,15 +462,15 @@
         "food": 1520000,
         "goods": [
           {
-            "type": "Mosaic",
+            "type": "mosaic",
             "amount": 1905
           },
           {
-            "type": "Goblet",
+            "type": "goblet",
             "amount": 1905
           },
           {
-            "type": "Cape",
+            "type": "cape",
             "amount": 1905
           }
         ]
@@ -485,15 +485,15 @@
         "food": 2760000,
         "goods": [
           {
-            "type": "Mosaic",
+            "type": "mosaic",
             "amount": 2980
           },
           {
-            "type": "Goblet",
+            "type": "goblet",
             "amount": 2980
           },
           {
-            "type": "Cape",
+            "type": "cape",
             "amount": 2980
           }
         ]
@@ -562,15 +562,15 @@
         "food": 1800000,
         "goods": [
           {
-            "type": "Mosaic",
+            "type": "mosaic",
             "amount": 4405
           },
           {
-            "type": "Goblet",
+            "type": "goblet",
             "amount": 4405
           },
           {
-            "type": "Cape",
+            "type": "cape",
             "amount": 4405
           }
         ]
@@ -585,15 +585,15 @@
         "food": 260000,
         "goods": [
           {
-            "type": "Mosaic",
+            "type": "mosaic",
             "amount": 520
           },
           {
-            "type": "Goblet",
+            "type": "goblet",
             "amount": 520
           },
           {
-            "type": "Cape",
+            "type": "cape",
             "amount": 520
           }
         ]
@@ -608,19 +608,19 @@
         "food": 290000,
         "goods": [
           {
-            "type": "Primary_BE",
+            "type": "primary_be",
             "amount": 585
           },
           {
-            "type": "Secondary_BE",
+            "type": "secondary_be",
             "amount": 585
           },
           {
-            "type": "Ancestor_Mask",
+            "type": "ancestor_mask",
             "amount": 560
           },
           {
-            "type": "Calendar_Stone",
+            "type": "calendar_stone",
             "amount": 340
           }
         ]
@@ -635,19 +635,19 @@
         "food": 320000,
         "goods": [
           {
-            "type": "Primary_BE",
+            "type": "primary_be",
             "amount": 485
           },
           {
-            "type": "Tertiary_BE",
+            "type": "tertiary_be",
             "amount": 485
           },
           {
-            "type": "Ancestor_Mask",
+            "type": "ancestor_mask",
             "amount": 2175
           },
           {
-            "type": "Calendar_Stone",
+            "type": "calendar_stone",
             "amount": 1335
           }
         ]
@@ -662,15 +662,15 @@
         "food": 180000,
         "goods": [
           {
-            "type": "Mosaic",
+            "type": "mosaic",
             "amount": 370
           },
           {
-            "type": "Goblet",
+            "type": "goblet",
             "amount": 370
           },
           {
-            "type": "Cape",
+            "type": "cape",
             "amount": 370
           }
         ]
@@ -685,19 +685,19 @@
         "food": 200000,
         "goods": [
           {
-            "type": "Primary_BE",
+            "type": "primary_be",
             "amount": 410
           },
           {
-            "type": "Secondary_BE",
+            "type": "secondary_be",
             "amount": 410
           },
           {
-            "type": "Ancestor_Mask",
+            "type": "ancestor_mask",
             "amount": 370
           },
           {
-            "type": "Calendar_Stone",
+            "type": "calendar_stone",
             "amount": 230
           }
         ]
@@ -712,19 +712,19 @@
         "food": 220000,
         "goods": [
           {
-            "type": "Primary_BE",
+            "type": "primary_be",
             "amount": 345
           },
           {
-            "type": "Tertiary_BE",
+            "type": "tertiary_be",
             "amount": 345
           },
           {
-            "type": "Ancestor_Mask",
+            "type": "ancestor_mask",
             "amount": 1450
           },
           {
-            "type": "Calendar_Stone",
+            "type": "calendar_stone",
             "amount": 890
           }
         ]
@@ -739,15 +739,15 @@
         "food": 2500000,
         "goods": [
           {
-            "type": "Mosaic",
+            "type": "mosaic",
             "amount": 2595
           },
           {
-            "type": "Goblet",
+            "type": "goblet",
             "amount": 2595
           },
           {
-            "type": "Cape",
+            "type": "cape",
             "amount": 2595
           }
         ]
@@ -762,15 +762,15 @@
         "food": 360000,
         "goods": [
           {
-            "type": "Mosaic",
+            "type": "mosaic",
             "amount": 310
           },
           {
-            "type": "Goblet",
+            "type": "goblet",
             "amount": 310
           },
           {
-            "type": "Cape",
+            "type": "cape",
             "amount": 310
           }
         ]
@@ -785,19 +785,19 @@
         "food": 400000,
         "goods": [
           {
-            "type": "Primary_BE",
+            "type": "primary_be",
             "amount": 345
           },
           {
-            "type": "Secondary_BE",
+            "type": "secondary_be",
             "amount": 345
           },
           {
-            "type": "Ancestor_Mask",
+            "type": "ancestor_mask",
             "amount": 310
           },
           {
-            "type": "Calendar_Stone",
+            "type": "calendar_stone",
             "amount": 190
           }
         ]
@@ -812,19 +812,19 @@
         "food": 440000,
         "goods": [
           {
-            "type": "Primary_BE",
+            "type": "primary_be",
             "amount": 285
           },
           {
-            "type": "Tertiary_BE",
+            "type": "tertiary_be",
             "amount": 285
           },
           {
-            "type": "Ancestor_Mask",
+            "type": "ancestor_mask",
             "amount": 1210
           },
           {
-            "type": "Calendar_Stone",
+            "type": "calendar_stone",
             "amount": 740
           }
         ]
@@ -839,15 +839,15 @@
         "food": 960000,
         "goods": [
           {
-            "type": "Mosaic",
+            "type": "mosaic",
             "amount": 1035
           },
           {
-            "type": "Goblet",
+            "type": "goblet",
             "amount": 1035
           },
           {
-            "type": "Cape",
+            "type": "cape",
             "amount": 1035
           }
         ]
@@ -862,15 +862,15 @@
         "food": 140000,
         "goods": [
           {
-            "type": "Mosaic",
+            "type": "mosaic",
             "amount": 125
           },
           {
-            "type": "Goblet",
+            "type": "goblet",
             "amount": 125
           },
           {
-            "type": "Cape",
+            "type": "cape",
             "amount": 125
           }
         ]
@@ -885,19 +885,19 @@
         "food": 150000,
         "goods": [
           {
-            "type": "Primary_BE",
+            "type": "primary_be",
             "amount": 140
           },
           {
-            "type": "Secondary_BE",
+            "type": "secondary_be",
             "amount": 140
           },
           {
-            "type": "Ancestor_Mask",
+            "type": "ancestor_mask",
             "amount": 125
           },
           {
-            "type": "Calendar_Stone",
+            "type": "calendar_stone",
             "amount": 76
           }
         ]
@@ -912,19 +912,19 @@
         "food": 170000,
         "goods": [
           {
-            "type": "Primary_BE",
+            "type": "primary_be",
             "amount": 115
           },
           {
-            "type": "Tertiary_BE",
+            "type": "tertiary_be",
             "amount": 115
           },
           {
-            "type": "Ancestor_Mask",
+            "type": "ancestor_mask",
             "amount": 485
           },
           {
-            "type": "Calendar_Stone",
+            "type": "calendar_stone",
             "amount": 295
           }
         ]
@@ -939,15 +939,15 @@
         "food": 3900000,
         "goods": [
           {
-            "type": "Mosaic",
+            "type": "mosaic",
             "amount": 1000
           },
           {
-            "type": "Goblet",
+            "type": "goblet",
             "amount": 1000
           },
           {
-            "type": "Cape",
+            "type": "cape",
             "amount": 1000
           }
         ]
@@ -962,15 +962,15 @@
         "food": 3900000,
         "goods": [
           {
-            "type": "Mosaic",
+            "type": "mosaic",
             "amount": 1000
           },
           {
-            "type": "Goblet",
+            "type": "goblet",
             "amount": 1000
           },
           {
-            "type": "Cape",
+            "type": "cape",
             "amount": 1000
           }
         ]
@@ -985,15 +985,15 @@
         "food": 3900000,
         "goods": [
           {
-            "type": "Mosaic",
+            "type": "mosaic",
             "amount": 1000
           },
           {
-            "type": "Goblet",
+            "type": "goblet",
             "amount": 1000
           },
           {
-            "type": "Cape",
+            "type": "cape",
             "amount": 1000
           }
         ]
@@ -1009,15 +1009,15 @@
         "food": 410000,
         "goods": [
           {
-            "type": "Primary_CG",
+            "type": "primary_cg",
             "amount": 940
           },
           {
-            "type": "Primary_ER",
+            "type": "primary_er",
             "amount": 1250
           },
           {
-            "type": "Primary_RE",
+            "type": "primary_re",
             "amount": 2260
           }
         ]
@@ -1031,15 +1031,15 @@
         "food": 330000,
         "goods": [
           {
-            "type": "Secondary_ME",
+            "type": "secondary_me",
             "amount": 910
           },
           {
-            "type": "Secondary_CG",
+            "type": "secondary_cg",
             "amount": 1260
           },
           {
-            "type": "Secondary_RE",
+            "type": "secondary_re",
             "amount": 1820
           }
         ]
@@ -1053,15 +1053,15 @@
         "food": 392000,
         "goods": [
           {
-            "type": "Primary_ER",
+            "type": "primary_er",
             "amount": 720
           },
           {
-            "type": "Primary_RE",
+            "type": "primary_re",
             "amount": 2160
           },
           {
-            "type": "Tertiary_BE",
+            "type": "tertiary_be",
             "amount": 240
           }
         ]
@@ -1075,15 +1075,15 @@
         "food": 358000,
         "goods": [
           {
-            "type": "Secondary_RE",
+            "type": "secondary_re",
             "amount": 820
           },
           {
-            "type": "Secondary_BE",
+            "type": "secondary_be",
             "amount": 330
           },
           {
-            "type": "Tertiary_BE",
+            "type": "tertiary_be",
             "amount": 600
           }
         ]
@@ -1097,15 +1097,15 @@
         "food": 385000,
         "goods": [
           {
-            "type": "Primary_RE",
+            "type": "primary_re",
             "amount": 880
           },
           {
-            "type": "Secondary_BE",
+            "type": "secondary_be",
             "amount": 680
           },
           {
-            "type": "Tertiary_BE",
+            "type": "tertiary_be",
             "amount": 360
           }
         ]
@@ -1119,15 +1119,15 @@
         "food": 509000,
         "goods": [
           {
-            "type": "Tertiary_CG",
+            "type": "tertiary_cg",
             "amount": 1170
           },
           {
-            "type": "Secondary_ER",
+            "type": "secondary_er",
             "amount": 1560
           },
           {
-            "type": "Tertiary_BE",
+            "type": "tertiary_be",
             "amount": 900
           }
         ]
@@ -1141,15 +1141,15 @@
         "food": 605000,
         "goods": [
           {
-            "type": "Primary_ER",
+            "type": "primary_er",
             "amount": 1110
           },
           {
-            "type": "Secondary_RE",
+            "type": "secondary_re",
             "amount": 3330
           },
           {
-            "type": "Tertiary_BE",
+            "type": "tertiary_be",
             "amount": 930
           }
         ]
@@ -1163,15 +1163,15 @@
         "food": 358000,
         "goods": [
           {
-            "type": "Secondary_ER",
+            "type": "secondary_er",
             "amount": 660
           },
           {
-            "type": "Primary_BE",
+            "type": "primary_be",
             "amount": 550
           },
           {
-            "type": "Tertiary_BE",
+            "type": "tertiary_be",
             "amount": 800
           }
         ]
@@ -1185,15 +1185,15 @@
         "food": 468000,
         "goods": [
           {
-            "type": "Primary_BE",
+            "type": "primary_be",
             "amount": 1200
           },
           {
-            "type": "Secondary_BE",
+            "type": "secondary_be",
             "amount": 860
           },
           {
-            "type": "Calendar_Stone",
+            "type": "calendar_stone",
             "amount": 750
           }
         ]
@@ -1207,15 +1207,15 @@
         "food": 523000,
         "goods": [
           {
-            "type": "Primary_RE",
+            "type": "primary_re",
             "amount": 1200
           },
           {
-            "type": "Primary_BE",
+            "type": "primary_be",
             "amount": 480
           },
           {
-            "type": "Secondary_BE",
+            "type": "secondary_be",
             "amount": 1150
           }
         ]
@@ -1229,15 +1229,15 @@
         "food": 440000,
         "goods": [
           {
-            "type": "Primary_ER",
+            "type": "primary_er",
             "amount": 810
           },
           {
-            "type": "Primary_RE",
+            "type": "primary_re",
             "amount": 2420
           },
           {
-            "type": "Tertiary_BE",
+            "type": "tertiary_be",
             "amount": 670
           }
         ]
@@ -1251,15 +1251,15 @@
         "food": 825000,
         "goods": [
           {
-            "type": "Secondary_BE",
+            "type": "secondary_be",
             "amount": 1510
           },
           {
-            "type": "Tertiary_BE",
+            "type": "tertiary_be",
             "amount": 2000
           },
           {
-            "type": "Ancestor_Mask",
+            "type": "ancestor_mask",
             "amount": 750
           }
         ]
@@ -1273,15 +1273,15 @@
         "food": 275000,
         "goods": [
           {
-            "type": "Tertiary_CG",
+            "type": "tertiary_cg",
             "amount": 630
           },
           {
-            "type": "Primary_ER",
+            "type": "primary_er",
             "amount": 840
           },
           {
-            "type": "Primary_RE",
+            "type": "primary_re",
             "amount": 1510
           }
         ]
@@ -1295,15 +1295,15 @@
         "food": 516000,
         "goods": [
           {
-            "type": "Primary_ER",
+            "type": "primary_er",
             "amount": 950
           },
           {
-            "type": "Secondary_BE",
+            "type": "secondary_be",
             "amount": 1300
           },
           {
-            "type": "Tertiary_BE",
+            "type": "tertiary_be",
             "amount": 790
           }
         ]
@@ -1317,15 +1317,15 @@
         "food": 608000,
         "goods": [
           {
-            "type": "Secondary_CG",
+            "type": "secondary_cg",
             "amount": 1400
           },
           {
-            "type": "Secondary_RE",
+            "type": "secondary_re",
             "amount": 1400
           },
           {
-            "type": "Primary_BE",
+            "type": "primary_be",
             "amount": 1500
           }
         ]
@@ -1339,15 +1339,15 @@
         "food": 540000,
         "goods": [
           {
-            "type": "Tertiary_RE",
+            "type": "tertiary_re",
             "amount": 1240
           },
           {
-            "type": "Secondary_BE",
+            "type": "secondary_be",
             "amount": 500
           },
           {
-            "type": "Tertiary_BE",
+            "type": "tertiary_be",
             "amount": 1400
           }
         ]
@@ -1361,15 +1361,15 @@
         "food": 578000,
         "goods": [
           {
-            "type": "Secondary_ER",
+            "type": "secondary_er",
             "amount": 1060
           },
           {
-            "type": "Primary_RE",
+            "type": "primary_re",
             "amount": 3180
           },
           {
-            "type": "Primary_BE",
+            "type": "primary_be",
             "amount": 880
           }
         ]
@@ -1383,15 +1383,15 @@
         "food": 858000,
         "goods": [
           {
-            "type": "Primary_ER",
+            "type": "primary_er",
             "amount": 1570
           },
           {
-            "type": "Primary_BE",
+            "type": "primary_be",
             "amount": 3150
           },
           {
-            "type": "Secondary_BE",
+            "type": "secondary_be",
             "amount": 1310
           }
         ]
@@ -1405,15 +1405,15 @@
         "food": 643000,
         "goods": [
           {
-            "type": "Tertiary_ER",
+            "type": "tertiary_er",
             "amount": 1970
           },
           {
-            "type": "Primary_BE",
+            "type": "primary_be",
             "amount": 590
           },
           {
-            "type": "Tertiary_BE",
+            "type": "tertiary_be",
             "amount": 2360
           }
         ]
@@ -1427,15 +1427,15 @@
         "food": 756000,
         "goods": [
           {
-            "type": "Primary_RE",
+            "type": "primary_re",
             "amount": 1740
           },
           {
-            "type": "Secondary_BE",
+            "type": "secondary_be",
             "amount": 2770
           },
           {
-            "type": "Tertiary_BE",
+            "type": "tertiary_be",
             "amount": 700
           }
         ]
@@ -1449,15 +1449,15 @@
         "food": 605000,
         "goods": [
           {
-            "type": "Secondary_ER",
+            "type": "secondary_er",
             "amount": 1110
           },
           {
-            "type": "Primary_RE",
+            "type": "primary_re",
             "amount": 3330
           },
           {
-            "type": "Tertiary_BE",
+            "type": "tertiary_be",
             "amount": 930
           }
         ]
@@ -1471,15 +1471,15 @@
         "food": 949000,
         "goods": [
           {
-            "type": "Tertiary_ER",
+            "type": "tertiary_er",
             "amount": 1740
           },
           {
-            "type": "Secondary_BE",
+            "type": "secondary_be",
             "amount": 1450
           },
           {
-            "type": "Tertiary_BE",
+            "type": "tertiary_be",
             "amount": 3480
           }
         ]
@@ -1493,15 +1493,15 @@
         "food": 859000,
         "goods": [
           {
-            "type": "Secondary_RE",
+            "type": "secondary_re",
             "amount": 5510
           },
           {
-            "type": "Primary_BE",
+            "type": "primary_be",
             "amount": 1580
           },
           {
-            "type": "Calendar_Stone",
+            "type": "calendar_stone",
             "amount": 1250
           }
         ]
@@ -1515,15 +1515,15 @@
         "food": 509000,
         "goods": [
           {
-            "type": "Primary_ME",
+            "type": "primary_me",
             "amount": 1400
           },
           {
-            "type": "Tertiary_ER",
+            "type": "tertiary_er",
             "amount": 3730
           },
           {
-            "type": "Primary_RE",
+            "type": "primary_re",
             "amount": 1170
           }
         ]
@@ -1537,15 +1537,15 @@
         "food": 784000,
         "goods": [
           {
-            "type": "Primary_CG",
+            "type": "primary_cg",
             "amount": 1800
           },
           {
-            "type": "Secondary_RE",
+            "type": "secondary_re",
             "amount": 1800
           },
           {
-            "type": "Primary_BE",
+            "type": "primary_be",
             "amount": 2880
           }
         ]
@@ -1559,15 +1559,15 @@
         "food": 928000,
         "goods": [
           {
-            "type": "Tertiary_RE",
+            "type": "tertiary_re",
             "amount": 2130
           },
           {
-            "type": "Secondary_BE",
+            "type": "secondary_be",
             "amount": 850
           },
           {
-            "type": "Tertiary_BE",
+            "type": "tertiary_be",
             "amount": 3400
           }
         ]
@@ -1581,15 +1581,15 @@
         "food": 839000,
         "goods": [
           {
-            "type": "Secondary_ER",
+            "type": "secondary_er",
             "amount": 1540
           },
           {
-            "type": "Secondary_RE",
+            "type": "secondary_re",
             "amount": 4610
           },
           {
-            "type": "Tertiary_BE",
+            "type": "tertiary_be",
             "amount": 1280
           }
         ]
@@ -1603,15 +1603,15 @@
         "food": 853000,
         "goods": [
           {
-            "type": "Tertiary_ER",
+            "type": "tertiary_er",
             "amount": 1560
           },
           {
-            "type": "Primary_BE",
+            "type": "primary_be",
             "amount": 3130
           },
           {
-            "type": "Secondary_BE",
+            "type": "secondary_be",
             "amount": 1300
           }
         ]
@@ -1625,15 +1625,15 @@
         "food": 1100000,
         "goods": [
           {
-            "type": "Primary_ER",
+            "type": "primary_er",
             "amount": 2020
           },
           {
-            "type": "Tertiary_RE",
+            "type": "tertiary_re",
             "amount": 6050
           },
           {
-            "type": "Primary_BE",
+            "type": "primary_be",
             "amount": 1680
           }
         ]
@@ -1647,15 +1647,15 @@
         "food": 938000,
         "goods": [
           {
-            "type": "Primary_RE",
+            "type": "primary_re",
             "amount": 2150
           },
           {
-            "type": "Secondary_BE",
+            "type": "secondary_be",
             "amount": 860
           },
           {
-            "type": "Tertiary_BE",
+            "type": "tertiary_be",
             "amount": 3440
           }
         ]
@@ -1669,15 +1669,15 @@
         "food": 1000000,
         "goods": [
           {
-            "type": "Primary_RE",
+            "type": "primary_re",
             "amount": 6620
           },
           {
-            "type": "Tertiary_BE",
+            "type": "tertiary_be",
             "amount": 1890
           },
           {
-            "type": "Ancestor_Mask",
+            "type": "ancestor_mask",
             "amount": 1500
           }
         ]
@@ -1691,15 +1691,15 @@
         "food": 921000,
         "goods": [
           {
-            "type": "Secondary_RE",
+            "type": "secondary_re",
             "amount": 2110
           },
           {
-            "type": "Tertiary_RE",
+            "type": "tertiary_re",
             "amount": 5070
           },
           {
-            "type": "Primary_BE",
+            "type": "primary_be",
             "amount": 850
           }
         ]
@@ -1713,15 +1713,15 @@
         "food": 925000,
         "goods": [
           {
-            "type": "Secondary_ER",
+            "type": "secondary_er",
             "amount": 1700
           },
           {
-            "type": "Primary_BE",
+            "type": "primary_be",
             "amount": 1410
           },
           {
-            "type": "Secondary_BE",
+            "type": "secondary_be",
             "amount": 3390
           }
         ]
@@ -1735,15 +1735,15 @@
         "food": 1000000,
         "goods": [
           {
-            "type": "Tertiary_RE",
+            "type": "tertiary_re",
             "amount": 2320
           },
           {
-            "type": "Primary_BE",
+            "type": "primary_be",
             "amount": 3710
           },
           {
-            "type": "Secondary_BE",
+            "type": "secondary_be",
             "amount": 930
           }
         ]
@@ -1757,15 +1757,15 @@
         "food": 261000,
         "goods": [
           {
-            "type": "Tertiary_ME",
+            "type": "tertiary_me",
             "amount": 720
           },
           {
-            "type": "Secondary_ER",
+            "type": "secondary_er",
             "amount": 800
           },
           {
-            "type": "Tertiary_RE",
+            "type": "tertiary_re",
             "amount": 1440
           }
         ]
@@ -1779,15 +1779,15 @@
         "food": 935000,
         "goods": [
           {
-            "type": "Tertiary_ER",
+            "type": "tertiary_er",
             "amount": 1720
           },
           {
-            "type": "Tertiary_RE",
+            "type": "tertiary_re",
             "amount": 5140
           },
           {
-            "type": "Secondary_BE",
+            "type": "secondary_be",
             "amount": 1430
           }
         ]
@@ -1801,11 +1801,11 @@
         "food": 1100000,
         "goods": [
           {
-            "type": "Primary_BE",
+            "type": "primary_be",
             "amount": 2060
           },
           {
-            "type": "Secondary_BE",
+            "type": "secondary_be",
             "amount": 4790
           }
         ]
@@ -1819,15 +1819,15 @@
         "food": 303000,
         "goods": [
           {
-            "type": "Secondary_ER",
+            "type": "secondary_er",
             "amount": 2220
           },
           {
-            "type": "Secondary_RE",
+            "type": "secondary_re",
             "amount": 420
           },
           {
-            "type": "Tertiary_RE",
+            "type": "tertiary_re",
             "amount": 700
           }
         ]
@@ -1841,15 +1841,15 @@
         "food": 550000,
         "goods": [
           {
-            "type": "Tertiary_CG",
+            "type": "tertiary_cg",
             "amount": 1260
           },
           {
-            "type": "Secondary_RE",
+            "type": "secondary_re",
             "amount": 3030
           },
           {
-            "type": "Primary_BE",
+            "type": "primary_be",
             "amount": 150
           }
         ]
@@ -1863,15 +1863,15 @@
         "food": 619000,
         "goods": [
           {
-            "type": "Secondary_RE",
+            "type": "secondary_re",
             "amount": 850
           },
           {
-            "type": "Tertiary_RE",
+            "type": "tertiary_re",
             "amount": 3400
           },
           {
-            "type": "Primary_BE",
+            "type": "primary_be",
             "amount": 300
           }
         ]
@@ -1885,15 +1885,15 @@
         "food": 481000,
         "goods": [
           {
-            "type": "Secondary_RE",
+            "type": "secondary_re",
             "amount": 3090
           },
           {
-            "type": "Primary_BE",
+            "type": "primary_be",
             "amount": 310
           },
           {
-            "type": "Ancestor_Mask",
+            "type": "ancestor_mask",
             "amount": 250
           }
         ]
@@ -1907,15 +1907,15 @@
         "food": 619000,
         "goods": [
           {
-            "type": "Secondary_ER",
+            "type": "secondary_er",
             "amount": 1140
           },
           {
-            "type": "Tertiary_RE",
+            "type": "tertiary_re",
             "amount": 3400
           },
           {
-            "type": "Secondary_BE",
+            "type": "secondary_be",
             "amount": 380
           }
         ]

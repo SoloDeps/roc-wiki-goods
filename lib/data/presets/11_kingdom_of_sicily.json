@@ -1,4 +1,1774 @@
 {
-  "buildings": [],
-  "technos": []
+  "buildings": [
+    {
+      "id": "/wiki/Allied_Cultures/Arabia/Camel_Farm|construction|KS|2",
+      "quantity": 5,
+      "maxQty": 10,
+      "costs": {
+        "dirham": 10000,
+        "goods": [
+          {
+            "type": "wax_seal",
+            "amount": 2395
+          },
+          {
+            "type": "door",
+            "amount": 2395
+          },
+          {
+            "type": "saffron",
+            "amount": 2395
+          }
+        ]
+      }
+    },
+    {
+      "id": "/wiki/Allied_Cultures/Arabia/Coffee_Brewer|construction|KS|2",
+      "quantity": 2,
+      "maxQty": 2,
+      "costs": {
+        "dirham": 20000,
+        "goods": [
+          {
+            "type": "wax_seal",
+            "amount": 4180
+          },
+          {
+            "type": "door",
+            "amount": 4180
+          },
+          {
+            "type": "saffron",
+            "amount": 4180
+          }
+        ]
+      }
+    },
+    {
+      "id": "/wiki/Allied_Cultures/Arabia/Incense_Maker|construction|KS|2",
+      "quantity": 2,
+      "maxQty": 2,
+      "costs": {
+        "dirham": 20000,
+        "goods": [
+          {
+            "type": "wax_seal",
+            "amount": 4180
+          },
+          {
+            "type": "door",
+            "amount": 4180
+          },
+          {
+            "type": "saffron",
+            "amount": 4180
+          }
+        ]
+      }
+    },
+    {
+      "id": "/wiki/Allied_Cultures/Arabia/Medium_Home|construction|KS|1",
+      "quantity": 13,
+      "maxQty": 26,
+      "costs": {
+        "dirham": 2500,
+        "goods": [
+          {
+            "type": "wax_seal",
+            "amount": 840
+          },
+          {
+            "type": "door",
+            "amount": 840
+          },
+          {
+            "type": "saffron",
+            "amount": 840
+          }
+        ]
+      }
+    },
+    {
+      "id": "/wiki/Allied_Cultures/Arabia/Medium_Home|upgrade|KS|2",
+      "quantity": 13,
+      "maxQty": 13,
+      "costs": {
+        "dirham": 13000,
+        "goods": [
+          {
+            "type": "primary_ks",
+            "amount": 1050
+          },
+          {
+            "type": "secondary_ks",
+            "amount": 1050
+          },
+          {
+            "type": "coffee",
+            "amount": 755
+          },
+          {
+            "type": "incense",
+            "amount": 445
+          }
+        ]
+      }
+    },
+    {
+      "id": "/wiki/Allied_Cultures/Arabia/Medium_Home|upgrade|KS|3",
+      "quantity": 13,
+      "maxQty": 13,
+      "costs": {
+        "dirham": 25000,
+        "goods": [
+          {
+            "type": "primary_ks",
+            "amount": 1120
+          },
+          {
+            "type": "tertiary_ks",
+            "amount": 1120
+          },
+          {
+            "type": "coffee",
+            "amount": 2020
+          },
+          {
+            "type": "incense",
+            "amount": 1185
+          }
+        ]
+      }
+    },
+    {
+      "id": "/wiki/Allied_Cultures/Arabia/Merchant|construction|KS|1",
+      "quantity": 8,
+      "maxQty": 16,
+      "costs": {
+        "dirham": 7500,
+        "goods": [
+          {
+            "type": "wax_seal",
+            "amount": 1795
+          },
+          {
+            "type": "door",
+            "amount": 1795
+          },
+          {
+            "type": "saffron",
+            "amount": 1795
+          }
+        ]
+      }
+    },
+    {
+      "id": "/wiki/Allied_Cultures/Arabia/Merchant|upgrade|KS|2",
+      "quantity": 8,
+      "maxQty": 8,
+      "costs": {
+        "dirham": 30000,
+        "goods": [
+          {
+            "type": "primary_ks",
+            "amount": 2245
+          },
+          {
+            "type": "secondary_ks",
+            "amount": 2245
+          },
+          {
+            "type": "coffee",
+            "amount": 1620
+          },
+          {
+            "type": "incense",
+            "amount": 955
+          }
+        ]
+      }
+    },
+    {
+      "id": "/wiki/Allied_Cultures/Arabia/Merchant|upgrade|KS|3",
+      "quantity": 8,
+      "maxQty": 8,
+      "costs": {
+        "dirham": 61000,
+        "goods": [
+          {
+            "type": "primary_ks",
+            "amount": 2395
+          },
+          {
+            "type": "tertiary_ks",
+            "amount": 2395
+          },
+          {
+            "type": "coffee",
+            "amount": 4325
+          },
+          {
+            "type": "incense",
+            "amount": 2540
+          }
+        ]
+      }
+    },
+    {
+      "id": "/wiki/Home_Cultures/Barracks/Cavalry_Barracks|upgrade|KS|11",
+      "quantity": 1,
+      "maxQty": 1,
+      "costs": {
+        "coins": 9600000,
+        "food": 5600000,
+        "goods": [
+          {
+            "type": "door",
+            "amount": 4635
+          },
+          {
+            "type": "wax_seal",
+            "amount": 4635
+          },
+          {
+            "type": "saffron",
+            "amount": 4635
+          }
+        ]
+      }
+    },
+    {
+      "id": "/wiki/Home_Cultures/Barracks/Heavy_Infantry_Barracks|upgrade|KS|11",
+      "quantity": 1,
+      "maxQty": 1,
+      "costs": {
+        "coins": 11000000,
+        "food": 6800000,
+        "goods": [
+          {
+            "type": "door",
+            "amount": 5330
+          },
+          {
+            "type": "wax_seal",
+            "amount": 5330
+          },
+          {
+            "type": "saffron",
+            "amount": 5330
+          }
+        ]
+      }
+    },
+    {
+      "id": "/wiki/Home_Cultures/Barracks/Infantry_Barracks|upgrade|KS|11",
+      "quantity": 2,
+      "maxQty": 2,
+      "costs": {
+        "coins": 7100000,
+        "food": 3800000,
+        "goods": [
+          {
+            "type": "door",
+            "amount": 3860
+          },
+          {
+            "type": "wax_seal",
+            "amount": 3860
+          },
+          {
+            "type": "saffron",
+            "amount": 3860
+          }
+        ]
+      }
+    },
+    {
+      "id": "/wiki/Home_Cultures/Barracks/Ranged_Barracks|upgrade|KS|11",
+      "quantity": 1,
+      "maxQty": 1,
+      "costs": {
+        "coins": 8700000,
+        "food": 4800000,
+        "goods": [
+          {
+            "type": "door",
+            "amount": 4245
+          },
+          {
+            "type": "wax_seal",
+            "amount": 4245
+          },
+          {
+            "type": "saffron",
+            "amount": 4245
+          }
+        ]
+      }
+    },
+    {
+      "id": "/wiki/Home_Cultures/Barracks/Siege_Barracks|upgrade|KS|11",
+      "quantity": 1,
+      "maxQty": 1,
+      "costs": {
+        "coins": 13700000,
+        "food": 8500000,
+        "goods": [
+          {
+            "type": "door",
+            "amount": 6660
+          },
+          {
+            "type": "wax_seal",
+            "amount": 6660
+          },
+          {
+            "type": "saffron",
+            "amount": 6660
+          }
+        ]
+      }
+    },
+    {
+      "id": "/wiki/Home_Cultures/Culture_Sites/Compact_Culture_Site|upgrade|KS|11",
+      "quantity": 9,
+      "maxQty": 9,
+      "costs": {
+        "coins": 820000,
+        "food": 450000
+      }
+    },
+    {
+      "id": "/wiki/Home_Cultures/Culture_Sites/Large_Culture_Site|upgrade|KS|11",
+      "quantity": 1,
+      "maxQty": 1,
+      "costs": {
+        "coins": 5800000,
+        "food": 3170000
+      }
+    },
+    {
+      "id": "/wiki/Home_Cultures/Culture_Sites/Little_Culture_Site|upgrade|KS|11",
+      "quantity": 7,
+      "maxQty": 7,
+      "costs": {
+        "coins": 470000,
+        "food": 262000
+      }
+    },
+    {
+      "id": "/wiki/Home_Cultures/Culture_Sites/Moderate_Culture_Site|construction|KS|11",
+      "quantity": 1,
+      "maxQty": 5,
+      "costs": {
+        "coins": 6900000,
+        "food": 4200000
+      }
+    },
+    {
+      "id": "/wiki/Home_Cultures/Culture_Sites/Moderate_Culture_Site|upgrade|KS|11",
+      "quantity": 4,
+      "maxQty": 5,
+      "costs": {
+        "coins": 1690000,
+        "food": 950000
+      }
+    },
+    {
+      "id": "/wiki/Home_Cultures/Farms/Domestic_Farm|construction|KS|31",
+      "quantity": 1,
+      "maxQty": 10,
+      "costs": {
+        "coins": 22000000,
+        "food": 9200000,
+        "goods": [
+          {
+            "type": "door",
+            "amount": 6775
+          },
+          {
+            "type": "wax_seal",
+            "amount": 6775
+          },
+          {
+            "type": "saffron",
+            "amount": 6775
+          }
+        ]
+      }
+    },
+    {
+      "id": "/wiki/Home_Cultures/Farms/Domestic_Farm|upgrade|KS|31",
+      "quantity": 9,
+      "maxQty": 10,
+      "costs": {
+        "coins": 1900000,
+        "food": 730000,
+        "goods": [
+          {
+            "type": "door",
+            "amount": 1155
+          },
+          {
+            "type": "wax_seal",
+            "amount": 1155
+          },
+          {
+            "type": "saffron",
+            "amount": 1155
+          }
+        ]
+      }
+    },
+    {
+      "id": "/wiki/Home_Cultures/Farms/Domestic_Farm|upgrade|KS|32",
+      "quantity": 10,
+      "maxQty": 10,
+      "costs": {
+        "coins": 1900000,
+        "food": 750000,
+        "goods": [
+          {
+            "type": "primary_ks",
+            "amount": 1210
+          },
+          {
+            "type": "secondary_ks",
+            "amount": 1210
+          },
+          {
+            "type": "coffee",
+            "amount": 1420
+          },
+          {
+            "type": "incense",
+            "amount": 835
+          }
+        ]
+      }
+    },
+    {
+      "id": "/wiki/Home_Cultures/Farms/Domestic_Farm|upgrade|KS|33",
+      "quantity": 10,
+      "maxQty": 10,
+      "costs": {
+        "coins": 2100000,
+        "food": 800000,
+        "goods": [
+          {
+            "type": "primary_ks",
+            "amount": 1260
+          },
+          {
+            "type": "tertiary_ks",
+            "amount": 1260
+          },
+          {
+            "type": "coffee",
+            "amount": 3400
+          },
+          {
+            "type": "incense",
+            "amount": 2000
+          }
+        ]
+      }
+    },
+    {
+      "id": "/wiki/Home_Cultures/Farms/Rural_Farm|upgrade|KS|31",
+      "quantity": 11,
+      "maxQty": 11,
+      "costs": {
+        "coins": 1300000,
+        "food": 500000,
+        "goods": [
+          {
+            "type": "door",
+            "amount": 815
+          },
+          {
+            "type": "wax_seal",
+            "amount": 815
+          },
+          {
+            "type": "saffron",
+            "amount": 815
+          }
+        ]
+      }
+    },
+    {
+      "id": "/wiki/Home_Cultures/Farms/Rural_Farm|upgrade|KS|32",
+      "quantity": 11,
+      "maxQty": 11,
+      "costs": {
+        "coins": 1300000,
+        "food": 520000,
+        "goods": [
+          {
+            "type": "primary_ks",
+            "amount": 855
+          },
+          {
+            "type": "secondary_ks",
+            "amount": 855
+          },
+          {
+            "type": "coffee",
+            "amount": 945
+          },
+          {
+            "type": "incense",
+            "amount": 555
+          }
+        ]
+      }
+    },
+    {
+      "id": "/wiki/Home_Cultures/Farms/Rural_Farm|upgrade|KS|33",
+      "quantity": 11,
+      "maxQty": 11,
+      "costs": {
+        "coins": 1400000,
+        "food": 560000,
+        "goods": [
+          {
+            "type": "primary_ks",
+            "amount": 890
+          },
+          {
+            "type": "tertiary_ks",
+            "amount": 890
+          },
+          {
+            "type": "coffee",
+            "amount": 2270
+          },
+          {
+            "type": "incense",
+            "amount": 1330
+          }
+        ]
+      }
+    },
+    {
+      "id": "/wiki/Home_Cultures/Homes/Average_Home|construction|KS|31",
+      "quantity": 1,
+      "maxQty": 12,
+      "costs": {
+        "coins": 5800000,
+        "food": 13000000,
+        "goods": [
+          {
+            "type": "door",
+            "amount": 4025
+          },
+          {
+            "type": "wax_seal",
+            "amount": 4025
+          },
+          {
+            "type": "saffron",
+            "amount": 4025
+          }
+        ]
+      }
+    },
+    {
+      "id": "/wiki/Home_Cultures/Homes/Average_Home|upgrade|KS|31",
+      "quantity": 11,
+      "maxQty": 12,
+      "costs": {
+        "coins": 500000,
+        "food": 1000000,
+        "goods": [
+          {
+            "type": "door",
+            "amount": 680
+          },
+          {
+            "type": "wax_seal",
+            "amount": 680
+          },
+          {
+            "type": "saffron",
+            "amount": 680
+          }
+        ]
+      }
+    },
+    {
+      "id": "/wiki/Home_Cultures/Homes/Average_Home|upgrade|KS|32",
+      "quantity": 12,
+      "maxQty": 12,
+      "costs": {
+        "coins": 510000,
+        "food": 1000000,
+        "goods": [
+          {
+            "type": "primary_ks",
+            "amount": 710
+          },
+          {
+            "type": "secondary_ks",
+            "amount": 710
+          },
+          {
+            "type": "coffee",
+            "amount": 790
+          },
+          {
+            "type": "incense",
+            "amount": 465
+          }
+        ]
+      }
+    },
+    {
+      "id": "/wiki/Home_Cultures/Homes/Average_Home|upgrade|KS|33",
+      "quantity": 12,
+      "maxQty": 12,
+      "costs": {
+        "coins": 550000,
+        "food": 1100000,
+        "goods": [
+          {
+            "type": "primary_ks",
+            "amount": 740
+          },
+          {
+            "type": "tertiary_ks",
+            "amount": 740
+          },
+          {
+            "type": "coffee",
+            "amount": 1890
+          },
+          {
+            "type": "incense",
+            "amount": 1110
+          }
+        ]
+      }
+    },
+    {
+      "id": "/wiki/Home_Cultures/Homes/Small_Home|construction|KS|31",
+      "quantity": 1,
+      "maxQty": 28,
+      "costs": {
+        "coins": 2200000,
+        "food": 4900000,
+        "goods": [
+          {
+            "type": "door",
+            "amount": 1650
+          },
+          {
+            "type": "wax_seal",
+            "amount": 1650
+          },
+          {
+            "type": "saffron",
+            "amount": 1650
+          }
+        ]
+      }
+    },
+    {
+      "id": "/wiki/Home_Cultures/Homes/Small_Home|upgrade|KS|31",
+      "quantity": 27,
+      "maxQty": 28,
+      "costs": {
+        "coins": 190000,
+        "food": 390000,
+        "goods": [
+          {
+            "type": "door",
+            "amount": 275
+          },
+          {
+            "type": "wax_seal",
+            "amount": 275
+          },
+          {
+            "type": "saffron",
+            "amount": 275
+          }
+        ]
+      }
+    },
+    {
+      "id": "/wiki/Home_Cultures/Homes/Small_Home|upgrade|KS|32",
+      "quantity": 28,
+      "maxQty": 28,
+      "costs": {
+        "coins": 190000,
+        "food": 400000,
+        "goods": [
+          {
+            "type": "primary_ks",
+            "amount": 285
+          },
+          {
+            "type": "secondary_ks",
+            "amount": 285
+          },
+          {
+            "type": "coffee",
+            "amount": 315
+          },
+          {
+            "type": "incense",
+            "amount": 185
+          }
+        ]
+      }
+    },
+    {
+      "id": "/wiki/Home_Cultures/Homes/Small_Home|upgrade|KS|33",
+      "quantity": 28,
+      "maxQty": 28,
+      "costs": {
+        "coins": 210000,
+        "food": 430000,
+        "goods": [
+          {
+            "type": "primary_ks",
+            "amount": 295
+          },
+          {
+            "type": "tertiary_ks",
+            "amount": 295
+          },
+          {
+            "type": "coffee",
+            "amount": 755
+          },
+          {
+            "type": "incense",
+            "amount": 445
+          }
+        ]
+      }
+    },
+    {
+      "id": "/wiki/Home_Cultures/Workshops/Carpenter|upgrade|KS|5",
+      "quantity": 1,
+      "maxQty": 4,
+      "costs": {
+        "coins": 8700000,
+        "food": 4500000,
+        "goods": [
+          {
+            "type": "door",
+            "amount": 2315
+          },
+          {
+            "type": "wax_seal",
+            "amount": 2315
+          },
+          {
+            "type": "saffron",
+            "amount": 2315
+          }
+        ]
+      }
+    },
+    {
+      "id": "/wiki/Home_Cultures/Workshops/Scribe|upgrade|KS|5",
+      "quantity": 4,
+      "maxQty": 4,
+      "costs": {
+        "coins": 8700000,
+        "food": 4500000,
+        "goods": [
+          {
+            "type": "door",
+            "amount": 2315
+          },
+          {
+            "type": "wax_seal",
+            "amount": 2315
+          },
+          {
+            "type": "saffron",
+            "amount": 2315
+          }
+        ]
+      }
+    },
+    {
+      "id": "/wiki/Home_Cultures/Workshops/Spice_Merchant|upgrade|KS|5",
+      "quantity": 1,
+      "maxQty": 4,
+      "costs": {
+        "coins": 8700000,
+        "food": 4500000,
+        "goods": [
+          {
+            "type": "door",
+            "amount": 2315
+          },
+          {
+            "type": "wax_seal",
+            "amount": 2315
+          },
+          {
+            "type": "saffron",
+            "amount": 2315
+          }
+        ]
+      }
+    }
+  ],
+  "technos": [
+    {
+      "id": "techno_kingdom_of_sicily_0",
+      "costs": {
+        "research_points": 81,
+        "coins": 2200000,
+        "food": 2400000,
+        "goods": [
+          {
+            "type": "tertiary_ie",
+            "amount": 9250
+          },
+          {
+            "type": "primary_ie",
+            "amount": 3970
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_kingdom_of_sicily_1",
+      "costs": {
+        "research_points": 82,
+        "coins": 4400000,
+        "food": 2300000,
+        "goods": [
+          {
+            "type": "primary_ie",
+            "amount": 8830
+          },
+          {
+            "type": "secondary_ie",
+            "amount": 3680
+          },
+          {
+            "type": "primary_fa",
+            "amount": 2940
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_kingdom_of_sicily_10",
+      "costs": {
+        "research_points": 98,
+        "coins": 4099999.9999999995,
+        "food": 2400000,
+        "goods": [
+          {
+            "type": "primary_ie",
+            "amount": 8130
+          },
+          {
+            "type": "tertiary_fa",
+            "amount": 4520
+          },
+          {
+            "type": "secondary_ks",
+            "amount": 1360
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_kingdom_of_sicily_11",
+      "costs": {
+        "research_points": 96,
+        "coins": 5500000,
+        "food": 2300000,
+        "goods": [
+          {
+            "type": "tertiary_ks",
+            "amount": 4750
+          },
+          {
+            "type": "secondary_ie",
+            "amount": 2970
+          },
+          {
+            "type": "primary_fa",
+            "amount": 2380
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_kingdom_of_sicily_12",
+      "costs": {
+        "research_points": 77,
+        "coins": 6700000,
+        "food": 5100000,
+        "goods": [
+          {
+            "type": "secondary_ks",
+            "amount": 5330
+          },
+          {
+            "type": "primary_fa",
+            "amount": 4440
+          },
+          {
+            "type": "primary_ks",
+            "amount": 1330
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_kingdom_of_sicily_13",
+      "costs": {
+        "research_points": 125,
+        "coins": 5400000,
+        "food": 5300000,
+        "goods": [
+          {
+            "type": "tertiary_be",
+            "amount": 16400
+          },
+          {
+            "type": "tertiary_af",
+            "amount": 5690
+          },
+          {
+            "type": "tertiary_ks",
+            "amount": 1370
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_kingdom_of_sicily_14",
+      "costs": {
+        "research_points": 96,
+        "coins": 2300000,
+        "food": 5100000,
+        "goods": [
+          {
+            "type": "primary_ks",
+            "amount": 4920
+          },
+          {
+            "type": "secondary_ks",
+            "amount": 2110
+          },
+          {
+            "type": "coffee",
+            "amount": 500
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_kingdom_of_sicily_15",
+      "costs": {
+        "research_points": 110,
+        "coins": 1800000,
+        "food": 1800000,
+        "goods": [
+          {
+            "type": "tertiary_ks",
+            "amount": 4380
+          },
+          {
+            "type": "primary_ie",
+            "amount": 2740
+          },
+          {
+            "type": "primary_ks",
+            "amount": 1100
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_kingdom_of_sicily_16",
+      "costs": {
+        "research_points": 105,
+        "coins": 5800000,
+        "food": 2900000,
+        "goods": [
+          {
+            "type": "primary_ks",
+            "amount": 4800
+          },
+          {
+            "type": "tertiary_ie",
+            "amount": 3000
+          },
+          {
+            "type": "secondary_fa",
+            "amount": 2400
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_kingdom_of_sicily_17",
+      "costs": {
+        "research_points": 84,
+        "coins": 7100000,
+        "food": 3300000,
+        "goods": [
+          {
+            "type": "secondary_be",
+            "amount": 15450
+          },
+          {
+            "type": "secondary_fa",
+            "amount": 4290
+          },
+          {
+            "type": "secondary_ks",
+            "amount": 1290
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_kingdom_of_sicily_18",
+      "costs": {
+        "research_points": 81,
+        "coins": 2700000,
+        "food": 4600000,
+        "goods": [
+          {
+            "type": "secondary_ks",
+            "amount": 5770
+          },
+          {
+            "type": "secondary_ie",
+            "amount": 3610
+          },
+          {
+            "type": "tertiary_fa",
+            "amount": 2890
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_kingdom_of_sicily_19",
+      "costs": {
+        "research_points": 84,
+        "coins": 5700000,
+        "food": 1900000,
+        "goods": [
+          {
+            "type": "tertiary_ie",
+            "amount": 6230
+          },
+          {
+            "type": "primary_ks",
+            "amount": 1730
+          },
+          {
+            "type": "tertiary_ks",
+            "amount": 1040
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_kingdom_of_sicily_2",
+      "costs": {
+        "research_points": 77,
+        "coins": 4400000,
+        "food": 2800000,
+        "goods": [
+          {
+            "type": "secondary_ie",
+            "amount": 6900
+          },
+          {
+            "type": "tertiary_ie",
+            "amount": 2870
+          },
+          {
+            "type": "primary_af",
+            "amount": 2870
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_kingdom_of_sicily_20",
+      "costs": {
+        "research_points": 80,
+        "coins": 6300000,
+        "food": 2900000,
+        "goods": [
+          {
+            "type": "tertiary_ks",
+            "amount": 4800
+          },
+          {
+            "type": "primary_fa",
+            "amount": 4000
+          },
+          {
+            "type": "secondary_ks",
+            "amount": 1200
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_kingdom_of_sicily_21",
+      "costs": {
+        "research_points": 97,
+        "coins": 3900000,
+        "food": 1800000,
+        "goods": [
+          {
+            "type": "secondary_ks",
+            "amount": 5040
+          },
+          {
+            "type": "primary_ie",
+            "amount": 3150
+          },
+          {
+            "type": "tertiary_fa",
+            "amount": 2520
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_kingdom_of_sicily_22",
+      "costs": {
+        "research_points": 86,
+        "coins": 5700000,
+        "food": 3100000,
+        "goods": [
+          {
+            "type": "primary_ks",
+            "amount": 5230
+          },
+          {
+            "type": "primary_af",
+            "amount": 5610
+          },
+          {
+            "type": "incense",
+            "amount": 350
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_kingdom_of_sicily_23",
+      "costs": {
+        "research_points": 135,
+        "coins": 2400000,
+        "food": 4600000,
+        "goods": [
+          {
+            "type": "secondary_af",
+            "amount": 16000
+          },
+          {
+            "type": "tertiary_ie",
+            "amount": 4120
+          },
+          {
+            "type": "coffee",
+            "amount": 2500
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_kingdom_of_sicily_24",
+      "costs": {
+        "research_points": 105,
+        "coins": 6100000,
+        "food": 4500000,
+        "goods": [
+          {
+            "type": "secondary_ks",
+            "amount": 5220
+          },
+          {
+            "type": "secondary_ie",
+            "amount": 3260
+          },
+          {
+            "type": "primary_fa",
+            "amount": 2610
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_kingdom_of_sicily_25",
+      "costs": {
+        "research_points": 105,
+        "coins": 4099999.9999999995,
+        "food": 3900000,
+        "goods": [
+          {
+            "type": "secondary_fa",
+            "amount": 9240
+          },
+          {
+            "type": "secondary_af",
+            "amount": 4810
+          },
+          {
+            "type": "tertiary_ks",
+            "amount": 1160
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_kingdom_of_sicily_26",
+      "costs": {
+        "research_points": 89,
+        "coins": 6800000,
+        "food": 3700000,
+        "goods": [
+          {
+            "type": "tertiary_ks",
+            "amount": 4510
+          },
+          {
+            "type": "primary_ie",
+            "amount": 2820
+          },
+          {
+            "type": "tertiary_fa",
+            "amount": 2260
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_kingdom_of_sicily_27",
+      "costs": {
+        "research_points": 105,
+        "coins": 5900000,
+        "food": 1500000,
+        "goods": [
+          {
+            "type": "secondary_ie",
+            "amount": 6900
+          },
+          {
+            "type": "secondary_fa",
+            "amount": 3830
+          },
+          {
+            "type": "primary_ks",
+            "amount": 1150
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_kingdom_of_sicily_28",
+      "costs": {
+        "research_points": 92,
+        "coins": 2200000,
+        "food": 2600000,
+        "goods": [
+          {
+            "type": "primary_ks",
+            "amount": 5840
+          },
+          {
+            "type": "tertiary_ks",
+            "amount": 2440
+          },
+          {
+            "type": "tertiary_af",
+            "amount": 3650
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_kingdom_of_sicily_29",
+      "costs": {
+        "research_points": 76,
+        "coins": 3500000,
+        "food": 3900000,
+        "goods": [
+          {
+            "type": "primary_be",
+            "amount": 15250
+          },
+          {
+            "type": "secondary_ie",
+            "amount": 3180
+          },
+          {
+            "type": "secondary_fa",
+            "amount": 2540
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_kingdom_of_sicily_3",
+      "costs": {
+        "research_points": 105,
+        "coins": 7500000,
+        "food": 2800000,
+        "goods": [
+          {
+            "type": "tertiary_ie",
+            "amount": 9790
+          },
+          {
+            "type": "secondary_af",
+            "amount": 7000
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_kingdom_of_sicily_30",
+      "costs": {
+        "research_points": 140,
+        "coins": 6400000,
+        "food": 2300000,
+        "goods": [
+          {
+            "type": "secondary_ks",
+            "amount": 5970
+          },
+          {
+            "type": "tertiary_ie",
+            "amount": 3730
+          },
+          {
+            "type": "primary_ks",
+            "amount": 1500
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_kingdom_of_sicily_31",
+      "costs": {
+        "research_points": 95,
+        "coins": 2800000,
+        "food": 3500000,
+        "goods": [
+          {
+            "type": "tertiary_ks",
+            "amount": 5950
+          },
+          {
+            "type": "tertiary_fa",
+            "amount": 4960
+          },
+          {
+            "type": "secondary_ks",
+            "amount": 1490
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_kingdom_of_sicily_32",
+      "costs": {
+        "research_points": 84,
+        "coins": 1700000,
+        "food": 2700000,
+        "goods": [
+          {
+            "type": "tertiary_af",
+            "amount": 13550
+          },
+          {
+            "type": "primary_ie",
+            "amount": 3480
+          },
+          {
+            "type": "incense",
+            "amount": 1800
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_kingdom_of_sicily_33",
+      "costs": {
+        "research_points": 95,
+        "coins": 2900000,
+        "food": 3000000,
+        "goods": [
+          {
+            "type": "primary_ks",
+            "amount": 4930
+          },
+          {
+            "type": "primary_af",
+            "amount": 5140
+          },
+          {
+            "type": "tertiary_ks",
+            "amount": 1230
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_kingdom_of_sicily_34",
+      "costs": {
+        "research_points": 110,
+        "coins": 5800000,
+        "food": 3300000,
+        "goods": [
+          {
+            "type": "tertiary_ks",
+            "amount": 5910
+          },
+          {
+            "type": "secondary_fa",
+            "amount": 4920
+          },
+          {
+            "type": "primary_fa",
+            "amount": 2960
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_kingdom_of_sicily_35",
+      "costs": {
+        "research_points": 125,
+        "coins": 4800000,
+        "food": 1500000,
+        "goods": [
+          {
+            "type": "primary_ie",
+            "amount": 7030
+          },
+          {
+            "type": "secondary_ie",
+            "amount": 2930
+          },
+          {
+            "type": "primary_ks",
+            "amount": 1170
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_kingdom_of_sicily_36",
+      "costs": {
+        "research_points": 80,
+        "coins": 6100000,
+        "food": 4300000,
+        "goods": [
+          {
+            "type": "secondary_ks",
+            "amount": 6560
+          },
+          {
+            "type": "tertiary_fa",
+            "amount": 5620
+          },
+          {
+            "type": "coffee",
+            "amount": 5000
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_kingdom_of_sicily_37",
+      "costs": {
+        "research_points": 100,
+        "coins": 2300000,
+        "food": 2700000,
+        "goods": [
+          {
+            "type": "tertiary_ks",
+            "amount": 4490
+          },
+          {
+            "type": "tertiary_ie",
+            "amount": 2810
+          },
+          {
+            "type": "secondary_ks",
+            "amount": 1120
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_kingdom_of_sicily_38",
+      "costs": {
+        "research_points": 105,
+        "coins": 2800000,
+        "food": 2700000,
+        "goods": [
+          {
+            "type": "tertiary_fa",
+            "amount": 13300
+          },
+          {
+            "type": "tertiary_af",
+            "amount": 7130
+          },
+          {
+            "type": "incense",
+            "amount": 3600
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_kingdom_of_sicily_39",
+      "costs": {
+        "research_points": 81,
+        "coins": 2300000,
+        "food": 4200000,
+        "goods": [
+          {
+            "type": "primary_ks",
+            "amount": 5350
+          },
+          {
+            "type": "secondary_ks",
+            "amount": 2230
+          },
+          {
+            "type": "secondary_fa",
+            "amount": 2680
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_kingdom_of_sicily_4",
+      "costs": {
+        "research_points": 89,
+        "coins": 2400000,
+        "food": 2200000,
+        "goods": [
+          {
+            "type": "primary_af",
+            "amount": 12950
+          },
+          {
+            "type": "primary_ks",
+            "amount": 2220
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_kingdom_of_sicily_40",
+      "costs": {
+        "research_points": 145,
+        "coins": 3400000,
+        "food": 2000000,
+        "goods": [
+          {
+            "type": "tertiary_ks",
+            "amount": 5930
+          },
+          {
+            "type": "primary_ie",
+            "amount": 3820
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_kingdom_of_sicily_41",
+      "costs": {
+        "research_points": 105,
+        "coins": 2900000,
+        "food": 3700000,
+        "goods": [
+          {
+            "type": "primary_fa",
+            "amount": 11050
+          },
+          {
+            "type": "tertiary_ie",
+            "amount": 3460
+          },
+          {
+            "type": "tertiary_fa",
+            "amount": 2770
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_kingdom_of_sicily_42",
+      "costs": {
+        "research_points": 83,
+        "coins": 7300000,
+        "food": 4600000,
+        "goods": [
+          {
+            "type": "secondary_ks",
+            "amount": 4980
+          },
+          {
+            "type": "primary_ks",
+            "amount": 2070
+          },
+          {
+            "type": "tertiary_ks",
+            "amount": 1250
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_kingdom_of_sicily_43",
+      "costs": {
+        "research_points": 115,
+        "coins": 5200000,
+        "food": 4800000,
+        "goods": [
+          {
+            "type": "secondary_fa",
+            "amount": 13350
+          },
+          {
+            "type": "secondary_ie",
+            "amount": 4300
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_kingdom_of_sicily_5",
+      "costs": {
+        "research_points": 115,
+        "coins": 2500000,
+        "food": 4900000,
+        "goods": [
+          {
+            "type": "primary_fa",
+            "amount": 8170
+          },
+          {
+            "type": "secondary_ie",
+            "amount": 2560
+          },
+          {
+            "type": "secondary_ks",
+            "amount": 1020
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_kingdom_of_sicily_6",
+      "costs": {
+        "research_points": 31,
+        "coins": 4700000,
+        "food": 3500000,
+        "goods": [
+          {
+            "type": "primary_ks",
+            "amount": 4070
+          },
+          {
+            "type": "primary_ie",
+            "amount": 2540
+          },
+          {
+            "type": "secondary_fa",
+            "amount": 2030
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_kingdom_of_sicily_7",
+      "costs": {
+        "research_points": 21,
+        "coins": 5300000,
+        "food": 4700000,
+        "goods": [
+          {
+            "type": "secondary_ie",
+            "amount": 7460
+          },
+          {
+            "type": "primary_fa",
+            "amount": 4150
+          },
+          {
+            "type": "tertiary_ks",
+            "amount": 1250
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_kingdom_of_sicily_8",
+      "costs": {
+        "research_points": 95,
+        "coins": 1800000,
+        "food": 1600000,
+        "goods": [
+          {
+            "type": "secondary_ks",
+            "amount": 5110
+          },
+          {
+            "type": "tertiary_ks",
+            "amount": 2130
+          },
+          {
+            "type": "secondary_af",
+            "amount": 3190
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_kingdom_of_sicily_9",
+      "costs": {
+        "research_points": 73,
+        "coins": 2300000,
+        "food": 1300000,
+        "goods": [
+          {
+            "type": "primary_ks",
+            "amount": 4820
+          },
+          {
+            "type": "tertiary_ie",
+            "amount": 3010
+          },
+          {
+            "type": "tertiary_fa",
+            "amount": 2410
+          }
+        ]
+      }
+    }
+  ]
 }

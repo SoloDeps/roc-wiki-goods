@@ -12,27 +12,100 @@ export const WIKI_URL = "https://riseofcultures.wiki.gg";
 export const WIKI_DISPLAY = "riseofcultures.wiki.gg";
 
 export const eras = [
-  { name: "Stone Age", abbr: "SA", id: "stone_age", image: "/eras/1_SA_cover.webp" },
-  { name: "Bronze Age", abbr: "BA", id: "bronze_age", image: "/eras/2_BA_cover.webp" },
-  { name: "Minoan Era", abbr: "ME", id: "minoan_era", image: "/eras/3_ME_cover.webp" },
-  { name: "Classical Greece", abbr: "CG", id: "classical_greece", image: "/eras/4_CG_cover.webp" },
-  { name: "Early Rome", abbr: "ER", id: "early_rome", image: "/eras/5_ER_cover.webp" },
-  { name: "Roman Empire", abbr: "RE", id: "roman_empire", image: "/eras/6_RE_cover.webp" },
-  { name: "Byzantine Era", abbr: "BE", id: "byzantine_era", image: "/eras/7_BE_cover.webp" },
-  { name: "Age of the Franks", abbr: "AF", id: "age_of_the_franks", image: "/eras/8_AoF_cover.webp" },
-  { name: "Feudal Age", abbr: "FA", id: "feudal_age", image: "/eras/9_FA_cover.webp" },
-  { name: "Iberian Era", abbr: "IE", id: "iberian_era", image: "/eras/10_IE_cover.webp" },
-  { name: "Kingdom of Sicily", abbr: "KS", id: "kingdom_of_sicily", image: "/eras/11_KoS_cover.webp" },
-  { name: "High Middle Ages", abbr: "HM", id: "high_middle_ages", image: "/eras/12_HMA_cover.webp" },
-  { name: "Early Gothic Era", abbr: "EG", id: "early_gothic_era", image: "/eras/13_EGE_cover.webp" },
-  { name: "Late Gothic Era", abbr: "LG", id: "late_gothic_era", image: "/eras/14_LGE_cover.webp" },
+  {
+    name: "Stone Age",
+    abbr: "SA",
+    id: "stone_age",
+    image: "/eras/1_SA_cover.webp",
+  },
+  {
+    name: "Bronze Age",
+    abbr: "BA",
+    id: "bronze_age",
+    image: "/eras/2_BA_cover.webp",
+  },
+  {
+    name: "Minoan Era",
+    abbr: "ME",
+    id: "minoan_era",
+    image: "/eras/3_ME_cover.webp",
+  },
+  {
+    name: "Classical Greece",
+    abbr: "CG",
+    id: "classical_greece",
+    image: "/eras/4_CG_cover.webp",
+  },
+  {
+    name: "Early Rome",
+    abbr: "ER",
+    id: "early_rome",
+    image: "/eras/5_ER_cover.webp",
+  },
+  {
+    name: "Roman Empire",
+    abbr: "RE",
+    id: "roman_empire",
+    image: "/eras/6_RE_cover.webp",
+  },
+  {
+    name: "Byzantine Era",
+    abbr: "BE",
+    id: "byzantine_era",
+    image: "/eras/7_BE_cover.webp",
+  },
+  {
+    name: "Age of the Franks",
+    abbr: "AF",
+    id: "age_of_the_franks",
+    image: "/eras/8_AoF_cover.webp",
+  },
+  {
+    name: "Feudal Age",
+    abbr: "FA",
+    id: "feudal_age",
+    image: "/eras/9_FA_cover.webp",
+  },
+  {
+    name: "Iberian Era",
+    abbr: "IE",
+    id: "iberian_era",
+    image: "/eras/10_IE_cover.webp",
+  },
+  {
+    name: "Kingdom of Sicily",
+    abbr: "KS",
+    id: "kingdom_of_sicily",
+    image: "/eras/11_KoS_cover.webp",
+  },
+  {
+    name: "High Middle Ages",
+    abbr: "HM",
+    id: "high_middle_ages",
+    image: "/eras/12_HMA_cover.webp",
+  },
+  {
+    name: "Early Gothic Era",
+    abbr: "EG",
+    id: "early_gothic_era",
+    image: "/eras/13_EGE_cover.webp",
+  },
+  {
+    name: "Late Gothic Era",
+    abbr: "LG",
+    id: "late_gothic_era",
+    image: "/eras/14_LGE_cover.webp",
+  },
 ] as const;
 
 // Mapping des noms d'ères (format wiki) vers les IDs standardisés
-export const eraWikiToId: Record<string, string> = eras.reduce((acc, era) => {
-  acc[era.name.toLowerCase().replace(/ /g, "_")] = era.id;
-  return acc;
-}, {} as Record<string, string>);
+export const eraWikiToId: Record<string, string> = eras.reduce(
+  (acc, era) => {
+    acc[era.name.toLowerCase().replace(/ /g, "_")] = era.id;
+    return acc;
+  },
+  {} as Record<string, string>,
+);
 
 // Fonction pour obtenir l'ID d'une ère à partir de son nom wiki
 export function getEraId(wikiEraName: string | null): string {
@@ -92,7 +165,7 @@ export const itemsUrl = {
   research_points: "/images/thumb/Research.png/32px-Research.png",
   gems: "/images/thumb/Gems.png/32px-Gems.png",
   // others
-  asper: "/images/thumb/Asper.png/32px-Asper.png",
+  aspers: "/images/thumb/Asper.png/32px-Asper.png",
   cocoa: "/images/thumb/Cocoa.png/32px-Cocoa.png",
   deben: "/images/thumb/Deben.png/32px-Deben.png",
   dirham: "/images/thumb/Dirham.png/32px-Dirham.png",
@@ -276,29 +349,29 @@ export const goodsUrlByEra: Record<
   EG: {
     jeweler: {
       name: "Fine Jewelry",
-      url: "/images/thumb/a/af/Fine_Jewelry.png/120px-Fine_Jewelry.png",
+      url: "/images/thumb/a/af/Fine_Jewelry.png/32px-Fine_Jewelry.png",
     },
     alchemist: {
       name: "Ointment",
-      url: "/images/thumb/5/5c/Ointment.png/120px-Ointment.png",
+      url: "/images/thumb/5/5c/Ointment.png/32px-Ointment.png",
     },
     glassblower: {
       name: "Lead Glass",
-      url: "/images/thumb/e/e2/Lead_Glass.png/120px-Lead_Glass.png",
+      url: "/images/thumb/e/e2/Lead_Glass.png/32px-Lead_Glass.png",
     },
   },
   LG: {
     jeweler: {
       name: "Embellishments",
-      url: "/images/thumb/a/af/Embellishments.png/120px-Embellishments.png",
+      url: "/images/thumb/a/af/Embellishments.png/32px-Embellishments.png",
     },
     alchemist: {
       name: "Elixirs",
-      url: "/images/thumb/5/5c/Elixirs.png/120px-Elixirs.png",
+      url: "/images/thumb/5/5c/Elixirs.png/32px-Elixirs.png",
     },
     glassblower: {
       name: "Stained Glass",
-      url: "/images/thumb/e/e2/Stained_Glass.png/120px-Stained_Glass.png",
+      url: "/images/thumb/e/e2/Stained_Glass.png/32px-Stained_Glass.png",
     },
   },
 } as const;
@@ -377,6 +450,11 @@ export const goodsNameMapping: Record<
   "Fine Jewelry": [{ priority: "primary", era: "EG" }],
   Ointment: [{ priority: "secondary", era: "EG" }],
   "Lead Glass": [{ priority: "tertiary", era: "EG" }],
+
+  // Early Gothic
+  Embellishments: [{ priority: "primary", era: "LG" }],
+  Elixirs: [{ priority: "secondary", era: "LG" }],
+  "Stained Glass": [{ priority: "tertiary", era: "LG" }],
 };
 
 // Mapping des goods par civilisation pour le regroupement des other goods
@@ -386,34 +464,65 @@ export const goodsByCivilization: Record<
 > = {
   EGYPT: {
     name: "EGYPT",
-    goods: ["Papyrus Scroll", "Ankh", "Golden Mask", "Ceremonial Dress", "Deben"],
+    goods: [
+      "papyrus_scroll",
+      "ankh",
+      "golden_mask",
+      "ceremonial_dress",
+      "deben",
+    ],
   },
   CHINA: {
     name: "CHINA",
-    goods: ["Moth Cocoons", "Silk Threads", "Clay", "Silk", "Porcelain"],
+    goods: [
+      "moth_cocoons",
+      "silk_threads",
+      "clay",
+      "silk",
+      "porcelain",
+      "rice",
+      "wu_zhu",
+    ],
   },
   "MAYA EMPIRE": {
     name: "MAYA EMPIRE",
-    goods: ["Ancestor Mask", "Headdress", "Ritual Dagger", "Calendar Stone"],
+    goods: [
+      "ancestor_mask",
+      "headdress",
+      "ritual_dagger",
+      "calendar_stone",
+      "cocoa",
+    ],
   },
   "VIKING KINGDOM": {
     name: "VIKING KINGDOM",
     goods: [
-      "Mead",
-      "Ceramic Treasure",
-      "Gold Treasure",
-      "Stockfish",
-      "Spice Treasure",
-      "Jewel Treasure",
+      "mead",
+      "ceramic_treasure",
+      "gold_treasure",
+      "stockfish",
+      "spice_treasure",
+      "jewel_treasure",
+      "pennies",
     ],
   },
   ARABIA: {
     name: "ARABIA",
-    goods: ["Coffee", "Oil Lamp", "Incense", "Carpet"],
+    goods: ["coffee", "oil_lamp", "incense", "carpet", "dirham"],
   },
   "OTTOMAN EMPIRE": {
     name: "OTTOMAN EMPIRE",
-    goods: ["Confection", "Syrup", "Wheat", "Pomegranate"],
+    goods: [
+      "confection",
+      "syrup",
+      "wheat",
+      "pomegranate",
+      "apricot",
+      "mohair",
+      "tea",
+      "brocade",
+      "aspers",
+    ],
   },
 };
 
@@ -443,7 +552,7 @@ export const alliedCityResources: Record<
   },
   ottoman_empire: {
     name: "OTTOMAN EMPIRE",
-    resources: ["asper"],
+    resources: ["aspers"],
   },
 };
 
@@ -451,6 +560,8 @@ export const formatColumns = [
   "coin",
   "coins",
   "pennies",
+  "asper",
+  "aspers",
   "cocoa",
   "wu zhu",
   "deben",
@@ -458,8 +569,6 @@ export const formatColumns = [
   "rice",
   "food",
   "build cost",
-  // eg_coins_allied
-  // eg_food_allied
 ];
 
 export const skipColumns = [
@@ -483,6 +592,7 @@ export const skipBuildingLimit = [
   "cavalry_barracks",
   "heavy_infantry_barracks",
   "large_culture_site",
+  "ottoman_empire_ship",
 ];
 
 export const limitCapitalBuildingsByEra: Record<
@@ -683,7 +793,7 @@ export const limitAllBuildingsByEra: Record<
       ...limitCapitalBuildingsByEra[era as EraAbbr],
       ...limitLuxuriousBuildingsByEra[era as EraAbbr],
     },
-  ])
+  ]),
 ) as Record<EraAbbr, Record<string, number>>;
 
 export const limitAlliedBuildingsByEra: Record<

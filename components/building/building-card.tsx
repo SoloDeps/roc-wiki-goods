@@ -4,8 +4,12 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { ResourceBadge } from "./resource-badge";
 import BuildingCounter from "./building-counter";
-import { getGoodImageUrlFromType, questsFormatNumber } from "@/lib/utils";
-import { itemsUrl, WIKI_URL } from "@/lib/constants";
+import {
+  getItemIconLocal,
+  questsFormatNumber,
+  normalizeGoodName,
+  getGoodNameFromPriorityEra,
+} from "@/lib/utils";
 
 interface Good {
   type: string;
@@ -22,6 +26,7 @@ export const BuildingCard = memo(function BuildingCard({
   const { id, name, image, costs, quantity, maxQty, parsed, hidden } = building;
   const [localQty, setLocalQty] = useState(quantity);
   const [isHovered, setIsHovered] = useState(false);
+  const [imageError, setImageError] = useState(false);
   const updateTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
@@ -57,7 +62,7 @@ export const BuildingCard = memo(function BuildingCard({
         .map(([type, unitValue]) => ({
           type,
           value: unitValue * localQty,
-          icon: itemsUrl[type as keyof typeof itemsUrl] ?? itemsUrl.default,
+          icon: getItemIconLocal(type),
         })),
     [costs, localQty],
   );
@@ -72,16 +77,26 @@ export const BuildingCard = memo(function BuildingCard({
     }, new Map<string, number>());
 
     return Array.from(combined.entries()).map(([type, amount]) => {
-      const iconPath =
-        getGoodImageUrlFromType(type, userSelections) || itemsUrl.default;
-      const fullIconUrl = iconPath.startsWith("http")
-        ? iconPath
-        : `${WIKI_URL}${iconPath}`;
+      // Utiliser la fonction utils pour obtenir le nom du good
+      const match = type.match(/^(Primary|Secondary|Tertiary)_([A-Z]{2})$/i);
+      let goodName = type;
+
+      if (match) {
+        const [, priority, era] = match;
+        const resolvedName = getGoodNameFromPriorityEra(
+          priority,
+          era,
+          userSelections,
+        );
+        if (resolvedName) {
+          goodName = resolvedName;
+        }
+      }
 
       return (
         <ResourceBadge
           key={type}
-          icon={fullIconUrl}
+          icon={`/goods/${normalizeGoodName(goodName)}.webp`}
           value={questsFormatNumber(amount)}
           alt={type}
         />
@@ -132,12 +147,26 @@ export const BuildingCard = memo(function BuildingCard({
       )}
 
       <div className="hidden md:flex size-28 shrink-0 overflow-hidden relative">
-        <img
-          src={image}
-          alt={name}
-          draggable={false}
-          className={`size-full object-cover brightness-105 select-none ${hidden ? "opacity-60 pointer-events-none select-none" : ""}`}
-        />
+        {imageError ? (
+          <div className="size-full flex items-center justify-center bg-background-400/50">
+            <img
+              src="/svg/default_building.svg"
+              alt={name}
+              draggable={false}
+              className={`size-16 object-contain opacity-40 select-none dark:invert-50 ${hidden ? "opacity-30" : ""}`}
+            />
+          </div>
+        ) : (
+          <img
+            src={image}
+            alt={name}
+            draggable={false}
+            className={`size-full object-cover brightness-105 select-none ${hidden ? "opacity-60 pointer-events-none select-none" : ""}`}
+            onError={(e) => {
+              setImageError(true);
+            }}
+          />
+        )}
       </div>
 
       <div className="flex p-3 size-full relative">
@@ -182,7 +211,9 @@ export const BuildingCard = memo(function BuildingCard({
                   ) : (
                     <EyeOff className="size-4" />
                   )}
-                  <span className="hidden md:inline-block">{hidden ? "Show" : "Hide"}</span>
+                  <span className="hidden md:inline-block">
+                    {hidden ? "Show" : "Hide"}
+                  </span>
                 </Button>
               </div>
             </div>
@@ -204,7 +235,7 @@ export const BuildingCard = memo(function BuildingCard({
               {mainResources.map((r) => (
                 <ResourceBadge
                   key={r.type}
-                  icon={`${WIKI_URL}${r.icon}`}
+                  icon={r.icon}
                   value={questsFormatNumber(r.value)}
                   alt={r.type}
                 />
