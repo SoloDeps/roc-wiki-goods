@@ -40,6 +40,7 @@ export const questsRequirements: QuestRequirements = {
       KS: 78000,
       HM: 86000,
       EG: 94000,
+      LG: 102000,
     },
     xs: {
       SA: 500,
@@ -55,6 +56,7 @@ export const questsRequirements: QuestRequirements = {
       KS: 156000,
       HM: 171000,
       EG: 186000,
+      LG: 201000,
     },
     s: {
       SA: 1000,
@@ -70,6 +72,7 @@ export const questsRequirements: QuestRequirements = {
       KS: 312000,
       HM: 343000,
       EG: 374000,
+      LG: 405000,
     },
     m: {
       SA: 2000,
@@ -85,6 +88,7 @@ export const questsRequirements: QuestRequirements = {
       KS: 625000,
       HM: 685000,
       EG: 745000,
+      LG: 805000,
     },
     l: {
       SA: 4000,
@@ -100,6 +104,7 @@ export const questsRequirements: QuestRequirements = {
       KS: 1250000,
       HM: 1370000,
       EG: 1490000,
+      LG: 1610000,
     },
     xl: {
       SA: 6000,
@@ -115,6 +120,7 @@ export const questsRequirements: QuestRequirements = {
       KS: 1870000,
       HM: 2050000,
       EG: 2230000,
+      LG: 2410000,
     },
     xxl: {
       SA: 13000,
@@ -130,6 +136,7 @@ export const questsRequirements: QuestRequirements = {
       KS: 3740000,
       HM: 4100000,
       EG: 4460000,
+      LG: 4820000,
     },
     xxxl: {
       SA: 25000,
@@ -145,6 +152,7 @@ export const questsRequirements: QuestRequirements = {
       KS: 7490000,
       HM: 8230000,
       EG: 8970000,
+      LG: 9710000,
     },
     "4xxl": {
       SA: 50000,
@@ -160,6 +168,7 @@ export const questsRequirements: QuestRequirements = {
       KS: 14980000,
       HM: 16460000,
       EG: 17940000,
+      LG: 19420000,
     },
   },
   food: {
@@ -177,6 +186,7 @@ export const questsRequirements: QuestRequirements = {
       KS: 47000,
       HM: 48000,
       EG: 49000,
+      LG: 50000,
     },
     xs: {
       SA: 1050,
@@ -192,6 +202,7 @@ export const questsRequirements: QuestRequirements = {
       KS: 94000,
       HM: 96000,
       EG: 98000,
+      LG: 100000,
     },
     s: {
       SA: 2100,
@@ -207,6 +218,7 @@ export const questsRequirements: QuestRequirements = {
       KS: 188000,
       HM: 193000,
       EG: 198000,
+      LG: 203000,
     },
     m: {
       SA: 4150,
@@ -222,6 +234,7 @@ export const questsRequirements: QuestRequirements = {
       KS: 375000,
       HM: 383000,
       EG: 391000,
+      LG: 399000,
     },
     l: {
       SA: 8000,
@@ -237,6 +250,7 @@ export const questsRequirements: QuestRequirements = {
       KS: 750000,
       HM: 765000,
       EG: 780000,
+      LG: 795000,
     },
     xl: {
       SA: 13000,
@@ -252,6 +266,7 @@ export const questsRequirements: QuestRequirements = {
       KS: 1125000,
       HM: 1150000,
       EG: 1175000,
+      LG: 1200000,
     },
     xxl: {
       SA: 25000,
@@ -267,6 +282,7 @@ export const questsRequirements: QuestRequirements = {
       KS: 2250000,
       HM: 2300000,
       EG: 2350000,
+      LG: 2400000,
     },
     xxxl: {
       SA: 50000,
@@ -282,6 +298,7 @@ export const questsRequirements: QuestRequirements = {
       KS: 4500000,
       HM: 4600000,
       EG: 4700000,
+      LG: 4800000,
     },
     "4xxl": {
       SA: 100000,
@@ -297,6 +314,7 @@ export const questsRequirements: QuestRequirements = {
       KS: 9000000,
       HM: 9200000,
       EG: 9400000,
+      LG: 9600000,
     },
   },
   goods: {
@@ -314,6 +332,7 @@ export const questsRequirements: QuestRequirements = {
       KS: 250,
       HM: 250,
       EG: 250,
+      LG: 250,
     },
     m: {
       SA: 2100,
@@ -329,6 +348,7 @@ export const questsRequirements: QuestRequirements = {
       KS: 500,
       HM: 500,
       EG: 500,
+      LG: 500,
     },
     l: {
       SA: 4150,
@@ -344,6 +364,7 @@ export const questsRequirements: QuestRequirements = {
       KS: 1000,
       HM: 1000,
       EG: 1000,
+      LG: 1000,
     },
     xl: {
       SA: 6250,
@@ -359,6 +380,7 @@ export const questsRequirements: QuestRequirements = {
       KS: 1500,
       HM: 1500,
       EG: 1500,
+      LG: 1500,
     },
     xxl: {
       SA: 8350,
@@ -374,6 +396,7 @@ export const questsRequirements: QuestRequirements = {
       KS: 2000,
       HM: 2000,
       EG: 2000,
+      LG: 2000,
     },
     xxxl: {
       SA: 10400,
@@ -389,6 +412,7 @@ export const questsRequirements: QuestRequirements = {
       KS: 2500,
       HM: 2500,
       EG: 2500,
+      LG: 2500,
     },
     "4xxl": {
       SA: 10400,
@@ -404,6 +428,7 @@ export const questsRequirements: QuestRequirements = {
       KS: 6000,
       HM: 6000,
       EG: 6000,
+      LG: 6000,
     },
   },
   cavalry: {
@@ -604,6 +629,7 @@ export const unitsData: UnitsDataType = {
     KS: ["Pedites", "Unit_Pedites"],
     HM: ["Infantrymen", "Unit_Infantrymen"],
     EG: ["Routiers", "Unit_Routiers"],
+    LG: ["Brigandine", "Unit_Brigandine"],
   },
   cavalry: {
     SA: ["", ""],
@@ -619,6 +645,7 @@ export const unitsData: UnitsDataType = {
     KS: ["Melites", "Unit_Melites"],
     HM: ["Knightly Cavalry", "Unit_KnightlyCavalry"],
     EG: ["Cavalrymen", "Unit_Cavalrymen"],
+    LG: ["Lancers", "Unit_Lancers"],
   },
   heavyinfantry: {
     SA: ["", ""],
@@ -634,6 +661,7 @@ export const unitsData: UnitsDataType = {
     KS: ["Familia Regis", "Unit_Familia_Regis"],
     HM: ["Billmen", "Unit_Billmen"],
     EG: ["Noble Knights", "Unit_Noble_Knights"],
+    LG: ["Plate Armor Knights", "Unit_PlateArmorKnights"],
   },
   ranged: {
     SA: ["Slingers", "Unit_Slingers"],
@@ -649,6 +677,7 @@ export const unitsData: UnitsDataType = {
     KS: ["Armored Crossbowmen", "Unit_Armored_Crossbowmen"],
     HM: ["Arbalists", "Unit_Arbalists"],
     EG: ["Crossbow Guards", "Unit_EarlyGothicEra_Player_Longbowmen"],
+    LG: ["Cranequeniers", "Unit_Cranequeniers"],
   },
   siege: {
     SA: ["", ""],
@@ -664,5 +693,6 @@ export const unitsData: UnitsDataType = {
     KS: ["Siege Tower", "Unit_Siege_Tower"],
     HM: ["Medieval Catapult", "Unit_Medieval_Catapult"],
     EG: ["Wheeled Tower", "Unit_EarlyGothicEra_Player_WheeledOnager"],
+    LG: ["Iron Cannon", "Unit_IronCannon"],
   },
 };

@@ -1,7 +1,13 @@
 import { storage } from "#imports";
 import { getApiConfig } from "@/lib/roc/tokenCapture";
 import { syncGameResources } from "@/lib/roc/rocApi";
-import { db, gameDb, TechnoEntity } from "@/lib/storage/dexie";
+import {
+  db,
+  gameDb,
+  TechnoEntity,
+  OttomanTradePostEntity,
+} from "@/lib/storage/dexie";
+import { slugify } from "@/lib/utils";
 
 const BADGE_CONFIG = {
   LOADING: { text: "...", color: "#FF8800" },
@@ -16,10 +22,22 @@ const setBadge = (tabId: number, type: keyof typeof BADGE_CONFIG) => {
   chrome.action.setBadgeTextColor({ color: "#FFFFFF", tabId });
 };
 
-const sendMessage = (tabId: number, type: string, data: any = {}) => {
-  chrome.tabs.sendMessage(tabId, { type, ...data }).catch(() => {
+const sendMessage = async (tabId: number, type: string, data: any = {}) => {
+  try {
+    // Vérifier que l'onglet existe et est accessible
+    const tab = await chrome.tabs.get(tabId);
+    if (!tab.url?.startsWith("http")) {
+      console.log(
+        `[RoC Background] Skipping ${type} - tab is on chrome:// page`,
+      );
+      return;
+    }
+
+    await chrome.tabs.sendMessage(tabId, { type, ...data });
+  } catch (error) {
+    // Silencieux - c'est normal si le content script n'est pas là
     console.log(`[RoC Background] Content script unavailable for ${type}`);
-  });
+  }
 };
 
 export default defineBackground(() => {
@@ -118,27 +136,35 @@ export default defineBackground(() => {
     return true;
   });
 
-  // ✅ CORRECTION : Broadcaster vers TOUS les contextes (tabs + runtime)
   async function broadcastChange(type: string, data: any) {
     const message = {
       type: "DEXIE_CHANGED",
       payload: { type, data },
     };
 
-    // 1. Broadcaster vers tous les tabs (content scripts)
+    // Filtrer uniquement les onglets compatibles
     const tabs = await chrome.tabs.query({});
-    tabs.forEach((tab) => {
+    const validTabs = tabs.filter(
+      (tab) =>
+        tab.url?.includes("riseofcultures.com") ||
+        tab.url?.includes("riseofcultures.wiki.gg"),
+    );
+
+    validTabs.forEach((tab) => {
       if (tab.id) {
-        chrome.tabs.sendMessage(tab.id, message).catch(() => {});
+        chrome.tabs.sendMessage(tab.id, message).catch(() => {
+          // Silencieux - l'onglet peut ne pas avoir le content script
+        });
       }
     });
 
-    // 2. ✅ CRITIQUE : Broadcaster vers le runtime (popups, options pages, sidepanels)
     chrome.runtime.sendMessage(message).catch(() => {
-      // C'est normal que ça échoue si aucune page n'écoute
+      // Silencieux - pas de receiver, c'est normal
     });
 
-    console.log(`[Background] Broadcasted ${type} to all contexts`);
+    console.log(
+      `[Background] Broadcasted ${type} to ${validTabs.length} valid tabs`,
+    );
   }
 
   async function handleDexieMessage(message: any) {
@@ -150,6 +176,7 @@ export default defineBackground(() => {
 
     try {
       switch (type) {
+        // ==================== BUILDINGS ====================
         case "DEXIE_GET_BUILDINGS":
           return { success: true, data: await db.buildings.toArray() };
 
@@ -192,6 +219,45 @@ export default defineBackground(() => {
           return { success: true };
         }
 
+        case "DEXIE_REMOVE_ALL_BUILDINGS": {
+          await db.buildings.clear();
+          await broadcastChange("BUILDINGS", []);
+          return { success: true };
+        }
+
+        case "DEXIE_HIDE_ALL_BUILDINGS": {
+          const buildings = await db.buildings.toArray();
+          const timestamp = Date.now();
+
+          await db.buildings.bulkPut(
+            buildings.map((b) => ({
+              ...b,
+              hidden: true,
+              updatedAt: timestamp,
+            })),
+          );
+
+          await broadcastChange("BUILDINGS", await db.buildings.toArray());
+          return { success: true };
+        }
+
+        case "DEXIE_SHOW_ALL_BUILDINGS": {
+          const buildings = await db.buildings.toArray();
+          const timestamp = Date.now();
+
+          await db.buildings.bulkPut(
+            buildings.map((b) => ({
+              ...b,
+              hidden: false,
+              updatedAt: timestamp,
+            })),
+          );
+
+          await broadcastChange("BUILDINGS", await db.buildings.toArray());
+          return { success: true };
+        }
+
+        // ==================== TECHNOS ====================
         case "DEXIE_GET_TECHNOS":
           return { success: true, data: await db.technos.toArray() };
 
@@ -242,17 +308,19 @@ export default defineBackground(() => {
         case "DEXIE_SAVE_ERA_TECHNOS": {
           const { eraPath, technos } = payload;
 
-          const existing = await db.technos.toArray();
-          const toDelete = existing.filter((t) =>
-            t.id.startsWith(`techno_${eraPath}_`),
-          );
-          if (toDelete.length)
-            await db.technos.bulkDelete(toDelete.map((t) => t.id));
+          const existingTechnos = await db.technos
+            .filter((t) => t.id.startsWith(`techno_${eraPath}_`))
+            .toArray();
 
-          if (technos.length) {
-            await db.technos.bulkAdd(
+          await Promise.all(
+            existingTechnos.map((t) => db.technos.delete(t.id)),
+          );
+
+          if (technos && technos.length > 0) {
+            await db.technos.bulkPut(
               technos.map((t: TechnoEntity) => ({
                 ...t,
+                hidden: false,
                 updatedAt: Date.now(),
               })),
             );
@@ -264,95 +332,16 @@ export default defineBackground(() => {
 
         case "DEXIE_CLEAR_ERA_TECHNOS": {
           const { eraPath } = payload;
-          const existing = await db.technos.toArray();
-          const toDelete = existing.filter((t) =>
-            t.id.startsWith(`techno_${eraPath}_`),
+
+          const technosToDelete = await db.technos
+            .filter((t) => t.id.startsWith(`techno_${eraPath}_`))
+            .toArray();
+
+          await Promise.all(
+            technosToDelete.map((t) => db.technos.delete(t.id)),
           );
-          if (toDelete.length)
-            await db.technos.bulkDelete(toDelete.map((t) => t.id));
 
           await broadcastChange("TECHNOS", await db.technos.toArray());
-          return { success: true };
-        }
-
-        case "DEXIE_LOAD_PRESET": {
-          const { buildings, technos } = payload;
-
-          console.log(
-            `[Background] Loading preset: ${buildings.length} buildings, ${technos.length} technos`,
-          );
-
-          // Transaction atomique : tout se passe en une seule opération
-          await db.transaction("rw", [db.buildings, db.technos], async () => {
-            // Vider les tables
-            await db.buildings.clear();
-            await db.technos.clear();
-
-            // Ajouter les nouvelles données
-            if (buildings.length > 0) {
-              await db.buildings.bulkPut(
-                buildings.map((b: any) => ({
-                  ...b,
-                  hidden: false,
-                  updatedAt: Date.now(),
-                })),
-              );
-            }
-
-            if (technos.length > 0) {
-              await db.technos.bulkPut(
-                technos.map((t: any) => ({
-                  ...t,
-                  hidden: false,
-                  updatedAt: Date.now(),
-                })),
-              );
-            }
-          });
-
-          // Broadcaster UNE SEULE FOIS après que tout soit terminé
-          const [newBuildings, newTechnos] = await Promise.all([
-            db.buildings.toArray(),
-            db.technos.toArray(),
-          ]);
-
-          await broadcastChange("BUILDINGS", newBuildings);
-          await broadcastChange("TECHNOS", newTechnos);
-
-          console.log(`[Background] ✅ Preset loaded and broadcasted`);
-
-          return { success: true };
-        }
-
-        case "DEXIE_HIDE_ALL_BUILDINGS": {
-          const buildings = await db.buildings.toArray();
-          const timestamp = Date.now();
-
-          await db.buildings.bulkPut(
-            buildings.map((b) => ({
-              ...b,
-              hidden: true,
-              updatedAt: timestamp,
-            })),
-          );
-
-          await broadcastChange("BUILDINGS", await db.buildings.toArray());
-          return { success: true };
-        }
-
-        case "DEXIE_SHOW_ALL_BUILDINGS": {
-          const buildings = await db.buildings.toArray();
-          const timestamp = Date.now();
-
-          await db.buildings.bulkPut(
-            buildings.map((b) => ({
-              ...b,
-              hidden: false,
-              updatedAt: timestamp,
-            })),
-          );
-
-          await broadcastChange("BUILDINGS", await db.buildings.toArray());
           return { success: true };
         }
 
@@ -388,6 +377,340 @@ export default defineBackground(() => {
           return { success: true };
         }
 
+        // ==================== OTTOMAN AREAS ====================
+        case "DEXIE_GET_OTTOMAN_AREAS":
+          return { success: true, data: await db.ottomanAreas.toArray() };
+
+        case "DEXIE_SAVE_OTTOMAN_AREA": {
+          await db.ottomanAreas.put({ ...payload, updatedAt: Date.now() });
+          await broadcastChange(
+            "OTTOMAN_AREAS",
+            await db.ottomanAreas.toArray(),
+          );
+          return { success: true };
+        }
+
+        case "DEXIE_TOGGLE_OTTOMAN_AREA_HIDDEN": {
+          const { id } = payload;
+          const area = await db.ottomanAreas.get(id);
+          if (!area) return { success: false, error: "Area not found" };
+
+          area.hidden = !area.hidden;
+          area.updatedAt = Date.now();
+          await db.ottomanAreas.put(area);
+          await broadcastChange(
+            "OTTOMAN_AREAS",
+            await db.ottomanAreas.toArray(),
+          );
+          return { success: true };
+        }
+
+        case "DEXIE_REMOVE_OTTOMAN_AREA": {
+          await db.ottomanAreas.delete(payload.id);
+          await broadcastChange(
+            "OTTOMAN_AREAS",
+            await db.ottomanAreas.toArray(),
+          );
+          return { success: true };
+        }
+
+        case "DEXIE_REMOVE_ALL_OTTOMAN_AREAS": {
+          await db.ottomanAreas.clear();
+          await broadcastChange("OTTOMAN_AREAS", []);
+          return { success: true };
+        }
+
+        case "DEXIE_HIDE_ALL_OTTOMAN_AREAS": {
+          const areas = await db.ottomanAreas.toArray();
+          const timestamp = Date.now();
+
+          await db.ottomanAreas.bulkPut(
+            areas.map((a) => ({
+              ...a,
+              hidden: true,
+              updatedAt: timestamp,
+            })),
+          );
+
+          await broadcastChange(
+            "OTTOMAN_AREAS",
+            await db.ottomanAreas.toArray(),
+          );
+          return { success: true };
+        }
+
+        case "DEXIE_SHOW_ALL_OTTOMAN_AREAS": {
+          const areas = await db.ottomanAreas.toArray();
+          const timestamp = Date.now();
+
+          await db.ottomanAreas.bulkPut(
+            areas.map((a) => ({
+              ...a,
+              hidden: false,
+              updatedAt: timestamp,
+            })),
+          );
+
+          await broadcastChange(
+            "OTTOMAN_AREAS",
+            await db.ottomanAreas.toArray(),
+          );
+          return { success: true };
+        }
+
+        // ==================== OTTOMAN TRADE POSTS ====================
+        case "DEXIE_GET_OTTOMAN_TRADEPOSTS":
+          return { success: true, data: await db.ottomanTradePosts.toArray() };
+
+        case "DEXIE_SAVE_OTTOMAN_TRADEPOST": {
+          await db.ottomanTradePosts.put({ ...payload, updatedAt: Date.now() });
+          await broadcastChange(
+            "OTTOMAN_TRADEPOSTS",
+            await db.ottomanTradePosts.toArray(),
+          );
+          return { success: true };
+        }
+
+        case "DEXIE_TOGGLE_OTTOMAN_TRADEPOST_HIDDEN": {
+          const { id } = payload;
+          const tradePost = await db.ottomanTradePosts.get(id);
+          if (!tradePost)
+            return { success: false, error: "Trade post not found" };
+
+          tradePost.hidden = !tradePost.hidden;
+          tradePost.updatedAt = Date.now();
+          await db.ottomanTradePosts.put(tradePost);
+          await broadcastChange(
+            "OTTOMAN_TRADEPOSTS",
+            await db.ottomanTradePosts.toArray(),
+          );
+          return { success: true };
+        }
+
+        case "DEXIE_TOGGLE_OTTOMAN_TRADEPOST_LEVEL": {
+          const { id, level } = payload as {
+            id: string;
+            level: keyof OttomanTradePostEntity["levels"];
+          };
+          const tradePost = await db.ottomanTradePosts.get(id);
+          if (!tradePost)
+            return { success: false, error: "Trade post not found" };
+
+          // Toggle the level
+          tradePost.levels[level] = !tradePost.levels[level];
+
+          // Recalculate costs based on enabled levels
+          if (tradePost.sourceData) {
+            const recalculatedCosts = calculateTradePostCosts(
+              tradePost.sourceData,
+              tradePost.levels,
+            );
+            tradePost.costs = recalculatedCosts;
+          }
+
+          tradePost.updatedAt = Date.now();
+          await db.ottomanTradePosts.put(tradePost);
+          await broadcastChange(
+            "OTTOMAN_TRADEPOSTS",
+            await db.ottomanTradePosts.toArray(),
+          );
+          return { success: true };
+        }
+
+        case "DEXIE_REMOVE_OTTOMAN_TRADEPOST": {
+          await db.ottomanTradePosts.delete(payload.id);
+          await broadcastChange(
+            "OTTOMAN_TRADEPOSTS",
+            await db.ottomanTradePosts.toArray(),
+          );
+          return { success: true };
+        }
+
+        case "DEXIE_REMOVE_ALL_OTTOMAN_TRADEPOSTS": {
+          await db.ottomanTradePosts.clear();
+          await broadcastChange("OTTOMAN_TRADEPOSTS", []);
+          return { success: true };
+        }
+
+        case "DEXIE_HIDE_ALL_OTTOMAN_TRADEPOSTS": {
+          const tradePosts = await db.ottomanTradePosts.toArray();
+          const timestamp = Date.now();
+
+          await db.ottomanTradePosts.bulkPut(
+            tradePosts.map((t) => ({
+              ...t,
+              hidden: true,
+              updatedAt: timestamp,
+            })),
+          );
+
+          await broadcastChange(
+            "OTTOMAN_TRADEPOSTS",
+            await db.ottomanTradePosts.toArray(),
+          );
+          return { success: true };
+        }
+
+        case "DEXIE_SHOW_ALL_OTTOMAN_TRADEPOSTS": {
+          const tradePosts = await db.ottomanTradePosts.toArray();
+          const timestamp = Date.now();
+
+          await db.ottomanTradePosts.bulkPut(
+            tradePosts.map((t) => ({
+              ...t,
+              hidden: false,
+              updatedAt: timestamp,
+            })),
+          );
+
+          await broadcastChange(
+            "OTTOMAN_TRADEPOSTS",
+            await db.ottomanTradePosts.toArray(),
+          );
+          return { success: true };
+        }
+
+        // ==================== ✅ NEW: CLEAR OTTOMAN DATA ====================
+        case "DEXIE_CLEAR_OTTOMAN_DATA": {
+          // Get counts before clearing
+          const areasCount = await db.ottomanAreas.count();
+          const tradePostsCount = await db.ottomanTradePosts.count();
+
+          // Clear both tables
+          await Promise.all([
+            db.ottomanAreas.clear(),
+            db.ottomanTradePosts.clear(),
+          ]);
+
+          console.log(
+            `[Background] Cleared ${areasCount} areas and ${tradePostsCount} trade posts`,
+          );
+
+          // Broadcast changes
+          await broadcastChange("OTTOMAN_AREAS", []);
+          await broadcastChange("OTTOMAN_TRADEPOSTS", []);
+
+          return {
+            success: true,
+            areasCleared: areasCount,
+            tradePostsCleared: tradePostsCount,
+          };
+        }
+
+        // ==================== ✅ UPDATED: PRESET LOADING ====================
+        case "DEXIE_LOAD_PRESET": {
+          const {
+            buildings = [],
+            technos = [],
+            ottomanAreas = [],
+            ottomanTradePosts = [],
+          } = payload;
+
+          console.log(
+            `[Background] Loading preset: ${buildings.length} buildings, ${technos.length} technos, ${ottomanAreas.length} areas, ${ottomanTradePosts.length} trade posts`,
+          );
+
+          // Use transaction for atomic operations
+          await db.transaction(
+            "rw",
+            [db.buildings, db.technos, db.ottomanAreas, db.ottomanTradePosts],
+            async () => {
+              // Clear all tables
+              await Promise.all([
+                db.buildings.clear(),
+                db.technos.clear(),
+                db.ottomanAreas.clear(),
+                db.ottomanTradePosts.clear(),
+              ]);
+
+              const timestamp = Date.now();
+
+              // Batch insert new data
+              const insertPromises = [];
+
+              if (buildings.length > 0) {
+                insertPromises.push(
+                  db.buildings.bulkAdd(
+                    buildings.map((b: any) => ({
+                      ...b,
+                      hidden: false,
+                      updatedAt: timestamp,
+                    })),
+                  ),
+                );
+              }
+
+              if (technos.length > 0) {
+                insertPromises.push(
+                  db.technos.bulkAdd(
+                    technos.map((t: any) => ({
+                      ...t,
+                      hidden: false,
+                      updatedAt: timestamp,
+                    })),
+                  ),
+                );
+              }
+
+              if (ottomanAreas.length > 0) {
+                insertPromises.push(
+                  db.ottomanAreas.bulkAdd(
+                    ottomanAreas.map((a: any) => ({
+                      ...a,
+                      hidden: false,
+                      updatedAt: timestamp,
+                    })),
+                  ),
+                );
+              }
+
+              if (ottomanTradePosts.length > 0) {
+                insertPromises.push(
+                  db.ottomanTradePosts.bulkAdd(
+                    ottomanTradePosts.map((tp: any) => ({
+                      ...tp,
+                      hidden: false,
+                      updatedAt: timestamp,
+                    })),
+                  ),
+                );
+              }
+
+              await Promise.all(insertPromises);
+            },
+          );
+
+          // Get fresh data and broadcast
+          const [newBuildings, newTechnos, newAreas, newTradePosts] =
+            await Promise.all([
+              db.buildings.toArray(),
+              db.technos.toArray(),
+              db.ottomanAreas.toArray(),
+              db.ottomanTradePosts.toArray(),
+            ]);
+
+          // Broadcast all changes
+          await Promise.all([
+            broadcastChange("BUILDINGS", newBuildings),
+            broadcastChange("TECHNOS", newTechnos),
+            broadcastChange("OTTOMAN_AREAS", newAreas),
+            broadcastChange("OTTOMAN_TRADEPOSTS", newTradePosts),
+          ]);
+
+          console.log(
+            `[Background] ✅ Preset loaded: ${newBuildings.length} buildings, ${newTechnos.length} technos, ${newAreas.length} areas, ${newTradePosts.length} trade posts`,
+          );
+
+          return {
+            success: true,
+            buildingsAdded: newBuildings.length,
+            technosAdded: newTechnos.length,
+            ottomanAreasAdded: newAreas.length,
+            ottomanTradePostsAdded: newTradePosts.length,
+          };
+        }
+
+        // ==================== USER RESOURCES ====================
         case "DEXIE_SAVE_USER_RESOURCES": {
           const { resources } = payload;
           await gameDb.userResources.clear();
@@ -395,17 +718,10 @@ export default defineBackground(() => {
             resources.map((r: any) => ({ ...r, updatedAt: Date.now() })),
           );
 
-          // Broadcast user resources changes
           await broadcastChange(
             "USER_RESOURCES",
             await gameDb.userResources.toArray(),
           );
-          return { success: true };
-        }
-
-        case "DEXIE_REMOVE_ALL_BUILDINGS": {
-          await db.buildings.clear();
-          await broadcastChange("BUILDINGS", []);
           return { success: true };
         }
 
@@ -415,5 +731,66 @@ export default defineBackground(() => {
     } catch (error) {
       throw error instanceof Error ? error : new Error(String(error));
     }
+  }
+
+  // Helper function to recalculate trade post costs
+  function calculateTradePostCosts(tradePostData: any, enabledLevels: any) {
+    const costs: any = { goods: [] };
+    const goodsMap = new Map<string, number>();
+
+    const ottomanGoods = [
+      "wheat",
+      "pomegranate",
+      "confection",
+      "syrup",
+      "mohair",
+      "apricot",
+      "tea",
+      "brocade",
+    ];
+
+    const levelMapping: Record<string, number> = {
+      unlock: 1,
+      lvl2: 2,
+      lvl3: 3,
+      lvl4: 4,
+      lvl5: 5,
+    };
+
+    Object.entries(enabledLevels).forEach(([levelKey, isEnabled]) => {
+      if (!isEnabled) return;
+
+      const levelNum = levelMapping[levelKey];
+      const levelData = tradePostData.levels?.[levelNum];
+
+      if (!levelData || !Array.isArray(levelData)) return;
+
+      levelData.forEach((item: any) => {
+        const resource = item.resource.toLowerCase();
+        const amount = item.amount;
+
+        let normalizedResource = resource;
+        if (resource.includes("_eg") || resource.includes("lategothicera")) {
+          normalizedResource = slugify(resource);
+        }
+
+        if (
+          ottomanGoods.includes(resource) ||
+          normalizedResource.match(/^(primary|secondary|tertiary)_/i)
+        ) {
+          const normalized = slugify(resource);
+          goodsMap.set(normalized, (goodsMap.get(normalized) || 0) + amount);
+        } else {
+          costs[resource] = ((costs[resource] as number) || 0) + amount;
+        }
+      });
+    });
+
+    costs.goods = Array.from(goodsMap.entries()).map(([type, amount]) => ({
+      type,
+      amount,
+    }));
+
+    return costs;
   }
 });

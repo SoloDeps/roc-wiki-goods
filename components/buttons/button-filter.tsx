@@ -1,4 +1,10 @@
-import { useState, useCallback, useEffect, useDeferredValue } from "react";
+import {
+  useState,
+  useCallback,
+  useEffect,
+  useDeferredValue,
+  useMemo,
+} from "react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Filter } from "lucide-react";
@@ -33,7 +39,7 @@ export function ButtonFilter({
       setFilters(newFilters);
       onFiltersChange(newFilters);
     },
-    [onFiltersChange]
+    [onFiltersChange],
   );
 
   useEffect(() => {
@@ -45,7 +51,7 @@ export function ButtonFilter({
 
       const availableData = getAvailableData(
         { buildings: data },
-        deferredFilters
+        deferredFilters,
       );
       setAvailableLocations(availableData.locations);
       setAvailableTypes(availableData.types);
@@ -56,8 +62,14 @@ export function ButtonFilter({
     };
   }, [getAvailableData, deferredFilters]);
 
-  const activeFiltersCount =
-    (deferredFilters.tableType ? 1 : 0) + (deferredFilters.location ? 1 : 0);
+  const activeFiltersCount = useMemo(() => {
+    let count = 0;
+    if (deferredFilters.tableType) count++;
+    if (deferredFilters.location) count++;
+    if (deferredFilters.hideHidden) count++;
+    if (deferredFilters.hideTechnos) count++;
+    return count;
+  }, [deferredFilters]);
 
   return {
     button: (

@@ -1,10 +1,11 @@
 import { memo, useMemo } from "react";
 import { ResourceItem } from "./resource-item";
+import { slugify } from "../../lib/utils";
 import {
   eras,
   eraColors,
-  alliedCityResources,
   alliedCityColors,
+  RESOURCE_COLORS,
 } from "@/lib/constants";
 
 interface ResourceBlockProps {
@@ -28,13 +29,15 @@ const getEraColor = (eraName: string): string => {
 };
 
 const getCityColor = (cityName: string): string => {
-  const cityKey = Object.keys(alliedCityResources).find(
-    (key) =>
-      alliedCityResources[key as keyof typeof alliedCityResources].name ===
-      cityName,
+  if (cityName === "ITEMS") return RESOURCE_COLORS.ITEMS;
+
+  // Slugify the incoming city name and use it directly as the key
+  const slugifiedCityName = slugify(cityName);
+
+  // Direct lookup in alliedCityColors
+  return (
+    alliedCityColors[slugifiedCityName as keyof typeof alliedCityColors] || ""
   );
-  if (!cityKey) return "";
-  return alliedCityColors[cityKey as keyof typeof alliedCityColors] || "";
 };
 
 const getBlockStyles = (
@@ -55,7 +58,7 @@ const getBlockStyles = (
   } else {
     switch (type) {
       case "main":
-        bgRgb = "90, 152, 189";
+        bgRgb = RESOURCE_COLORS.MAIN;
         break;
       case "era":
         bgRgb = getEraColor(title);

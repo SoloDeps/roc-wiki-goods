@@ -267,29 +267,32 @@ export async function syncGameResources(): Promise<UserResource[]> {
   return filteredResources;
 }
 
-/**
- * ✅ NOUVEAU : Fonction pour broadcaster depuis le background
- */
 async function broadcastUserResourcesChange(data: UserResource[]) {
   const message = {
     type: "DEXIE_CHANGED",
     payload: { type: "USER_RESOURCES", data },
   };
 
-  // Broadcaster vers tous les tabs
+  // Broadcaster uniquement vers les onglets compatibles
   const tabs = await chrome.tabs.query({});
-  tabs.forEach((tab) => {
+  const validTabs = tabs.filter(
+    (tab) =>
+      tab.url?.includes("riseofcultures.com") ||
+      tab.url?.includes("riseofcultures.wiki.gg"),
+  );
+
+  validTabs.forEach((tab) => {
     if (tab.id) {
       chrome.tabs.sendMessage(tab.id, message).catch(() => {});
     }
   });
 
-  // Broadcaster vers le runtime
   chrome.runtime.sendMessage(message).catch(() => {});
 
-  console.log("[RoC API] Broadcasted USER_RESOURCES to all contexts");
+  console.log(
+    `[RoC API] Broadcasted USER_RESOURCES to ${validTabs.length} valid tabs`,
+  );
 }
-// #endregion
 
 // #region WATCH SYSTEM
 const userResourcesListeners = new Set<(data: UserResource[]) => void>();

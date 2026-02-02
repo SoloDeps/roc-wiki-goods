@@ -1,5 +1,5 @@
 import { getEraId, eras } from "@/lib/constants";
-import { parseNumber, formatNumber, getTitlePage, normalizeGoodName } from "@/lib/utils";
+import { parseNumber, formatNumber, getTitlePage, slugify } from "@/lib/utils";
 import {
   getTechnos,
   flattenAndSortTechnos,
@@ -297,8 +297,11 @@ function extractGoodsDetails(
     // regular goods with image
     const img = images[index];
     if (img?.alt) {
-      const text = img.alt.toLowerCase().replace(/\.(png|jpg|jpeg|gif|webp)$/i, "").trim();
-      const goodName = normalizeGoodName(text);
+      const text = img.alt
+        .toLowerCase()
+        .replace(/\.(png|jpg|jpeg|gif|webp)$/i, "")
+        .trim();
+      const goodName = slugify(text);
       const value = parseNumber(cleanLine);
       if (value > 0 && goodName) {
         details.push({ type: goodName, amount: value });

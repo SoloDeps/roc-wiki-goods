@@ -42,15 +42,41 @@ export function parseBuildingId(id: string): ParsedBuildingId {
 
 export function parseTechnoId(id: string): ParsedTechnoId {
   // Format: techno_home_cultures_high_middle_ages_42
+  // OU Format simplifié: techno_byzantine_era_0
   const parts = id.split("_");
 
+  if (parts.length < 3) {
+    throw new Error(`Invalid techno id format: ${id}`);
+  }
+
+  // Le dernier élément est toujours l'index
+  const index = parts[parts.length - 1];
+  
+  // L'era est tout ce qui est entre "techno" et l'index
+  // Pour techno_byzantine_era_0 -> byzantine_era
+  // Pour techno_home_cultures_high_middle_ages_42 -> home_cultures_high_middle_ages
+  const era = parts.slice(1, -1).join("_");
+
+  // Format simplifié: techno_era_number (ex: techno_byzantine_era_0)
+  // 4 parts: ["techno", "byzantine", "era", "0"]
+  if (parts.length === 4) {
+    return {
+      id,
+      mainSection: "home_cultures",
+      subSection: "",
+      thirdSection: "",
+      era,
+      index,
+    };
+  }
+
+  // Format complet: techno_home_cultures_high_middle_ages_42
+  // Au moins 5 parts pour avoir mainSection, subSection, thirdSection
   if (parts.length < 5) {
     throw new Error(`Invalid techno id format: ${id}`);
   }
 
-  const [, mainSection, subSection, thirdSection, ...rest] = parts;
-  const index = rest[rest.length - 1];
-  const era = rest.slice(0, -1).join("_");
+  const [, mainSection, subSection, thirdSection] = parts;
 
   return {
     id,

@@ -37,6 +37,14 @@ import {
   showAllBuildings,
   hideAllTechnos,
   showAllTechnos,
+  removeAllBuildings,
+  removeAllTechnos,
+  hideAllOttomanAreas,
+  showAllOttomanAreas,
+  hideAllOttomanTradePosts,
+  showAllOttomanTradePosts,
+  removeAllOttomanAreas,
+  removeAllOttomanTradePosts,
 } from "@/lib/overview/storage";
 
 interface ButtonGroupBuildingProps {
@@ -58,21 +66,57 @@ export function ButtonGroupBuilding({
 }: ButtonGroupBuildingProps) {
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
-  const handleDeleteAll = () => {
-    onDeleteAll?.();
-    setDropdownOpen(false);
+  const handleDeleteAll = async () => {
+    try {
+      // Delete all data including Ottoman
+      await Promise.all([
+        removeAllBuildings(),
+        removeAllTechnos(),
+        removeAllOttomanAreas(),
+        removeAllOttomanTradePosts(),
+      ]);
+
+      console.log(
+        "✅ All data deleted: buildings, technos, areas, and trade posts",
+      );
+      onDeleteAll?.();
+    } catch (error) {
+      console.error("Failed to delete all data:", error);
+    } finally {
+      setDropdownOpen(false);
+    }
   };
 
   const handleHideAll = async () => {
-    await hideAllBuildings();
-    await hideAllTechnos();
-    setDropdownOpen(false);
+    try {
+      await Promise.all([
+        hideAllBuildings(),
+        hideAllTechnos(),
+        hideAllOttomanAreas(),
+        hideAllOttomanTradePosts(),
+      ]);
+      console.log("✅ All data hidden");
+    } catch (error) {
+      console.error("Failed to hide all data:", error);
+    } finally {
+      setDropdownOpen(false);
+    }
   };
 
   const handleShowAll = async () => {
-    await showAllBuildings();
-    await showAllTechnos();
-    setDropdownOpen(false);
+    try {
+      await Promise.all([
+        showAllBuildings(),
+        showAllTechnos(),
+        showAllOttomanAreas(),
+        showAllOttomanTradePosts(),
+      ]);
+      console.log("✅ All data shown");
+    } catch (error) {
+      console.error("Failed to show all data:", error);
+    } finally {
+      setDropdownOpen(false);
+    }
   };
 
   return (
@@ -167,7 +211,11 @@ export function ButtonGroupBuilding({
                     <AlertDialogDescription className="dark:text-neutral-400">
                       This action cannot be <b>undone</b>.<br />
                       This will permanently{" "}
-                      <b>delete all buildings and technologies</b>.
+                      <b>
+                        delete all buildings, technologies, areas, and trade
+                        posts
+                      </b>
+                      .
                     </AlertDialogDescription>
                   </AlertDialogHeader>
                   <AlertDialogFooter>

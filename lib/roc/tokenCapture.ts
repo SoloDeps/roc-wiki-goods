@@ -92,35 +92,36 @@ export async function getAuthToken(): Promise<string | null> {
  * Fait une requête API authentifiée via le content script (pas de CORS)
  */
 export async function fetchWithAuth(endpoint: string, options: RequestInit = {}): Promise<any> {
-    // Envoyer la requête au content script qui la fera sans problème CORS
     return new Promise((resolve, reject) => {
-        chrome.tabs.query({ active: true, currentWindow: true }, async (tabs) => {
-            if (!tabs[0]?.id) {
-                reject(new Error('Onglet non trouvé'));
+        // Chercher spécifiquement un onglet avec le jeu
+        chrome.tabs.query({ url: "*://*.riseofcultures.com/*" }, async (tabs) => {
+            const gameTab = tabs.find(tab => 
+                tab.id && 
+                tab.url?.includes('riseofcultures.com') && 
+                !tab.url?.includes('-play')
+            );
+            
+            if (!gameTab?.id) {
+                reject(new Error('Aucun onglet Rise of Cultures trouvé'));
                 return;
             }
             
-            // Envoyer un message au content script
-            chrome.tabs.sendMessage(
-                tabs[0].id,
-                {
-                    type: 'API_REQUEST',
-                    endpoint,
-                    options
-                },
-                (response) => {
-                    if (chrome.runtime.lastError) {
-                        reject(new Error(chrome.runtime.lastError.message));
-                        return;
-                    }
-                    
-                    if (response.error) {
-                        reject(new Error(response.error));
-                    } else {
-                        resolve(response.data);
-                    }
+            chrome.tabs.sendMessage(gameTab.id, {
+                type: 'API_REQUEST',
+                endpoint,
+                options
+            }, (response) => {
+                if (chrome.runtime.lastError) {
+                    reject(new Error(chrome.runtime.lastError.message));
+                    return;
                 }
-            );
+                
+                if (response?.error) {
+                    reject(new Error(response.error));
+                } else {
+                    resolve(response.data);
+                }
+            });
         });
     });
 }

@@ -5,6 +5,76 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec2.0.0.html).
 
+## v1.7.0 - Feb 2, 2026
+
+### Added
+
+- Add comprehensive Ottoman empire support with dedicated parser and data structures
+- Add trade post card component for Ottoman-specific buildings
+- Add area card component for enhanced building area management
+- Add Ottoman data structures and presets for High Middle Ages, Early Gothic, and Late Gothic eras
+- Add enhanced building list with Ottoman integration and improved filtering
+- Add map SVG asset for visual representation
+- Add comprehensive quest data support for Ottoman content
+
+### Changed
+
+- **Major refactor**: Remove old goods images from assets/goods directory
+- **Major refactor**: Restructure techno components by removing accordion and card components
+- Update building cards with enhanced Ottoman integration and area management
+- Refactor button components with improved filtering and grouping capabilities
+- Enhance preset selection with Ottoman era support
+- Update total goods display with Ottoman-specific calculations
+- Improve background script with comprehensive Ottoman data processing
+- Refactor constants and storage system for Ottoman compatibility
+- Enhance ROC API integration with Ottoman-specific endpoints
+- Update calculator with Ottoman building support and area calculations
+- Improve storage system with enhanced Ottoman data persistence
+
+### Fixed
+
+- Resolve image loading issues by transitioning to local image assets
+- Fix Ottoman building parsing and data structure inconsistencies
+- Improve error handling for Ottoman-specific operations
+- Enhance data validation for Ottoman content types
+
+### Breaking Changes
+
+- Removed goods images from assets/goods directory (now using public/goods)
+- Techno component structure changed with accordion and card removal
+- Ottoman integration requires updated data structures and API endpoints
+
+## v1.6.0 - Feb 1, 2026
+
+### Added
+
+- Add 82 new local goods images to replace external URLs
+- Add comprehensive image assets for all eras and building types
+- Add SVG default building icon for fallback scenarios
+
+### Changed
+
+- **Major refactor**: Replace all external image URLs with local assets
+- Update presets data with local image references for all eras
+- Refactor image loading system to use local assets instead of external URLs
+- Enhance building cards and components with local image integration
+- Update goods display system with optimized local asset loading
+- Improve performance by eliminating external image dependencies
+- Refactor constants and utilities for local asset management
+
+### Fixed
+
+- Resolve external image loading failures and CORS issues
+- Fix image display inconsistencies across different eras
+- Improve error handling for missing or broken images
+- Enhance loading performance with local asset caching
+
+### Breaking Changes
+
+- External image URLs completely replaced with local assets
+- Image loading system refactored to use local file paths
+- Updated API responses to reference local image assets instead of external URLs
+
 ## v1.5.0 - Jan 27, 2026
 
 ### Added
@@ -49,6 +119,45 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec2.0.0.h
 ## v1.4.1 - Jan 19, 2026
 
 ### Added
+
+- Add selection_kit_pr in user resources (research_points)
+
+### Changed
+
+- Update UI details and styling
+
+## v1.4.0 - Jan 18, 2026
+
+### Added
+
+- Add comprehensive game data export system with ROC API integration
+- Add presets feature with comprehensive preset management
+- Add techno integration with building sheets and cards
+- Add shadcn UI components for modern interface
+- Add advanced filtering system for building lists
+- Add real-time synchronization and data persistence
+- Add option page with dark mode support
+- Add units data support in questlines
+- Add character images and enhanced UI components
+
+### Changed
+
+- Refactor popup architecture with conditional rendering
+- Update total goods display with preset integration
+- Optimize building list rendering and filtering
+- Improve UI responsiveness and performance
+- Upgrade dependencies to latest version (wxt 0.20.11)
+- Enhance security by removing innerHtml usage
+- Restructure project for better modularity
+
+### Fixed
+
+- Improve error handling for data export and authentication
+- Fix era selector functionality and warnings
+- Fix building limits and era detection
+- Fix various UI bugs and display issues
+
+## v1.3.8 - Jan 15, 2026
 
 - Add selection_kit_pr in user resources (research_points)
 

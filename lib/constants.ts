@@ -114,6 +114,10 @@ export function getEraId(wikiEraName: string | null): string {
   return eraWikiToId[normalized] || normalized;
 }
 
+// ========================================
+// COULEURS - Centralisées
+// ========================================
+
 export const eraColors: Record<EraAbbr, string> = {
   SA: "191, 96, 96",
   BA: "232, 149, 47",
@@ -139,6 +143,26 @@ export const alliedCityColors: Record<alliedCity, string> = {
   arabia: "191, 96, 96",
   ottoman_empire: "93, 194, 152",
 };
+
+// Couleurs spéciales pour les catégories de ressources
+export const RESOURCE_COLORS = {
+  MAIN: "90, 152, 189",
+  ITEMS: "120, 83, 21", // Purple
+  POSITIVE_DIFF: "34, 197, 94", // Green
+  NEGATIVE_DIFF: "239, 68, 68", // Red
+} as const;
+
+// ========================================
+// RESSOURCES PRINCIPALES
+// ========================================
+
+// Ordre d'affichage des ressources principales
+export const MAIN_RESOURCE_ORDER = [
+  "coins",
+  "food",
+  "research_points",
+  "gems",
+] as const;
 
 export const buildingsAbbr = [
   {
@@ -376,86 +400,29 @@ export const goodsUrlByEra: Record<
   },
 } as const;
 
-// Mapping des vrais noms de goods vers le format Priority_Era
-// Certains noms de goods apparaissent dans plusieurs ères (ex: Wool dans SA et BA)
-export const goodsNameMapping: Record<
-  string,
-  Array<{ priority: "primary" | "secondary" | "tertiary"; era: EraAbbr }>
-> = {
-  // Bronze Age (mêmes noms que SA mais différente era)
-  Wool: [
-    { priority: "primary", era: "SA" },
-    { priority: "primary", era: "BA" },
-  ],
-  "Alabaster Idol": [
-    { priority: "secondary", era: "SA" },
-    { priority: "secondary", era: "BA" },
-  ],
-  "Bronze Bracelet": [
-    { priority: "tertiary", era: "SA" },
-    { priority: "tertiary", era: "BA" },
-  ],
+// ========================================
+// CATÉGORISATION DES RESSOURCES
+// ========================================
 
-  // Minoan Era
-  "Linen Shirt": [{ priority: "primary", era: "ME" }],
-  "Marble Bust": [{ priority: "secondary", era: "ME" }],
-  "Iron Pendant": [{ priority: "tertiary", era: "ME" }],
+// Priorités des goods par ère (primary, secondary, tertiary)
+export const PRIORITY_TYPES = ["primary", "secondary", "tertiary"] as const;
+export type PriorityType = (typeof PRIORITY_TYPES)[number];
 
-  // Classical Greece
-  Toga: [{ priority: "primary", era: "CG" }],
-  Column: [{ priority: "secondary", era: "CG" }],
-  "Silver Ring": [{ priority: "tertiary", era: "CG" }],
+/**
+ * Créer une clé normalisée pour un good de priorité
+ * Ex: makePriorityKey("primary", "CG") => "primary_cg"
+ */
+export function makePriorityKey(priority: PriorityType, era: EraAbbr): string {
+  return `${priority}_${era.toLowerCase()}`;
+}
 
-  // Early Rome
-  Tunic: [{ priority: "primary", era: "ER" }],
-  "Stone Tablet": [{ priority: "secondary", era: "ER" }],
-  "Gold Laurel": [{ priority: "tertiary", era: "ER" }],
-
-  // Roman Empire
-  Cape: [{ priority: "primary", era: "RE" }],
-  Mosaic: [{ priority: "secondary", era: "RE" }],
-  Goblet: [{ priority: "tertiary", era: "RE" }],
-
-  // Byzantine Era
-  Parchment: [{ priority: "primary", era: "BE" }],
-  Planks: [{ priority: "secondary", era: "BE" }],
-  Pepper: [{ priority: "tertiary", era: "BE" }],
-
-  // Age of the Franks
-  Ink: [{ priority: "primary", era: "AF" }],
-  Cartwheel: [{ priority: "secondary", era: "AF" }],
-  Salt: [{ priority: "tertiary", era: "AF" }],
-
-  // Feudal Age
-  Manuscript: [{ priority: "primary", era: "FA" }],
-  Barrel: [{ priority: "secondary", era: "FA" }],
-  Herbs: [{ priority: "tertiary", era: "FA" }],
-
-  // Iberian Era
-  "Wax Seal": [{ priority: "primary", era: "IE" }],
-  Door: [{ priority: "secondary", era: "IE" }],
-  Saffron: [{ priority: "tertiary", era: "IE" }],
-
-  // Kingdom of Sicily
-  Tome: [{ priority: "primary", era: "KS" }],
-  Wardrobe: [{ priority: "secondary", era: "KS" }],
-  Chili: [{ priority: "tertiary", era: "KS" }],
-
-  // High Middle Ages
-  Grimoire: [{ priority: "primary", era: "HM" }],
-  "Secretary Desk": [{ priority: "secondary", era: "HM" }],
-  Cinnamon: [{ priority: "tertiary", era: "HM" }],
-
-  // Early Gothic
-  "Fine Jewelry": [{ priority: "primary", era: "EG" }],
-  Ointment: [{ priority: "secondary", era: "EG" }],
-  "Lead Glass": [{ priority: "tertiary", era: "EG" }],
-
-  // Early Gothic
-  Embellishments: [{ priority: "primary", era: "LG" }],
-  Elixirs: [{ priority: "secondary", era: "LG" }],
-  "Stained Glass": [{ priority: "tertiary", era: "LG" }],
-};
+/**
+ * Vérifier si une clé est au format priority_era
+ * Accepte: Primary_CG, primary_cg, SECONDARY_BA, etc.
+ */
+export function isPriorityGoodKey(key: string): boolean {
+  return /^(primary|secondary|tertiary)_[a-z]{2}$/i.test(key);
+}
 
 // Mapping des goods par civilisation pour le regroupement des other goods
 export const goodsByCivilization: Record<
@@ -524,37 +491,32 @@ export const goodsByCivilization: Record<
       "aspers",
     ],
   },
+  ITEMS: {
+    name: "ITEMS",
+    goods: [
+      "trade_city_diamond_upkey",
+      "trade_city_platinum_upkey",
+      "trade_city_gold_upkey",
+      "trade_city_silver_upkey",
+      "trade_village_diamond_upkey",
+      "trade_village_platinum_upkey",
+      "trade_village_gold_upkey",
+      "trade_village_silver_upkey",
+    ],
+  },
 };
 
-export const alliedCityResources: Record<
-  alliedCity,
-  { name: string; resources: string[] }
-> = {
-  egypt: {
-    name: "EGYPT",
-    resources: ["deben"],
-  },
-  china: {
-    name: "CHINA",
-    resources: ["rice", "wu_zhu"],
-  },
-  maya_empire: {
-    name: "MAYA EMPIRE",
-    resources: ["cocoa"],
-  },
-  viking_kingdom: {
-    name: "VIKING KINGDOM",
-    resources: ["pennies"],
-  },
-  arabia: {
-    name: "ARABIA",
-    resources: ["dirham"],
-  },
-  ottoman_empire: {
-    name: "OTTOMAN EMPIRE",
-    resources: ["aspers"],
-  },
-};
+// Helper: obtenir tous les items à exclure des main resources
+export function getExcludedItems(): string[] {
+  return goodsByCivilization.ITEMS.goods;
+}
+
+// Helper: vérifier si une ressource est une allied city resource
+export function isAlliedCityResource(resourceType: string): boolean {
+  return Object.values(goodsByCivilization).some((city) =>
+    city.goods.includes(resourceType),
+  );
+}
 
 export const formatColumns = [
   "coin",
@@ -745,16 +707,18 @@ export const limitCapitalBuildingsByEra: Record<
   LG: {
     domestic_farm: 11,
     rural_farm: 13,
-    small_home: 30,
-    average_home: 14,
-    little_culture_site: 9,
+    small_home: 31,
+    average_home: 15,
+    little_culture_site: 10,
     compact_culture_site: 9,
     moderate_culture_site: 6,
     infantry_barracks: 2,
     workshops: 3,
-    shipyard: 9,
-    seafarer_house: 14,
-    common_warehouse: 8,
+    shipyard: 13,
+    seafarer_house: 18,
+    common_warehouse: 12,
+    lighthouse: 5,
+    pier: 5,
   },
 };
 

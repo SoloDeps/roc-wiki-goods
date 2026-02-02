@@ -50,7 +50,8 @@ export function normalizeResourceKey(
 ): string {
   if (RESOURCE_MAPPING[key]) return RESOURCE_MAPPING[key];
 
-  const match = key.match(/^(Primary|Secondary|Tertiary)_([A-Z]{2})$/);
+  // ✅ FIX: Accepter les deux formats (Primary_CG et primary_cg)
+  const match = key.match(/^(primary|secondary|tertiary)_([a-z]{2})$/i);
   if (match) {
     const [, priority, era] = match;
     const goodName = getGoodNameFromPriorityEra(priority, era, userSelections);

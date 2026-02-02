@@ -1,6 +1,36 @@
 {
   "buildings": [
     {
+      "id": "/wiki/Allied_Cultures/Ottoman_Empire/Ottoman_Empire_Ship|upgrade|EG|2",
+      "quantity": 1,
+      "maxQty": 1,
+      "costs": {
+        "aspers": 30000,
+        "goods": [
+          {
+            "type": "wheat",
+            "amount": 10000
+          },
+          {
+            "type": "pomegranate",
+            "amount": 10000
+          },
+          {
+            "type": "primary_eg",
+            "amount": 1500
+          },
+          {
+            "type": "secondary_eg",
+            "amount": 1200
+          },
+          {
+            "type": "tertiary_eg",
+            "amount": 750
+          }
+        ]
+      }
+    },
+    {
       "id": "/wiki/Home_Cultures/Barracks/Cavalry_Barracks|upgrade|LG|14",
       "quantity": 1,
       "maxQty": 1,
@@ -9,15 +39,15 @@
         "food": 8500000,
         "goods": [
           {
-            "type": "Lead_Glass",
+            "type": "lead_glass",
             "amount": 8670
           },
           {
-            "type": "Fine_Jewelry",
+            "type": "fine_jewelry",
             "amount": 8670
           },
           {
-            "type": "Ointment",
+            "type": "ointment",
             "amount": 8670
           }
         ]
@@ -32,15 +62,15 @@
         "food": 11900000,
         "goods": [
           {
-            "type": "Lead_Glass",
+            "type": "lead_glass",
             "amount": 9870
           },
           {
-            "type": "Fine_Jewelry",
+            "type": "fine_jewelry",
             "amount": 9870
           },
           {
-            "type": "Ointment",
+            "type": "ointment",
             "amount": 9870
           }
         ]
@@ -55,15 +85,15 @@
         "food": 5900000,
         "goods": [
           {
-            "type": "Lead_Glass",
+            "type": "lead_glass",
             "amount": 5560
           },
           {
-            "type": "Fine_Jewelry",
+            "type": "fine_jewelry",
             "amount": 5560
           },
           {
-            "type": "Ointment",
+            "type": "ointment",
             "amount": 5560
           }
         ]
@@ -78,15 +108,15 @@
         "food": 6800000,
         "goods": [
           {
-            "type": "Lead_Glass",
+            "type": "lead_glass",
             "amount": 7115
           },
           {
-            "type": "Fine_Jewelry",
+            "type": "fine_jewelry",
             "amount": 7115
           },
           {
-            "type": "Ointment",
+            "type": "ointment",
             "amount": 7115
           }
         ]
@@ -101,15 +131,15 @@
         "food": 13500000,
         "goods": [
           {
-            "type": "Lead_Glass",
+            "type": "lead_glass",
             "amount": 12340
           },
           {
-            "type": "Fine_Jewelry",
+            "type": "fine_jewelry",
             "amount": 12340
           },
           {
-            "type": "Ointment",
+            "type": "ointment",
             "amount": 12340
           }
         ]
@@ -178,15 +208,15 @@
         "food": 15000000,
         "goods": [
           {
-            "type": "Secretary_Desk",
+            "type": "secretary_desk",
             "amount": 8000
           },
           {
-            "type": "Grimoire",
+            "type": "grimoire",
             "amount": 8000
           },
           {
-            "type": "Cinnamon",
+            "type": "cinnamon",
             "amount": 8000
           }
         ]
@@ -201,15 +231,15 @@
         "food": 1020000,
         "goods": [
           {
-            "type": "Secretary_Desk",
+            "type": "secretary_desk",
             "amount": 2000
           },
           {
-            "type": "Grimoire",
+            "type": "grimoire",
             "amount": 2000
           },
           {
-            "type": "Cinnamon",
+            "type": "cinnamon",
             "amount": 2000
           }
         ]
@@ -224,19 +254,19 @@
         "food": 1080000,
         "goods": [
           {
-            "type": "Primary_EG",
+            "type": "primary_eg",
             "amount": 1500
           },
           {
-            "type": "Tertiary_EG",
+            "type": "tertiary_eg",
             "amount": 1500
           },
           {
-            "type": "Wheat",
+            "type": "wheat",
             "amount": 10000
           },
           {
-            "type": "Pomegranate",
+            "type": "pomegranate",
             "amount": 10000
           }
         ]
@@ -251,19 +281,19 @@
         "food": 1150000,
         "goods": [
           {
-            "type": "Secondary_EG",
+            "type": "secondary_eg",
             "amount": 2000
           },
           {
-            "type": "Tertiary_EG",
+            "type": "tertiary_eg",
             "amount": 2000
           },
           {
-            "type": "Confection",
+            "type": "confection",
             "amount": 7500
           },
           {
-            "type": "Syrup",
+            "type": "syrup",
             "amount": 7500
           }
         ]
@@ -278,15 +308,15 @@
         "food": 10000000,
         "goods": [
           {
-            "type": "Secretary_Desk",
+            "type": "secretary_desk",
             "amount": 6000
           },
           {
-            "type": "Grimoire",
+            "type": "grimoire",
             "amount": 6000
           },
           {
-            "type": "Cinnamon",
+            "type": "cinnamon",
             "amount": 6000
           }
         ]
@@ -301,15 +331,15 @@
         "food": 720000,
         "goods": [
           {
-            "type": "Secretary_Desk",
+            "type": "secretary_desk",
             "amount": 1200
           },
           {
-            "type": "Grimoire",
+            "type": "grimoire",
             "amount": 1200
           },
           {
-            "type": "Cinnamon",
+            "type": "cinnamon",
             "amount": 1200
           }
         ]
@@ -324,19 +354,19 @@
         "food": 780000,
         "goods": [
           {
-            "type": "Primary_EG",
+            "type": "primary_eg",
             "amount": 1000
           },
           {
-            "type": "Tertiary_EG",
+            "type": "tertiary_eg",
             "amount": 1000
           },
           {
-            "type": "Wheat",
+            "type": "wheat",
             "amount": 8500
           },
           {
-            "type": "Pomegranate",
+            "type": "pomegranate",
             "amount": 8500
           }
         ]
@@ -351,19 +381,19 @@
         "food": 850000,
         "goods": [
           {
-            "type": "Secondary_EG",
+            "type": "secondary_eg",
             "amount": 1800
           },
           {
-            "type": "Tertiary_EG",
+            "type": "tertiary_eg",
             "amount": 1800
           },
           {
-            "type": "Confection",
+            "type": "confection",
             "amount": 6000
           },
           {
-            "type": "Syrup",
+            "type": "syrup",
             "amount": 6000
           }
         ]
@@ -378,15 +408,15 @@
         "food": 100000,
         "goods": [
           {
-            "type": "Secretary_Desk",
+            "type": "secretary_desk",
             "amount": 1000
           },
           {
-            "type": "Grimoire",
+            "type": "grimoire",
             "amount": 1000
           },
           {
-            "type": "Cinnamon",
+            "type": "cinnamon",
             "amount": 1000
           }
         ]
@@ -400,19 +430,19 @@
         "food": 75000,
         "goods": [
           {
-            "type": "Primary_EG",
+            "type": "primary_eg",
             "amount": 1000
           },
           {
-            "type": "Secondary_EG",
+            "type": "secondary_eg",
             "amount": 750
           },
           {
-            "type": "Wheat",
+            "type": "wheat",
             "amount": 5000
           },
           {
-            "type": "Pomegranate",
+            "type": "pomegranate",
             "amount": 5000
           }
         ]
@@ -427,15 +457,15 @@
         "food": 21000000,
         "goods": [
           {
-            "type": "Secretary_Desk",
+            "type": "secretary_desk",
             "amount": 5000
           },
           {
-            "type": "Grimoire",
+            "type": "grimoire",
             "amount": 5000
           },
           {
-            "type": "Cinnamon",
+            "type": "cinnamon",
             "amount": 5000
           }
         ]
@@ -450,15 +480,15 @@
         "food": 1350000,
         "goods": [
           {
-            "type": "Secretary_Desk",
+            "type": "secretary_desk",
             "amount": 1400
           },
           {
-            "type": "Grimoire",
+            "type": "grimoire",
             "amount": 1400
           },
           {
-            "type": "Cinnamon",
+            "type": "cinnamon",
             "amount": 1400
           }
         ]
@@ -473,19 +503,19 @@
         "food": 1400000,
         "goods": [
           {
-            "type": "Primary_EG",
+            "type": "primary_eg",
             "amount": 1000
           },
           {
-            "type": "Tertiary_EG",
+            "type": "tertiary_eg",
             "amount": 1000
           },
           {
-            "type": "Wheat",
+            "type": "wheat",
             "amount": 6500
           },
           {
-            "type": "Pomegranate",
+            "type": "pomegranate",
             "amount": 6500
           }
         ]
@@ -500,19 +530,19 @@
         "food": 1450000,
         "goods": [
           {
-            "type": "Secondary_EG",
+            "type": "secondary_eg",
             "amount": 1400
           },
           {
-            "type": "Tertiary_EG",
+            "type": "tertiary_eg",
             "amount": 1400
           },
           {
-            "type": "Confection",
+            "type": "confection",
             "amount": 4500
           },
           {
-            "type": "Syrup",
+            "type": "syrup",
             "amount": 4500
           }
         ]
@@ -527,15 +557,15 @@
         "food": 8200000,
         "goods": [
           {
-            "type": "Secretary_Desk",
+            "type": "secretary_desk",
             "amount": 2500
           },
           {
-            "type": "Grimoire",
+            "type": "grimoire",
             "amount": 2500
           },
           {
-            "type": "Cinnamon",
+            "type": "cinnamon",
             "amount": 2500
           }
         ]
@@ -550,15 +580,15 @@
         "food": 550000,
         "goods": [
           {
-            "type": "Secretary_Desk",
+            "type": "secretary_desk",
             "amount": 700
           },
           {
-            "type": "Grimoire",
+            "type": "grimoire",
             "amount": 700
           },
           {
-            "type": "Cinnamon",
+            "type": "cinnamon",
             "amount": 700
           }
         ]
@@ -573,19 +603,19 @@
         "food": 580000,
         "goods": [
           {
-            "type": "Primary_EG",
+            "type": "primary_eg",
             "amount": 500
           },
           {
-            "type": "Tertiary_EG",
+            "type": "tertiary_eg",
             "amount": 500
           },
           {
-            "type": "Wheat",
+            "type": "wheat",
             "amount": 3500
           },
           {
-            "type": "Pomegranate",
+            "type": "pomegranate",
             "amount": 3500
           }
         ]
@@ -600,19 +630,19 @@
         "food": 610000,
         "goods": [
           {
-            "type": "Secondary_EG",
+            "type": "secondary_eg",
             "amount": 800
           },
           {
-            "type": "Tertiary_EG",
+            "type": "tertiary_eg",
             "amount": 800
           },
           {
-            "type": "Confection",
+            "type": "confection",
             "amount": 1500
           },
           {
-            "type": "Syrup",
+            "type": "syrup",
             "amount": 1500
           }
         ]
@@ -627,15 +657,15 @@
         "food": 750000,
         "goods": [
           {
-            "type": "Secretary_Desk",
+            "type": "secretary_desk",
             "amount": 2500
           },
           {
-            "type": "Grimoire",
+            "type": "grimoire",
             "amount": 2500
           },
           {
-            "type": "Cinnamon",
+            "type": "cinnamon",
             "amount": 2500
           }
         ]
@@ -650,15 +680,15 @@
         "food": 250000,
         "goods": [
           {
-            "type": "Secretary_Desk",
+            "type": "secretary_desk",
             "amount": 1500
           },
           {
-            "type": "Grimoire",
+            "type": "grimoire",
             "amount": 1500
           },
           {
-            "type": "Cinnamon",
+            "type": "cinnamon",
             "amount": 1500
           }
         ]
@@ -673,15 +703,15 @@
         "food": 30000000,
         "goods": [
           {
-            "type": "Secretary_Desk",
+            "type": "secretary_desk",
             "amount": 5500
           },
           {
-            "type": "Grimoire",
+            "type": "grimoire",
             "amount": 5500
           },
           {
-            "type": "Cinnamon",
+            "type": "cinnamon",
             "amount": 5500
           }
         ]
@@ -696,15 +726,15 @@
         "food": 30000000,
         "goods": [
           {
-            "type": "Secretary_Desk",
+            "type": "secretary_desk",
             "amount": 5500
           },
           {
-            "type": "Grimoire",
+            "type": "grimoire",
             "amount": 5500
           },
           {
-            "type": "Cinnamon",
+            "type": "cinnamon",
             "amount": 5500
           }
         ]
@@ -719,15 +749,15 @@
         "food": 30000000,
         "goods": [
           {
-            "type": "Secretary_Desk",
+            "type": "secretary_desk",
             "amount": 5500
           },
           {
-            "type": "Grimoire",
+            "type": "grimoire",
             "amount": 5500
           },
           {
-            "type": "Cinnamon",
+            "type": "cinnamon",
             "amount": 5500
           }
         ]
@@ -743,11 +773,11 @@
         "food": 3500000,
         "goods": [
           {
-            "type": "Tertiary_HM",
+            "type": "tertiary_hm",
             "amount": 13500
           },
           {
-            "type": "Primary_HM",
+            "type": "primary_hm",
             "amount": 5700
           }
         ]
@@ -761,15 +791,15 @@
         "food": 3200000,
         "goods": [
           {
-            "type": "Primary_HM",
+            "type": "primary_hm",
             "amount": 13000
           },
           {
-            "type": "Secondary_HM",
+            "type": "secondary_hm",
             "amount": 5350
           },
           {
-            "type": "Primary_KS",
+            "type": "primary_ks",
             "amount": 4300
           }
         ]
@@ -783,15 +813,15 @@
         "food": 3400000,
         "goods": [
           {
-            "type": "Primary_HM",
+            "type": "primary_hm",
             "amount": 12100
           },
           {
-            "type": "Tertiary_KS",
+            "type": "tertiary_ks",
             "amount": 6800
           },
           {
-            "type": "Secondary_EG",
+            "type": "secondary_eg",
             "amount": 2000
           }
         ]
@@ -805,15 +835,15 @@
         "food": 3200000,
         "goods": [
           {
-            "type": "Tertiary_EG",
+            "type": "tertiary_eg",
             "amount": 7000
           },
           {
-            "type": "Secondary_HM",
+            "type": "secondary_hm",
             "amount": 4500
           },
           {
-            "type": "Primary_KS",
+            "type": "primary_ks",
             "amount": 3500
           }
         ]
@@ -827,15 +857,15 @@
         "food": 7200000,
         "goods": [
           {
-            "type": "Secondary_EG",
+            "type": "secondary_eg",
             "amount": 8000
           },
           {
-            "type": "Primary_KS",
+            "type": "primary_ks",
             "amount": 6600
           },
           {
-            "type": "Primary_EG",
+            "type": "primary_eg",
             "amount": 2000
           }
         ]
@@ -849,15 +879,15 @@
         "food": 7500000,
         "goods": [
           {
-            "type": "Tertiary_KS",
+            "type": "tertiary_ks",
             "amount": 27000
           },
           {
-            "type": "Pomegranate",
+            "type": "pomegranate",
             "amount": 5000
           },
           {
-            "type": "Wheat",
+            "type": "wheat",
             "amount": 5000
           }
         ]
@@ -871,15 +901,15 @@
         "food": 7200000,
         "goods": [
           {
-            "type": "Primary_EG",
+            "type": "primary_eg",
             "amount": 11000
           },
           {
-            "type": "Wheat",
+            "type": "wheat",
             "amount": 7500
           },
           {
-            "type": "Pomegranate",
+            "type": "pomegranate",
             "amount": 7500
           }
         ]
@@ -893,15 +923,15 @@
         "food": 2600000,
         "goods": [
           {
-            "type": "Tertiary_EG",
+            "type": "tertiary_eg",
             "amount": 6500
           },
           {
-            "type": "Primary_HM",
+            "type": "primary_hm",
             "amount": 4050
           },
           {
-            "type": "Primary_EG",
+            "type": "primary_eg",
             "amount": 1650
           }
         ]
@@ -915,15 +945,15 @@
         "food": 4200000,
         "goods": [
           {
-            "type": "Primary_EG",
+            "type": "primary_eg",
             "amount": 7200
           },
           {
-            "type": "Tertiary_HM",
+            "type": "tertiary_hm",
             "amount": 4500
           },
           {
-            "type": "Secondary_KS",
+            "type": "secondary_ks",
             "amount": 3600
           }
         ]
@@ -937,15 +967,15 @@
         "food": 4700000,
         "goods": [
           {
-            "type": "Secondary_HM",
+            "type": "secondary_hm",
             "amount": 13500
           },
           {
-            "type": "Secondary_KS",
+            "type": "secondary_ks",
             "amount": 7650
           },
           {
-            "type": "Pomegranate",
+            "type": "pomegranate",
             "amount": 10000
           }
         ]
@@ -959,15 +989,15 @@
         "food": 6500000,
         "goods": [
           {
-            "type": "Secondary_EG",
+            "type": "secondary_eg",
             "amount": 7250
           },
           {
-            "type": "Secondary_HM",
+            "type": "secondary_hm",
             "amount": 4550
           },
           {
-            "type": "Tertiary_KS",
+            "type": "tertiary_ks",
             "amount": 3650
           }
         ]
@@ -981,15 +1011,15 @@
         "food": 2700000,
         "goods": [
           {
-            "type": "Tertiary_HM",
+            "type": "tertiary_hm",
             "amount": 9250
           },
           {
-            "type": "Primary_EG",
+            "type": "primary_eg",
             "amount": 2550
           },
           {
-            "type": "Tertiary_EG",
+            "type": "tertiary_eg",
             "amount": 1550
           }
         ]
@@ -1003,15 +1033,15 @@
         "food": 4000000,
         "goods": [
           {
-            "type": "Secondary_HM",
+            "type": "secondary_hm",
             "amount": 10000
           },
           {
-            "type": "Tertiary_HM",
+            "type": "tertiary_hm",
             "amount": 4250
           },
           {
-            "type": "Primary_IE",
+            "type": "primary_ie",
             "amount": 4250
           }
         ]
@@ -1025,15 +1055,15 @@
         "food": 4100000,
         "goods": [
           {
-            "type": "Tertiary_EG",
+            "type": "tertiary_eg",
             "amount": 7150
           },
           {
-            "type": "Primary_KS",
+            "type": "primary_ks",
             "amount": 6000
           },
           {
-            "type": "Secondary_EG",
+            "type": "secondary_eg",
             "amount": 1800
           }
         ]
@@ -1047,15 +1077,15 @@
         "food": 2500000,
         "goods": [
           {
-            "type": "Secondary_EG",
+            "type": "secondary_eg",
             "amount": 7500
           },
           {
-            "type": "Primary_HM",
+            "type": "primary_hm",
             "amount": 4700
           },
           {
-            "type": "Tertiary_KS",
+            "type": "tertiary_ks",
             "amount": 3750
           }
         ]
@@ -1069,15 +1099,15 @@
         "food": 4300000,
         "goods": [
           {
-            "type": "Primary_EG",
+            "type": "primary_eg",
             "amount": 8000
           },
           {
-            "type": "Primary_IE",
+            "type": "primary_ie",
             "amount": 8500
           },
           {
-            "type": "Wheat",
+            "type": "wheat",
             "amount": 15000
           }
         ]
@@ -1091,15 +1121,15 @@
         "food": 6600000,
         "goods": [
           {
-            "type": "Secondary_IE",
+            "type": "secondary_ie",
             "amount": 23750
           },
           {
-            "type": "Tertiary_HM",
+            "type": "tertiary_hm",
             "amount": 6200
           },
           {
-            "type": "Pomegranate",
+            "type": "pomegranate",
             "amount": 15000
           }
         ]
@@ -1113,15 +1143,15 @@
         "food": 6400000,
         "goods": [
           {
-            "type": "Secondary_EG",
+            "type": "secondary_eg",
             "amount": 7750
           },
           {
-            "type": "Secondary_HM",
+            "type": "secondary_hm",
             "amount": 4850
           },
           {
-            "type": "Primary_KS",
+            "type": "primary_ks",
             "amount": 4000
           }
         ]
@@ -1135,15 +1165,15 @@
         "food": 5600000,
         "goods": [
           {
-            "type": "Secondary_KS",
+            "type": "secondary_ks",
             "amount": 13750
           },
           {
-            "type": "Tertiary_IE",
+            "type": "tertiary_ie",
             "amount": 7150
           },
           {
-            "type": "Tertiary_EG",
+            "type": "tertiary_eg",
             "amount": 1750
           }
         ]
@@ -1157,15 +1187,15 @@
         "food": 5300000,
         "goods": [
           {
-            "type": "Tertiary_EG",
+            "type": "tertiary_eg",
             "amount": 6700
           },
           {
-            "type": "Primary_HM",
+            "type": "primary_hm",
             "amount": 4200
           },
           {
-            "type": "Tertiary_KS",
+            "type": "tertiary_ks",
             "amount": 3350
           }
         ]
@@ -1179,15 +1209,15 @@
         "food": 2200000,
         "goods": [
           {
-            "type": "Secondary_EG",
+            "type": "secondary_eg",
             "amount": 6850
           },
           {
-            "type": "Secondary_KS",
+            "type": "secondary_ks",
             "amount": 5700
           },
           {
-            "type": "Primary_EG",
+            "type": "primary_eg",
             "amount": 1700
           }
         ]
@@ -1201,15 +1231,15 @@
         "food": 3700000,
         "goods": [
           {
-            "type": "Primary_EG",
+            "type": "primary_eg",
             "amount": 8700
           },
           {
-            "type": "Tertiary_EG",
+            "type": "tertiary_eg",
             "amount": 3600
           },
           {
-            "type": "Tertiary_IE",
+            "type": "tertiary_ie",
             "amount": 5450
           }
         ]
@@ -1223,15 +1253,15 @@
         "food": 5500000,
         "goods": [
           {
-            "type": "Primary_HM",
+            "type": "primary_hm",
             "amount": 13200
           },
           {
-            "type": "Secondary_KS",
+            "type": "secondary_ks",
             "amount": 7550
           },
           {
-            "type": "Confection",
+            "type": "confection",
             "amount": 6000
           }
         ]
@@ -1245,11 +1275,11 @@
         "food": 3900000,
         "goods": [
           {
-            "type": "Tertiary_HM",
+            "type": "tertiary_hm",
             "amount": 14500
           },
           {
-            "type": "Secondary_IE",
+            "type": "secondary_ie",
             "amount": 10500
           }
         ]
@@ -1263,15 +1293,15 @@
         "food": 3300000,
         "goods": [
           {
-            "type": "Secondary_EG",
+            "type": "secondary_eg",
             "amount": 9000
           },
           {
-            "type": "Tertiary_HM",
+            "type": "tertiary_hm",
             "amount": 5550
           },
           {
-            "type": "Primary_EG",
+            "type": "primary_eg",
             "amount": 2200
           }
         ]
@@ -1285,15 +1315,15 @@
         "food": 4900000,
         "goods": [
           {
-            "type": "Tertiary_EG",
+            "type": "tertiary_eg",
             "amount": 8850
           },
           {
-            "type": "Tertiary_KS",
+            "type": "tertiary_ks",
             "amount": 7350
           },
           {
-            "type": "Secondary_EG",
+            "type": "secondary_eg",
             "amount": 2200
           }
         ]
@@ -1307,15 +1337,15 @@
         "food": 3800000,
         "goods": [
           {
-            "type": "Tertiary_IE",
+            "type": "tertiary_ie",
             "amount": 20100
           },
           {
-            "type": "Primary_HM",
+            "type": "primary_hm",
             "amount": 5200
           },
           {
-            "type": "Syrup",
+            "type": "syrup",
             "amount": 7500
           }
         ]
@@ -1329,15 +1359,15 @@
         "food": 4300000,
         "goods": [
           {
-            "type": "Primary_EG",
+            "type": "primary_eg",
             "amount": 7500
           },
           {
-            "type": "Primary_IE",
+            "type": "primary_ie",
             "amount": 7600
           },
           {
-            "type": "Tertiary_EG",
+            "type": "tertiary_eg",
             "amount": 1800
           }
         ]
@@ -1351,15 +1381,15 @@
         "food": 4700000,
         "goods": [
           {
-            "type": "Tertiary_EG",
+            "type": "tertiary_eg",
             "amount": 8750
           },
           {
-            "type": "Secondary_KS",
+            "type": "secondary_ks",
             "amount": 7300
           },
           {
-            "type": "Primary_KS",
+            "type": "primary_ks",
             "amount": 4400
           }
         ]
@@ -1373,15 +1403,15 @@
         "food": 2100000,
         "goods": [
           {
-            "type": "Primary_HM",
+            "type": "primary_hm",
             "amount": 10450
           },
           {
-            "type": "Secondary_HM",
+            "type": "secondary_hm",
             "amount": 4350
           },
           {
-            "type": "Primary_EG",
+            "type": "primary_eg",
             "amount": 1750
           }
         ]
@@ -1395,15 +1425,15 @@
         "food": 6000000,
         "goods": [
           {
-            "type": "Secondary_EG",
+            "type": "secondary_eg",
             "amount": 9750
           },
           {
-            "type": "Tertiary_KS",
+            "type": "tertiary_ks",
             "amount": 8350
           },
           {
-            "type": "Syrup",
+            "type": "syrup",
             "amount": 9000
           }
         ]
@@ -1417,11 +1447,11 @@
         "food": 3900000,
         "goods": [
           {
-            "type": "Primary_EG",
+            "type": "primary_eg",
             "amount": 6700
           },
           {
-            "type": "Tertiary_HM",
+            "type": "tertiary_hm",
             "amount": 4200
           }
         ]
@@ -1435,15 +1465,15 @@
         "food": 3900000,
         "goods": [
           {
-            "type": "Tertiary_HM",
+            "type": "tertiary_hm",
             "amount": 14850
           },
           {
-            "type": "Tertiary_IE",
+            "type": "tertiary_ie",
             "amount": 10500
           },
           {
-            "type": "Confection",
+            "type": "confection",
             "amount": 9000
           }
         ]
@@ -1457,15 +1487,15 @@
         "food": 6000000,
         "goods": [
           {
-            "type": "Secondary_EG",
+            "type": "secondary_eg",
             "amount": 8000
           },
           {
-            "type": "Tertiary_EG",
+            "type": "tertiary_eg",
             "amount": 3300
           },
           {
-            "type": "Secondary_KS",
+            "type": "secondary_ks",
             "amount": 4000
           }
         ]
@@ -1479,15 +1509,15 @@
         "food": 3100000,
         "goods": [
           {
-            "type": "Primary_IE",
+            "type": "primary_ie",
             "amount": 19000
           },
           {
-            "type": "Primary_EG",
+            "type": "primary_eg",
             "amount": 3300
           },
           {
-            "type": "Carpet",
+            "type": "carpet",
             "amount": 5000
           }
         ]
@@ -1501,15 +1531,15 @@
         "food": 2800000,
         "goods": [
           {
-            "type": "Tertiary_EG",
+            "type": "tertiary_eg",
             "amount": 7500
           },
           {
-            "type": "Tertiary_HM",
+            "type": "tertiary_hm",
             "amount": 4750
           },
           {
-            "type": "Secondary_HM",
+            "type": "secondary_hm",
             "amount": 3000
           }
         ]
@@ -1523,15 +1553,15 @@
         "food": 5200000,
         "goods": [
           {
-            "type": "Primary_KS",
+            "type": "primary_ks",
             "amount": 16500
           },
           {
-            "type": "Tertiary_EG",
+            "type": "tertiary_eg",
             "amount": 3500
           },
           {
-            "type": "Tertiary_KS",
+            "type": "tertiary_ks",
             "amount": 4100
           }
         ]
@@ -1545,15 +1575,15 @@
         "food": 6400000,
         "goods": [
           {
-            "type": "Tertiary_EG",
+            "type": "tertiary_eg",
             "amount": 7600
           },
           {
-            "type": "Primary_EG",
+            "type": "primary_eg",
             "amount": 3100
           },
           {
-            "type": "Primary_HM",
+            "type": "primary_hm",
             "amount": 2750
           }
         ]
@@ -1567,15 +1597,15 @@
         "food": 6800000,
         "goods": [
           {
-            "type": "Secondary_KS",
+            "type": "secondary_ks",
             "amount": 17000
           },
           {
-            "type": "Secondary_HM",
+            "type": "secondary_hm",
             "amount": 5350
           },
           {
-            "type": "Tertiary_EG",
+            "type": "tertiary_eg",
             "amount": 2150
           }
         ]
@@ -1589,15 +1619,15 @@
         "food": 7000000,
         "goods": [
           {
-            "type": "Primary_KS",
+            "type": "primary_ks",
             "amount": 12000
           },
           {
-            "type": "Secondary_HM",
+            "type": "secondary_hm",
             "amount": 3800
           },
           {
-            "type": "Primary_EG",
+            "type": "primary_eg",
             "amount": 1500
           }
         ]
@@ -1611,15 +1641,15 @@
         "food": 5000000,
         "goods": [
           {
-            "type": "Primary_EG",
+            "type": "primary_eg",
             "amount": 6050
           },
           {
-            "type": "Primary_HM",
+            "type": "primary_hm",
             "amount": 4000
           },
           {
-            "type": "Secondary_KS",
+            "type": "secondary_ks",
             "amount": 3000
           }
         ]
@@ -1633,15 +1663,15 @@
         "food": 6600000,
         "goods": [
           {
-            "type": "Secondary_HM",
+            "type": "secondary_hm",
             "amount": 11000
           },
           {
-            "type": "Primary_KS",
+            "type": "primary_ks",
             "amount": 6200
           },
           {
-            "type": "Secondary_EG",
+            "type": "secondary_eg",
             "amount": 1850
           }
         ]
@@ -1655,15 +1685,15 @@
         "food": 2300000,
         "goods": [
           {
-            "type": "Secondary_EG",
+            "type": "secondary_eg",
             "amount": 7600
           },
           {
-            "type": "Tertiary_EG",
+            "type": "tertiary_eg",
             "amount": 3200
           },
           {
-            "type": "Secondary_IE",
+            "type": "secondary_ie",
             "amount": 4750
           }
         ]
@@ -1677,18 +1707,1836 @@
         "food": 1800000,
         "goods": [
           {
-            "type": "Primary_EG",
+            "type": "primary_eg",
             "amount": 8200
           },
           {
-            "type": "Tertiary_HM",
+            "type": "tertiary_hm",
             "amount": 5200
           },
           {
-            "type": "Tertiary_KS",
+            "type": "tertiary_ks",
             "amount": 4100
           }
         ]
+      }
+    }
+  ],
+  "ottomanAreas": [
+    {
+      "id": "area_1",
+      "areaIndex": 1,
+      "costs": {
+        "goods": [
+          {
+            "type": "aspers",
+            "amount": 50000
+          },
+          {
+            "type": "wheat",
+            "amount": 5000
+          },
+          {
+            "type": "pomegranate",
+            "amount": 5000
+          }
+        ]
+      }
+    },
+    {
+      "id": "area_10",
+      "areaIndex": 10,
+      "costs": {
+        "goods": [
+          {
+            "type": "aspers",
+            "amount": 500000
+          },
+          {
+            "type": "confection",
+            "amount": 10000
+          },
+          {
+            "type": "syrup",
+            "amount": 10000
+          }
+        ]
+      }
+    },
+    {
+      "id": "area_2",
+      "areaIndex": 2,
+      "costs": {
+        "goods": [
+          {
+            "type": "aspers",
+            "amount": 75000
+          },
+          {
+            "type": "wheat",
+            "amount": 15000
+          },
+          {
+            "type": "pomegranate",
+            "amount": 15000
+          }
+        ]
+      }
+    },
+    {
+      "id": "area_3",
+      "areaIndex": 3,
+      "costs": {
+        "goods": [
+          {
+            "type": "aspers",
+            "amount": 90000
+          },
+          {
+            "type": "wheat",
+            "amount": 15000
+          },
+          {
+            "type": "pomegranate",
+            "amount": 15000
+          }
+        ]
+      }
+    },
+    {
+      "id": "area_4",
+      "areaIndex": 4,
+      "costs": {
+        "goods": [
+          {
+            "type": "aspers",
+            "amount": 160000
+          },
+          {
+            "type": "wheat",
+            "amount": 20000
+          },
+          {
+            "type": "pomegranate",
+            "amount": 20000
+          }
+        ]
+      }
+    },
+    {
+      "id": "area_5",
+      "areaIndex": 5,
+      "costs": {
+        "goods": [
+          {
+            "type": "aspers",
+            "amount": 250000
+          },
+          {
+            "type": "pomegranate",
+            "amount": 20000
+          },
+          {
+            "type": "confection",
+            "amount": 6000
+          }
+        ]
+      }
+    },
+    {
+      "id": "area_6",
+      "areaIndex": 6,
+      "costs": {
+        "goods": [
+          {
+            "type": "aspers",
+            "amount": 300000
+          },
+          {
+            "type": "wheat",
+            "amount": 20000
+          },
+          {
+            "type": "syrup",
+            "amount": 6000
+          }
+        ]
+      }
+    },
+    {
+      "id": "area_7",
+      "areaIndex": 7,
+      "costs": {
+        "goods": [
+          {
+            "type": "aspers",
+            "amount": 350000
+          },
+          {
+            "type": "confection",
+            "amount": 7500
+          },
+          {
+            "type": "syrup",
+            "amount": 7500
+          }
+        ]
+      }
+    },
+    {
+      "id": "area_8",
+      "areaIndex": 8,
+      "costs": {
+        "goods": [
+          {
+            "type": "aspers",
+            "amount": 400000
+          },
+          {
+            "type": "confection",
+            "amount": 9000
+          },
+          {
+            "type": "syrup",
+            "amount": 9000
+          }
+        ]
+      }
+    },
+    {
+      "id": "area_9",
+      "areaIndex": 9,
+      "costs": {
+        "goods": [
+          {
+            "type": "aspers",
+            "amount": 450000
+          },
+          {
+            "type": "confection",
+            "amount": 10000
+          },
+          {
+            "type": "syrup",
+            "amount": 10000
+          }
+        ]
+      }
+    }
+  ],
+  "ottomanTradePosts": [
+    {
+      "id": "tradepost_aenos_village",
+      "name": "Aenos Village",
+      "area": 3,
+      "resource": "pomegranate",
+      "levels": {
+        "unlock": true,
+        "lvl2": true,
+        "lvl3": true,
+        "lvl4": true,
+        "lvl5": true
+      },
+      "costs": {
+        "goods": [],
+        "gems": 2950
+      },
+      "sourceData": {
+        "levels": {
+          "1": [
+            {
+              "amount": 390,
+              "resource": "gems"
+            }
+          ],
+          "2": [
+            {
+              "amount": 490,
+              "resource": "gems"
+            }
+          ],
+          "3": [
+            {
+              "amount": 590,
+              "resource": "gems"
+            }
+          ],
+          "4": [
+            {
+              "amount": 690,
+              "resource": "gems"
+            }
+          ],
+          "5": [
+            {
+              "amount": 790,
+              "resource": "gems"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "tradepost_amasra_city",
+      "name": "Amasra City",
+      "area": 6,
+      "resource": "confection",
+      "levels": {
+        "unlock": true,
+        "lvl2": true,
+        "lvl3": true,
+        "lvl4": true,
+        "lvl5": true
+      },
+      "costs": {
+        "goods": [],
+        "gems": 3450
+      },
+      "sourceData": {
+        "levels": {
+          "1": [
+            {
+              "amount": 490,
+              "resource": "gems"
+            }
+          ],
+          "2": [
+            {
+              "amount": 590,
+              "resource": "gems"
+            }
+          ],
+          "3": [
+            {
+              "amount": 690,
+              "resource": "gems"
+            }
+          ],
+          "4": [
+            {
+              "amount": 790,
+              "resource": "gems"
+            }
+          ],
+          "5": [
+            {
+              "amount": 890,
+              "resource": "gems"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "tradepost_babakale_village",
+      "name": "Babakale Village",
+      "area": 7,
+      "resource": "wheat",
+      "levels": {
+        "unlock": true,
+        "lvl2": true,
+        "lvl3": true,
+        "lvl4": true,
+        "lvl5": true
+      },
+      "costs": {
+        "goods": [
+          {
+            "type": "aspers",
+            "amount": 40000
+          },
+          {
+            "type": "primary_eg",
+            "amount": 1200
+          }
+        ],
+        "trade_village_silver_upkey": 1,
+        "trade_village_gold_upkey": 1,
+        "trade_village_platinum_upkey": 1,
+        "trade_village_diamond_upkey": 1
+      },
+      "sourceData": {
+        "levels": {
+          "1": [],
+          "2": [
+            {
+              "amount": 10000,
+              "resource": "aspers"
+            },
+            {
+              "amount": 300,
+              "resource": "primary_eg"
+            },
+            {
+              "amount": 1,
+              "resource": "trade_village_silver_upkey"
+            }
+          ],
+          "3": [
+            {
+              "amount": 10000,
+              "resource": "aspers"
+            },
+            {
+              "amount": 300,
+              "resource": "primary_eg"
+            },
+            {
+              "amount": 1,
+              "resource": "trade_village_gold_upkey"
+            }
+          ],
+          "4": [
+            {
+              "amount": 10000,
+              "resource": "aspers"
+            },
+            {
+              "amount": 300,
+              "resource": "primary_eg"
+            },
+            {
+              "amount": 1,
+              "resource": "trade_village_platinum_upkey"
+            }
+          ],
+          "5": [
+            {
+              "amount": 10000,
+              "resource": "aspers"
+            },
+            {
+              "amount": 300,
+              "resource": "primary_eg"
+            },
+            {
+              "amount": 1,
+              "resource": "trade_village_diamond_upkey"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "tradepost_bozcaada_village",
+      "name": "Bozcaada Village",
+      "area": 1,
+      "resource": "pomegranate",
+      "levels": {
+        "unlock": true,
+        "lvl2": true,
+        "lvl3": true,
+        "lvl4": true,
+        "lvl5": true
+      },
+      "costs": {
+        "goods": [
+          {
+            "type": "aspers",
+            "amount": 40000
+          },
+          {
+            "type": "primary_eg",
+            "amount": 1200
+          }
+        ],
+        "trade_village_silver_upkey": 1,
+        "trade_village_gold_upkey": 1,
+        "trade_village_platinum_upkey": 1,
+        "trade_village_diamond_upkey": 1
+      },
+      "sourceData": {
+        "levels": {
+          "1": [],
+          "2": [
+            {
+              "amount": 10000,
+              "resource": "aspers"
+            },
+            {
+              "amount": 300,
+              "resource": "primary_eg"
+            },
+            {
+              "amount": 1,
+              "resource": "trade_village_silver_upkey"
+            }
+          ],
+          "3": [
+            {
+              "amount": 10000,
+              "resource": "aspers"
+            },
+            {
+              "amount": 300,
+              "resource": "primary_eg"
+            },
+            {
+              "amount": 1,
+              "resource": "trade_village_gold_upkey"
+            }
+          ],
+          "4": [
+            {
+              "amount": 10000,
+              "resource": "aspers"
+            },
+            {
+              "amount": 300,
+              "resource": "primary_eg"
+            },
+            {
+              "amount": 1,
+              "resource": "trade_village_platinum_upkey"
+            }
+          ],
+          "5": [
+            {
+              "amount": 10000,
+              "resource": "aspers"
+            },
+            {
+              "amount": 300,
+              "resource": "primary_eg"
+            },
+            {
+              "amount": 1,
+              "resource": "trade_village_diamond_upkey"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "tradepost_bursa_city",
+      "name": "Bursa City",
+      "area": 10,
+      "resource": "confection",
+      "levels": {
+        "unlock": true,
+        "lvl2": true,
+        "lvl3": true,
+        "lvl4": true,
+        "lvl5": true
+      },
+      "costs": {
+        "goods": [
+          {
+            "type": "aspers",
+            "amount": 220000
+          },
+          {
+            "type": "wheat",
+            "amount": 15000
+          },
+          {
+            "type": "secondary_eg",
+            "amount": 2000
+          },
+          {
+            "type": "tertiary_eg",
+            "amount": 2000
+          }
+        ],
+        "trade_city_silver_upkey": 1,
+        "trade_city_gold_upkey": 1,
+        "trade_city_platinum_upkey": 1,
+        "trade_city_diamond_upkey": 1
+      },
+      "sourceData": {
+        "levels": {
+          "1": [
+            {
+              "amount": 20000,
+              "resource": "aspers"
+            },
+            {
+              "amount": 15000,
+              "resource": "wheat"
+            }
+          ],
+          "2": [
+            {
+              "amount": 50000,
+              "resource": "aspers"
+            },
+            {
+              "amount": 500,
+              "resource": "secondary_eg"
+            },
+            {
+              "amount": 500,
+              "resource": "tertiary_eg"
+            },
+            {
+              "amount": 1,
+              "resource": "trade_city_silver_upkey"
+            }
+          ],
+          "3": [
+            {
+              "amount": 50000,
+              "resource": "aspers"
+            },
+            {
+              "amount": 500,
+              "resource": "secondary_eg"
+            },
+            {
+              "amount": 500,
+              "resource": "tertiary_eg"
+            },
+            {
+              "amount": 1,
+              "resource": "trade_city_gold_upkey"
+            }
+          ],
+          "4": [
+            {
+              "amount": 50000,
+              "resource": "aspers"
+            },
+            {
+              "amount": 500,
+              "resource": "secondary_eg"
+            },
+            {
+              "amount": 500,
+              "resource": "tertiary_eg"
+            },
+            {
+              "amount": 1,
+              "resource": "trade_city_platinum_upkey"
+            }
+          ],
+          "5": [
+            {
+              "amount": 50000,
+              "resource": "aspers"
+            },
+            {
+              "amount": 500,
+              "resource": "secondary_eg"
+            },
+            {
+              "amount": 500,
+              "resource": "tertiary_eg"
+            },
+            {
+              "amount": 1,
+              "resource": "trade_city_diamond_upkey"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "tradepost_cesme_city",
+      "name": "Cesme City",
+      "area": 4,
+      "resource": "confection",
+      "levels": {
+        "unlock": true,
+        "lvl2": true,
+        "lvl3": true,
+        "lvl4": true,
+        "lvl5": true
+      },
+      "costs": {
+        "goods": [
+          {
+            "type": "aspers",
+            "amount": 210000
+          },
+          {
+            "type": "wheat",
+            "amount": 10000
+          },
+          {
+            "type": "secondary_eg",
+            "amount": 2000
+          },
+          {
+            "type": "tertiary_eg",
+            "amount": 2000
+          }
+        ],
+        "trade_city_silver_upkey": 1,
+        "trade_city_gold_upkey": 1,
+        "trade_city_platinum_upkey": 1,
+        "trade_city_diamond_upkey": 1
+      },
+      "sourceData": {
+        "levels": {
+          "1": [
+            {
+              "amount": 10000,
+              "resource": "aspers"
+            },
+            {
+              "amount": 10000,
+              "resource": "wheat"
+            }
+          ],
+          "2": [
+            {
+              "amount": 50000,
+              "resource": "aspers"
+            },
+            {
+              "amount": 500,
+              "resource": "secondary_eg"
+            },
+            {
+              "amount": 500,
+              "resource": "tertiary_eg"
+            },
+            {
+              "amount": 1,
+              "resource": "trade_city_silver_upkey"
+            }
+          ],
+          "3": [
+            {
+              "amount": 50000,
+              "resource": "aspers"
+            },
+            {
+              "amount": 500,
+              "resource": "secondary_eg"
+            },
+            {
+              "amount": 500,
+              "resource": "tertiary_eg"
+            },
+            {
+              "amount": 1,
+              "resource": "trade_city_gold_upkey"
+            }
+          ],
+          "4": [
+            {
+              "amount": 50000,
+              "resource": "aspers"
+            },
+            {
+              "amount": 500,
+              "resource": "secondary_eg"
+            },
+            {
+              "amount": 500,
+              "resource": "tertiary_eg"
+            },
+            {
+              "amount": 1,
+              "resource": "trade_city_platinum_upkey"
+            }
+          ],
+          "5": [
+            {
+              "amount": 50000,
+              "resource": "aspers"
+            },
+            {
+              "amount": 500,
+              "resource": "secondary_eg"
+            },
+            {
+              "amount": 500,
+              "resource": "tertiary_eg"
+            },
+            {
+              "amount": 1,
+              "resource": "trade_city_diamond_upkey"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "tradepost_cunda_village",
+      "name": "Cunda Village",
+      "area": 0,
+      "resource": "wheat",
+      "levels": {
+        "unlock": true,
+        "lvl2": true,
+        "lvl3": true,
+        "lvl4": true,
+        "lvl5": true
+      },
+      "costs": {
+        "goods": [
+          {
+            "type": "aspers",
+            "amount": 40000
+          },
+          {
+            "type": "primary_eg",
+            "amount": 1200
+          }
+        ],
+        "trade_village_silver_upkey": 1,
+        "trade_village_gold_upkey": 1,
+        "trade_village_platinum_upkey": 1,
+        "trade_village_diamond_upkey": 1
+      },
+      "sourceData": {
+        "levels": {
+          "1": [],
+          "2": [
+            {
+              "amount": 10000,
+              "resource": "aspers"
+            },
+            {
+              "amount": 300,
+              "resource": "primary_eg"
+            },
+            {
+              "amount": 1,
+              "resource": "trade_village_silver_upkey"
+            }
+          ],
+          "3": [
+            {
+              "amount": 10000,
+              "resource": "aspers"
+            },
+            {
+              "amount": 300,
+              "resource": "primary_eg"
+            },
+            {
+              "amount": 1,
+              "resource": "trade_village_gold_upkey"
+            }
+          ],
+          "4": [
+            {
+              "amount": 10000,
+              "resource": "aspers"
+            },
+            {
+              "amount": 300,
+              "resource": "primary_eg"
+            },
+            {
+              "amount": 1,
+              "resource": "trade_village_platinum_upkey"
+            }
+          ],
+          "5": [
+            {
+              "amount": 10000,
+              "resource": "aspers"
+            },
+            {
+              "amount": 300,
+              "resource": "primary_eg"
+            },
+            {
+              "amount": 1,
+              "resource": "trade_village_diamond_upkey"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "tradepost_hadrianopolis_city",
+      "name": "Hadrianopolis City",
+      "area": 3,
+      "resource": "syrup",
+      "levels": {
+        "unlock": true,
+        "lvl2": true,
+        "lvl3": true,
+        "lvl4": true,
+        "lvl5": true
+      },
+      "costs": {
+        "goods": [
+          {
+            "type": "aspers",
+            "amount": 235000
+          },
+          {
+            "type": "pomegranate",
+            "amount": 15000
+          },
+          {
+            "type": "secondary_eg",
+            "amount": 2000
+          },
+          {
+            "type": "tertiary_eg",
+            "amount": 2000
+          }
+        ],
+        "trade_city_silver_upkey": 1,
+        "trade_city_gold_upkey": 1,
+        "trade_city_platinum_upkey": 1,
+        "trade_city_diamond_upkey": 1
+      },
+      "sourceData": {
+        "levels": {
+          "1": [
+            {
+              "amount": 35000,
+              "resource": "aspers"
+            },
+            {
+              "amount": 15000,
+              "resource": "pomegranate"
+            }
+          ],
+          "2": [
+            {
+              "amount": 50000,
+              "resource": "aspers"
+            },
+            {
+              "amount": 500,
+              "resource": "secondary_eg"
+            },
+            {
+              "amount": 500,
+              "resource": "tertiary_eg"
+            },
+            {
+              "amount": 1,
+              "resource": "trade_city_silver_upkey"
+            }
+          ],
+          "3": [
+            {
+              "amount": 50000,
+              "resource": "aspers"
+            },
+            {
+              "amount": 500,
+              "resource": "secondary_eg"
+            },
+            {
+              "amount": 500,
+              "resource": "tertiary_eg"
+            },
+            {
+              "amount": 1,
+              "resource": "trade_city_gold_upkey"
+            }
+          ],
+          "4": [
+            {
+              "amount": 50000,
+              "resource": "aspers"
+            },
+            {
+              "amount": 500,
+              "resource": "secondary_eg"
+            },
+            {
+              "amount": 500,
+              "resource": "tertiary_eg"
+            },
+            {
+              "amount": 1,
+              "resource": "trade_city_platinum_upkey"
+            }
+          ],
+          "5": [
+            {
+              "amount": 50000,
+              "resource": "aspers"
+            },
+            {
+              "amount": 500,
+              "resource": "secondary_eg"
+            },
+            {
+              "amount": 500,
+              "resource": "tertiary_eg"
+            },
+            {
+              "amount": 1,
+              "resource": "trade_city_diamond_upkey"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "tradepost_kalkan_village",
+      "name": "Kalkan Village",
+      "area": 1,
+      "resource": "wheat",
+      "levels": {
+        "unlock": true,
+        "lvl2": true,
+        "lvl3": true,
+        "lvl4": true,
+        "lvl5": true
+      },
+      "costs": {
+        "goods": [
+          {
+            "type": "aspers",
+            "amount": 65000
+          },
+          {
+            "type": "pomegranate",
+            "amount": 10000
+          },
+          {
+            "type": "primary_eg",
+            "amount": 1200
+          }
+        ],
+        "trade_village_silver_upkey": 1,
+        "trade_village_gold_upkey": 1,
+        "trade_village_platinum_upkey": 1,
+        "trade_village_diamond_upkey": 1
+      },
+      "sourceData": {
+        "levels": {
+          "1": [
+            {
+              "amount": 25000,
+              "resource": "aspers"
+            },
+            {
+              "amount": 10000,
+              "resource": "pomegranate"
+            }
+          ],
+          "2": [
+            {
+              "amount": 10000,
+              "resource": "aspers"
+            },
+            {
+              "amount": 300,
+              "resource": "primary_eg"
+            },
+            {
+              "amount": 1,
+              "resource": "trade_village_silver_upkey"
+            }
+          ],
+          "3": [
+            {
+              "amount": 10000,
+              "resource": "aspers"
+            },
+            {
+              "amount": 300,
+              "resource": "primary_eg"
+            },
+            {
+              "amount": 1,
+              "resource": "trade_village_gold_upkey"
+            }
+          ],
+          "4": [
+            {
+              "amount": 10000,
+              "resource": "aspers"
+            },
+            {
+              "amount": 300,
+              "resource": "primary_eg"
+            },
+            {
+              "amount": 1,
+              "resource": "trade_village_platinum_upkey"
+            }
+          ],
+          "5": [
+            {
+              "amount": 10000,
+              "resource": "aspers"
+            },
+            {
+              "amount": 300,
+              "resource": "primary_eg"
+            },
+            {
+              "amount": 1,
+              "resource": "trade_village_diamond_upkey"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "tradepost_karatas_village",
+      "name": "Karatas Village",
+      "area": 2,
+      "resource": "wheat",
+      "levels": {
+        "unlock": true,
+        "lvl2": true,
+        "lvl3": true,
+        "lvl4": true,
+        "lvl5": true
+      },
+      "costs": {
+        "goods": [],
+        "gems": 2950
+      },
+      "sourceData": {
+        "levels": {
+          "1": [
+            {
+              "amount": 390,
+              "resource": "gems"
+            }
+          ],
+          "2": [
+            {
+              "amount": 490,
+              "resource": "gems"
+            }
+          ],
+          "3": [
+            {
+              "amount": 590,
+              "resource": "gems"
+            }
+          ],
+          "4": [
+            {
+              "amount": 690,
+              "resource": "gems"
+            }
+          ],
+          "5": [
+            {
+              "amount": 790,
+              "resource": "gems"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "tradepost_kavala_village",
+      "name": "Kavala Village",
+      "area": 6,
+      "resource": "pomegranate",
+      "levels": {
+        "unlock": true,
+        "lvl2": true,
+        "lvl3": true,
+        "lvl4": true,
+        "lvl5": true
+      },
+      "costs": {
+        "goods": [
+          {
+            "type": "aspers",
+            "amount": 65000
+          },
+          {
+            "type": "syrup",
+            "amount": 5000
+          },
+          {
+            "type": "primary_eg",
+            "amount": 1200
+          }
+        ],
+        "trade_village_silver_upkey": 1,
+        "trade_village_gold_upkey": 1,
+        "trade_village_platinum_upkey": 1,
+        "trade_village_diamond_upkey": 1
+      },
+      "sourceData": {
+        "levels": {
+          "1": [
+            {
+              "amount": 25000,
+              "resource": "aspers"
+            },
+            {
+              "amount": 5000,
+              "resource": "syrup"
+            }
+          ],
+          "2": [
+            {
+              "amount": 10000,
+              "resource": "aspers"
+            },
+            {
+              "amount": 300,
+              "resource": "primary_eg"
+            },
+            {
+              "amount": 1,
+              "resource": "trade_village_silver_upkey"
+            }
+          ],
+          "3": [
+            {
+              "amount": 10000,
+              "resource": "aspers"
+            },
+            {
+              "amount": 300,
+              "resource": "primary_eg"
+            },
+            {
+              "amount": 1,
+              "resource": "trade_village_gold_upkey"
+            }
+          ],
+          "4": [
+            {
+              "amount": 10000,
+              "resource": "aspers"
+            },
+            {
+              "amount": 300,
+              "resource": "primary_eg"
+            },
+            {
+              "amount": 1,
+              "resource": "trade_village_platinum_upkey"
+            }
+          ],
+          "5": [
+            {
+              "amount": 10000,
+              "resource": "aspers"
+            },
+            {
+              "amount": 300,
+              "resource": "primary_eg"
+            },
+            {
+              "amount": 1,
+              "resource": "trade_village_diamond_upkey"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "tradepost_marmara_village",
+      "name": "Marmara Village",
+      "area": 8,
+      "resource": "pomegranate",
+      "levels": {
+        "unlock": true,
+        "lvl2": true,
+        "lvl3": true,
+        "lvl4": true,
+        "lvl5": true
+      },
+      "costs": {
+        "goods": [
+          {
+            "type": "aspers",
+            "amount": 40000
+          },
+          {
+            "type": "primary_eg",
+            "amount": 1200
+          }
+        ],
+        "trade_village_silver_upkey": 1,
+        "trade_village_gold_upkey": 1,
+        "trade_village_platinum_upkey": 1,
+        "trade_village_diamond_upkey": 1
+      },
+      "sourceData": {
+        "levels": {
+          "1": [],
+          "2": [
+            {
+              "amount": 10000,
+              "resource": "aspers"
+            },
+            {
+              "amount": 300,
+              "resource": "primary_eg"
+            },
+            {
+              "amount": 1,
+              "resource": "trade_village_silver_upkey"
+            }
+          ],
+          "3": [
+            {
+              "amount": 10000,
+              "resource": "aspers"
+            },
+            {
+              "amount": 300,
+              "resource": "primary_eg"
+            },
+            {
+              "amount": 1,
+              "resource": "trade_village_gold_upkey"
+            }
+          ],
+          "4": [
+            {
+              "amount": 10000,
+              "resource": "aspers"
+            },
+            {
+              "amount": 300,
+              "resource": "primary_eg"
+            },
+            {
+              "amount": 1,
+              "resource": "trade_village_platinum_upkey"
+            }
+          ],
+          "5": [
+            {
+              "amount": 10000,
+              "resource": "aspers"
+            },
+            {
+              "amount": 300,
+              "resource": "primary_eg"
+            },
+            {
+              "amount": 1,
+              "resource": "trade_village_diamond_upkey"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "tradepost_smyrna_city",
+      "name": "Smyrna City",
+      "area": 9,
+      "resource": "syrup",
+      "levels": {
+        "unlock": true,
+        "lvl2": true,
+        "lvl3": true,
+        "lvl4": true,
+        "lvl5": true
+      },
+      "costs": {
+        "goods": [],
+        "gems": 3450
+      },
+      "sourceData": {
+        "levels": {
+          "1": [
+            {
+              "amount": 490,
+              "resource": "gems"
+            }
+          ],
+          "2": [
+            {
+              "amount": 590,
+              "resource": "gems"
+            }
+          ],
+          "3": [
+            {
+              "amount": 690,
+              "resource": "gems"
+            }
+          ],
+          "4": [
+            {
+              "amount": 790,
+              "resource": "gems"
+            }
+          ],
+          "5": [
+            {
+              "amount": 890,
+              "resource": "gems"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "tradepost_sultaniye_village",
+      "name": "Sultaniye Village",
+      "area": 2,
+      "resource": "pomegranate",
+      "levels": {
+        "unlock": true,
+        "lvl2": true,
+        "lvl3": true,
+        "lvl4": true,
+        "lvl5": true
+      },
+      "costs": {
+        "goods": [
+          {
+            "type": "aspers",
+            "amount": 40000
+          },
+          {
+            "type": "primary_eg",
+            "amount": 1200
+          }
+        ],
+        "trade_village_silver_upkey": 1,
+        "trade_village_gold_upkey": 1,
+        "trade_village_platinum_upkey": 1,
+        "trade_village_diamond_upkey": 1
+      },
+      "sourceData": {
+        "levels": {
+          "1": [],
+          "2": [
+            {
+              "amount": 10000,
+              "resource": "aspers"
+            },
+            {
+              "amount": 300,
+              "resource": "primary_eg"
+            },
+            {
+              "amount": 1,
+              "resource": "trade_village_silver_upkey"
+            }
+          ],
+          "3": [
+            {
+              "amount": 10000,
+              "resource": "aspers"
+            },
+            {
+              "amount": 300,
+              "resource": "primary_eg"
+            },
+            {
+              "amount": 1,
+              "resource": "trade_village_gold_upkey"
+            }
+          ],
+          "4": [
+            {
+              "amount": 10000,
+              "resource": "aspers"
+            },
+            {
+              "amount": 300,
+              "resource": "primary_eg"
+            },
+            {
+              "amount": 1,
+              "resource": "trade_village_platinum_upkey"
+            }
+          ],
+          "5": [
+            {
+              "amount": 10000,
+              "resource": "aspers"
+            },
+            {
+              "amount": 300,
+              "resource": "primary_eg"
+            },
+            {
+              "amount": 1,
+              "resource": "trade_village_diamond_upkey"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "tradepost_susarmia_village",
+      "name": "Susarmia Village",
+      "area": 10,
+      "resource": "wheat",
+      "levels": {
+        "unlock": true,
+        "lvl2": true,
+        "lvl3": true,
+        "lvl4": true,
+        "lvl5": true
+      },
+      "costs": {
+        "goods": [
+          {
+            "type": "aspers",
+            "amount": 40000
+          },
+          {
+            "type": "primary_eg",
+            "amount": 1200
+          }
+        ],
+        "trade_village_silver_upkey": 1,
+        "trade_village_gold_upkey": 1,
+        "trade_village_platinum_upkey": 1,
+        "trade_village_diamond_upkey": 1
+      },
+      "sourceData": {
+        "levels": {
+          "1": [],
+          "2": [
+            {
+              "amount": 10000,
+              "resource": "aspers"
+            },
+            {
+              "amount": 300,
+              "resource": "primary_eg"
+            },
+            {
+              "amount": 1,
+              "resource": "trade_village_silver_upkey"
+            }
+          ],
+          "3": [
+            {
+              "amount": 10000,
+              "resource": "aspers"
+            },
+            {
+              "amount": 300,
+              "resource": "primary_eg"
+            },
+            {
+              "amount": 1,
+              "resource": "trade_village_gold_upkey"
+            }
+          ],
+          "4": [
+            {
+              "amount": 10000,
+              "resource": "aspers"
+            },
+            {
+              "amount": 300,
+              "resource": "primary_eg"
+            },
+            {
+              "amount": 1,
+              "resource": "trade_village_platinum_upkey"
+            }
+          ],
+          "5": [
+            {
+              "amount": 10000,
+              "resource": "aspers"
+            },
+            {
+              "amount": 300,
+              "resource": "primary_eg"
+            },
+            {
+              "amount": 1,
+              "resource": "trade_village_diamond_upkey"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "tradepost_tarsus_city",
+      "name": "Tarsus City",
+      "area": 5,
+      "resource": "syrup",
+      "levels": {
+        "unlock": true,
+        "lvl2": true,
+        "lvl3": true,
+        "lvl4": true,
+        "lvl5": true
+      },
+      "costs": {
+        "goods": [
+          {
+            "type": "aspers",
+            "amount": 200000
+          },
+          {
+            "type": "secondary_eg",
+            "amount": 2000
+          },
+          {
+            "type": "tertiary_eg",
+            "amount": 2000
+          }
+        ],
+        "trade_city_silver_upkey": 1,
+        "trade_city_gold_upkey": 1,
+        "trade_city_platinum_upkey": 1,
+        "trade_city_diamond_upkey": 1
+      },
+      "sourceData": {
+        "levels": {
+          "1": [],
+          "2": [
+            {
+              "amount": 50000,
+              "resource": "aspers"
+            },
+            {
+              "amount": 500,
+              "resource": "secondary_eg"
+            },
+            {
+              "amount": 500,
+              "resource": "tertiary_eg"
+            },
+            {
+              "amount": 1,
+              "resource": "trade_city_silver_upkey"
+            }
+          ],
+          "3": [
+            {
+              "amount": 50000,
+              "resource": "aspers"
+            },
+            {
+              "amount": 500,
+              "resource": "secondary_eg"
+            },
+            {
+              "amount": 500,
+              "resource": "tertiary_eg"
+            },
+            {
+              "amount": 1,
+              "resource": "trade_city_gold_upkey"
+            }
+          ],
+          "4": [
+            {
+              "amount": 50000,
+              "resource": "aspers"
+            },
+            {
+              "amount": 500,
+              "resource": "secondary_eg"
+            },
+            {
+              "amount": 500,
+              "resource": "tertiary_eg"
+            },
+            {
+              "amount": 1,
+              "resource": "trade_city_platinum_upkey"
+            }
+          ],
+          "5": [
+            {
+              "amount": 50000,
+              "resource": "aspers"
+            },
+            {
+              "amount": 500,
+              "resource": "secondary_eg"
+            },
+            {
+              "amount": 500,
+              "resource": "tertiary_eg"
+            },
+            {
+              "amount": 1,
+              "resource": "trade_city_diamond_upkey"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "tradepost_urla_village",
+      "name": "Urla Village",
+      "area": 0,
+      "resource": "pomegranate",
+      "levels": {
+        "unlock": true,
+        "lvl2": true,
+        "lvl3": true,
+        "lvl4": true,
+        "lvl5": true
+      },
+      "costs": {
+        "goods": [
+          {
+            "type": "aspers",
+            "amount": 45000
+          },
+          {
+            "type": "primary_eg",
+            "amount": 1200
+          }
+        ],
+        "trade_village_silver_upkey": 1,
+        "trade_village_gold_upkey": 1,
+        "trade_village_platinum_upkey": 1,
+        "trade_village_diamond_upkey": 1
+      },
+      "sourceData": {
+        "levels": {
+          "1": [
+            {
+              "amount": 5000,
+              "resource": "aspers"
+            }
+          ],
+          "2": [
+            {
+              "amount": 10000,
+              "resource": "aspers"
+            },
+            {
+              "amount": 300,
+              "resource": "primary_eg"
+            },
+            {
+              "amount": 1,
+              "resource": "trade_village_silver_upkey"
+            }
+          ],
+          "3": [
+            {
+              "amount": 10000,
+              "resource": "aspers"
+            },
+            {
+              "amount": 300,
+              "resource": "primary_eg"
+            },
+            {
+              "amount": 1,
+              "resource": "trade_village_gold_upkey"
+            }
+          ],
+          "4": [
+            {
+              "amount": 10000,
+              "resource": "aspers"
+            },
+            {
+              "amount": 300,
+              "resource": "primary_eg"
+            },
+            {
+              "amount": 1,
+              "resource": "trade_village_platinum_upkey"
+            }
+          ],
+          "5": [
+            {
+              "amount": 10000,
+              "resource": "aspers"
+            },
+            {
+              "amount": 300,
+              "resource": "primary_eg"
+            },
+            {
+              "amount": 1,
+              "resource": "trade_village_diamond_upkey"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "tradepost_zalifra_village",
+      "name": "Zalifra Village",
+      "area": 9,
+      "resource": "wheat",
+      "levels": {
+        "unlock": true,
+        "lvl2": true,
+        "lvl3": true,
+        "lvl4": true,
+        "lvl5": true
+      },
+      "costs": {
+        "goods": [
+          {
+            "type": "aspers",
+            "amount": 40000
+          },
+          {
+            "type": "primary_eg",
+            "amount": 1200
+          }
+        ],
+        "trade_village_silver_upkey": 1,
+        "trade_village_gold_upkey": 1,
+        "trade_village_platinum_upkey": 1,
+        "trade_village_diamond_upkey": 1
+      },
+      "sourceData": {
+        "levels": {
+          "1": [],
+          "2": [
+            {
+              "amount": 10000,
+              "resource": "aspers"
+            },
+            {
+              "amount": 300,
+              "resource": "primary_eg"
+            },
+            {
+              "amount": 1,
+              "resource": "trade_village_silver_upkey"
+            }
+          ],
+          "3": [
+            {
+              "amount": 10000,
+              "resource": "aspers"
+            },
+            {
+              "amount": 300,
+              "resource": "primary_eg"
+            },
+            {
+              "amount": 1,
+              "resource": "trade_village_gold_upkey"
+            }
+          ],
+          "4": [
+            {
+              "amount": 10000,
+              "resource": "aspers"
+            },
+            {
+              "amount": 300,
+              "resource": "primary_eg"
+            },
+            {
+              "amount": 1,
+              "resource": "trade_village_platinum_upkey"
+            }
+          ],
+          "5": [
+            {
+              "amount": 10000,
+              "resource": "aspers"
+            },
+            {
+              "amount": 300,
+              "resource": "primary_eg"
+            },
+            {
+              "amount": 1,
+              "resource": "trade_village_diamond_upkey"
+            }
+          ]
+        }
       }
     }
   ]

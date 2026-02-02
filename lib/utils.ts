@@ -1,14 +1,41 @@
 import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
 import { buildingsAbbr, itemsUrl, EraAbbr, goodsUrlByEra } from "./constants";
-import { assetGoods, defaultGood } from "./data/images";
+
+export const selectorGoods: Record<string, string> = {
+  default: "/goods/default.webp",
+  tailor: "/goods/wool.webp",
+  stone_mason: "/goods/alabaster_idol.webp",
+  artisan: "/goods/bronze_bracelet.webp",
+  scribe: "/goods/parchment.webp",
+  carpenter: "/goods/planks.webp",
+  spice_merchant: "/goods/pepper.webp",
+  jeweler: "/goods/fine_jewelry.webp",
+  alchemist: "/goods/ointment.webp",
+  glassblower: "/goods/lead_glass.webp",
+};
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
+/**
+ * Convertit une chaîne en slug normalisé (snake_case lowercase)
+ * Unifie l'ancienne logique de slugify() et slugify()
+ *
+ * @example
+ * slugify("Alabaster Idol") // "alabaster_idol"
+ * slugify("Wu Zhu") // "wu_zhu"
+ * slugify("  Cape  ") // "cape"
+ */
 export function slugify(str: string): string {
-  return str.toLowerCase().replace(/[^\w-]/g, "_");
+  return str
+    .toLowerCase()
+    .trim()
+    .replace(/\s+/g, "_")
+    .replace(/[^\w]+/g, "_")
+    .replace(/_+/g, "_")
+    .replace(/^_|_$/g, "");
 }
 
 export function getBuildingFromLocal(
@@ -78,9 +105,7 @@ export function replaceTextByImage(buildings: string[][]): void {
 
         // Trouver l'image correspondante
         const building = getBuildingFromLocal(priority, era, buildings);
-        const normalizedBuilding = building
-          ? building.toLowerCase().replace(/[^\w-]/g, "_")
-          : "";
+        const normalizedBuilding = building ? slugify(building) : "";
 
         const imgUrl =
           goodsUrlByEra[era.toUpperCase() as EraAbbr]?.[normalizedBuilding]
@@ -189,9 +214,7 @@ export function getTitlePage(): [string | null, string | null, string | null] {
   const span = heading.querySelector("span");
   if (!span || !span.textContent) return [null, null, null];
 
-  const parts = span.textContent
-    .split("/")
-    .map((part) => part.trim().toLowerCase().replace(/\s+/g, "_"));
+  const parts = span.textContent.split("/").map((part) => slugify(part));
 
   const mainSection = parts[0] || null;
   const subSection = parts[1] || null;
@@ -213,8 +236,7 @@ export function getClosestLowerOrEqualMaxQty(
 
 export function getGoodsImg(buildingName: string) {
   const nameFormatted = slugify(buildingName);
-
-  return assetGoods[nameFormatted] || defaultGood;
+  return selectorGoods[nameFormatted] || selectorGoods.default;
 }
 
 export function findPreviousH2SpanWithId(
@@ -354,14 +376,14 @@ export function getGoodImageUrlFromType(
     const building = getBuildingFromLocal(priority, era, userSelections);
 
     if (building) {
-      const normalized = normalizeGoodName(building);
+      const normalized = slugify(building);
       return `/goods/${normalized}.webp`;
     }
 
     return "/goods/default.webp";
   }
 
-  return `/goods/${normalizeGoodName(type)}.webp`;
+  return `/goods/${slugify(type)}.webp`;
 }
 
 export function getGoodNameFromPriorityEra(
@@ -379,19 +401,12 @@ export function getGoodNameFromPriorityEra(
   return goodMeta?.name ? slugify(goodMeta.name) : null;
 }
 
-export function normalizeGoodName(name: string): string {
-  return name
-    .toLowerCase()
-    .trim()
-    .replace(/\s+/g, "_")
-    .replace(/[^\w]+/g, "_")
-    .replace(/_+/g, "_")
-    .replace(/^_|_$/g, "");
-}
-
-
+/**
+ * Obtenir l'icône d'un item/ressource
+ * Utilisé pour les main resources et items
+ */
 export function getItemIconLocal(type: string): string {
-  const normalized = normalizeGoodName(type);
+  const normalized = slugify(type);
   if (normalized) {
     return `/goods/${normalized}.webp`;
   }

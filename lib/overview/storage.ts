@@ -1,6 +1,6 @@
 import { BuildingEntity, TechnoEntity } from "@/lib/storage/dexie";
 import { buildingsAbbr, eras } from "@/lib/constants";
-import { normalizeGoodName, parseNumber } from "@/lib/utils";
+import { slugify, parseNumber } from "@/lib/utils";
 import { storage } from "#imports";
 
 // background communication
@@ -54,6 +54,47 @@ export const showAllBuildings = () =>
 export const hideAllTechnos = () => sendDexieMessage("DEXIE_HIDE_ALL_TECHNOS");
 export const showAllTechnos = () => sendDexieMessage("DEXIE_SHOW_ALL_TECHNOS");
 
+// ==================== ✅ OTTOMAN OPERATIONS ====================
+export const getOttomanAreas = () =>
+  sendDexieMessage("DEXIE_GET_OTTOMAN_AREAS");
+export const saveOttomanArea = (
+  area: Omit<import("@/lib/storage/dexie").OttomanAreaEntity, "updatedAt">,
+) => sendDexieMessage("DEXIE_SAVE_OTTOMAN_AREA", area);
+export const toggleOttomanAreaHidden = (id: string) =>
+  sendDexieMessage("DEXIE_TOGGLE_OTTOMAN_AREA_HIDDEN", { id });
+export const removeOttomanArea = (id: string) =>
+  sendDexieMessage("DEXIE_REMOVE_OTTOMAN_AREA", { id });
+export const removeAllOttomanAreas = () =>
+  sendDexieMessage("DEXIE_REMOVE_ALL_OTTOMAN_AREAS");
+
+export const getOttomanTradePosts = () =>
+  sendDexieMessage("DEXIE_GET_OTTOMAN_TRADEPOSTS");
+export const saveOttomanTradePost = (
+  tradePost: Omit<
+    import("@/lib/storage/dexie").OttomanTradePostEntity,
+    "updatedAt"
+  >,
+) => sendDexieMessage("DEXIE_SAVE_OTTOMAN_TRADEPOST", tradePost);
+export const toggleOttomanTradePostHidden = (id: string) =>
+  sendDexieMessage("DEXIE_TOGGLE_OTTOMAN_TRADEPOST_HIDDEN", { id });
+export const toggleOttomanTradePostLevel = (
+  id: string,
+  level: "unlock" | "lvl2" | "lvl3" | "lvl4" | "lvl5",
+) => sendDexieMessage("DEXIE_TOGGLE_OTTOMAN_TRADEPOST_LEVEL", { id, level });
+export const removeOttomanTradePost = (id: string) =>
+  sendDexieMessage("DEXIE_REMOVE_OTTOMAN_TRADEPOST", { id });
+export const removeAllOttomanTradePosts = () =>
+  sendDexieMessage("DEXIE_REMOVE_ALL_OTTOMAN_TRADEPOSTS");
+
+export const hideAllOttomanAreas = () =>
+  sendDexieMessage("DEXIE_HIDE_ALL_OTTOMAN_AREAS");
+export const showAllOttomanAreas = () =>
+  sendDexieMessage("DEXIE_SHOW_ALL_OTTOMAN_AREAS");
+export const hideAllOttomanTradePosts = () =>
+  sendDexieMessage("DEXIE_HIDE_ALL_OTTOMAN_TRADEPOSTS");
+export const showAllOttomanTradePosts = () =>
+  sendDexieMessage("DEXIE_SHOW_ALL_OTTOMAN_TRADEPOSTS");
+
 // watch system
 const buildingsListeners = new Set<(data: BuildingEntity[]) => void>();
 const technosListeners = new Set<(data: TechnoEntity[]) => void>();
@@ -77,6 +118,11 @@ if (typeof chrome !== "undefined" && chrome.runtime?.onMessage) {
   chrome.runtime.onMessage.addListener((message) => {
     if (message.type !== "DEXIE_CHANGED") return;
 
+    if (watchersSuspended) {
+      console.log("[Storage] Watchers suspended, ignoring broadcast");
+      return;
+    }
+
     const { type: changeType, data } = message.payload;
 
     if (changeType === "BUILDINGS") {
@@ -85,6 +131,14 @@ if (typeof chrome !== "undefined" && chrome.runtime?.onMessage) {
     } else if (changeType === "TECHNOS") {
       technosCache = data || [];
       technosListeners.forEach((cb) => cb(technosCache));
+    }
+    // ✅ AJOUT: Ottoman changes
+    else if (changeType === "OTTOMAN_AREAS") {
+      ottomanAreasCache = data || [];
+      ottomanAreasListeners.forEach((cb) => cb(ottomanAreasCache));
+    } else if (changeType === "OTTOMAN_TRADEPOSTS") {
+      ottomanTradePostsCache = data || [];
+      ottomanTradePostsListeners.forEach((cb) => cb(ottomanTradePostsCache));
     }
   });
 }
@@ -241,7 +295,7 @@ function extractGoodsDetails(
       const valueMatch = text.match(/([\d,]+)/);
 
       if (goodType && valueMatch) {
-        const normalizedType = normalizeGoodName(goodType);
+        const normalizedType = slugify(goodType);
 
         details.push({
           type: normalizedType,
@@ -346,14 +400,61 @@ export function resumeWatchers() {
 
 // ✅ Nouvelle fonction pour forcer un refresh manuel
 export async function forceRefreshWatchers() {
-  const [buildings, technos] = await Promise.all([
-    getBuildings(),
-    getTechnos(),
-  ]);
+  const [buildings, technos, ottomanAreas, ottomanTradePosts] =
+    await Promise.all([
+      getBuildings(),
+      getTechnos(),
+      getOttomanAreas(),
+      getOttomanTradePosts(),
+    ]);
 
   buildingsCache = buildings;
   technosCache = technos;
+  ottomanAreasCache = ottomanAreas;
+  ottomanTradePostsCache = ottomanTradePosts;
 
   buildingsListeners.forEach((cb) => cb(buildingsCache));
   technosListeners.forEach((cb) => cb(technosCache));
+  ottomanAreasListeners.forEach((cb) => cb(ottomanAreasCache));
+  ottomanTradePostsListeners.forEach((cb) => cb(ottomanTradePostsCache));
+}
+
+// ✅ Ottoman watchers
+const ottomanAreasListeners = new Set<
+  (data: import("@/lib/storage/dexie").OttomanAreaEntity[]) => void
+>();
+const ottomanTradePostsListeners = new Set<
+  (data: import("@/lib/storage/dexie").OttomanTradePostEntity[]) => void
+>();
+
+let ottomanAreasCache: import("@/lib/storage/dexie").OttomanAreaEntity[] = [];
+let ottomanTradePostsCache: import("@/lib/storage/dexie").OttomanTradePostEntity[] =
+  [];
+let ottomanCacheInitialized = false;
+
+async function initOttomanCache() {
+  if (ottomanCacheInitialized) return;
+  [ottomanAreasCache, ottomanTradePostsCache] = await Promise.all([
+    getOttomanAreas(),
+    getOttomanTradePosts(),
+  ]);
+  ottomanCacheInitialized = true;
+}
+
+export function watchOttomanAreas(
+  callback: (data: import("@/lib/storage/dexie").OttomanAreaEntity[]) => void,
+) {
+  ottomanAreasListeners.add(callback);
+  initOttomanCache().then(() => callback(ottomanAreasCache));
+  return () => ottomanAreasListeners.delete(callback);
+}
+
+export function watchOttomanTradePosts(
+  callback: (
+    data: import("@/lib/storage/dexie").OttomanTradePostEntity[],
+  ) => void,
+) {
+  ottomanTradePostsListeners.add(callback);
+  initOttomanCache().then(() => callback(ottomanTradePostsCache));
+  return () => ottomanTradePostsListeners.delete(callback);
 }

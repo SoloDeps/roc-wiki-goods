@@ -1,5 +1,5 @@
 import { memo, useMemo, useCallback, useState } from "react";
-import { X, ExternalLink, EyeOff, Eye } from "lucide-react";
+import { X, EyeOff, Eye } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import {
@@ -8,85 +8,60 @@ import {
   getGoodNameFromPriorityEra,
   getItemIconLocal,
 } from "@/lib/utils";
-import { eras } from "@/lib/constants";
 import { ResourceBadge } from "./resource-badge";
 
-interface AggregatedTechnoData {
-  totalResearch: number;
-  totalCoins: number;
-  totalFood: number;
-  goods: Array<{ type: string; amount: number }>;
-  technoCount: number;
+interface Good {
+  type: string;
+  amount: number;
 }
 
-export const TechnoCard = memo(function TechnoCard({
-  aggregatedTechnos,
+interface AreaCardProps {
+  area: {
+    id: string;
+    areaIndex: number;
+    costs: Record<string, number | Good[]>;
+    hidden?: boolean;
+  };
+  userSelections: string[][];
+  onRemove: (id: string) => void;
+  onToggleHidden: (id: string) => void;
+}
+
+export const AreaCard = memo(function AreaCard({
+  area,
   userSelections,
-  onRemoveAll,
+  onRemove,
   onToggleHidden,
-  era,
-  hidden,
-}: {
-  aggregatedTechnos: AggregatedTechnoData;
-  userSelections: any;
-  onRemoveAll: () => void;
-  onToggleHidden: () => void;
-  era?: string;
-  hidden?: boolean;
-}) {
+}: AreaCardProps) {
+  const { id, areaIndex, costs, hidden } = area;
   const [isHovered, setIsHovered] = useState(false);
 
-  const handleRemove = useCallback(() => {
-    onRemoveAll();
-  }, [onRemoveAll]);
+  const handleRemove = useCallback(() => onRemove(id), [id, onRemove]);
+  const handleToggleHidden = useCallback(
+    () => onToggleHidden(id),
+    [id, onToggleHidden],
+  );
 
-  const wikiUrl = useMemo(() => {
-    if (!era) return "";
-
-    const eraData = eras.find((e) => e.id === era);
-    const eraName = eraData
-      ? eraData.name.replace(/ /g, "_")
-      : era.replace(/_/g, " ");
-
-    return `https://riseofcultures.wiki.gg/wiki/Home_Cultures/${eraName}`;
-  }, [era]);
-
-  const mainResources = useMemo(() => {
-    const resources = [];
-
-    if (aggregatedTechnos.totalResearch > 0) {
-      resources.push({
-        type: "research_points",
-        value: aggregatedTechnos.totalResearch,
-        icon: getItemIconLocal("research_points"),
-      });
-    }
-
-    if (aggregatedTechnos.totalCoins > 0) {
-      resources.push({
-        type: "coins",
-        value: aggregatedTechnos.totalCoins,
-        icon: getItemIconLocal("coins"),
-      });
-    }
-
-    if (aggregatedTechnos.totalFood > 0) {
-      resources.push({
-        type: "food",
-        value: aggregatedTechnos.totalFood,
-        icon: getItemIconLocal("food"),
-      });
-    }
-
-    return resources;
-  }, [aggregatedTechnos]);
+  const mainResources = useMemo(
+    () =>
+      Object.entries(costs)
+        .filter(
+          (entry): entry is [string, number] =>
+            entry[0] !== "goods" && typeof entry[1] === "number",
+        )
+        .map(([type, value]) => ({
+          type,
+          value,
+          icon: getItemIconLocal(type),
+        })),
+    [costs],
+  );
 
   const goodsBadges = useMemo(() => {
-    if (!aggregatedTechnos.goods || aggregatedTechnos.goods.length === 0)
-      return null;
+    const goods = costs.goods as Good[] | undefined;
+    if (!goods?.length) return null;
 
-    return aggregatedTechnos.goods.map((g, i) => {
-      // Utiliser la fonction utils pour obtenir le nom du good
+    return goods.map((g, i) => {
       const match = g.type.match(/^(Primary|Secondary|Tertiary)_([A-Z]{2})$/i);
       let goodName = g.type;
 
@@ -111,15 +86,17 @@ export const TechnoCard = memo(function TechnoCard({
         />
       );
     });
-  }, [aggregatedTechnos.goods, userSelections]);
+  }, [costs.goods, userSelections]);
 
   return (
     <div
-      className="@container/bcard group relative flex gap-4 rounded-sm bg-background-300 border h-auto min-h-32"
+      className={`@container/bcard group flex items-center justify-center rounded-sm bg-background-300 border min-h-32 pl-1 relative ${
+        hidden ? "" : ""
+      }`}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      {/* Hidden overlay - applied after everything else */}
+      {/* Hidden overlay */}
       {hidden && (
         <div
           className="absolute inset-0 pointer-events-none opacity-50 rounded-sm"
@@ -137,22 +114,32 @@ export const TechnoCard = memo(function TechnoCard({
         />
       )}
 
-      <div className="flex p-3 gap-2 lg:gap-4 size-full relative">
-        <div className="flex-1">
+      <div className="hidden md:flex size-28 shrink-0 overflow-hidden relative">
+        <div className="size-full flex items-center justify-center bg-background-400/50">
+          <img
+            src="/svg/map.svg"
+            alt="Map"
+            draggable={false}
+            className={`size-16 object-contain opacity-30 select-none dark:invert-60 ${hidden ? "opacity-30" : ""}`}
+          />
+        </div>
+      </div>
+
+      <div className="flex p-3 size-full relative self-start">
+        <div className="flex-1 h-full">
           <div className="flex justify-between items-center mb-3">
             <div className="flex items-center gap-2">
               <h3
                 className={`text-sm lg:text-[15px] font-medium truncate capitalize pl-1 ${hidden ? "opacity-50" : ""}`}
               >
-                {era ? `${era.replace(/_/g, " ")} ` : "Era"}
+                Area {areaIndex}
               </h3>
               <div className={hidden ? "opacity-50" : ""}>
                 <Badge
                   variant="outline"
-                  className="bg-blue-200 dark:bg-blue-300 text-blue-950 border-alpha-100 border rounded-sm"
+                  className="bg-green-200 dark:bg-green-300 text-green-950 border-alpha-100 border rounded-sm"
                 >
-                  {aggregatedTechnos.technoCount} techno
-                  {aggregatedTechnos.technoCount > 1 ? "s" : ""}
+                  Area
                 </Badge>
               </div>
 
@@ -169,7 +156,7 @@ export const TechnoCard = memo(function TechnoCard({
                   size="sm"
                   variant={hidden ? "outline" : "ghost"}
                   className="rounded-sm h-6"
-                  onClick={onToggleHidden}
+                  onClick={handleToggleHidden}
                   title={
                     hidden
                       ? "Include in total calculation"
@@ -181,23 +168,9 @@ export const TechnoCard = memo(function TechnoCard({
                   ) : (
                     <EyeOff className="size-4" />
                   )}
-                  {hidden ? "Show" : "Hide"}
-                </Button>
-              </div>
-
-              <div
-                className={`ml-auto transition-opacity duration-200 ${
-                  isHovered ? "opacity-100" : "opacity-0 pointer-events-none"
-                }`}
-              >
-                <Button
-                  size="sm"
-                  variant="ghost"
-                  className="rounded-sm h-6"
-                  onClick={() => window.open(wikiUrl, "_blank")}
-                  title="Go to the wiki page"
-                >
-                  Link <ExternalLink className="size-4" />
+                  <span className="hidden md:inline-block">
+                    {hidden ? "Show" : "Hide"}
+                  </span>
                 </Button>
               </div>
             </div>
@@ -213,7 +186,7 @@ export const TechnoCard = memo(function TechnoCard({
           </div>
 
           <div
-            className={`grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 gap-1.5 text-sm w-full ${hidden ? "opacity-50" : ""}`}
+            className={`grid grid-cols-2 sm:grid-cols-3 gap-1.5 text-sm w-60 sm:w-80 ${hidden ? "opacity-60 pointer-events-none select-none" : ""}`}
           >
             {mainResources.map((r) => (
               <ResourceBadge
@@ -223,7 +196,6 @@ export const TechnoCard = memo(function TechnoCard({
                 alt={r.type}
               />
             ))}
-
             {goodsBadges}
           </div>
         </div>

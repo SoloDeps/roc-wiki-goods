@@ -1681,5 +1681,1462 @@
         ]
       }
     }
+  ],
+  "ottomanAreas": [
+    {
+      "id": "area_12",
+      "areaIndex": 12,
+      "costs": {
+        "goods": [
+          {
+            "type": "aspers",
+            "amount": 100000
+          },
+          {
+            "type": "wheat",
+            "amount": 20000
+          },
+          {
+            "type": "pomegranate",
+            "amount": 20000
+          }
+        ]
+      }
+    },
+    {
+      "id": "area_13",
+      "areaIndex": 13,
+      "costs": {
+        "goods": [
+          {
+            "type": "aspers",
+            "amount": 250000
+          },
+          {
+            "type": "confection",
+            "amount": 10000
+          },
+          {
+            "type": "syrup",
+            "amount": 10000
+          }
+        ]
+      }
+    },
+    {
+      "id": "area_14",
+      "areaIndex": 14,
+      "costs": {
+        "goods": [
+          {
+            "type": "aspers",
+            "amount": 250000
+          },
+          {
+            "type": "confection",
+            "amount": 10000
+          },
+          {
+            "type": "syrup",
+            "amount": 10000
+          }
+        ]
+      }
+    },
+    {
+      "id": "area_15",
+      "areaIndex": 15,
+      "costs": {
+        "goods": [
+          {
+            "type": "aspers",
+            "amount": 400000
+          },
+          {
+            "type": "mohair",
+            "amount": 10000
+          },
+          {
+            "type": "apricot",
+            "amount": 10000
+          }
+        ]
+      }
+    },
+    {
+      "id": "area_16",
+      "areaIndex": 16,
+      "costs": {
+        "goods": [
+          {
+            "type": "aspers",
+            "amount": 750000
+          },
+          {
+            "type": "mohair",
+            "amount": 15000
+          },
+          {
+            "type": "apricot",
+            "amount": 15000
+          }
+        ]
+      }
+    },
+    {
+      "id": "area_17",
+      "areaIndex": 17,
+      "costs": {
+        "goods": [
+          {
+            "type": "aspers",
+            "amount": 1000000
+          },
+          {
+            "type": "mohair",
+            "amount": 20000
+          },
+          {
+            "type": "tea",
+            "amount": 6000
+          }
+        ]
+      }
+    }
+  ],
+  "ottomanTradePosts": [
+    {
+      "id": "tradepost_angora_village",
+      "name": "Angora Village",
+      "area": 16,
+      "resource": "mohair",
+      "levels": {
+        "unlock": true,
+        "lvl2": true,
+        "lvl3": true,
+        "lvl4": true,
+        "lvl5": true
+      },
+      "costs": {
+        "goods": [
+          {
+            "type": "aspers",
+            "amount": 200000
+          },
+          {
+            "type": "syrup",
+            "amount": 12000
+          },
+          {
+            "type": "primary_lg",
+            "amount": 2650
+          }
+        ],
+        "trade_village_silver_upkey": 1,
+        "trade_village_gold_upkey": 1,
+        "trade_village_platinum_upkey": 1,
+        "trade_village_diamond_upkey": 1
+      },
+      "sourceData": {
+        "levels": {
+          "1": [
+            {
+              "amount": 50000,
+              "resource": "aspers"
+            },
+            {
+              "amount": 12000,
+              "resource": "syrup"
+            }
+          ],
+          "2": [
+            {
+              "amount": 30000,
+              "resource": "aspers"
+            },
+            {
+              "amount": 500,
+              "resource": "primary_lg"
+            },
+            {
+              "amount": 1,
+              "resource": "trade_village_silver_upkey"
+            }
+          ],
+          "3": [
+            {
+              "amount": 35000,
+              "resource": "aspers"
+            },
+            {
+              "amount": 600,
+              "resource": "primary_lg"
+            },
+            {
+              "amount": 1,
+              "resource": "trade_village_gold_upkey"
+            }
+          ],
+          "4": [
+            {
+              "amount": 40000,
+              "resource": "aspers"
+            },
+            {
+              "amount": 700,
+              "resource": "primary_lg"
+            },
+            {
+              "amount": 1,
+              "resource": "trade_village_platinum_upkey"
+            }
+          ],
+          "5": [
+            {
+              "amount": 45000,
+              "resource": "aspers"
+            },
+            {
+              "amount": 850,
+              "resource": "primary_lg"
+            },
+            {
+              "amount": 1,
+              "resource": "trade_village_diamond_upkey"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "tradepost_bala_village",
+      "name": "Bala Village",
+      "area": 11,
+      "resource": "mohair",
+      "levels": {
+        "unlock": true,
+        "lvl2": true,
+        "lvl3": true,
+        "lvl4": true,
+        "lvl5": true
+      },
+      "costs": {
+        "goods": [
+          {
+            "type": "aspers",
+            "amount": 150000
+          },
+          {
+            "type": "primary_lg",
+            "amount": 2650
+          }
+        ],
+        "trade_village_silver_upkey": 1,
+        "trade_village_gold_upkey": 1,
+        "trade_village_platinum_upkey": 1,
+        "trade_village_diamond_upkey": 1
+      },
+      "sourceData": {
+        "levels": {
+          "1": [],
+          "2": [
+            {
+              "amount": 30000,
+              "resource": "aspers"
+            },
+            {
+              "amount": 500,
+              "resource": "primary_lg"
+            },
+            {
+              "amount": 1,
+              "resource": "trade_village_silver_upkey"
+            }
+          ],
+          "3": [
+            {
+              "amount": 35000,
+              "resource": "aspers"
+            },
+            {
+              "amount": 600,
+              "resource": "primary_lg"
+            },
+            {
+              "amount": 1,
+              "resource": "trade_village_gold_upkey"
+            }
+          ],
+          "4": [
+            {
+              "amount": 40000,
+              "resource": "aspers"
+            },
+            {
+              "amount": 700,
+              "resource": "primary_lg"
+            },
+            {
+              "amount": 1,
+              "resource": "trade_village_platinum_upkey"
+            }
+          ],
+          "5": [
+            {
+              "amount": 45000,
+              "resource": "aspers"
+            },
+            {
+              "amount": 850,
+              "resource": "primary_lg"
+            },
+            {
+              "amount": 1,
+              "resource": "trade_village_diamond_upkey"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "tradepost_battalgazi_village",
+      "name": "Battalgazi Village",
+      "area": 12,
+      "resource": "apricot",
+      "levels": {
+        "unlock": true,
+        "lvl2": true,
+        "lvl3": true,
+        "lvl4": true,
+        "lvl5": true
+      },
+      "costs": {
+        "goods": [
+          {
+            "type": "aspers",
+            "amount": 150000
+          },
+          {
+            "type": "primary_lg",
+            "amount": 2650
+          }
+        ],
+        "trade_village_silver_upkey": 1,
+        "trade_village_gold_upkey": 1,
+        "trade_village_platinum_upkey": 1,
+        "trade_village_diamond_upkey": 1
+      },
+      "sourceData": {
+        "levels": {
+          "1": [],
+          "2": [
+            {
+              "amount": 30000,
+              "resource": "aspers"
+            },
+            {
+              "amount": 500,
+              "resource": "primary_lg"
+            },
+            {
+              "amount": 1,
+              "resource": "trade_village_silver_upkey"
+            }
+          ],
+          "3": [
+            {
+              "amount": 35000,
+              "resource": "aspers"
+            },
+            {
+              "amount": 600,
+              "resource": "primary_lg"
+            },
+            {
+              "amount": 1,
+              "resource": "trade_village_gold_upkey"
+            }
+          ],
+          "4": [
+            {
+              "amount": 40000,
+              "resource": "aspers"
+            },
+            {
+              "amount": 700,
+              "resource": "primary_lg"
+            },
+            {
+              "amount": 1,
+              "resource": "trade_village_platinum_upkey"
+            }
+          ],
+          "5": [
+            {
+              "amount": 45000,
+              "resource": "aspers"
+            },
+            {
+              "amount": 850,
+              "resource": "primary_lg"
+            },
+            {
+              "amount": 1,
+              "resource": "trade_village_diamond_upkey"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "tradepost_bor_village",
+      "name": "Bor Village",
+      "area": 14,
+      "resource": "mohair",
+      "levels": {
+        "unlock": true,
+        "lvl2": true,
+        "lvl3": true,
+        "lvl4": true,
+        "lvl5": true
+      },
+      "costs": {
+        "goods": [
+          {
+            "type": "aspers",
+            "amount": 150000
+          },
+          {
+            "type": "primary_lg",
+            "amount": 2650
+          }
+        ],
+        "trade_village_silver_upkey": 1,
+        "trade_village_gold_upkey": 1,
+        "trade_village_platinum_upkey": 1,
+        "trade_village_diamond_upkey": 1
+      },
+      "sourceData": {
+        "levels": {
+          "1": [],
+          "2": [
+            {
+              "amount": 30000,
+              "resource": "aspers"
+            },
+            {
+              "amount": 500,
+              "resource": "primary_lg"
+            },
+            {
+              "amount": 1,
+              "resource": "trade_village_silver_upkey"
+            }
+          ],
+          "3": [
+            {
+              "amount": 35000,
+              "resource": "aspers"
+            },
+            {
+              "amount": 600,
+              "resource": "primary_lg"
+            },
+            {
+              "amount": 1,
+              "resource": "trade_village_gold_upkey"
+            }
+          ],
+          "4": [
+            {
+              "amount": 40000,
+              "resource": "aspers"
+            },
+            {
+              "amount": 700,
+              "resource": "primary_lg"
+            },
+            {
+              "amount": 1,
+              "resource": "trade_village_platinum_upkey"
+            }
+          ],
+          "5": [
+            {
+              "amount": 45000,
+              "resource": "aspers"
+            },
+            {
+              "amount": 850,
+              "resource": "primary_lg"
+            },
+            {
+              "amount": 1,
+              "resource": "trade_village_diamond_upkey"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "tradepost_cayeli_city",
+      "name": "Cayeli City",
+      "area": 14,
+      "resource": "tea",
+      "levels": {
+        "unlock": true,
+        "lvl2": true,
+        "lvl3": true,
+        "lvl4": true,
+        "lvl5": true
+      },
+      "costs": {
+        "goods": [
+          {
+            "type": "aspers",
+            "amount": 380000
+          },
+          {
+            "type": "pomegranate",
+            "amount": 30000
+          },
+          {
+            "type": "secondary_lg",
+            "amount": 2650
+          },
+          {
+            "type": "tertiary_lg",
+            "amount": 2650
+          }
+        ],
+        "trade_city_silver_upkey": 1,
+        "trade_city_gold_upkey": 1,
+        "trade_city_platinum_upkey": 1,
+        "trade_city_diamond_upkey": 1
+      },
+      "sourceData": {
+        "levels": {
+          "1": [
+            {
+              "amount": 50000,
+              "resource": "aspers"
+            },
+            {
+              "amount": 30000,
+              "resource": "pomegranate"
+            }
+          ],
+          "2": [
+            {
+              "amount": 75000,
+              "resource": "aspers"
+            },
+            {
+              "amount": 500,
+              "resource": "secondary_lg"
+            },
+            {
+              "amount": 500,
+              "resource": "tertiary_lg"
+            },
+            {
+              "amount": 1,
+              "resource": "trade_city_silver_upkey"
+            }
+          ],
+          "3": [
+            {
+              "amount": 80000,
+              "resource": "aspers"
+            },
+            {
+              "amount": 600,
+              "resource": "secondary_lg"
+            },
+            {
+              "amount": 600,
+              "resource": "tertiary_lg"
+            },
+            {
+              "amount": 1,
+              "resource": "trade_city_gold_upkey"
+            }
+          ],
+          "4": [
+            {
+              "amount": 85000,
+              "resource": "aspers"
+            },
+            {
+              "amount": 700,
+              "resource": "secondary_lg"
+            },
+            {
+              "amount": 700,
+              "resource": "tertiary_lg"
+            },
+            {
+              "amount": 1,
+              "resource": "trade_city_platinum_upkey"
+            }
+          ],
+          "5": [
+            {
+              "amount": 90000,
+              "resource": "aspers"
+            },
+            {
+              "amount": 850,
+              "resource": "secondary_lg"
+            },
+            {
+              "amount": 850,
+              "resource": "tertiary_lg"
+            },
+            {
+              "amount": 1,
+              "resource": "trade_city_diamond_upkey"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "tradepost_darende_village",
+      "name": "Darende Village",
+      "area": 17,
+      "resource": "apricot",
+      "levels": {
+        "unlock": true,
+        "lvl2": true,
+        "lvl3": true,
+        "lvl4": true,
+        "lvl5": true
+      },
+      "costs": {
+        "goods": [
+          {
+            "type": "aspers",
+            "amount": 200000
+          },
+          {
+            "type": "confection",
+            "amount": 12000
+          },
+          {
+            "type": "primary_lg",
+            "amount": 2650
+          }
+        ],
+        "trade_village_silver_upkey": 1,
+        "trade_village_gold_upkey": 1,
+        "trade_village_platinum_upkey": 1,
+        "trade_village_diamond_upkey": 1
+      },
+      "sourceData": {
+        "levels": {
+          "1": [
+            {
+              "amount": 50000,
+              "resource": "aspers"
+            },
+            {
+              "amount": 12000,
+              "resource": "confection"
+            }
+          ],
+          "2": [
+            {
+              "amount": 30000,
+              "resource": "aspers"
+            },
+            {
+              "amount": 500,
+              "resource": "primary_lg"
+            },
+            {
+              "amount": 1,
+              "resource": "trade_village_silver_upkey"
+            }
+          ],
+          "3": [
+            {
+              "amount": 35000,
+              "resource": "aspers"
+            },
+            {
+              "amount": 600,
+              "resource": "primary_lg"
+            },
+            {
+              "amount": 1,
+              "resource": "trade_village_gold_upkey"
+            }
+          ],
+          "4": [
+            {
+              "amount": 40000,
+              "resource": "aspers"
+            },
+            {
+              "amount": 700,
+              "resource": "primary_lg"
+            },
+            {
+              "amount": 1,
+              "resource": "trade_village_platinum_upkey"
+            }
+          ],
+          "5": [
+            {
+              "amount": 45000,
+              "resource": "aspers"
+            },
+            {
+              "amount": 850,
+              "resource": "primary_lg"
+            },
+            {
+              "amount": 1,
+              "resource": "trade_village_diamond_upkey"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "tradepost_hereke_city",
+      "name": "Hereke City",
+      "area": 13,
+      "resource": "brocade",
+      "levels": {
+        "unlock": true,
+        "lvl2": true,
+        "lvl3": true,
+        "lvl4": true,
+        "lvl5": true
+      },
+      "costs": {
+        "goods": [
+          {
+            "type": "aspers",
+            "amount": 380000
+          },
+          {
+            "type": "wheat",
+            "amount": 30000
+          },
+          {
+            "type": "secondary_lg",
+            "amount": 2650
+          },
+          {
+            "type": "tertiary_lg",
+            "amount": 2650
+          }
+        ],
+        "trade_city_silver_upkey": 1,
+        "trade_city_gold_upkey": 1,
+        "trade_city_platinum_upkey": 1,
+        "trade_city_diamond_upkey": 1
+      },
+      "sourceData": {
+        "levels": {
+          "1": [
+            {
+              "amount": 50000,
+              "resource": "aspers"
+            },
+            {
+              "amount": 30000,
+              "resource": "wheat"
+            }
+          ],
+          "2": [
+            {
+              "amount": 75000,
+              "resource": "aspers"
+            },
+            {
+              "amount": 500,
+              "resource": "secondary_lg"
+            },
+            {
+              "amount": 500,
+              "resource": "tertiary_lg"
+            },
+            {
+              "amount": 1,
+              "resource": "trade_city_silver_upkey"
+            }
+          ],
+          "3": [
+            {
+              "amount": 80000,
+              "resource": "aspers"
+            },
+            {
+              "amount": 600,
+              "resource": "secondary_lg"
+            },
+            {
+              "amount": 600,
+              "resource": "tertiary_lg"
+            },
+            {
+              "amount": 1,
+              "resource": "trade_city_gold_upkey"
+            }
+          ],
+          "4": [
+            {
+              "amount": 85000,
+              "resource": "aspers"
+            },
+            {
+              "amount": 700,
+              "resource": "secondary_lg"
+            },
+            {
+              "amount": 700,
+              "resource": "tertiary_lg"
+            },
+            {
+              "amount": 1,
+              "resource": "trade_city_platinum_upkey"
+            }
+          ],
+          "5": [
+            {
+              "amount": 90000,
+              "resource": "aspers"
+            },
+            {
+              "amount": 850,
+              "resource": "secondary_lg"
+            },
+            {
+              "amount": 850,
+              "resource": "tertiary_lg"
+            },
+            {
+              "amount": 1,
+              "resource": "trade_city_diamond_upkey"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "tradepost_kahta_village",
+      "name": "Kahta Village",
+      "area": 16,
+      "resource": "apricot",
+      "levels": {
+        "unlock": true,
+        "lvl2": true,
+        "lvl3": true,
+        "lvl4": true,
+        "lvl5": true
+      },
+      "costs": {
+        "goods": [
+          {
+            "type": "aspers",
+            "amount": 150000
+          },
+          {
+            "type": "primary_lg",
+            "amount": 2650
+          }
+        ],
+        "trade_village_silver_upkey": 1,
+        "trade_village_gold_upkey": 1,
+        "trade_village_platinum_upkey": 1,
+        "trade_village_diamond_upkey": 1
+      },
+      "sourceData": {
+        "levels": {
+          "1": [],
+          "2": [
+            {
+              "amount": 30000,
+              "resource": "aspers"
+            },
+            {
+              "amount": 500,
+              "resource": "primary_lg"
+            },
+            {
+              "amount": 1,
+              "resource": "trade_village_silver_upkey"
+            }
+          ],
+          "3": [
+            {
+              "amount": 35000,
+              "resource": "aspers"
+            },
+            {
+              "amount": 600,
+              "resource": "primary_lg"
+            },
+            {
+              "amount": 1,
+              "resource": "trade_village_gold_upkey"
+            }
+          ],
+          "4": [
+            {
+              "amount": 40000,
+              "resource": "aspers"
+            },
+            {
+              "amount": 700,
+              "resource": "primary_lg"
+            },
+            {
+              "amount": 1,
+              "resource": "trade_village_platinum_upkey"
+            }
+          ],
+          "5": [
+            {
+              "amount": 45000,
+              "resource": "aspers"
+            },
+            {
+              "amount": 850,
+              "resource": "primary_lg"
+            },
+            {
+              "amount": 1,
+              "resource": "trade_village_diamond_upkey"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "tradepost_kalecik_village",
+      "name": "Kalecik Village",
+      "area": 15,
+      "resource": "mohair",
+      "levels": {
+        "unlock": true,
+        "lvl2": true,
+        "lvl3": true,
+        "lvl4": true,
+        "lvl5": true
+      },
+      "costs": {
+        "goods": [
+          {
+            "type": "aspers",
+            "amount": 150000
+          },
+          {
+            "type": "primary_lg",
+            "amount": 2650
+          }
+        ],
+        "trade_village_silver_upkey": 1,
+        "trade_village_gold_upkey": 1,
+        "trade_village_platinum_upkey": 1,
+        "trade_village_diamond_upkey": 1
+      },
+      "sourceData": {
+        "levels": {
+          "1": [],
+          "2": [
+            {
+              "amount": 30000,
+              "resource": "aspers"
+            },
+            {
+              "amount": 500,
+              "resource": "primary_lg"
+            },
+            {
+              "amount": 1,
+              "resource": "trade_village_silver_upkey"
+            }
+          ],
+          "3": [
+            {
+              "amount": 35000,
+              "resource": "aspers"
+            },
+            {
+              "amount": 600,
+              "resource": "primary_lg"
+            },
+            {
+              "amount": 1,
+              "resource": "trade_village_gold_upkey"
+            }
+          ],
+          "4": [
+            {
+              "amount": 40000,
+              "resource": "aspers"
+            },
+            {
+              "amount": 700,
+              "resource": "primary_lg"
+            },
+            {
+              "amount": 1,
+              "resource": "trade_village_platinum_upkey"
+            }
+          ],
+          "5": [
+            {
+              "amount": 45000,
+              "resource": "aspers"
+            },
+            {
+              "amount": 850,
+              "resource": "primary_lg"
+            },
+            {
+              "amount": 1,
+              "resource": "trade_village_diamond_upkey"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "tradepost_malatya_village",
+      "name": "Malatya Village",
+      "area": 13,
+      "resource": "apricot",
+      "levels": {
+        "unlock": true,
+        "lvl2": true,
+        "lvl3": true,
+        "lvl4": true,
+        "lvl5": true
+      },
+      "costs": {
+        "goods": [],
+        "gems": 3050
+      },
+      "sourceData": {
+        "levels": {
+          "1": [
+            {
+              "amount": 490,
+              "resource": "gems"
+            }
+          ],
+          "2": [
+            {
+              "amount": 490,
+              "resource": "gems"
+            }
+          ],
+          "3": [
+            {
+              "amount": 590,
+              "resource": "gems"
+            }
+          ],
+          "4": [
+            {
+              "amount": 690,
+              "resource": "gems"
+            }
+          ],
+          "5": [
+            {
+              "amount": 790,
+              "resource": "gems"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "tradepost_manisa_city",
+      "name": "Manisa City",
+      "area": 17,
+      "resource": "brocade",
+      "levels": {
+        "unlock": true,
+        "lvl2": true,
+        "lvl3": true,
+        "lvl4": true,
+        "lvl5": true
+      },
+      "costs": {
+        "goods": [
+          {
+            "type": "aspers",
+            "amount": 330000
+          },
+          {
+            "type": "secondary_lg",
+            "amount": 2650
+          },
+          {
+            "type": "tertiary_lg",
+            "amount": 2650
+          }
+        ],
+        "trade_city_silver_upkey": 1,
+        "trade_city_gold_upkey": 1,
+        "trade_city_platinum_upkey": 1,
+        "trade_city_diamond_upkey": 1
+      },
+      "sourceData": {
+        "levels": {
+          "1": [],
+          "2": [
+            {
+              "amount": 75000,
+              "resource": "aspers"
+            },
+            {
+              "amount": 500,
+              "resource": "secondary_lg"
+            },
+            {
+              "amount": 500,
+              "resource": "tertiary_lg"
+            },
+            {
+              "amount": 1,
+              "resource": "trade_city_silver_upkey"
+            }
+          ],
+          "3": [
+            {
+              "amount": 80000,
+              "resource": "aspers"
+            },
+            {
+              "amount": 600,
+              "resource": "secondary_lg"
+            },
+            {
+              "amount": 600,
+              "resource": "tertiary_lg"
+            },
+            {
+              "amount": 1,
+              "resource": "trade_city_gold_upkey"
+            }
+          ],
+          "4": [
+            {
+              "amount": 85000,
+              "resource": "aspers"
+            },
+            {
+              "amount": 700,
+              "resource": "secondary_lg"
+            },
+            {
+              "amount": 700,
+              "resource": "tertiary_lg"
+            },
+            {
+              "amount": 1,
+              "resource": "trade_city_platinum_upkey"
+            }
+          ],
+          "5": [
+            {
+              "amount": 90000,
+              "resource": "aspers"
+            },
+            {
+              "amount": 850,
+              "resource": "secondary_lg"
+            },
+            {
+              "amount": 850,
+              "resource": "tertiary_lg"
+            },
+            {
+              "amount": 1,
+              "resource": "trade_city_diamond_upkey"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "tradepost_mut_village",
+      "name": "Mut Village",
+      "area": 11,
+      "resource": "apricot",
+      "levels": {
+        "unlock": true,
+        "lvl2": true,
+        "lvl3": true,
+        "lvl4": true,
+        "lvl5": true
+      },
+      "costs": {
+        "goods": [
+          {
+            "type": "aspers",
+            "amount": 150000
+          },
+          {
+            "type": "primary_lg",
+            "amount": 2650
+          }
+        ],
+        "gems": 490,
+        "trade_village_silver_upkey": 1,
+        "trade_village_gold_upkey": 1,
+        "trade_village_platinum_upkey": 1,
+        "trade_village_diamond_upkey": 1
+      },
+      "sourceData": {
+        "levels": {
+          "1": [
+            {
+              "amount": 490,
+              "resource": "gems"
+            }
+          ],
+          "2": [
+            {
+              "amount": 30000,
+              "resource": "aspers"
+            },
+            {
+              "amount": 500,
+              "resource": "primary_lg"
+            },
+            {
+              "amount": 1,
+              "resource": "trade_village_silver_upkey"
+            }
+          ],
+          "3": [
+            {
+              "amount": 35000,
+              "resource": "aspers"
+            },
+            {
+              "amount": 600,
+              "resource": "primary_lg"
+            },
+            {
+              "amount": 1,
+              "resource": "trade_village_gold_upkey"
+            }
+          ],
+          "4": [
+            {
+              "amount": 40000,
+              "resource": "aspers"
+            },
+            {
+              "amount": 700,
+              "resource": "primary_lg"
+            },
+            {
+              "amount": 1,
+              "resource": "trade_village_platinum_upkey"
+            }
+          ],
+          "5": [
+            {
+              "amount": 45000,
+              "resource": "aspers"
+            },
+            {
+              "amount": 850,
+              "resource": "primary_lg"
+            },
+            {
+              "amount": 1,
+              "resource": "trade_village_diamond_upkey"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "tradepost_nallihan_village",
+      "name": "Nallihan Village",
+      "area": 12,
+      "resource": "mohair",
+      "levels": {
+        "unlock": true,
+        "lvl2": true,
+        "lvl3": true,
+        "lvl4": true,
+        "lvl5": true
+      },
+      "costs": {
+        "goods": [],
+        "gems": 3050
+      },
+      "sourceData": {
+        "levels": {
+          "1": [
+            {
+              "amount": 490,
+              "resource": "gems"
+            }
+          ],
+          "2": [
+            {
+              "amount": 490,
+              "resource": "gems"
+            }
+          ],
+          "3": [
+            {
+              "amount": 590,
+              "resource": "gems"
+            }
+          ],
+          "4": [
+            {
+              "amount": 690,
+              "resource": "gems"
+            }
+          ],
+          "5": [
+            {
+              "amount": 790,
+              "resource": "gems"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "tradepost_rize_city",
+      "name": "Rize City",
+      "area": 18,
+      "resource": "tea",
+      "levels": {
+        "unlock": true,
+        "lvl2": true,
+        "lvl3": true,
+        "lvl4": true,
+        "lvl5": true
+      },
+      "costs": {
+        "goods": [
+          {
+            "type": "aspers",
+            "amount": 380000
+          },
+          {
+            "type": "pomegranate",
+            "amount": 30000
+          },
+          {
+            "type": "secondary_lg",
+            "amount": 2650
+          },
+          {
+            "type": "tertiary_lg",
+            "amount": 2650
+          }
+        ],
+        "trade_city_silver_upkey": 1,
+        "trade_city_gold_upkey": 1,
+        "trade_city_platinum_upkey": 1,
+        "trade_city_diamond_upkey": 1
+      },
+      "sourceData": {
+        "levels": {
+          "1": [
+            {
+              "amount": 50000,
+              "resource": "aspers"
+            },
+            {
+              "amount": 30000,
+              "resource": "pomegranate"
+            }
+          ],
+          "2": [
+            {
+              "amount": 75000,
+              "resource": "aspers"
+            },
+            {
+              "amount": 500,
+              "resource": "secondary_lg"
+            },
+            {
+              "amount": 500,
+              "resource": "tertiary_lg"
+            },
+            {
+              "amount": 1,
+              "resource": "trade_city_silver_upkey"
+            }
+          ],
+          "3": [
+            {
+              "amount": 80000,
+              "resource": "aspers"
+            },
+            {
+              "amount": 600,
+              "resource": "secondary_lg"
+            },
+            {
+              "amount": 600,
+              "resource": "tertiary_lg"
+            },
+            {
+              "amount": 1,
+              "resource": "trade_city_gold_upkey"
+            }
+          ],
+          "4": [
+            {
+              "amount": 85000,
+              "resource": "aspers"
+            },
+            {
+              "amount": 700,
+              "resource": "secondary_lg"
+            },
+            {
+              "amount": 700,
+              "resource": "tertiary_lg"
+            },
+            {
+              "amount": 1,
+              "resource": "trade_city_platinum_upkey"
+            }
+          ],
+          "5": [
+            {
+              "amount": 90000,
+              "resource": "aspers"
+            },
+            {
+              "amount": 850,
+              "resource": "secondary_lg"
+            },
+            {
+              "amount": 850,
+              "resource": "tertiary_lg"
+            },
+            {
+              "amount": 1,
+              "resource": "trade_city_diamond_upkey"
+            }
+          ]
+        }
+      }
+    }
   ]
 }

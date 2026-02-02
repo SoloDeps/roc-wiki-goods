@@ -7,7 +7,12 @@ import {
 } from "@/lib/features/presets/preset-loader";
 import { getEraInfo, hasPresetData } from "@/lib/features/presets";
 import { PRESET_KEYS } from "@/lib/data/presets/config";
-import { getBuildings, getTechnos } from "@/lib/overview/storage";
+import {
+  getBuildings,
+  getTechnos,
+  getOttomanAreas,
+  getOttomanTradePosts,
+} from "@/lib/overview/storage";
 import { cn } from "@/lib/utils";
 
 interface SelectPresetProps {
@@ -26,6 +31,8 @@ export default function SelectPreset({ onPresetApplied }: SelectPresetProps) {
     key: string;
     buildingsCount: number;
     technosCount: number;
+    areasCount: number;
+    tradePostsCount: number;
   } | null>(null);
 
   // État pour les erreurs
@@ -61,14 +68,24 @@ export default function SelectPreset({ onPresetApplied }: SelectPresetProps) {
     setError(null);
     setSelectedPreset(presetKey);
 
-    // Vérifier si des données existent déjà
-    const [existingBuildings, existingTechnos] = await Promise.all([
+    // Vérifier si des données existent déjà (including Ottoman)
+    const [
+      existingBuildings,
+      existingTechnos,
+      existingAreas,
+      existingTradePosts,
+    ] = await Promise.all([
       getBuildings(),
       getTechnos(),
+      getOttomanAreas(),
+      getOttomanTradePosts(),
     ]);
 
     const hasExistingData =
-      existingBuildings.length > 0 || existingTechnos.length > 0;
+      existingBuildings.length > 0 ||
+      existingTechnos.length > 0 ||
+      existingAreas.length > 0 ||
+      existingTradePosts.length > 0;
 
     if (hasExistingData) {
       // Afficher la zone de confirmation
@@ -76,6 +93,8 @@ export default function SelectPreset({ onPresetApplied }: SelectPresetProps) {
         key: presetKey,
         buildingsCount: existingBuildings.length,
         technosCount: existingTechnos.length,
+        areasCount: existingAreas.length,
+        tradePostsCount: existingTradePosts.length,
       });
     } else {
       // Pas de données existantes, charger directement
@@ -204,9 +223,30 @@ export default function SelectPreset({ onPresetApplied }: SelectPresetProps) {
                 </p>
                 <p className="text-xs text-red-700 dark:text-red-300 mt-1">
                   This will permanently delete{" "}
-                  <strong>{pendingPreset.buildingsCount} buildings</strong> and{" "}
-                  <strong>{pendingPreset.technosCount} technologies</strong>.
-                  This action cannot be undone.
+                  <strong>{pendingPreset.buildingsCount} buildings</strong>,{" "}
+                  <strong>{pendingPreset.technosCount} technologies</strong>
+                  {(pendingPreset.areasCount > 0 ||
+                    pendingPreset.tradePostsCount > 0) && (
+                    <>
+                      ,{" "}
+                      {pendingPreset.areasCount > 0 && (
+                        <>
+                          <strong>{pendingPreset.areasCount} areas</strong>
+                        </>
+                      )}
+                      {pendingPreset.areasCount > 0 &&
+                        pendingPreset.tradePostsCount > 0 &&
+                        ", "}
+                      {pendingPreset.tradePostsCount > 0 && (
+                        <>
+                          <strong>
+                            {pendingPreset.tradePostsCount} trade posts
+                          </strong>
+                        </>
+                      )}
+                    </>
+                  )}
+                  . This action cannot be undone.
                 </p>
               </div>
               <div className="flex flex-col gap-2 shrink-0">

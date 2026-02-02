@@ -1,4 +1,1573 @@
 {
-  "buildings": [],
-  "technos": []
+  "buildings": [
+    {
+      "id": "/wiki/Home_Cultures/Barracks/Cavalry_Barracks|upgrade|HM|12",
+      "quantity": 1,
+      "maxQty": 1,
+      "costs": {
+        "coins": 11300000,
+        "food": 6500000,
+        "goods": [
+          {
+            "type": "wardrobe",
+            "amount": 5330
+          },
+          {
+            "type": "tome",
+            "amount": 5330
+          },
+          {
+            "type": "chili",
+            "amount": 5330
+          }
+        ]
+      }
+    },
+    {
+      "id": "/wiki/Home_Cultures/Barracks/Heavy_Infantry_Barracks|upgrade|HM|12",
+      "quantity": 1,
+      "maxQty": 1,
+      "costs": {
+        "coins": 13200000,
+        "food": 8100000,
+        "goods": [
+          {
+            "type": "wardrobe",
+            "amount": 6130
+          },
+          {
+            "type": "tome",
+            "amount": 6130
+          },
+          {
+            "type": "chili",
+            "amount": 6130
+          }
+        ]
+      }
+    },
+    {
+      "id": "/wiki/Home_Cultures/Barracks/Infantry_Barracks|upgrade|HM|12",
+      "quantity": 2,
+      "maxQty": 2,
+      "costs": {
+        "coins": 8300000,
+        "food": 4500000,
+        "goods": [
+          {
+            "type": "wardrobe",
+            "amount": 4440
+          },
+          {
+            "type": "tome",
+            "amount": 4440
+          },
+          {
+            "type": "chili",
+            "amount": 4440
+          }
+        ]
+      }
+    },
+    {
+      "id": "/wiki/Home_Cultures/Barracks/Ranged_Barracks|upgrade|HM|12",
+      "quantity": 1,
+      "maxQty": 1,
+      "costs": {
+        "coins": 10300000,
+        "food": 5600000,
+        "goods": [
+          {
+            "type": "wardrobe",
+            "amount": 4885
+          },
+          {
+            "type": "tome",
+            "amount": 4885
+          },
+          {
+            "type": "chili",
+            "amount": 4885
+          }
+        ]
+      }
+    },
+    {
+      "id": "/wiki/Home_Cultures/Barracks/Siege_Barracks|upgrade|HM|12",
+      "quantity": 1,
+      "maxQty": 1,
+      "costs": {
+        "coins": 16200000,
+        "food": 10100000,
+        "goods": [
+          {
+            "type": "wardrobe",
+            "amount": 7660
+          },
+          {
+            "type": "tome",
+            "amount": 7660
+          },
+          {
+            "type": "chili",
+            "amount": 7660
+          }
+        ]
+      }
+    },
+    {
+      "id": "/wiki/Home_Cultures/Culture_Sites/Compact_Culture_Site|upgrade|HM|12",
+      "quantity": 9,
+      "maxQty": 9,
+      "costs": {
+        "coins": 960000,
+        "food": 520000
+      }
+    },
+    {
+      "id": "/wiki/Home_Cultures/Culture_Sites/Large_Culture_Site|upgrade|HM|12",
+      "quantity": 1,
+      "maxQty": 1,
+      "costs": {
+        "coins": 6800000,
+        "food": 3700000
+      }
+    },
+    {
+      "id": "/wiki/Home_Cultures/Culture_Sites/Little_Culture_Site|upgrade|HM|12",
+      "quantity": 8,
+      "maxQty": 8,
+      "costs": {
+        "coins": 550000,
+        "food": 306000
+      }
+    },
+    {
+      "id": "/wiki/Home_Cultures/Culture_Sites/Moderate_Culture_Site|upgrade|HM|12",
+      "quantity": 5,
+      "maxQty": 5,
+      "costs": {
+        "coins": 1990000,
+        "food": 1120000
+      }
+    },
+    {
+      "id": "/wiki/Home_Cultures/Farms/Domestic_Farm|upgrade|HM|34",
+      "quantity": 10,
+      "maxQty": 10,
+      "costs": {
+        "coins": 2200000,
+        "food": 860000,
+        "goods": [
+          {
+            "type": "secondary_ks",
+            "amount": 3900
+          },
+          {
+            "type": "coffee",
+            "amount": 4500
+          },
+          {
+            "type": "incense",
+            "amount": 2700
+          }
+        ]
+      }
+    },
+    {
+      "id": "/wiki/Home_Cultures/Farms/Domestic_Farm|upgrade|HM|35",
+      "quantity": 10,
+      "maxQty": 10,
+      "costs": {
+        "coins": 2400000,
+        "food": 920000,
+        "goods": [
+          {
+            "type": "primary_hm",
+            "amount": 1360
+          },
+          {
+            "type": "secondary_hm",
+            "amount": 1360
+          },
+          {
+            "type": "oil_lamp",
+            "amount": 2300
+          },
+          {
+            "type": "carpet",
+            "amount": 1300
+          }
+        ]
+      }
+    },
+    {
+      "id": "/wiki/Home_Cultures/Farms/Domestic_Farm|upgrade|HM|36",
+      "quantity": 10,
+      "maxQty": 10,
+      "costs": {
+        "coins": 2500000,
+        "food": 970000,
+        "goods": [
+          {
+            "type": "primary_hm",
+            "amount": 1410
+          },
+          {
+            "type": "tertiary_hm",
+            "amount": 1410
+          },
+          {
+            "type": "oil_lamp",
+            "amount": 4500
+          },
+          {
+            "type": "carpet",
+            "amount": 2600
+          }
+        ]
+      }
+    },
+    {
+      "id": "/wiki/Home_Cultures/Farms/Rural_Farm|construction|HM|34",
+      "quantity": 1,
+      "maxQty": 12,
+      "costs": {
+        "coins": 20000000,
+        "food": 8300000,
+        "goods": [
+          {
+            "type": "tertiary_ks",
+            "amount": 14500
+          },
+          {
+            "type": "coffee",
+            "amount": 27600
+          },
+          {
+            "type": "incense",
+            "amount": 16200
+          }
+        ]
+      }
+    },
+    {
+      "id": "/wiki/Home_Cultures/Farms/Rural_Farm|upgrade|HM|34",
+      "quantity": 11,
+      "maxQty": 12,
+      "costs": {
+        "coins": 1500000,
+        "food": 600000,
+        "goods": [
+          {
+            "type": "primary_ks",
+            "amount": 2775
+          },
+          {
+            "type": "coffee",
+            "amount": 3000
+          },
+          {
+            "type": "incense",
+            "amount": 1775
+          }
+        ]
+      }
+    },
+    {
+      "id": "/wiki/Home_Cultures/Farms/Rural_Farm|upgrade|HM|35",
+      "quantity": 12,
+      "maxQty": 12,
+      "costs": {
+        "coins": 1600000,
+        "food": 630000,
+        "goods": [
+          {
+            "type": "primary_hm",
+            "amount": 960
+          },
+          {
+            "type": "secondary_hm",
+            "amount": 960
+          },
+          {
+            "type": "oil_lamp",
+            "amount": 1500
+          },
+          {
+            "type": "carpet",
+            "amount": 800
+          }
+        ]
+      }
+    },
+    {
+      "id": "/wiki/Home_Cultures/Farms/Rural_Farm|upgrade|HM|36",
+      "quantity": 12,
+      "maxQty": 12,
+      "costs": {
+        "coins": 1700000,
+        "food": 670000,
+        "goods": [
+          {
+            "type": "primary_hm",
+            "amount": 995
+          },
+          {
+            "type": "tertiary_hm",
+            "amount": 995
+          },
+          {
+            "type": "oil_lamp",
+            "amount": 3000
+          },
+          {
+            "type": "carpet",
+            "amount": 1775
+          }
+        ]
+      }
+    },
+    {
+      "id": "/wiki/Home_Cultures/Homes/Average_Home|construction|HM|34",
+      "quantity": 1,
+      "maxQty": 13,
+      "costs": {
+        "coins": 7700000,
+        "food": 17000000,
+        "goods": [
+          {
+            "type": "primary_ks",
+            "amount": 12150
+          },
+          {
+            "type": "coffee",
+            "amount": 23000
+          },
+          {
+            "type": "incense",
+            "amount": 13500
+          }
+        ]
+      }
+    },
+    {
+      "id": "/wiki/Home_Cultures/Homes/Average_Home|upgrade|HM|34",
+      "quantity": 12,
+      "maxQty": 13,
+      "costs": {
+        "coins": 590000,
+        "food": 1200000,
+        "goods": [
+          {
+            "type": "tertiary_ks",
+            "amount": 2300
+          },
+          {
+            "type": "coffee",
+            "amount": 2500
+          },
+          {
+            "type": "incense",
+            "amount": 1500
+          }
+        ]
+      }
+    },
+    {
+      "id": "/wiki/Home_Cultures/Homes/Average_Home|upgrade|HM|35",
+      "quantity": 13,
+      "maxQty": 13,
+      "costs": {
+        "coins": 630000,
+        "food": 1250000,
+        "goods": [
+          {
+            "type": "primary_hm",
+            "amount": 800
+          },
+          {
+            "type": "secondary_hm",
+            "amount": 800
+          },
+          {
+            "type": "oil_lamp",
+            "amount": 1200
+          },
+          {
+            "type": "carpet",
+            "amount": 750
+          }
+        ]
+      }
+    },
+    {
+      "id": "/wiki/Home_Cultures/Homes/Average_Home|upgrade|HM|36",
+      "quantity": 13,
+      "maxQty": 13,
+      "costs": {
+        "coins": 670000,
+        "food": 1300000,
+        "goods": [
+          {
+            "type": "primary_hm",
+            "amount": 830
+          },
+          {
+            "type": "tertiary_hm",
+            "amount": 830
+          },
+          {
+            "type": "oil_lamp",
+            "amount": 2500
+          },
+          {
+            "type": "carpet",
+            "amount": 1500
+          }
+        ]
+      }
+    },
+    {
+      "id": "/wiki/Home_Cultures/Homes/Small_Home|construction|HM|34",
+      "quantity": 1,
+      "maxQty": 29,
+      "costs": {
+        "coins": 2900000,
+        "food": 6500000,
+        "goods": [
+          {
+            "type": "secondary_ks",
+            "amount": 5000
+          },
+          {
+            "type": "coffee",
+            "amount": 9200
+          },
+          {
+            "type": "incense",
+            "amount": 5400
+          }
+        ]
+      }
+    },
+    {
+      "id": "/wiki/Home_Cultures/Homes/Small_Home|upgrade|HM|34",
+      "quantity": 28,
+      "maxQty": 29,
+      "costs": {
+        "coins": 220000,
+        "food": 460000,
+        "goods": [
+          {
+            "type": "secondary_ks",
+            "amount": 925
+          },
+          {
+            "type": "coffee",
+            "amount": 1000
+          },
+          {
+            "type": "incense",
+            "amount": 600
+          }
+        ]
+      }
+    },
+    {
+      "id": "/wiki/Home_Cultures/Homes/Small_Home|upgrade|HM|35",
+      "quantity": 29,
+      "maxQty": 29,
+      "costs": {
+        "coins": 240000,
+        "food": 490000,
+        "goods": [
+          {
+            "type": "primary_hm",
+            "amount": 320
+          },
+          {
+            "type": "secondary_hm",
+            "amount": 320
+          },
+          {
+            "type": "oil_lamp",
+            "amount": 800
+          },
+          {
+            "type": "carpet",
+            "amount": 400
+          }
+        ]
+      }
+    },
+    {
+      "id": "/wiki/Home_Cultures/Homes/Small_Home|upgrade|HM|36",
+      "quantity": 29,
+      "maxQty": 29,
+      "costs": {
+        "coins": 250000,
+        "food": 520000,
+        "goods": [
+          {
+            "type": "primary_hm",
+            "amount": 335
+          },
+          {
+            "type": "tertiary_hm",
+            "amount": 335
+          },
+          {
+            "type": "oil_lamp",
+            "amount": 1200
+          },
+          {
+            "type": "carpet",
+            "amount": 500
+          }
+        ]
+      }
+    },
+    {
+      "id": "/wiki/Home_Cultures/Workshops/Carpenter|upgrade|HM|6",
+      "quantity": 1,
+      "maxQty": 4,
+      "costs": {
+        "coins": 10300000,
+        "food": 5400000,
+        "goods": [
+          {
+            "type": "wardrobe",
+            "amount": 2665
+          },
+          {
+            "type": "tome",
+            "amount": 2665
+          },
+          {
+            "type": "chili",
+            "amount": 2665
+          }
+        ]
+      }
+    },
+    {
+      "id": "/wiki/Home_Cultures/Workshops/Scribe|upgrade|HM|6",
+      "quantity": 4,
+      "maxQty": 4,
+      "costs": {
+        "coins": 10300000,
+        "food": 5400000,
+        "goods": [
+          {
+            "type": "wardrobe",
+            "amount": 2665
+          },
+          {
+            "type": "tome",
+            "amount": 2665
+          },
+          {
+            "type": "chili",
+            "amount": 2665
+          }
+        ]
+      }
+    },
+    {
+      "id": "/wiki/Home_Cultures/Workshops/Spice_Merchant|upgrade|HM|6",
+      "quantity": 1,
+      "maxQty": 4,
+      "costs": {
+        "coins": 10300000,
+        "food": 5400000,
+        "goods": [
+          {
+            "type": "wardrobe",
+            "amount": 2665
+          },
+          {
+            "type": "tome",
+            "amount": 2665
+          },
+          {
+            "type": "chili",
+            "amount": 2665
+          }
+        ]
+      }
+    }
+  ],
+  "technos": [
+    {
+      "id": "techno_high_middle_ages_0",
+      "costs": {
+        "research_points": 84,
+        "coins": 2600000,
+        "food": 2800000,
+        "goods": [
+          {
+            "type": "tertiary_ks",
+            "amount": 10000
+          },
+          {
+            "type": "primary_ks",
+            "amount": 4350
+          },
+          {
+            "type": "coffee",
+            "amount": 1500
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_high_middle_ages_1",
+      "costs": {
+        "research_points": 89,
+        "coins": 5100000,
+        "food": 2600000,
+        "goods": [
+          {
+            "type": "primary_ks",
+            "amount": 9850
+          },
+          {
+            "type": "secondary_ks",
+            "amount": 4100
+          },
+          {
+            "type": "primary_ie",
+            "amount": 3300
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_high_middle_ages_10",
+      "costs": {
+        "research_points": 92,
+        "coins": 4800000,
+        "food": 2700000,
+        "goods": [
+          {
+            "type": "primary_ks",
+            "amount": 9200
+          },
+          {
+            "type": "tertiary_ie",
+            "amount": 5100
+          },
+          {
+            "type": "secondary_hm",
+            "amount": 1550
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_high_middle_ages_11",
+      "costs": {
+        "research_points": 90,
+        "coins": 6400000,
+        "food": 2600000,
+        "goods": [
+          {
+            "type": "tertiary_hm",
+            "amount": 5400
+          },
+          {
+            "type": "secondary_ks",
+            "amount": 3350
+          },
+          {
+            "type": "primary_ie",
+            "amount": 2700
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_high_middle_ages_12",
+      "costs": {
+        "research_points": 125,
+        "coins": 7800000,
+        "food": 5800000,
+        "goods": [
+          {
+            "type": "secondary_hm",
+            "amount": 6050
+          },
+          {
+            "type": "primary_ie",
+            "amount": 5050
+          },
+          {
+            "type": "primary_hm",
+            "amount": 1500
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_high_middle_ages_13",
+      "costs": {
+        "research_points": 99,
+        "coins": 6300000,
+        "food": 6000000,
+        "goods": [
+          {
+            "type": "tertiary_af",
+            "amount": 18500
+          },
+          {
+            "type": "tertiary_fa",
+            "amount": 6450
+          },
+          {
+            "type": "primary_hm",
+            "amount": 1550
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_high_middle_ages_14",
+      "costs": {
+        "research_points": 105,
+        "coins": 2700000,
+        "food": 5800000,
+        "goods": [
+          {
+            "type": "primary_hm",
+            "amount": 5600
+          },
+          {
+            "type": "secondary_hm",
+            "amount": 2400
+          },
+          {
+            "type": "oil_lamp",
+            "amount": 500
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_high_middle_ages_15",
+      "costs": {
+        "research_points": 73,
+        "coins": 2200000,
+        "food": 2000000,
+        "goods": [
+          {
+            "type": "tertiary_hm",
+            "amount": 4950
+          },
+          {
+            "type": "primary_ks",
+            "amount": 3100
+          },
+          {
+            "type": "primary_hm",
+            "amount": 1250
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_high_middle_ages_16",
+      "costs": {
+        "research_points": 75,
+        "coins": 6700000,
+        "food": 3300000,
+        "goods": [
+          {
+            "type": "primary_hm",
+            "amount": 5450
+          },
+          {
+            "type": "tertiary_ks",
+            "amount": 3400
+          },
+          {
+            "type": "secondary_ie",
+            "amount": 2700
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_high_middle_ages_17",
+      "costs": {
+        "research_points": 91,
+        "coins": 8199999.999999999,
+        "food": 3700000,
+        "goods": [
+          {
+            "type": "secondary_af",
+            "amount": 17500
+          },
+          {
+            "type": "secondary_ie",
+            "amount": 4850
+          },
+          {
+            "type": "secondary_hm",
+            "amount": 1450
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_high_middle_ages_18",
+      "costs": {
+        "research_points": 86,
+        "coins": 3200000,
+        "food": 5200000,
+        "goods": [
+          {
+            "type": "secondary_hm",
+            "amount": 5550
+          },
+          {
+            "type": "secondary_ks",
+            "amount": 3450
+          },
+          {
+            "type": "tertiary_ie",
+            "amount": 2750
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_high_middle_ages_19",
+      "costs": {
+        "research_points": 91,
+        "coins": 6600000,
+        "food": 2200000,
+        "goods": [
+          {
+            "type": "tertiary_ks",
+            "amount": 7050
+          },
+          {
+            "type": "primary_hm",
+            "amount": 1950
+          },
+          {
+            "type": "tertiary_hm",
+            "amount": 1200
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_high_middle_ages_2",
+      "costs": {
+        "research_points": 145,
+        "coins": 5100000,
+        "food": 3200000,
+        "goods": [
+          {
+            "type": "secondary_ks",
+            "amount": 7800
+          },
+          {
+            "type": "tertiary_ks",
+            "amount": 3250
+          },
+          {
+            "type": "primary_fa",
+            "amount": 3250
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_high_middle_ages_20",
+      "costs": {
+        "research_points": 155,
+        "coins": 7400000,
+        "food": 3300000,
+        "goods": [
+          {
+            "type": "tertiary_hm",
+            "amount": 5450
+          },
+          {
+            "type": "primary_ie",
+            "amount": 4550
+          },
+          {
+            "type": "secondary_hm",
+            "amount": 1350
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_high_middle_ages_21",
+      "costs": {
+        "research_points": 97,
+        "coins": 4600000,
+        "food": 2000000,
+        "goods": [
+          {
+            "type": "secondary_hm",
+            "amount": 5700
+          },
+          {
+            "type": "primary_ks",
+            "amount": 3600
+          },
+          {
+            "type": "tertiary_ie",
+            "amount": 2850
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_high_middle_ages_22",
+      "costs": {
+        "research_points": 94,
+        "coins": 6600000,
+        "food": 3500000,
+        "goods": [
+          {
+            "type": "primary_hm",
+            "amount": 5950
+          },
+          {
+            "type": "primary_fa",
+            "amount": 6350
+          },
+          {
+            "type": "carpet",
+            "amount": 400
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_high_middle_ages_23",
+      "costs": {
+        "research_points": 145,
+        "coins": 2900000,
+        "food": 5200000,
+        "goods": [
+          {
+            "type": "secondary_fa",
+            "amount": 18000
+          },
+          {
+            "type": "tertiary_ks",
+            "amount": 4650
+          },
+          {
+            "type": "oil_lamp",
+            "amount": 2400
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_high_middle_ages_24",
+      "costs": {
+        "research_points": 115,
+        "coins": 7100000,
+        "food": 5100000,
+        "goods": [
+          {
+            "type": "secondary_hm",
+            "amount": 5900
+          },
+          {
+            "type": "secondary_ks",
+            "amount": 3700
+          },
+          {
+            "type": "primary_ie",
+            "amount": 2950
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_high_middle_ages_25",
+      "costs": {
+        "research_points": 115,
+        "coins": 4800000,
+        "food": 4500000,
+        "goods": [
+          {
+            "type": "secondary_ie",
+            "amount": 10500
+          },
+          {
+            "type": "secondary_fa",
+            "amount": 5450
+          },
+          {
+            "type": "tertiary_hm",
+            "amount": 1300
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_high_middle_ages_26",
+      "costs": {
+        "research_points": 150,
+        "coins": 7900000,
+        "food": 4200000,
+        "goods": [
+          {
+            "type": "tertiary_hm",
+            "amount": 5100
+          },
+          {
+            "type": "primary_ks",
+            "amount": 3200
+          },
+          {
+            "type": "tertiary_ie",
+            "amount": 2550
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_high_middle_ages_27",
+      "costs": {
+        "research_points": 115,
+        "coins": 6900000,
+        "food": 1800000,
+        "goods": [
+          {
+            "type": "secondary_ks",
+            "amount": 7800
+          },
+          {
+            "type": "secondary_ie",
+            "amount": 4350
+          },
+          {
+            "type": "primary_hm",
+            "amount": 1300
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_high_middle_ages_28",
+      "costs": {
+        "research_points": 99,
+        "coins": 2600000,
+        "food": 3000000,
+        "goods": [
+          {
+            "type": "primary_hm",
+            "amount": 6650
+          },
+          {
+            "type": "tertiary_hm",
+            "amount": 2750
+          },
+          {
+            "type": "tertiary_fa",
+            "amount": 4150
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_high_middle_ages_29",
+      "costs": {
+        "research_points": 83,
+        "coins": 4000000,
+        "food": 4400000,
+        "goods": [
+          {
+            "type": "primary_af",
+            "amount": 17500
+          },
+          {
+            "type": "secondary_ks",
+            "amount": 3600
+          },
+          {
+            "type": "secondary_ie",
+            "amount": 2900
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_high_middle_ages_3",
+      "costs": {
+        "research_points": 115,
+        "coins": 8700000,
+        "food": 3100000,
+        "goods": [
+          {
+            "type": "tertiary_ks",
+            "amount": 11000
+          },
+          {
+            "type": "secondary_fa",
+            "amount": 7950
+          },
+          {
+            "type": "incense",
+            "amount": 3000
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_high_middle_ages_30",
+      "costs": {
+        "research_points": 115,
+        "coins": 7500000,
+        "food": 2700000,
+        "goods": [
+          {
+            "type": "secondary_hm",
+            "amount": 6800
+          },
+          {
+            "type": "tertiary_ks",
+            "amount": 4250
+          },
+          {
+            "type": "primary_hm",
+            "amount": 1700
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_high_middle_ages_31",
+      "costs": {
+        "research_points": 105,
+        "coins": 3300000,
+        "food": 3900000,
+        "goods": [
+          {
+            "type": "tertiary_hm",
+            "amount": 6750
+          },
+          {
+            "type": "tertiary_ie",
+            "amount": 5650
+          },
+          {
+            "type": "secondary_hm",
+            "amount": 1700
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_high_middle_ages_32",
+      "costs": {
+        "research_points": 91,
+        "coins": 2000000,
+        "food": 3100000,
+        "goods": [
+          {
+            "type": "tertiary_fa",
+            "amount": 15500
+          },
+          {
+            "type": "primary_ks",
+            "amount": 3950
+          },
+          {
+            "type": "carpet",
+            "amount": 2000
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_high_middle_ages_33",
+      "costs": {
+        "research_points": 155,
+        "coins": 3400000,
+        "food": 3400000,
+        "goods": [
+          {
+            "type": "primary_hm",
+            "amount": 5600
+          },
+          {
+            "type": "primary_fa",
+            "amount": 5850
+          },
+          {
+            "type": "tertiary_hm",
+            "amount": 1400
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_high_middle_ages_34",
+      "costs": {
+        "research_points": 86,
+        "coins": 6700000,
+        "food": 3700000,
+        "goods": [
+          {
+            "type": "tertiary_hm",
+            "amount": 6700
+          },
+          {
+            "type": "secondary_ie",
+            "amount": 5600
+          },
+          {
+            "type": "primary_ie",
+            "amount": 3350
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_high_middle_ages_35",
+      "costs": {
+        "research_points": 90,
+        "coins": 5600000,
+        "food": 1700000,
+        "goods": [
+          {
+            "type": "primary_ks",
+            "amount": 8000
+          },
+          {
+            "type": "secondary_ks",
+            "amount": 3300
+          },
+          {
+            "type": "primary_hm",
+            "amount": 1350
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_high_middle_ages_36",
+      "costs": {
+        "research_points": 86,
+        "coins": 7100000,
+        "food": 4800000,
+        "goods": [
+          {
+            "type": "secondary_hm",
+            "amount": 7450
+          },
+          {
+            "type": "tertiary_ie",
+            "amount": 6400
+          },
+          {
+            "type": "oil_lamp",
+            "amount": 4800
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_high_middle_ages_37",
+      "costs": {
+        "research_points": 110,
+        "coins": 2700000,
+        "food": 3100000,
+        "goods": [
+          {
+            "type": "tertiary_hm",
+            "amount": 5100
+          },
+          {
+            "type": "tertiary_ks",
+            "amount": 3200
+          },
+          {
+            "type": "secondary_hm",
+            "amount": 1250
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_high_middle_ages_38",
+      "costs": {
+        "research_points": 115,
+        "coins": 3300000,
+        "food": 3100000,
+        "goods": [
+          {
+            "type": "tertiary_ie",
+            "amount": 15000
+          },
+          {
+            "type": "tertiary_fa",
+            "amount": 8100
+          },
+          {
+            "type": "carpet",
+            "amount": 3700
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_high_middle_ages_39",
+      "costs": {
+        "research_points": 88,
+        "coins": 2800000,
+        "food": 4800000,
+        "goods": [
+          {
+            "type": "primary_hm",
+            "amount": 6050
+          },
+          {
+            "type": "tertiary_hm",
+            "amount": 2550
+          },
+          {
+            "type": "secondary_ie",
+            "amount": 3050
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_high_middle_ages_4",
+      "costs": {
+        "research_points": 56,
+        "coins": 2800000,
+        "food": 2500000,
+        "goods": [
+          {
+            "type": "primary_fa",
+            "amount": 14500
+          },
+          {
+            "type": "primary_hm",
+            "amount": 2500
+          },
+          {
+            "type": "coffee",
+            "amount": 2000
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_high_middle_ages_40",
+      "costs": {
+        "research_points": 105,
+        "coins": 4000000,
+        "food": 2300000,
+        "goods": [
+          {
+            "type": "tertiary_hm",
+            "amount": 5750
+          },
+          {
+            "type": "primary_ks",
+            "amount": 3600
+          },
+          {
+            "type": "secondary_ks",
+            "amount": 2150
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_high_middle_ages_41",
+      "costs": {
+        "research_points": 110,
+        "coins": 3400000,
+        "food": 4200000,
+        "goods": [
+          {
+            "type": "primary_ie",
+            "amount": 12500
+          },
+          {
+            "type": "tertiary_ks",
+            "amount": 3900
+          },
+          {
+            "type": "tertiary_ie",
+            "amount": 3150
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_high_middle_ages_42",
+      "costs": {
+        "research_points": 93,
+        "coins": 8500000,
+        "food": 5200000,
+        "goods": [
+          {
+            "type": "secondary_hm",
+            "amount": 5650
+          },
+          {
+            "type": "primary_hm",
+            "amount": 2350
+          },
+          {
+            "type": "primary_ks",
+            "amount": 2100
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_high_middle_ages_43",
+      "costs": {
+        "research_points": 120,
+        "coins": 6100000,
+        "food": 5400000,
+        "goods": [
+          {
+            "type": "secondary_ie",
+            "amount": 13000
+          },
+          {
+            "type": "secondary_ks",
+            "amount": 4050
+          },
+          {
+            "type": "tertiary_hm",
+            "amount": 1650
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_high_middle_ages_5",
+      "costs": {
+        "research_points": 125,
+        "coins": 2900000,
+        "food": 5600000,
+        "goods": [
+          {
+            "type": "primary_ie",
+            "amount": 9250
+          },
+          {
+            "type": "secondary_ks",
+            "amount": 2900
+          },
+          {
+            "type": "secondary_hm",
+            "amount": 1150
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_high_middle_ages_6",
+      "costs": {
+        "research_points": 34,
+        "coins": 5500000,
+        "food": 4000000,
+        "goods": [
+          {
+            "type": "primary_hm",
+            "amount": 4600
+          },
+          {
+            "type": "primary_ks",
+            "amount": 2900
+          },
+          {
+            "type": "secondary_ie",
+            "amount": 2300
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_high_middle_ages_7",
+      "costs": {
+        "research_points": 22,
+        "coins": 6200000,
+        "food": 5300000,
+        "goods": [
+          {
+            "type": "secondary_ks",
+            "amount": 8450
+          },
+          {
+            "type": "primary_ie",
+            "amount": 4700
+          },
+          {
+            "type": "tertiary_hm",
+            "amount": 1400
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_high_middle_ages_8",
+      "costs": {
+        "research_points": 155,
+        "coins": 2100000,
+        "food": 1800000,
+        "goods": [
+          {
+            "type": "secondary_hm",
+            "amount": 5800
+          },
+          {
+            "type": "tertiary_hm",
+            "amount": 2400
+          },
+          {
+            "type": "secondary_fa",
+            "amount": 3600
+          }
+        ]
+      }
+    },
+    {
+      "id": "techno_high_middle_ages_9",
+      "costs": {
+        "research_points": 125,
+        "coins": 2700000,
+        "food": 1500000,
+        "goods": [
+          {
+            "type": "primary_hm",
+            "amount": 6250
+          },
+          {
+            "type": "tertiary_ks",
+            "amount": 3900
+          },
+          {
+            "type": "tertiary_ie",
+            "amount": 3150
+          }
+        ]
+      }
+    }
+  ],
+  "ottomanAreas": [],
+  "ottomanTradePosts": []
 }

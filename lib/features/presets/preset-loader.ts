@@ -1,13 +1,15 @@
-import { 
-  suspendWatchers, 
-  resumeWatchers, 
-  forceRefreshWatchers 
+import {
+  suspendWatchers,
+  resumeWatchers,
+  forceRefreshWatchers,
 } from "@/lib/overview/storage";
 
 export interface LoadPresetResult {
   success: boolean;
   buildingsAdded: number;
   technosAdded: number;
+  ottomanAreasCleared: number;
+  ottomanTradePostsCleared: number;
   error?: string;
 }
 
@@ -19,6 +21,31 @@ export async function loadPreset(presetKey: string): Promise<LoadPresetResult> {
     suspendWatchers();
     console.log("[Preset Loader] Watchers suspended");
 
+    // ✅ Clear Ottoman data BEFORE loading preset
+    console.log("[Preset Loader] Clearing Ottoman data...");
+    const clearResponse = await new Promise<any>((resolve, reject) => {
+      chrome.runtime.sendMessage(
+        {
+          type: "DEXIE_CLEAR_OTTOMAN_DATA",
+        },
+        (response) => {
+          if (chrome.runtime.lastError) {
+            reject(new Error(chrome.runtime.lastError.message));
+          } else if (response?.success) {
+            resolve(response);
+          } else {
+            reject(
+              new Error(response?.error || "Failed to clear Ottoman data"),
+            );
+          }
+        },
+      );
+    });
+
+    console.log(
+      `[Preset Loader] Cleared ${clearResponse.areasCleared || 0} areas and ${clearResponse.tradePostsCleared || 0} trade posts`,
+    );
+
     // Charger le preset depuis IndexedDB
     const preset = await loadPresetData(presetKey);
     if (!preset) {
@@ -27,18 +54,25 @@ export async function loadPreset(presetKey: string): Promise<LoadPresetResult> {
         success: false,
         buildingsAdded: 0,
         technosAdded: 0,
+        ottomanAreasCleared: clearResponse.areasCleared || 0,
+        ottomanTradePostsCleared: clearResponse.tradePostsCleared || 0,
         error: `Preset "${presetKey}" not found`,
       };
     }
 
-    const { buildings, technos } = preset;
+    const {
+      buildings,
+      technos,
+      ottomanAreas = [],
+      ottomanTradePosts = [],
+    } = preset;
 
     // ✅ Envoyer au background en une seule opération
     const response = await new Promise<any>((resolve, reject) => {
       chrome.runtime.sendMessage(
         {
           type: "DEXIE_LOAD_PRESET",
-          payload: { buildings, technos },
+          payload: { buildings, technos, ottomanAreas, ottomanTradePosts },
         },
         (response) => {
           if (chrome.runtime.lastError) {
@@ -48,12 +82,12 @@ export async function loadPreset(presetKey: string): Promise<LoadPresetResult> {
           } else {
             reject(new Error(response?.error || "Unknown error"));
           }
-        }
+        },
       );
     });
 
     // ✅ Attendre un peu pour que la transaction soit complète
-    await new Promise(resolve => setTimeout(resolve, 100));
+    await new Promise((resolve) => setTimeout(resolve, 100));
 
     // ✅ Forcer un refresh manuel avec les nouvelles données
     await forceRefreshWatchers();
@@ -67,16 +101,20 @@ export async function loadPreset(presetKey: string): Promise<LoadPresetResult> {
       success: true,
       buildingsAdded: buildings.length,
       technosAdded: technos.length,
+      ottomanAreasCleared: clearResponse.areasCleared || 0,
+      ottomanTradePostsCleared: clearResponse.tradePostsCleared || 0,
     };
   } catch (error) {
     // ✅ S'assurer de toujours reprendre les watchers en cas d'erreur
     resumeWatchers();
     console.error("[Preset Loader] Error:", error);
-    
+
     return {
       success: false,
       buildingsAdded: 0,
       technosAdded: 0,
+      ottomanAreasCleared: 0,
+      ottomanTradePostsCleared: 0,
       error: error instanceof Error ? error.message : String(error),
     };
   }

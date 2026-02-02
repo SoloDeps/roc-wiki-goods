@@ -1,8 +1,15 @@
-import type { BuildingEntity, TechnoEntity } from "@/lib/storage/dexie";
+import type {
+  BuildingEntity,
+  TechnoEntity,
+  OttomanAreaEntity,
+  OttomanTradePostEntity,
+} from "@/lib/storage/dexie";
 
 export interface PresetData {
   buildings: Omit<BuildingEntity, "updatedAt">[];
   technos: Omit<TechnoEntity, "updatedAt">[];
+  ottomanAreas?: Omit<OttomanAreaEntity, "updatedAt">[];
+  ottomanTradePosts?: Omit<OttomanTradePostEntity, "updatedAt">[];
 }
 
 export const PRESET_KEYS = [

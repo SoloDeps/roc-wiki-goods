@@ -7,7 +7,7 @@ import BuildingCounter from "./building-counter";
 import {
   getItemIconLocal,
   questsFormatNumber,
-  normalizeGoodName,
+  slugify,
   getGoodNameFromPriorityEra,
 } from "@/lib/utils";
 
@@ -96,7 +96,7 @@ export const BuildingCard = memo(function BuildingCard({
       return (
         <ResourceBadge
           key={type}
-          icon={`/goods/${normalizeGoodName(goodName)}.webp`}
+          icon={`/goods/${slugify(goodName)}.webp`}
           value={questsFormatNumber(amount)}
           alt={type}
         />
@@ -153,7 +153,7 @@ export const BuildingCard = memo(function BuildingCard({
               src="/svg/default_building.svg"
               alt={name}
               draggable={false}
-              className={`size-16 object-contain opacity-40 select-none dark:invert-50 ${hidden ? "opacity-30" : ""}`}
+              className={`size-16 object-contain opacity-30 select-none dark:invert-60 ${hidden ? "opacity-30" : ""}`}
             />
           </div>
         ) : (
